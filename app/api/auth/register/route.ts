@@ -81,10 +81,15 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // Send verification email
-    await sendVerificationEmail(email, token)
+    // Try to send verification email (non-blocking)
+    try {
+      await sendVerificationEmail(email, token)
+    } catch (emailError) {
+      console.error('Error sending verification email:', emailError)
+      // Continue without email verification
+    }
 
-    return NextResponse.json({ message: 'Usuario creado exitosamente. Revisa tu email para verificar.' })
+    return NextResponse.json({ message: 'Usuario creado exitosamente. Ya puedes iniciar sesión.' })
   } catch (error) {
     console.error('Error creating user:', error)
     return NextResponse.json({ error: 'Error interno del servidor.' }, { status: 500 })
