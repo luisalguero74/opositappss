@@ -1,0 +1,29 @@
+ENUNCIADO
+
+Juan Pérez solicita una prestación de la Seguridad Social.
+
+PREGUNTAS
+
+PREGUNTA 1
+¿Puede Juan solicitar la prestación?
+
+OPCIÓN A: Sí
+OPCIÓN B: No
+OPCIÓN C: Depende
+OPCIÓN D: A veces
+
+PREGUNTA 2
+¿Cuántos días tiene para presentar documentación?
+
+OPCIÓN A: 10 días
+OPCIÓN B: 15 días
+OPCIÓN C: 20 días
+OPCIÓN D: 30 días
+
+SOLUCIONARIO
+
+PREGUNTA 1: A
+Juan puede solicitar la prestación porque cumple los requisitos.
+
+PREGUNTA 2: B
+Tiene 15 días hábiles según la normativa vigente de la Seguridad Social.

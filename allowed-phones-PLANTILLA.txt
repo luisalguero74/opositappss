@@ -1,0 +1,68 @@
+# ========================================
+# LISTA DE TELÉFONOS AUTORIZADOS
+# Grupo: Oposiciones INSS - WhatsApp
+# Fecha: 30 de Diciembre de 2025
+# ========================================
+
+# INSTRUCCIONES DE USO:
+# 1. Copia los números de teléfono de tu grupo de WhatsApp
+# 2. Pégalos aquí en el formato: +34XXXXXXXXX
+# 3. Opcional: Añade |Nombre del Grupo o |Nombre Persona
+# 4. Guarda este archivo
+# 5. Ejecuta en terminal: npx tsx scripts/load-allowed-phones.ts
+
+# FORMATO CORRECTO:
+# +34656809596|Luis Alguero - Coordinador
+# +34612345678|Grupo Principal
+# +34698765432
+
+# ========================================
+# ADMINISTRADORES Y COORDINADORES
+# ========================================
+
++34656809596|Administrador - Luis Alguero
+
+
+# ========================================
+# PARTICIPANTES DEL GRUPO WHATSAPP
+# (Añade aquí todos los números del grupo)
+# ========================================
+
+# IMPORTANTE: 
+# - NO uses espacios en el número: +34656809596 (correcto) vs +34 656 809 596 (incorrecto)
+# - SIEMPRE empieza con +34 para España
+# - Un número por línea
+
+# Ejemplo de cómo añadir:
+# +34611222333|María García
+# +34622333444|Juan López
+# +34633444555|Grupo Temario General
+
+
+# ========================================
+# TUS NÚMEROS AQUÍ ⬇️
+# (Borra estos comentarios y pega los números de WhatsApp)
+# ========================================
+
+
+
+# ========================================
+# SUBGRUPOS (si tienes varios grupos)
+# ========================================
+
+# Grupo Temario General
+# +34XXXXXXXXX|Temario General
+
+# Grupo Temario Específico
+# +34XXXXXXXXX|Temario Específico
+
+# Grupo Supuestos Prácticos
+# +34XXXXXXXXX|Prácticos
+
+
+# ========================================
+# FIN DE LA LISTA
+# ========================================
+
+# Después de editar este archivo, ejecuta:
+# npx tsx scripts/load-allowed-phones.ts

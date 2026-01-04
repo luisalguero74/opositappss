@@ -1,0 +1,119 @@
+{
+  "temas": {
+    "g1": {
+      "archivos": [
+        {
+          "nombre": "tema1_constitucion.txt",
+          "numeroPaginas": 42
+        }
+      ]
+    },
+    "g9": {
+      "archivos": [
+        {
+          "nombre": "tema2_organizacion_territorial.txt"
+        }
+      ]
+    },
+    "e1": {
+      "archivos": [
+        {
+          "nombre": "tema1_estructura_ss.txt"
+        },
+        {
+          "nombre": "Tema 01. AASS. Turno Libre. Temario Específico..txt"
+        }
+      ]
+    },
+    "e2": {
+      "archivos": [
+        {
+          "nombre": "tema2_prestaciones_ss.txt"
+        },
+        {
+          "nombre": "Tema 02. AASS. Turno Libre. Temario Específico..txt"
+        }
+      ]
+    },
+    "e13": {
+      "archivos": [
+        {
+          "nombre": "Tema 13. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 59
+        }
+      ]
+    },
+    "e11": {
+      "archivos": [
+        {
+          "nombre": "Tema 11. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 50
+        }
+      ]
+    },
+    "e10": {
+      "archivos": [
+        {
+          "nombre": "Tema 10. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 159
+        }
+      ]
+    },
+    "e9": {
+      "archivos": [
+        {
+          "nombre": "Tema 09. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 81
+        }
+      ]
+    },
+    "e8": {
+      "archivos": [
+        {
+          "nombre": "Tema 08. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 133
+        }
+      ]
+    },
+    "e7": {
+      "archivos": [
+        {
+          "nombre": "Tema 07. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 78
+        }
+      ]
+    },
+    "e6": {
+      "archivos": [
+        {
+          "nombre": "Tema 06. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 57
+        }
+      ]
+    },
+    "e5": {
+      "archivos": [
+        {
+          "nombre": "Tema 05. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 95
+        }
+      ]
+    },
+    "e4": {
+      "archivos": [
+        {
+          "nombre": "Tema 04. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 80
+        }
+      ]
+    },
+    "e3": {
+      "archivos": [
+        {
+          "nombre": "Tema 03. AASS. Turno Libre. Temario Específico..txt",
+          "numeroPaginas": 84
+        }
+      ]
+    }
+  }
+}

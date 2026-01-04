@@ -1,0 +1,107 @@
+================================================================================
+FORMATO PARA SUPUESTOS PRÁCTICOS - EJEMPLO COMPLETO
+================================================================================
+
+ENUNCIADO:
+
+Don José García Pérez, con DNI 12345678-A, trabajó como Auxiliar Administrativo en la empresa "Construcciones del Sur, S.L." desde el 1 de enero de 2020 hasta el 31 de diciembre de 2023. Durante este período cotizó ininterrumpidamente a la Seguridad Social en el Régimen General.
+
+El 15 de enero de 2024, Don José solicita la prestación por desempleo en la oficina del SEPE de su localidad. Durante su relación laboral, su base de cotización media fue de 1.800 euros mensuales.
+
+Don José declara no haber percibido indemnización alguna por el cese en su relación laboral, y manifiesta que el despido fue declarado improcedente por sentencia judicial firme.
+
+A efectos de calcular su prestación por desempleo, se pide determinar:
+- Si cumple los requisitos para acceder a la prestación
+- La duración de la prestación contributiva
+- La cuantía mensual durante los primeros 6 meses
+
+
+PREGUNTAS:
+
+PREGUNTA 1:
+¿Cuál es el período mínimo de cotización requerido para acceder a la prestación contributiva por desempleo?
+OPCIÓN A: 180 días dentro de los 6 años anteriores
+OPCIÓN B: 360 días dentro de los 6 años anteriores
+OPCIÓN C: 12 meses dentro de los 2 años anteriores
+OPCIÓN D: 6 meses dentro de los 12 meses anteriores
+
+PREGUNTA 2:
+¿Cuántos días de prestación le corresponden a Don José según su período cotizado?
+OPCIÓN A: 720 días (24 meses)
+OPCIÓN B: 480 días (16 meses)
+OPCIÓN C: 360 días (12 meses)
+OPCIÓN D: 180 días (6 meses)
+
+PREGUNTA 3:
+¿Qué porcentaje de la base reguladora percibe durante los primeros 180 días de la prestación?
+OPCIÓN A: 60% de la base reguladora
+OPCIÓN B: 70% de la base reguladora
+OPCIÓN C: 80% de la base reguladora
+OPCIÓN D: 50% de la base reguladora
+
+PREGUNTA 4:
+Si Don José encuentra un trabajo a tiempo parcial mientras percibe la prestación, ¿qué ocurre con el derecho a la prestación?
+OPCIÓN A: Se suspende hasta que finalice el nuevo contrato
+OPCIÓN B: Se extingue automáticamente
+OPCIÓN C: Se compatibiliza al 100% durante 6 meses
+OPCIÓN D: Se reduce proporcionalmente a la jornada trabajada
+
+PREGUNTA 5:
+¿Cuál es el plazo máximo para solicitar la prestación por desempleo desde la situación legal de desempleo?
+OPCIÓN A: 30 días naturales
+OPCIÓN B: 15 días hábiles
+OPCIÓN C: 20 días hábiles
+OPCIÓN D: 10 días naturales
+
+
+SOLUCIONARIO:
+
+PREGUNTA 1: B
+Conforme al artículo 267.1.a) del Real Decreto Legislativo 8/2015, de 30 de octubre, por el que se aprueba el texto refundido de la Ley General de la Seguridad Social, para acceder a la prestación contributiva por desempleo se requiere haber cotizado al menos 360 días dentro de los 6 años anteriores a la situación legal de desempleo. Este requisito garantiza una cotización mínima que justifique el acceso a la protección contributiva.
+
+PREGUNTA 2: A
+De acuerdo con el artículo 269.1 del Real Decreto Legislativo 8/2015, la duración de la prestación se calcula proporcionalmente al período de cotización: 120 días de prestación por cada año cotizado, hasta un máximo de 720 días. Don José cotizó 4 años completos (48 meses), lo que le otorga el derecho a 720 días de prestación (24 meses), que es la duración máxima establecida legalmente.
+
+PREGUNTA 3: B
+Según el artículo 270.1 del Real Decreto Legislativo 8/2015, durante los primeros 180 días (6 meses) de percepción, la cuantía de la prestación por desempleo es del 70% de la base reguladora. A partir del día 181, este porcentaje se reduce al 50%. La base reguladora se calcula sobre el promedio de las bases de cotización de los últimos 180 días cotizados.
+
+PREGUNTA 4: A
+El artículo 271.1.c) del Real Decreto Legislativo 8/2015 establece que la prestación por desempleo se suspende cuando el beneficiario realiza un trabajo por cuenta ajena de duración inferior a 12 meses. Una vez finalizado el contrato temporal, se reanuda el derecho a la prestación por el tiempo que restaba por percibir. Esta medida fomenta la reincorporación al mercado laboral sin perder el derecho acumulado.
+
+PREGUNTA 5: B
+Conforme al artículo 267.3 del Real Decreto Legislativo 8/2015 y al artículo 207.1.a) del Reglamento General sobre cotización y liquidación de otros derechos de la Seguridad Social (Real Decreto 2064/1995), la solicitud debe presentarse dentro de los 15 días hábiles siguientes a la situación legal de desempleo. El incumplimiento de este plazo puede suponer la pérdida de días de prestación.
+
+
+================================================================================
+NOTAS IMPORTANTES:
+================================================================================
+
+✅ ESTRUCTURA OBLIGATORIA:
+   1. ENUNCIADO (con el caso completo)
+   2. PREGUNTAS (de 1 a 15 preguntas)
+   3. SOLUCIONARIO (con motivación técnica)
+
+✅ FORMATO DE PREGUNTAS:
+   - Cada pregunta empieza con "PREGUNTA X:" (donde X = 1, 2, 3...)
+   - 4 opciones obligatorias: A, B, C, D
+   - Formato: "OPCIÓN A:", "OPCIÓN B:", etc.
+
+✅ FORMATO DEL SOLUCIONARIO (NUEVO):
+   - Cada respuesta empieza con "PREGUNTA X: [LETRA]"
+   - Debajo, un texto explicativo con:
+     * Referencias legales específicas (artículos, leyes, reales decretos)
+     * Motivación técnica de por qué es la respuesta correcta
+     * Contexto jurídico si aplica
+   
+   EJEMPLO:
+   PREGUNTA 1: B
+   Conforme al artículo 267.1.a) del Real Decreto Legislativo 8/2015...
+   [resto de la explicación]
+
+✅ BENEFICIOS DE AÑADIR MOTIVACIÓN:
+   - Los opositores comprenden mejor el razonamiento jurídico
+   - Se fomenta el estudio profundo de la normativa
+   - Facilita la memorización mediante comprensión
+   - Prepara para preguntas más complejas en el examen real
+
+================================================================================

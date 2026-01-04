@@ -1,0 +1,503 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  name           String?
+  password       String?
+  phoneNumber    String?  @unique // Número de teléfono móvil validado
+  emailVerified  DateTime?
+  role           String   @default("user") // "admin" or "user"
+  active         Boolean  @default(true) // false = cuenta desactivada
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  accounts       Account[]
+  sessions       Session[]
+  userAnswers    UserAnswer[]
+  attempts       QuestionnaireAttempt[]
+  threads        ForumThread[] @relation("UserThreads")
+  posts          ForumPost[] @relation("UserPosts")
+  subscription   Subscription?
+  examSimulations ExamSimulation[]
+  classroomParticipants ClassroomParticipant[]
+  createdClassrooms VirtualClassroom[] @relation("ClassroomCreator")
+  
+  // Nuevas funcionalidades
+  streak         StudyStreak? @relation("UserStreak")
+  markedQuestions MarkedQuestion[] @relation("UserMarkedQuestions")
+  achievements   UserAchievement[] @relation("UserAchievements")
+  spacedCards    SpacedRepetitionCard[] @relation("UserSpacedCards")
+  studySessions  StudySession[] @relation("UserStudySessions")
+  notifications  Notification[] @relation("UserNotifications")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Questionnaire {
+  id          String   @id @default(cuid())
+  title       String
+  type        String   // "theory" or "practical"
+  theme       String?  // "Tema 1", "Tema 2", etc. para categorización
+  statement   String?  @db.Text // Enunciado del supuesto práctico (solo para type="practical")
+  category    String?  // "supuesto" o "caso" para type="practical"
+  published   Boolean  @default(false) // false = draft, true = published
+  questions   Question[]
+  solutions   Solution[]
+  userAnswers UserAnswer[]
+  attempts    QuestionnaireAttempt[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Question {
+  id               String         @id @default(cuid())
+  questionnaireId   String
+  questionnaire     Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  text             String
+  options          String         // JSON array of options
+  correctAnswer    String
+  explanation      String
+  
+  // Vinculación al temario oficial
+  temaCodigo       String?        // Código del tema: "G01", "E05", etc.
+  temaNumero       Int?           // Número del tema: 1, 2, 3...
+  temaParte        String?        // "GENERAL" o "ESPECÍFICO"
+  temaTitulo       String?        // Título completo del tema
+  
+  // Nivel de dificultad
+  difficulty       String?        // "facil", "media", "dificil"
+  
+  userAnswers      UserAnswer[]
+  
+  // Nuevas funcionalidades
+  markedBy         MarkedQuestion[] @relation("MarkedQuestions")
+  spacedCards      SpacedRepetitionCard[] @relation("SpacedRepetitionCards")
+  
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+model Solution {
+  id             String       @id @default(cuid())
+  questionnaireId String      @unique
+  questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  content        String       // JSON or text
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model UserAnswer {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questionId     String
+  question       Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionnaireId String
+  questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  attemptId      String?
+  attempt        QuestionnaireAttempt? @relation(fields: [attemptId], references: [id], onDelete: SetNull)
+  answer         String
+  isCorrect      Boolean
+  createdAt      DateTime @default(now())
+}
+
+model QuestionnaireAttempt {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questionnaireId String
+  questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  score           Int           // Puntuación obtenida (0-100)
+  correctAnswers  Int           // Número de respuestas correctas
+  totalQuestions  Int           // Total de preguntas
+  timeSpent       Int?          // Tiempo empleado en segundos
+  answers         UserAnswer[]
+  completedAt     DateTime      @default(now())
+  createdAt       DateTime      @default(now())
+  
+  @@index([userId, questionnaireId])
+}
+
+model ForumThread {
+  id        String      @id @default(cuid())
+  title     String
+  userId    String
+  user      User        @relation("UserThreads", fields: [userId], references: [id], onDelete: Cascade)
+  posts     ForumPost[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model ForumPost {
+  id        String      @id @default(cuid())
+  threadId  String
+  thread    ForumThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User        @relation("UserPosts", fields: [userId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime    @default(now())
+}
+
+model Subscription {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan              String   // "free", "basic", "premium"
+  status            String   // "active", "cancelled", "expired"
+  currentPeriodEnd  DateTime?
+  cancelAtPeriodEnd Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model AppSettings {
+  id                    String   @id @default(cuid())
+  monetizationEnabled   Boolean  @default(false)
+  freeAccessDays        Int      @default(7) // Días de acceso gratuito para nuevos usuarios
+  basicPrice            Float    @default(9.99)
+  premiumPrice          Float    @default(19.99)
+  currency              String   @default("EUR")
+  
+  // Monetización sin suscripción
+  adsEnabled            Boolean  @default(false) // Google AdSense
+  adsenseClientId       String?  // ca-pub-XXXXXXXX
+  affiliatesEnabled     Boolean  @default(false) // Enlaces de afiliados
+  amazonAffiliateId     String?  // Amazon Associates ID
+  sponsorsEnabled       Boolean  @default(false) // Patrocinios institucionales
+  donationsEnabled      Boolean  @default(false) // Donaciones voluntarias
+  patreonUrl            String?  // URL de Patreon
+  kofiUrl               String?  // URL de Ko-fi
+  premiumContentEnabled Boolean  @default(false) // Contenido premium opcional
+  
+  updatedAt             DateTime @updatedAt
+}
+
+model ExamSimulation {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  theoryQuestions   String   // JSON array de 70 preguntas de teoría
+  practicalCase     String   // JSON del supuesto práctico con 15 preguntas
+  userAnswers       String   // JSON con respuestas del usuario
+  score             Int      // Puntuación total (0-100)
+  theoryScore       Int      // Puntuación parte teoría (0-70)
+  practicalScore    Int      // Puntuación parte práctica (0-15)
+  timeSpent         Int      // Tiempo empleado en minutos
+  completed         Boolean  @default(false)
+  startedAt         DateTime @default(now())
+  completedAt       DateTime?
+  createdAt         DateTime @default(now())
+}
+
+model VirtualClassroom {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  roomId        String   @unique // ID único para Jitsi
+  password      String?  // Contraseña opcional para el aula
+  maxParticipants Int    @default(50)
+  active        Boolean  @default(true)
+  createdById   String
+  createdBy     User     @relation("ClassroomCreator", fields: [createdById], references: [id], onDelete: Cascade)
+  participants  ClassroomParticipant[]
+  sessions      ClassSession[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model ClassSession {
+  id            String   @id @default(cuid())
+  classroomId   String
+  classroom     VirtualClassroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  title         String
+  description   String?
+  scheduledAt   DateTime
+  duration      Int      // Duración en minutos
+  status        String   @default("scheduled") // scheduled, live, ended, cancelled
+  startedAt     DateTime?
+  endedAt       DateTime?
+  recordingUrl  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model ClassroomParticipant {
+  id            String   @id @default(cuid())
+  classroomId   String
+  classroom     VirtualClassroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role          String   @default("student") // moderator, student
+  canSpeak      Boolean  @default(true)
+  canShareScreen Boolean @default(false)
+  isBanned      Boolean  @default(false)
+  joinedAt      DateTime @default(now())
+  
+  @@unique([classroomId, userId])
+}
+
+// Sistema de Documentación Legal y Generación de Preguntas IA
+model LegalDocument {
+  id            String   @id @default(cuid())
+  title         String
+  type          String   // "temario_general", "temario_especifico", "ley", "real_decreto", "orden_ministerial", "reglamento"
+  topic         String?  // "Tema 1", "Tema 2", etc. - Para categorizar por temas del temario
+  reference     String?  // Ej: "Ley 39/2015", "RD 8/2015"
+  fileName      String?
+  fileSize      Int?     // Tamaño en bytes
+  content       String   @db.Text // Contenido completo extraído
+  processedAt   DateTime?
+  active        Boolean  @default(true)
+  sections      DocumentSection[]
+  questions     GeneratedQuestion[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model DocumentSection {
+  id            String   @id @default(cuid())
+  documentId    String
+  document      LegalDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  title         String   // "Artículo 12", "Tema 5", etc.
+  content       String   @db.Text
+  order         Int
+  questions     GeneratedQuestion[]
+  createdAt     DateTime @default(now())
+}
+
+model GeneratedQuestion {
+  id              String   @id @default(cuid())
+  documentId      String
+  document        LegalDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  sectionId       String?
+  section         DocumentSection? @relation(fields: [sectionId], references: [id], onDelete: SetNull)
+  text            String   @db.Text
+  options         String   @db.Text // JSON array ["opción A", "opción B", "opción C", "opción D"]
+  correctAnswer   String   // "A", "B", "C", o "D"
+  explanation     String?  @db.Text
+  difficulty      String   @default("medium") // "easy", "medium", "hard"
+  topic           String?  // "Tema 1", "Tema 2", etc. - Heredado del documento
+  reviewed        Boolean  @default(false)
+  approved        Boolean  @default(false)
+  reviewedBy      String?
+  reviewedAt      DateTime?
+  usageCount      Int      @default(0) // Cuántas veces se ha usado en simulacros
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Persistencia de Temas del Temario Oficial
+model TemaOficial {
+  id                String   @id // "g1", "g2", "e1", "e2", etc.
+  numero            Int
+  titulo            String
+  descripcion       String   @db.Text
+  categoria         String   // "general" o "especifico"
+  normativaBase     String?  @db.Text // JSON array
+  archivos          TemaArchivo[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@unique([categoria, numero])
+}
+
+model TemaArchivo {
+  id              String   @id @default(cuid())
+  temaId          String
+  tema            TemaOficial @relation(fields: [temaId], references: [id], onDelete: Cascade)
+  nombre          String
+  numeroPaginas   Int      @default(0)
+  uploadedAt      DateTime @default(now())
+  
+  @@index([temaId])
+}
+
+model AllowedPhoneNumber {
+  id          String   @id @default(cuid())
+  phoneNumber String   @unique // Número de teléfono permitido (formato: +34XXXXXXXXX)
+  groupName   String?  // Nombre del grupo de WhatsApp de origen
+  addedAt     DateTime @default(now())
+  
+  @@index([phoneNumber])
+}
+
+// ====================
+// NUEVAS FUNCIONALIDADES
+// ====================
+
+// Racha de estudio diaria
+model StudyStreak {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation("UserStreak", fields: [userId], references: [id], onDelete: Cascade)
+  currentStreak   Int      @default(0)  // Días consecutivos actuales
+  longestStreak   Int      @default(0)  // Mejor racha histórica
+  lastStudyDate   DateTime?             // Última fecha de estudio
+  totalStudyDays  Int      @default(0)  // Total de días estudiados
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([userId])
+}
+
+// Preguntas marcadas como dudosas o falladas
+model MarkedQuestion {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation("UserMarkedQuestions", fields: [userId], references: [id], onDelete: Cascade)
+  questionId  String
+  question    Question @relation("MarkedQuestions", fields: [questionId], references: [id], onDelete: Cascade)
+  type        String   // "failed" | "doubt" | "review"
+  timesFailed Int      @default(0)
+  lastFailed  DateTime?
+  markedAt    DateTime @default(now())
+  reviewedAt  DateTime?
+  notes       String?  @db.Text
+  
+  @@unique([userId, questionId])
+  @@index([userId, type])
+}
+
+// Sistema de logros y badges
+model Achievement {
+  id          String   @id @default(cuid())
+  code        String   @unique  // "streak_7", "perfect_score", etc.
+  name        String
+  description String
+  icon        String
+  category    String   // "estudio", "examenes", "social"
+  requirement String   @db.Text // JSON con condiciones
+  points      Int      @default(0)
+  createdAt   DateTime @default(now())
+  userAchievements UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation("UserAchievements", fields: [userId], references: [id], onDelete: Cascade)
+  achievementId String
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  unlockedAt    DateTime    @default(now())
+  progress      Int         @default(100) // 0-100%
+  
+  @@unique([userId, achievementId])
+  @@index([userId])
+}
+
+// Repaso espaciado (Spaced Repetition)
+model SpacedRepetitionCard {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation("UserSpacedCards", fields: [userId], references: [id], onDelete: Cascade)
+  questionId        String
+  question          Question @relation("SpacedRepetitionCards", fields: [questionId], references: [id], onDelete: Cascade)
+  easeFactor        Float    @default(2.5)  // Factor de facilidad (1.3-2.5)
+  interval          Int      @default(1)     // Días hasta próxima revisión
+  repetitions       Int      @default(0)     // Número de repeticiones correctas
+  nextReviewDate    DateTime                 // Fecha de próxima revisión
+  lastReviewedAt    DateTime?
+  totalReviews      Int      @default(0)
+  correctReviews    Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@unique([userId, questionId])
+  @@index([userId, nextReviewDate])
+}
+
+// Sesiones de estudio para tracking
+model StudySession {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation("UserStudySessions", fields: [userId], references: [id], onDelete: Cascade)
+  startedAt   DateTime @default(now())
+  endedAt     DateTime?
+  duration    Int?     // Duración en segundos
+  questionsAnswered Int @default(0)
+  correctAnswers    Int @default(0)
+  topics      String?  // JSON array de temas estudiados
+  type        String   // "practice", "exam", "review"
+  
+  @@index([userId, startedAt])
+}
+
+// Notificaciones para usuarios
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // "reminder", "achievement", "new_content"
+  title     String
+  message   String   @db.Text
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  @@index([userId, read])
+}
+
+// Registro de errores para monitoreo
+model SystemError {
+  id           String   @id @default(cuid())
+  errorType    String   // "API_ERROR", "DATABASE_ERROR", "VALIDATION_ERROR", etc.
+  severity     String   @default("medium") // "low", "medium", "high", "critical"
+  endpoint     String?  // Ruta/endpoint donde ocurrió el error
+  statusCode   Int?     // Código HTTP si aplica
+  message      String   @db.Text
+  stack        String?  @db.Text
+  userEmail    String?  // Email del usuario que causó el error (si aplica)
+  userId       String?  // ID del usuario
+  context      String?  @db.Text // JSON con contexto adicional
+  resolved     Boolean  @default(false)
+  resolvedAt   DateTime?
+  resolvedBy   String?  // Email del admin que resolvió
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@index([errorType, createdAt])
+  @@index([severity, resolved])
+  @@index([createdAt])
+}

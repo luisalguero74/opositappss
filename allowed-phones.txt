@@ -1,0 +1,24 @@
+# Números de teléfono permitidos para registro
+# Formato: +34XXXXXXXXX (uno por línea)
+# Puedes añadir comentarios con # y separar con nombre de grupo usando |
+
+# IMPORTANTE: Numeración española válida
+# España acepta múltiples rangos de numeración:
+# - +346XXXXXXXX (rango tradicional)
+# - +347XXXXXXXX (rango ampliado)
+# - Otros rangos: +348, +349, etc.
+# 
+# TODOS LOS FORMATOS SON VÁLIDOS SIMULTÁNEAMENTE
+# +346656809596 y +347656809596 son números DIFERENTES
+
+# Administrador
++34656809596|Administrador - Luis Alguero
+
+# Ejemplos de formatos válidos:
+# +34600123456|Grupo WhatsApp (rango +346)
+# +34700123456|Grupo WhatsApp (rango +347)
+
+# El sistema normaliza automáticamente estos formatos al guardar:
+# 34600123456 → +34600123456
+# +34 600 123 456 → +34600123456
+# +34-600-123-456 → +34600123456

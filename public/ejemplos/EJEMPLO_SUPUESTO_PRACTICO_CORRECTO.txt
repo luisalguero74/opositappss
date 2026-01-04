@@ -1,0 +1,70 @@
+ENUNCIADO
+
+María García es una ciudadana española de 45 años que ha trabajado durante 20 años en una empresa privada cotizando a la Seguridad Social. En enero de 2025, María sufre un accidente laboral que le causa una incapacidad temporal. Tras seis meses de tratamiento, el médico determina que María tiene secuelas permanentes que le impiden realizar su trabajo habitual, pero puede desempeñar otras funciones con limitaciones.
+
+María solicita una prestación por incapacidad permanente. El Instituto Nacional de la Seguridad Social (INSS) evalúa su caso y determina que tiene derecho a una prestación. Sin embargo, María no está conforme con el grado de incapacidad reconocido y decide impugnar la resolución.
+
+Contexto normativo:
+- La base reguladora de María es de 2.500 euros mensuales.
+- Ha cotizado durante 240 meses (20 años) sin interrupciones.
+- El accidente fue calificado como accidente de trabajo.
+- La empresa tiene un concierto con una mutua colaboradora con la Seguridad Social.
+
+PREGUNTAS
+
+PREGUNTA 1
+¿Qué grado de incapacidad permanente corresponde a María según la descripción de sus limitaciones?
+
+OPCIÓN A: Incapacidad permanente parcial para la profesión habitual
+OPCIÓN B: Incapacidad permanente total para la profesión habitual
+OPCIÓN C: Incapacidad permanente absoluta para todo trabajo
+OPCIÓN D: Gran invalidez
+
+PREGUNTA 2
+¿Cuál es el porcentaje de la base reguladora que le corresponde a María si se le reconoce incapacidad permanente total derivada de accidente de trabajo y tiene 45 años?
+
+OPCIÓN A: 24 mensualidades de la base reguladora
+OPCIÓN B: 55% de la base reguladora
+OPCIÓN C: 75% de la base reguladora
+OPCIÓN D: 100% de la base reguladora
+
+PREGUNTA 3
+¿Ante qué órgano debe María interponer la reclamación previa a la vía judicial si quiere impugnar la resolución del INSS?
+
+OPCIÓN A: Directamente ante el Juzgado de lo Social
+OPCIÓN B: Ante el propio INSS mediante reclamación previa
+OPCIÓN C: Ante la Mutua Colaboradora
+OPCIÓN D: Ante la Inspección de Trabajo y Seguridad Social
+
+PREGUNTA 4
+Durante el periodo de incapacidad temporal, ¿quién fue el responsable del pago de la prestación económica desde el día 16 de baja?
+
+OPCIÓN A: La empresa empleadora
+OPCIÓN B: El Instituto Nacional de la Seguridad Social (INSS)
+OPCIÓN C: La Mutua Colaboradora con la Seguridad Social
+OPCIÓN D: El Sistema Nacional de Salud
+
+PREGUNTA 5
+Si María consigue que se le reconozca una incapacidad permanente total, ¿puede compatibilizar la pensión con un trabajo en una profesión diferente?
+
+OPCIÓN A: No, en ningún caso
+OPCIÓN B: Sí, sin ninguna limitación
+OPCIÓN C: Sí, siempre que la nueva actividad sea compatible con su estado
+OPCIÓN D: Solo si la empresa lo autoriza
+
+SOLUCIONARIO
+
+PREGUNTA 1: B
+La incapacidad permanente total para la profesión habitual es aquella que inhabilita al trabajador para la realización de todas o de las fundamentales tareas de su profesión habitual, siempre que pueda dedicarse a otra distinta. Según el artículo 194 de la Ley General de la Seguridad Social, este grado se reconoce cuando el trabajador no puede realizar su trabajo habitual pero sí otras actividades laborales. María puede desempeñar otras funciones con limitaciones, lo que encaja con esta definición.
+
+PREGUNTA 2: C
+Según el artículo 196 de la LGSS, la incapacidad permanente total derivada de accidente de trabajo da derecho a una pensión vitalicia equivalente al 55% de la base reguladora. Además, cuando el beneficiario sea mayor de 55 años y presente especiales dificultades para obtener empleo, el porcentaje aplicable se incrementará en un 20%, alcanzando el 75%. María tiene 45 años, por lo que le corresponde el 55% básico.
+
+PREGUNTA 3: B
+De acuerdo con el artículo 71 de la Ley 36/2011, de 10 de octubre, reguladora de la jurisdicción social, será requisito previo para la tramitación del proceso judicial haber agotado la vía administrativa mediante la reclamación previa ante el órgano correspondiente, que en este caso es el propio INSS. Esta reclamación debe presentarse en el plazo de 30 días hábiles desde la notificación de la resolución impugnada.
+
+PREGUNTA 4: C
+Según el artículo 77 de la Ley General de la Seguridad Social y el artículo 5 del Real Decreto 1430/2009, cuando la empresa tiene suscrito un concierto con una Mutua Colaboradora con la Seguridad Social, es esta entidad la que asume la gestión y pago de las prestaciones económicas por incapacidad temporal derivada de contingencias profesionales desde el día siguiente al de la baja.
+
+PREGUNTA 5: C
+El artículo 198 de la LGSS establece que la pensión por incapacidad permanente total es compatible con el salario que pueda percibir el trabajador en la misma empresa o en otra distinta, siempre que las funciones que desempeñe sean compatibles con su estado y no representen un cambio en su capacidad de trabajo a efectos de revisión del grado de incapacidad.

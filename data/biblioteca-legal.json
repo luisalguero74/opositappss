@@ -1,0 +1,460 @@
+{
+  "documentos": [
+    {
+      "id": "ce_1978",
+      "nombre": "Constitución Española 1978",
+      "archivo": "constitucion_espanola_1978.pdf",
+      "tipo": "Constitución",
+      "numeroPaginas": 42,
+      "fechaActualizacion": "1978-12-29"
+    },
+    {
+      "id": "ley_39_2015",
+      "nombre": "Ley 39/2015 - Procedimiento Administrativo Común",
+      "archivo": "ley_39_2015_pac.pdf",
+      "tipo": "Ley",
+      "numeroPaginas": 85,
+      "fechaActualizacion": "2015-10-01"
+    },
+    {
+      "id": "ley_40_2015",
+      "nombre": "Ley 40/2015 - Régimen Jurídico del Sector Público",
+      "archivo": "ley_40_2015_rjsp.pdf",
+      "tipo": "Ley",
+      "numeroPaginas": 78,
+      "fechaActualizacion": "2015-10-01"
+    },
+    {
+      "id": "rdl_8_2015",
+      "nombre": "RDL 8/2015 - Ley General de la Seguridad Social",
+      "archivo": "rdl_8_2015_lgss.pdf",
+      "tipo": "Real Decreto Legislativo",
+      "numeroPaginas": 326,
+      "fechaActualizacion": "2015-10-30"
+    },
+    {
+      "id": "doc_1766962018041",
+      "nombre": "ley 20 2007 autonomos",
+      "archivo": "ley_20_2007_autonomos.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 114,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962034180",
+      "nombre": "RD TRADE",
+      "archivo": "RD_TRADE.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 67,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962080931",
+      "nombre": "REGLAMENTO GENERAL COTIZACION LIQUIDACION-SS",
+      "archivo": "REGLAMENTO_GENERAL_COTIZACION_LIQUIDACION-SS.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 170,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962141074",
+      "nombre": "LEY 19 2021 IMV",
+      "archivo": "LEY_19_2021_IMV.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 153,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962152555",
+      "nombre": "RD 84 1996",
+      "archivo": "RD_84_1996.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 132,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962343733",
+      "nombre": "CESE ACTIVIDAD OM",
+      "archivo": "CESE_ACTIVIDAD_OM.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 126,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962355472",
+      "nombre": "LEY 1 2000  LEY DE ENJUICIAMIENTO CIVIL",
+      "archivo": "LEY_1_2000__LEY_DE_ENJUICIAMIENTO_CIVIL.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 698,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962399635",
+      "nombre": "RDL 5 2000 INFRACCIONES ASMINISTRATIVAS SS A28285-28300",
+      "archivo": "RDL_5_2000_INFRACCIONES_ASMINISTRATIVAS_SS_A28285-28300.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 35,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962478892",
+      "nombre": "LEY 7 2007 LEY ESTATUTO BASICO EMPLEADO PUBLICO",
+      "archivo": "LEY_7_2007_LEY_ESTATUTO_BASICO_EMPLEADO_PUBLICO.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 150,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962624380",
+      "nombre": "R.D. 1299 2006",
+      "archivo": "R.D._1299_2006.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 281,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962715150",
+      "nombre": "ESTATUTO DE LOS TRABAJADORES 2024",
+      "archivo": "ESTATUTO_DE_LOS_TRABAJADORES_2024.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 531,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962760249",
+      "nombre": "ley 27 1999 COOPERATIVAS BOE-A-1999-15681-consolidado",
+      "archivo": "ley_27_1999_COOPERATIVAS_BOE-A-1999-15681-consolidado.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 180,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962827942",
+      "nombre": "LEY 42 2006 TIPOS DE COTIZACION POR CONTINGENCIA PROFESIONALES",
+      "archivo": "LEY_42_2006_TIPOS_DE_COTIZACION_POR_CONTINGENCIA_PROFESIONALES.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 507,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962846929",
+      "nombre": "LEY 47 2015 REMAR",
+      "archivo": "LEY_47_2015_REMAR.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 124,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962910778",
+      "nombre": "RD 453 2022",
+      "archivo": "RD_453_2022.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 61,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766962956089",
+      "nombre": "RD 1851 2009 REGULACION JUBILACION ANTICIPADA DISCAPACIDAD 45",
+      "archivo": "RD_1851_2009_REGULACION_JUBILACION_ANTICIPADA_DISCAPACIDAD_45.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 45,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766963126375",
+      "nombre": "ley rd21 2021",
+      "archivo": "ley_rd21_2021.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 275,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766963202051",
+      "nombre": "ley 50 1997",
+      "archivo": "ley_50_1997.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 71,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766963471081",
+      "nombre": "rd 2 2023",
+      "archivo": "rd_2_2023.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 136,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766963724803",
+      "nombre": "ley 34 2014",
+      "archivo": "ley_34_2014.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 86,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766963804925",
+      "nombre": "ley 23 2015",
+      "archivo": "ley_23_2015.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 110,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766965904922",
+      "nombre": "RD 2 2020",
+      "archivo": "RD_2_2020.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 51,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766965913833",
+      "nombre": "LEY 29 1998",
+      "archivo": "LEY_29_1998.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 178,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766965937188",
+      "nombre": "LEY 2 1979",
+      "archivo": "LEY_2_1979.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 111,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766965944756",
+      "nombre": "LEY 3 1981",
+      "archivo": "LEY_3_1981.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 59,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766965952165",
+      "nombre": "LEY 7 1985",
+      "archivo": "LEY_7_1985.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 188,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766965959795",
+      "nombre": "TRATADO DE LA UNION EUROPEA",
+      "archivo": "TRATADO_DE_LA_UNION_EUROPEA.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 292,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766965968428",
+      "nombre": "TRATADO FUNCIONAMIENTO UNION EUROPEA",
+      "archivo": "TRATADO_FUNCIONAMIENTO_UNION_EUROPEA.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 509,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766965997417",
+      "nombre": "RDL 5 2015",
+      "archivo": "RDL_5_2015.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 154,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766966004710",
+      "nombre": "RD 366 2007",
+      "archivo": "RD_366_2007.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 56,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766966016264",
+      "nombre": "LEY 3 2007",
+      "archivo": "LEY_3_2007.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 172,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766966023512",
+      "nombre": "LEY 3 2018",
+      "archivo": "LEY_3_2018.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 181,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766966032007",
+      "nombre": "REGLAMENTO UE 2016 679 RGPD",
+      "archivo": "REGLAMENTO_UE_2016_679_RGPD.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 342,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766966040810",
+      "nombre": "RD 1415 2004",
+      "archivo": "RD_1415_2004.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 177,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766966048281",
+      "nombre": "RD 1300 1995",
+      "archivo": "RD_1300_1995.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 130,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766966258239",
+      "nombre": "LEY 6 1985",
+      "archivo": "LEY_6_1985.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 476,
+      "fechaActualizacion": "2025-12-28"
+    },
+    {
+      "id": "doc_1766966589835",
+      "nombre": "LEY 39 2006",
+      "archivo": "LEY_39_2006.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 106,
+      "fechaActualizacion": "2025-12-29"
+    },
+    {
+      "id": "doc_1766966761942",
+      "nombre": "LEY 4 2023",
+      "archivo": "LEY_4_2023.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 163,
+      "fechaActualizacion": "2025-12-29"
+    },
+    {
+      "id": "doc_1766966972345",
+      "nombre": "LEY 47 2003",
+      "archivo": "LEY_47_2003.pdf",
+      "tipo": "pdf",
+      "numeroPaginas": 221,
+      "fechaActualizacion": "2025-12-29"
+    }
+  ],
+  "relaciones": {
+    "g2": [
+      "ce_1978"
+    ],
+    "g4": [
+      "ce_1978"
+    ],
+    "g5": [
+      "ce_1978",
+      "doc_1766965944756"
+    ],
+    "g7": [
+      "doc_1766963202051"
+    ],
+    "g8": [
+      "ley_40_2015"
+    ],
+    "g13": [
+      "ley_40_2015"
+    ],
+    "g14": [
+      "ce_1978"
+    ],
+    "g15": [
+      "ley_39_2015"
+    ],
+    "g16": [
+      "ley_39_2015"
+    ],
+    "g17": [
+      "ley_39_2015"
+    ],
+    "g18": [
+      "ley_39_2015",
+      "doc_1766965913833"
+    ],
+    "g20": [
+      "ley_39_2015",
+      "doc_1766966004710"
+    ],
+    "g23": [
+      "ley_39_2015",
+      "ley_40_2015"
+    ],
+    "e3": [
+      "doc_1766962152555"
+    ],
+    "e7": [
+      "rdl_8_2015"
+    ],
+    "e8": [
+      "rdl_8_2015"
+    ],
+    "e9": [
+      "rdl_8_2015"
+    ],
+    "e10": [
+      "rdl_8_2015",
+      "doc_1766962760249",
+      "doc_1766962956089"
+    ],
+    "e11": [
+      "rdl_8_2015"
+    ],
+    "e12": [
+      "doc_1766962141074",
+      "rdl_8_2015"
+    ],
+    "e13": [
+      "rdl_8_2015"
+    ],
+    "g3": [
+      "doc_1766965937188"
+    ],
+    "g6": [
+      "doc_1766966258239"
+    ],
+    "g9": [
+      "ce_1978",
+      "doc_1766965952165"
+    ],
+    "g10": [
+      "doc_1766965959795",
+      "doc_1766965968428"
+    ],
+    "g11": [
+      "doc_1766965959795",
+      "doc_1766965968428"
+    ],
+    "g12": [
+      "doc_1766965904922"
+    ],
+    "g19": [
+      "doc_1766965997417"
+    ],
+    "g21": [
+      "doc_1766966589835",
+      "doc_1766966016264",
+      "doc_1766966761942"
+    ],
+    "g22": [
+      "doc_1766966023512",
+      "doc_1766966032007"
+    ],
+    "e5": [
+      "doc_1766966040810"
+    ],
+    "e6": [
+      "doc_1766966040810",
+      "doc_1766966972345"
+    ]
+  }
+}
