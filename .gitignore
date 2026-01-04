@@ -61,3 +61,4 @@ documentos-temario/biblioteca/*.pdf
 documentos-temario/especifico/*.pdf
 documentos-temario/general/*.pdf
 documentos-temario/**/*.txt
+.env*.local
