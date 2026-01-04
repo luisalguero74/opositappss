@@ -15,15 +15,23 @@ export async function POST(request: NextRequest) {
     // Normalizar número de teléfono (eliminar espacios y guiones)
     const normalizedPhone = phoneNumber.replace(/[\s-]/g, '')
     
-    // Validar formato español (+34XXXXXXXXX)
-    // España acepta múltiples rangos: +346, +347, +348, +349, etc.
-    if (!/^\+34\d{9}$/.test(normalizedPhone)) {
-      return NextResponse.json({ error: 'El número de teléfono debe tener formato +34 seguido de 9 dígitos.' }, { status: 400 })
-    }
-
-    // Verificar que el número está en la lista de permitidos (búsqueda exacta)
-    const allowedPhone = await prisma.allowedPhoneNumber.findUnique({
-      where: { phoneNumber: normalizedPhone }
+    // Validar formato español - aceptar con o sin +34
+    const phoneToCheck = normalizedPhone.startsWith('+34') 
+      ? normalizedPhone 
+      : normalizedPhone.startsWith('34')
+      ? '+' + normalizedPhone
+      : '+34' + normalizedPhone
+    
+    // Verificar que el número está en la lista de permitidos
+    const allowedPhone = await prisma.allowedPhone.findFirst({
+      where: { 
+        OR: [
+          { phoneNumber: phoneToCheck },
+          { phoneNumber: normalizedPhone },
+          { phoneNumber: phoneToCheck.replace('+34', '') }
+        ],
+        active: true
+      }
     })
 
     if (!allowedPhone) {
@@ -57,7 +65,7 @@ export async function POST(request: NextRequest) {
     const user = await prisma.user.create({
       data: {
         email,
-        phoneNumber: normalizedPhone,
+        phoneNumber: phoneToCheck,
         password: hashedPassword
       }
     })
