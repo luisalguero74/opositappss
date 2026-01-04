@@ -23,14 +23,13 @@ export async function POST(request: NextRequest) {
       : '+34' + normalizedPhone
     
     // Verificar que el número está en la lista de permitidos
-    const allowedPhone = await prisma.allowedPhone.findFirst({
+    const allowedPhone = await prisma.allowedPhoneNumber.findFirst({
       where: { 
         OR: [
           { phoneNumber: phoneToCheck },
           { phoneNumber: normalizedPhone },
           { phoneNumber: phoneToCheck.replace('+34', '') }
-        ],
-        active: true
+        ]
       }
     })
 
