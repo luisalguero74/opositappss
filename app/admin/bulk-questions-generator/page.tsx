@@ -13,7 +13,7 @@ export default function BulkQuestionsGenerator() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
     }
   }, [status, session, router])
@@ -57,7 +57,7 @@ export default function BulkQuestionsGenerator() {
     }
   }
 
-  if (!session || !session.user || session.user.role !== 'admin') {
+  if (!session || !session.user || session.user.role !== 'ADMIN') {
     return null
   }
 

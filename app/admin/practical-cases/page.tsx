@@ -61,7 +61,7 @@ export default function PracticalCasesAdmin() {
   })
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
     } else if (status === 'authenticated') {
       loadPracticalCases()

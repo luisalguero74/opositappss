@@ -70,7 +70,7 @@ export default function CreateFormulario() {
     return <div className="min-h-screen flex items-center justify-center">Cargando...</div>
   }
 
-  if (!session || session.user.role !== 'admin') {
+  if (!session || session.user.role !== 'ADMIN') {
     router.push('/dashboard')
     return null
   }

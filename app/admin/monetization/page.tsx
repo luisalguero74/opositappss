@@ -42,7 +42,7 @@ export default function MonetizationSettings() {
   useEffect(() => {
     if (status === 'loading') return
     
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
       return
     }

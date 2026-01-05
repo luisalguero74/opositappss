@@ -22,7 +22,7 @@ export default function QuestionsDatabase() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
     }
   }, [session, status, router])

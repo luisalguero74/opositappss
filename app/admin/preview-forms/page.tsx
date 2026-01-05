@@ -39,7 +39,7 @@ export default function PreviewForms() {
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
     }
   }, [session, status, router])

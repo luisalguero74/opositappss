@@ -72,7 +72,7 @@ export default function UsersManagement() {
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
     }
   }, [session, status, router])

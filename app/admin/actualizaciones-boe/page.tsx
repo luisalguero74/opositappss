@@ -105,7 +105,7 @@ export default function ActualizacionesBOE() {
   const [actualizacionesDetectadas, setActualizacionesDetectadas] = useState<number>(0)
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
     }
   }, [status, session, router])

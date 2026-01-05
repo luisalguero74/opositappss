@@ -35,7 +35,7 @@ export default function QuestionsReview() {
   const [difficultyFilter, setDifficultyFilter] = useState<'all' | 'facil' | 'media' | 'dificil'>('all')
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
     } else if (status === 'authenticated') {
       loadQuestions()
@@ -140,7 +140,7 @@ export default function QuestionsReview() {
     return acc
   }, {} as Record<string, { questionnaire: any, questions: Question[] }>)
 
-  if (!session || !session.user || session.user.role !== 'admin') {
+  if (!session || !session.user || session.user.role !== 'ADMIN') {
     return null
   }
 

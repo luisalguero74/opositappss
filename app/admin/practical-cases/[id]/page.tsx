@@ -33,7 +33,7 @@ export default function EditPracticalCase() {
   const [message, setMessage] = useState({ type: '', text: '' })
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
     } else if (status === 'authenticated' && params.id) {
       loadPracticalCase()

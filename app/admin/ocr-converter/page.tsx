@@ -31,7 +31,7 @@ export default function OCRConverterPage() {
   const [meta, setMeta] = useState<OcrMeta | null>(null)
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'admin')) {
+    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
       router.push('/dashboard')
     }
   }, [status, session, router])
