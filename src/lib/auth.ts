@@ -47,28 +47,36 @@ export const authOptions: NextAuthOptions = {
 
         securityLogger.logLoginSuccess(user.id, email, ip)
 
-        return {
+        const result = {
           id: user.id,
           name: user.email,
           email: user.email,
           role: user.role
         } as User
+        
+        console.log('[AUTH] User returned from authorize:', result)
+        return result
       }
     })
   ],
   callbacks: {
     jwt: ({ token, user }: { token: JWT & { role?: string }; user?: User }) => {
+      console.log('[JWT Callback] user:', user, 'token before:', token)
       if (user && 'role' in user) {
         token.role = (user as unknown as { role?: string }).role
+        console.log('[JWT Callback] token role set to:', token.role)
       }
+      console.log('[JWT Callback] token after:', token)
       return token
     },
     session: ({ session, token }: { session: Session; token: JWT & { role?: string } }) => {
+      console.log('[Session Callback] token:', token, 'session before:', session)
       // Solo añadimos id y rol cuando existe un usuario en sesión (evita errores en estado no autenticado)
       if (session.user) {
         session.user.id = token.sub ?? session.user.id
         session.user.role = token.role ?? session.user.role ?? 'user'
       }
+      console.log('[Session Callback] session after:', session)
       return session
     }
   },
