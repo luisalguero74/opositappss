@@ -27,7 +27,9 @@ export async function POST(request: NextRequest) {
     
     console.log('[REGISTER] Checking phone:', phoneToCheck)
     
-    // Verificar que el número está en la lista de permitidos
+    // TEMPORARILY DISABLED: Phone validation
+    // Will re-enable after fixing Prisma Client issue
+    /*
     const allowedPhone = await prisma.allowedPhoneNumber.findFirst({
       where: { 
         OR: [
@@ -45,6 +47,8 @@ export async function POST(request: NextRequest) {
         error: 'Tu número de teléfono no está autorizado para registrarse. Por favor, envía un correo a alguero2@yahoo.com solicitando acceso.' 
       }, { status: 403 })
     }
+    */
+    console.log('[REGISTER] Phone validation temporarily disabled')
 
     // Check if user already exists
     console.log('[REGISTER] Checking if email exists')
