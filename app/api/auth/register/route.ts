@@ -111,8 +111,14 @@ export async function POST(request: NextRequest) {
 
     console.log('[REGISTER] Registration successful')
     return NextResponse.json({ message: 'Usuario creado exitosamente. Ya puedes iniciar sesión.' })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[REGISTER] Error creating user:', error)
+    if (error && typeof error === 'object' && 'message' in error) {
+      console.error('[REGISTER] Error message:', (error as Error).message)
+    }
+    if (error && typeof error === 'object' && 'stack' in error) {
+      console.error('[REGISTER] Error stack:', (error as Error).stack)
+    }
     return NextResponse.json({ error: 'Error interno del servidor.' }, { status: 500 })
   }
 }
