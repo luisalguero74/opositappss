@@ -360,6 +360,7 @@ model AllowedPhoneNumber {
   groupName   String?  // Nombre del grupo de WhatsApp de origen
   addedAt     DateTime @default(now())
   
+  @@map("AllowedPhone")
   @@index([phoneNumber])
 }
 
