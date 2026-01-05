@@ -204,7 +204,7 @@ export default function Dashboard() {
         </div>
 
         {/* Panel Admin - Solo para administradores */}
-        { session.user?.role === 'admin' && (
+        { session.user?.role === 'ADMIN' && (
           <Link href="/admin" className="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition mb-4">
             <div className="bg-gradient-to-r from-red-500 to-orange-600 p-4 flex items-center justify-between">
               <h2 className="text-lg font-bold text-white">Panel de Administrador</h2>
