@@ -11,10 +11,19 @@ import MonetizationWrapper from '@/components/monetization/MonetizationWrapper'
 export default function Dashboard() {
   const { data: session } = useSession() as { data: Session | null }
 
+
   if (!session) return <div>Cargando...</div>
+
+  // DEBUG: Mostrar el rol en pantalla
+  const debugRole = (
+    <div style={{background:'#ffeeba',color:'#333',padding:'8px',marginBottom:'8px',borderRadius:'6px',fontWeight:'bold'}}>
+      Rol detectado: {session.user?.role || 'Sin rol'}
+    </div>
+  )
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
+      {debugRole}
       <SubscriptionBanner />
       <HelpButton />
       <div className="p-4">
