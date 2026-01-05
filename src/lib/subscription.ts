@@ -9,6 +9,27 @@ export async function checkUserAccess(userId: string): Promise<{
   reason: string
   subscription?: any
 }> {
+  // Obtener usuario primero para verificar si es admin
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { subscription: true }
+  })
+
+  if (!user) {
+    return {
+      hasAccess: false,
+      reason: 'Usuario no encontrado'
+    }
+  }
+
+  // Los admins siempre tienen acceso
+  if (user.role === 'ADMIN') {
+    return {
+      hasAccess: true,
+      reason: 'Acceso de administrador'
+    }
+  }
+
   // Verificar si la monetización está activada
   const settings = await prisma.appSettings.findFirst()
   
@@ -18,12 +39,6 @@ export async function checkUserAccess(userId: string): Promise<{
       reason: 'Monetización desactivada - acceso gratuito para todos'
     }
   }
-
-  // Obtener usuario con su suscripción
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    include: { subscription: true }
-  })
 
   if (!user) {
     return {
