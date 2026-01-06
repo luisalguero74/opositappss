@@ -23,13 +23,22 @@ export default function SubscriptionBanner() {
     if (!session?.user?.id) return
 
     fetch('/api/check-access')
-      .then(res => res.json())
-      .then(data => {
+      .then(async res => {
+        if (!res.ok) {
+          // Fail-open: no mostrar banner restrictivo por errores de verificación
+          setAccessInfo({ hasAccess: true, reason: 'Acceso permitido' })
+          setLoading(false)
+          return
+        }
+
+        const data = await res.json()
         setAccessInfo(data)
         setLoading(false)
       })
       .catch(err => {
         console.error('Error checking access:', err)
+        // Fail-open
+        setAccessInfo({ hasAccess: true, reason: 'Acceso permitido' })
         setLoading(false)
       })
   }, [session])
