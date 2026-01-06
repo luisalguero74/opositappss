@@ -11,7 +11,7 @@ export async function POST(
 ) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session || session.user.role !== 'admin') {
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -126,7 +126,7 @@ export async function GET(
 ) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session || session.user.role !== 'admin') {
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 

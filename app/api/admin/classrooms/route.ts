@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid'
 export async function GET() {
   try {
     const session = await getServerSession(authOptions)
-    if (!session || session.user.role !== 'admin') {
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -63,7 +63,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session || session.user.role !== 'admin') {
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -78,8 +78,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email no disponible' }, { status: 400 })
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email }
+    const user = await prisma.user.findFirst({
+      where: {
+        email: {
+          equals: session.user.email,
+          mode: 'insensitive'
+        }
+      }
     })
 
     if (!user) {

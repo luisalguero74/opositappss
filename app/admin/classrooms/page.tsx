@@ -35,7 +35,7 @@ export default function AdminClassrooms() {
   const [creating, setCreating] = useState(false)
 
   useEffect(() => {
-    if (session?.user?.role !== 'admin') {
+    if (String(session?.user?.role || '').toLowerCase() !== 'admin') {
       router.push('/dashboard')
       return
     }
@@ -72,7 +72,14 @@ export default function AdminClassrooms() {
         setShowCreateModal(false)
         setNewClassroom({ name: '', description: '', password: '', maxParticipants: 50 })
       } else {
-        alert('Error al crear aula')
+        let message = 'Error al crear aula'
+        try {
+          const data = await res.json()
+          if (data?.error) message = data.error
+        } catch {
+          // ignore
+        }
+        alert(message)
       }
     } catch (error) {
       console.error('Error creating classroom:', error)
