@@ -1,13 +1,20 @@
 import Stripe from 'stripe'
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY no está configurado en las variables de entorno')
-}
+let stripeSingleton: Stripe | null = null
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2025-12-15.clover',
-  typescript: true,
-})
+export function getStripe(): Stripe | null {
+  const secretKey = process.env.STRIPE_SECRET_KEY
+  if (!secretKey) return null
+
+  if (!stripeSingleton) {
+    stripeSingleton = new Stripe(secretKey, {
+      apiVersion: '2025-12-15.clover',
+      typescript: true,
+    })
+  }
+
+  return stripeSingleton
+}
 
 // IDs de los productos en Stripe (se crearán automáticamente si no existen)
 export const STRIPE_PLANS = {

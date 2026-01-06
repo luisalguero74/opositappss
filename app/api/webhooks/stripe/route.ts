@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
-import { stripe } from '@/lib/stripe'
+import { getStripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
 import Stripe from 'stripe'
 
 export async function POST(req: NextRequest) {
   const body = await req.text()
   const signature = (await headers()).get('stripe-signature')
+
+  const stripe = getStripe()
+  if (!stripe) {
+    return NextResponse.json({ error: 'Stripe no configurado' }, { status: 503 })
+  }
+
+  if (!process.env.STRIPE_WEBHOOK_SECRET) {
+    return NextResponse.json({ error: 'Webhook secret no configurado' }, { status: 503 })
+  }
 
   if (!signature) {
     return NextResponse.json({ error: 'No signature' }, { status: 400 })
@@ -18,7 +27,7 @@ export async function POST(req: NextRequest) {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      process.env.STRIPE_WEBHOOK_SECRET
     )
   } catch (err) {
     console.error('[Stripe Webhook] Error al verificar firma:', err)

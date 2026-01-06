@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { stripe } from '@/lib/stripe'
+import { getStripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
 
 export async function POST(req: NextRequest) {
@@ -22,6 +22,14 @@ export async function POST(req: NextRequest) {
     const { plan } = await req.json()
     if (!['basic', 'premium'].includes(plan)) {
       return NextResponse.json({ error: 'Plan inválido' }, { status: 400 })
+    }
+
+    const stripe = getStripe()
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'El sistema de pagos no está disponible actualmente' },
+        { status: 503 },
+      )
     }
 
     const price = plan === 'basic' ? settings.basicPrice : settings.premiumPrice
