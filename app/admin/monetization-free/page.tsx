@@ -38,13 +38,13 @@ export default function MonetizationFreePage() {
 
   useEffect(() => {
     if (status === 'loading') return
-    
-    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
+
+    if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
       router.push('/dashboard')
       return
     }
-    
-    if (status === 'authenticated' && session?.user.role === 'admin') {
+
+    if (status === 'authenticated' && String(session?.user?.role || '').toLowerCase() === 'admin') {
       loadSettings()
     }
   }, [session, status, router])

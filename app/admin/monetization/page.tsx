@@ -41,14 +41,14 @@ export default function MonetizationSettings() {
 
   useEffect(() => {
     if (status === 'loading') return
-    
-    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
+
+    if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
       router.push('/dashboard')
       return
     }
-    
+
     // Solo cargar datos si el usuario está autenticado y es admin
-    if (status === 'authenticated' && session?.user.role === 'admin') {
+    if (status === 'authenticated' && String(session?.user?.role || '').toLowerCase() === 'admin') {
       loadData()
     }
   }, [session, status, router])

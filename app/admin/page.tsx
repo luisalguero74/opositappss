@@ -18,7 +18,7 @@ export default function Admin() {
   const [showAISubmenu, setShowAISubmenu] = useState(false)
 
   useEffect(() => {
-    if (session && session.user && session.user.role !== 'ADMIN') {
+    if (session && session.user && String(session.user.role || '').toLowerCase() !== 'admin') {
       router.push('/dashboard')
     }
   }, [session, router])
@@ -51,7 +51,7 @@ export default function Admin() {
     }
   }
 
-  if (!session || !session.user || session.user.role !== 'ADMIN') {
+  if (!session || !session.user || String(session.user.role || '').toLowerCase() !== 'admin') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-orange-50">
         <div className="text-center">
