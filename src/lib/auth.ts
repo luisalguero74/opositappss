@@ -21,10 +21,15 @@ export const authOptions: NextAuthOptions = {
         }
 
         const ip = getClientIp(req?.headers)
-        const email = credentials.email.toLowerCase()
+        const email = credentials.email.trim().toLowerCase()
 
-        const user = await prisma.user.findUnique({
-          where: { email }
+        const user = await prisma.user.findFirst({
+          where: {
+            email: {
+              equals: email,
+              mode: 'insensitive'
+            }
+          }
         })
 
         if (!user) {
@@ -38,7 +43,12 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Tu cuenta ha sido desactivada. Contacta con el administrador.')
         }
 
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.password!)
+        if (!user.password) {
+          securityLogger.logLoginFailed(email, ip, 'password_not_set')
+          return null
+        }
+
+        const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
 
         if (!isPasswordValid) {
           securityLogger.logLoginFailed(email, ip, 'invalid_password')
