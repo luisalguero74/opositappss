@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcrypt'
-import { prisma } from '../../../../src/lib/prisma'
+import { Prisma } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import { sendVerificationEmail } from '../../../../src/lib/email'
 import crypto from 'crypto'
 
@@ -15,8 +16,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email, teléfono y contraseña son requeridos.' }, { status: 400 })
     }
 
+    const normalizedEmail = String(email).trim().toLowerCase()
+
     // Normalizar número de teléfono (eliminar espacios y guiones)
-    const normalizedPhone = phoneNumber.replace(/[\s-]/g, '')
+    const normalizedPhone = String(phoneNumber).replace(/[\s-]/g, '')
     
     // Validar formato español - aceptar con o sin +34
     const phoneToCheck = normalizedPhone.startsWith('+34') 
@@ -24,6 +27,8 @@ export async function POST(request: NextRequest) {
       : normalizedPhone.startsWith('34')
       ? '+' + normalizedPhone
       : '+34' + normalizedPhone
+
+    const phoneWithoutCountry = phoneToCheck.replace(/^\+34/, '')
     
     console.log('[REGISTER] Checking phone:', phoneToCheck)
     
@@ -33,7 +38,7 @@ export async function POST(request: NextRequest) {
         OR: [
           { phoneNumber: phoneToCheck },
           { phoneNumber: normalizedPhone },
-          { phoneNumber: phoneToCheck.replace('+34', '') }
+          { phoneNumber: phoneWithoutCountry }
         ]
       }
     })
@@ -47,39 +52,49 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    console.log('[REGISTER] Checking if email exists')
-    const existingUser = await prisma.user.findUnique({
-      where: { email }
-    })
-
-    if (existingUser) {
-      console.log('[REGISTER] Email already exists')
-      return NextResponse.json({ error: 'El email ya está registrado.' }, { status: 400 })
-    }
-
-    // Check if phone number already used
-    console.log('[REGISTER] Checking if phone exists')
-    const existingPhone = await prisma.user.findUnique({
-      where: { phoneNumber: normalizedPhone }
-    })
-
-    if (existingPhone) {
-      console.log('[REGISTER] Phone already exists')
-      return NextResponse.json({ error: 'Este número de teléfono ya está registrado.' }, { status: 400 })
-    }
-
     // Hash password
     console.log('[REGISTER] Hashing password')
     const hashedPassword = await bcrypt.hash(password, 10)
 
     // Create user
     console.log('[REGISTER] Creating user')
-    const user = await prisma.user.create({
-      data: {
-        email,
-        phoneNumber: phoneToCheck,
-        password: hashedPassword
+    const user = await prisma.$transaction(async (tx) => {
+      console.log('[REGISTER] Checking if email exists')
+      const existingUser = await tx.user.findFirst({
+        where: { email: { equals: normalizedEmail, mode: 'insensitive' } },
+        select: { id: true },
+      })
+
+      if (existingUser) {
+        console.log('[REGISTER] Email already exists')
+        throw new Error('EMAIL_ALREADY_EXISTS')
       }
+
+      // Check if phone number already used
+      console.log('[REGISTER] Checking if phone exists')
+      const existingPhone = await tx.user.findFirst({
+        where: {
+          OR: [
+            { phoneNumber: phoneToCheck },
+            { phoneNumber: normalizedPhone },
+            { phoneNumber: phoneWithoutCountry },
+          ],
+        },
+        select: { id: true },
+      })
+
+      if (existingPhone) {
+        console.log('[REGISTER] Phone already exists')
+        throw new Error('PHONE_ALREADY_EXISTS')
+      }
+
+      return tx.user.create({
+        data: {
+          email: normalizedEmail,
+          phoneNumber: phoneToCheck,
+          password: hashedPassword,
+        },
+      })
     })
     console.log('[REGISTER] User created:', user.id)
 
@@ -90,7 +105,7 @@ export async function POST(request: NextRequest) {
 
     await prisma.verificationToken.create({
       data: {
-        identifier: email,
+        identifier: normalizedEmail,
         token,
         expires
       }
@@ -99,7 +114,7 @@ export async function POST(request: NextRequest) {
     // Try to send verification email (non-blocking)
     try {
       console.log('[REGISTER] Sending verification email')
-      await sendVerificationEmail(email, token)
+      await sendVerificationEmail(normalizedEmail, token)
     } catch (emailError) {
       console.error('[REGISTER] Error sending verification email:', emailError)
       // Continue without email verification
@@ -108,6 +123,28 @@ export async function POST(request: NextRequest) {
     console.log('[REGISTER] Registration successful')
     return NextResponse.json({ message: 'Usuario creado exitosamente. Ya puedes iniciar sesión.' })
   } catch (error: unknown) {
+    if (error instanceof Error) {
+      if (error.message === 'EMAIL_ALREADY_EXISTS') {
+        return NextResponse.json({ error: 'El email ya está registrado.' }, { status: 400 })
+      }
+      if (error.message === 'PHONE_ALREADY_EXISTS') {
+        return NextResponse.json({ error: 'Este número de teléfono ya está registrado.' }, { status: 400 })
+      }
+    }
+
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+      const target = Array.isArray((error.meta as { target?: unknown } | undefined)?.target)
+        ? String(((error.meta as { target?: unknown } | undefined)?.target as unknown[])[0])
+        : String((error.meta as { target?: unknown } | undefined)?.target ?? '')
+
+      if (target.includes('email')) {
+        return NextResponse.json({ error: 'El email ya está registrado.' }, { status: 400 })
+      }
+      if (target.includes('phoneNumber')) {
+        return NextResponse.json({ error: 'Este número de teléfono ya está registrado.' }, { status: 400 })
+      }
+    }
+
     console.error('[REGISTER] Error creating user:', error)
     if (error && typeof error === 'object' && 'message' in error) {
       console.error('[REGISTER] Error message:', (error as Error).message)

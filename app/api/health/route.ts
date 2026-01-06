@@ -10,6 +10,7 @@ export async function GET() {
     const durationMs = Date.now() - start
     return NextResponse.json({ status: 'ok', db: 'ok', durationMs })
   } catch (error) {
+    console.error('[HEALTH] DB check failed:', error)
     return NextResponse.json({ status: 'error', db: 'fail', message: 'DB check failed' }, { status: 500 })
   }
 }
