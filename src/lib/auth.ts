@@ -15,57 +15,62 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials: Record<'email' | 'password', string> | undefined, req: any): Promise<User | null> {
-        if (!credentials?.email || !credentials?.password) {
-          securityLogger.logLoginFailed(credentials?.email || 'unknown', getClientIp(req?.headers))
-          return null
-        }
-
-        const ip = getClientIp(req?.headers)
-        const email = credentials.email.trim().toLowerCase()
-
-        const user = await prisma.user.findFirst({
-          where: {
-            email: {
-              equals: email,
-              mode: 'insensitive'
-            }
+        try {
+          if (!credentials?.email || !credentials?.password) {
+            securityLogger.logLoginFailed(credentials?.email || 'unknown', getClientIp(req?.headers))
+            return null
           }
-        })
 
-        if (!user) {
-          securityLogger.logLoginFailed(email, ip, 'user_not_found')
+          const ip = getClientIp(req?.headers)
+          const email = credentials.email.trim().toLowerCase()
+
+          const user = await prisma.user.findFirst({
+            where: {
+              email: {
+                equals: email,
+                mode: 'insensitive'
+              }
+            }
+          })
+
+          if (!user) {
+            securityLogger.logLoginFailed(email, ip, 'user_not_found')
+            return null
+          }
+
+          // Verificar si la cuenta está activa
+          if (user.active === false) {
+            securityLogger.logLoginFailed(email, ip, 'account_inactive')
+            return null
+          }
+
+          if (!user.password) {
+            securityLogger.logLoginFailed(email, ip, 'password_not_set')
+            return null
+          }
+
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
+
+          if (!isPasswordValid) {
+            securityLogger.logLoginFailed(email, ip, 'invalid_password')
+            return null
+          }
+
+          securityLogger.logLoginSuccess(user.id, email, ip)
+
+          const result = {
+            id: user.id,
+            name: user.email,
+            email: user.email,
+            role: user.role
+          } as User
+
+          console.log('[AUTH] User returned from authorize:', result)
+          return result
+        } catch (error) {
+          console.error('[AUTH] authorize error:', error)
           return null
         }
-
-        // Verificar si la cuenta está activa
-        if (user.active === false) {
-          securityLogger.logLoginFailed(email, ip, 'account_inactive')
-          throw new Error('Tu cuenta ha sido desactivada. Contacta con el administrador.')
-        }
-
-        if (!user.password) {
-          securityLogger.logLoginFailed(email, ip, 'password_not_set')
-          return null
-        }
-
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
-
-        if (!isPasswordValid) {
-          securityLogger.logLoginFailed(email, ip, 'invalid_password')
-          return null
-        }
-
-        securityLogger.logLoginSuccess(user.id, email, ip)
-
-        const result = {
-          id: user.id,
-          name: user.email,
-          email: user.email,
-          role: user.role
-        } as User
-        
-        console.log('[AUTH] User returned from authorize:', result)
-        return result
       }
     })
   ],

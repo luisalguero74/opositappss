@@ -54,10 +54,19 @@ export interface SecurityEvent {
 
 class SecurityLogger {
   private logsDir: string
+  private disabled: boolean
 
   constructor() {
-    this.logsDir = path.join(process.cwd(), 'logs', 'security')
-    this.ensureLogsDirectory()
+    const baseDir = process.env.VERCEL ? '/tmp' : process.cwd()
+    this.logsDir = path.join(baseDir, 'logs', 'security')
+    this.disabled = false
+
+    try {
+      this.ensureLogsDirectory()
+    } catch (error) {
+      this.disabled = true
+      console.error('[SecurityLogger] Disabled (cannot initialize log dir):', error)
+    }
   }
 
   private ensureLogsDirectory() {
@@ -84,14 +93,17 @@ class SecurityLogger {
     const logFile = this.getLogFilePath()
 
     try {
-      fs.appendFileSync(logFile, logEntry, 'utf8')
-      
-      // Si es crítico, también lo registramos en consola
-      if (event.severity === 'critical') {
-        console.error('🚨 CRITICAL SECURITY EVENT:', fullEvent)
+      if (!this.disabled) {
+        fs.appendFileSync(logFile, logEntry, 'utf8')
       }
     } catch (error) {
-      console.error('Error writing security log:', error)
+      this.disabled = true
+      console.error('[SecurityLogger] Error writing security log (disabling):', error)
+    } finally {
+      // En serverless es útil que eventos críticos se vean siempre en logs
+      if (event.severity === 'critical') {
+        console.error('CRITICAL SECURITY EVENT:', fullEvent)
+      }
     }
   }
 
