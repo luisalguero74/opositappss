@@ -5,6 +5,8 @@ import { prisma } from '@/lib/prisma'
 import { TEMARIO_OFICIAL } from '@/lib/temario-oficial'
 import { logError } from '@/lib/error-logger'
 import { temaCodigoFromTemaOficialId, temaCodigoVariants } from '@/lib/tema-codigo'
+import { PROMPT_MEJORADO_LGSS, PROMPT_MEJORADO_TEMAGENERAL } from '@/lib/prompts-mejorados'
+import { ValidadorPreguntas } from '@/lib/validador-preguntas'
 // Configuración aumentada para evitar timeouts
 export const maxDuration = 300 // 5 minutos
 export const dynamic = 'force-dynamic'
@@ -485,76 +487,11 @@ async function generarPreguntasLGSS(
     return []
   }
   
-  const prompt = `CONTEXTO: Eres un EXPERTO JURÍDICO especializado en la Ley General de la Seguridad Social (RDL 8/2015), con amplia experiencia en la elaboración de preguntas para los exámenes oficiales de oposiciones al Cuerpo General Administrativo de la Seguridad Social.
-
-OBJETIVO: Generar ${numPreguntas} preguntas tipo test profesionales basadas en exámenes oficiales reales de los últimos años (2022-2025).
-
-ESTÁNDAR DE CALIDAD:
-- Las preguntas deben tener el mismo nivel de rigor y complejidad que los exámenes oficiales
-- Lenguaje estrictamente profesional y legal
-- Referencias precisas a artículos, apartados y párrafos específicos del RDL 8/2015
-- Inclusión de normativa relacionada: Real Decreto 1606/1985, Orden de 6 de abril de 1990, etc.
-- Las opciones incorrectas deben basarse en errores comunes o confusiones reales del alumnado
-
-TEMAS PRINCIPALES (distribuye preguntas uniformemente):
-1. Objeto y ámbito de aplicación de la LGSS (Art. 1-5)
-2. Regímenes de la Seguridad Social (Art. 6-73) - General, Especiales, Autónomos
-3. Afiliación a la Seguridad Social (Art. 74-125) - Alta, Baja, Variaciones
-4. Cotización: bases, porcentajes y responsables (Art. 129-145)
-5. Recaudación, gestión de cuotas y bases de cotización (Art. 146-175)
-6. Estructura administrativa de la Seguridad Social (Art. 176-190)
-7. Prestaciones por Jubilación (Art. 199-216) - Ordinaria, anticipada, flexible
-8. Prestaciones por Incapacidad Temporal (Art. 128-135)
-9. Prestaciones por Incapacidad Permanente (Art. 137-151)
-10. Prestaciones por muerte y supervivencia (Art. 220-240)
-11. Prestaciones familiares y maternidad/paternidad (Art. 177-198)
-12. Desempleo, accidentes de trabajo y enfermedades profesionales (Art. 200-219)
-
-REQUISITOS OBLIGATORIOS:
-✓ 4 opciones por pregunta (UNA SOLA correcta)
-✓ Lenguaje completamente legal y profesional
-✓ CADA EXPLICACIÓN DEBE INCLUIR:
-  - Referencia específica: "Artículo X, apartado Y del RDL 8/2015"
-  - Cita textual o paráfrasis precisa de la normativa
-  - Normativa complementaria si aplica (Órdenes Ministeriales, RR.DD., etc.)
-  - Explicación del porqué de la respuesta y por qué son incorrectas las otras opciones
-✓ Distribución de dificultad: 30% fácil, 50% media, 20% difícil
-✓ Las opciones incorrectas deben ser "distractores plausibles" basados en:
-  - Interpretaciones erróneas de la normativa
-  - Confusión con otros regímenes o prestaciones
-  - Datos que casi cumplen requisitos pero con pequeñas diferencias
-✓ Varía la posición de la respuesta correcta (no siempre en la opción A)
-
-EJEMPLOS DE PREGUNTAS DE EXÁMENES REALES (estilo a seguir):
-"Según el artículo 129 del RDL 8/2015, ¿cuál es la base mínima de cotización en el régimen general para el año 2025?"
-"De conformidad con el artículo 15 de la Orden de 6 de abril de 1990, ¿qué sucede con la afiliación de un trabajador que cambia de actividad dentro de la misma empresa?"
-"A tenor de lo establecido en el artículo 199 del RDL 8/2015, ¿cuál es el período mínimo de cotización necesario para causar derecho a jubilación ordinaria?"
-
-FORMATO JSON OBLIGATORIO (es crítico):
-[
-  {
-    "pregunta": "Texto de la pregunta en formato oficial de examen",
-    "opciones": [
-      "Opción A con datos/normas específicas",
-      "Opción B con error plausible",
-      "Opción C con confusión común",
-      "Opción D con dato similar pero incorrecto"
-    ],
-    "respuestaCorrecta": 0,
-    "explicacion": "Artículo X, apartado Y del RDL 8/2015: [cita textual]. Por lo tanto, la respuesta correcta es A porque... Las opciones B, C y D son incorrectas porque... [referencias complementarias si aplica]",
-    "dificultad": "media"
-  }
-]
-
-INSTRUCCIONES FINALES:
-- Responde SOLO con el array JSON válido, sin texto adicional
-- Verifica que el JSON sea parseable
-- Asegúrate de que las explicaciones sean exhaustivas con referencias exactas
-- dificultad: "facil", "media" o "dificil"
-- respuestaCorrecta: 0=A, 1=B, 2=C, 3=D`
+  // Usar el prompt mejorado con ejemplos reales
+  const prompt = PROMPT_MEJORADO_LGSS(numPreguntas)
 
   try {
-    console.log('[LGSS] Llamando a Groq API...')
+    console.log('[LGSS] Llamando a Groq API con prompt mejorado...')
     const completion = await callGroqWithRetry(
       [
         {
@@ -567,7 +504,7 @@ INSTRUCCIONES FINALES:
         }
       ],
       'llama-3.3-70b-versatile',
-      0.7,
+      0.3, // Reducido de 0.7 a 0.3 para mayor precisión legal
       4000
     )
 
@@ -597,14 +534,33 @@ INSTRUCCIONES FINALES:
       return []
     }
 
+    // VALIDAR CALIDAD DE LAS PREGUNTAS
+    console.log('[LGSS] 🔍 Validando calidad de las preguntas generadas...')
+    const resultadoValidacion = ValidadorPreguntas.validarLote(preguntas)
+    console.log(resultadoValidacion.reporteGeneral)
+
+    // Filtrar solo preguntas válidas
+    const preguntasValidadas = preguntas.filter((p, i) => {
+      const validacion = ValidadorPreguntas.validar(p)
+      if (!validacion.valida) {
+        console.log(`   ⚠️ Pregunta ${i + 1} rechazada (puntuación ${validacion.puntuacion}/100):`)
+        console.log(`      Errores: ${validacion.errores.join(', ')}`)
+        return false
+      }
+      if (validacion.advertencias.length > 0) {
+        console.log(`   ℹ️ Pregunta ${i + 1} con advertencias: ${validacion.advertencias.join(', ')}`)
+      }
+      return true
+    })
+
     // Normalizar valores de dificultad
-    preguntas = preguntas.map(p => ({
+    const preguntasNormalizadas = preguntasValidadas.map(p => ({
       ...p,
       dificultad: normalizarDificultad(p.dificultad as string)
     }))
 
-    console.log(`[LGSS] ✅ Generadas ${preguntas.length} preguntas sobre LGSS exitosamente`)
-    return preguntas
+    console.log(`[LGSS] ✅ Generadas ${preguntasNormalizadas.length}/${preguntas.length} preguntas válidas sobre LGSS`)
+    return preguntasNormalizadas
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     const errorStack = error instanceof Error ? error.stack : undefined
