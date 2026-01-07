@@ -118,5 +118,25 @@ npx vercel --prod --yes
 
 ---
 
-**ESTADO:** ✅ Sistema completamente funcional (Generador + Aulas).  
-**PRÓXIMOS PASOS:** Generar preguntas para completar el banco de datos.
+## ⏰ CRON JOBS - CONFIGURADO
+
+**Sistema de generación automática de preguntas configurado**
+
+### Configuración
+- ✅ Endpoint: `/api/cron/generate-questions`
+- ✅ Schedule: Todos los días a las 3:00 AM UTC
+- ✅ Variables: `CRON_SECRET`, `GROQ_API_KEY`
+- ✅ Configurado en: `vercel.json`
+
+### Funcionamiento
+- Genera automáticamente 50 preguntas/día (5 temas × 10 preguntas)
+- Prioriza temas con menos de 100 preguntas
+- Crea cuestionarios no publicados
+
+### Verificación
+Ver documentación completa en: [CRON_CONFIGURACION.md](CRON_CONFIGURACION.md)
+
+---
+
+**ESTADO:** ✅ Sistema completamente funcional (Generador + Aulas + Cron).  
+**PRÓXIMOS PASOS:** El cron generará preguntas automáticamente cada noche.
