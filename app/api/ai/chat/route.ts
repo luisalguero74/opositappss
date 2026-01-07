@@ -2,9 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { searchRelevantContext, generateRAGResponse, explainConcept, generateDocumentSummary } from '@/lib/rag-system'
+import type { ChatMessage } from '@/lib/rag-system'
 import { prisma } from '@/lib/prisma'
 
 export async function POST(req: NextRequest) {
+  let query: string | undefined
+  let topic: string | undefined
+  let action: string | undefined
+  
   try {
     const session = await getServerSession(authOptions)
     
@@ -13,7 +18,12 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
-    const { query, conversationHistory = [], topic, action = 'chat' } = body
+    const parsedBody = body as { query?: string; conversationHistory?: ChatMessage[]; topic?: string; action?: string }
+    
+    query = parsedBody.query
+    topic = parsedBody.topic
+    action = parsedBody.action || 'chat'
+    const conversationHistory = parsedBody.conversationHistory || []
 
     if (!query) {
       return NextResponse.json({ error: 'Se requiere query' }, { status: 400 })
@@ -33,8 +43,11 @@ export async function POST(req: NextRequest) {
       }
     })
 
+    // Buscar secciones con documento válido (evitar nulls)
     const sections = await prisma.documentSection.findMany({
-      where: topic ? { document: { topic } } : {},
+      where: {
+        document: topic ? { topic, active: true } : { active: true }
+      },
       select: {
         id: true,
         title: true,
@@ -42,21 +55,32 @@ export async function POST(req: NextRequest) {
         document: {
           select: {
             title: true,
-            topic: true
+            topic: true,
+            active: true
           }
         }
       }
     })
 
+    // Filtrar secciones con documento null (por seguridad)
+    const validSections = sections.filter(sec => sec.document !== null)
+
     const mergedDocs = [
-      ...documents.map(doc => ({ id: doc.id, title: doc.title, content: doc.content, topic: doc.topic ?? undefined })),
-      ...sections.map(sec => ({
+      ...documents.map(doc => ({ 
+        id: doc.id, 
+        title: doc.title, 
+        content: doc.content, 
+        topic: doc.topic ?? undefined 
+      })),
+      ...validSections.map(sec => ({
         id: sec.id,
         title: `${sec.document.title} - ${sec.title}`,
         content: sec.content,
         topic: sec.document.topic ?? undefined
       }))
     ]
+
+    console.log(`📚 Documentos: ${documents.length}, Secciones válidas: ${validSections.length}`)
 
     const relevantContext = await searchRelevantContext(query, mergedDocs)
 
@@ -98,9 +122,20 @@ export async function POST(req: NextRequest) {
       }))
     })
   } catch (error: any) {
-    console.error('Error en chat RAG:', error)
+    console.error('❌ Error en chat RAG:', error)
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      query,
+      topic,
+      action
+    })
+    
     return NextResponse.json(
-      { error: error.message || 'Error al procesar consulta' },
+      { 
+        error: error.message || 'Error al procesar consulta',
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     )
   }

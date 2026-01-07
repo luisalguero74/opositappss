@@ -62,8 +62,8 @@ export async function searchRelevantContext(
   
   console.log(`[searchRelevantContext] Palabras clave: ${queryWords.join(', ')}`)
   
-  // Detectar referencias específicas a artículos (ej: "artículo 42", "art. 42", "art 42")
-  const articlePattern = /(?:artículo|art\.?|articulo)\s*(\d+(?:\.\d+)?)/gi
+  // Detectar referencias específicas a artículos (ej: "artículo 42", "art. 42", "art 42", "art. 205.1")
+  const articlePattern = /(?:artículo|art\.?|articulo)\s*(\d+(?:\.\d+)?(?:\.[a-z]\))?)/gi
   const articleMatches = [...queryLower.matchAll(articlePattern)]
   const mentionedArticles = articleMatches.map(m => m[1])
   
@@ -98,12 +98,18 @@ export async function searchRelevantContext(
     // 1. MÁXIMA PRIORIDAD: Si pregunta por un artículo específico y el documento lo contiene
     if (mentionedArticles.length > 0) {
       mentionedArticles.forEach(articleNum => {
+        // Escapar caracteres especiales en el número de artículo (para regex)
+        const escapedNum = articleNum.replace(/\./g, '\\.')
         // Buscar el artículo en el contenido con diferentes formatos
-        const articleRegex = new RegExp(`artículo\\s*${articleNum}[^0-9]|art\\.?\\s*${articleNum}[^0-9]`, 'gi')
+        // Soporta: "Artículo 205.1.a)", "Art. 205.1", "art 205", etc.
+        const articleRegex = new RegExp(
+          `artículo\\s*${escapedNum}[^0-9a-z]|art\\.?\\s*${escapedNum}[^0-9a-z]`,
+          'gi'
+        )
         const articleFound = articleRegex.test(contentLower)
         if (articleFound) {
-          score += 500 // Puntuación masiva si encuentra el artículo exacto
-          console.log(`  ✅ Artículo ${articleNum} encontrado`)
+          score += 1000 // Puntuación MASIVA si encuentra el artículo exacto
+          console.log(`  ✅ Artículo ${articleNum} encontrado - PRIORIDAD MÁXIMA`)
         }
       })
     }
@@ -250,21 +256,36 @@ export async function generateRAGResponse(
   // Agregar documentos con contenido limitado inteligentemente
   context.forEach((doc, idx) => {
     // Limitar cada documento de forma inteligente
-    const maxDocLength = doc.documentType === 'ley' ? 2500 : 1500
+    const maxDocLength = doc.documentType === 'ley' ? 3500 : 2000
     
     // Si la query menciona artículo específico, intentar encontrarlo y dar más contexto
-    const articleMatch = userQuery.match(/artículo\s*(\d+)/i)
+    const articleMatch = userQuery.match(/artículo\s*(\d+(?:\.\d+)?(?:\.[a-z]\))?)/i)
     let contentSnippet = ''
     
-    if (articleMatch && doc.content.toLowerCase().includes(`artículo ${articleMatch[1]}`)) {
+    if (articleMatch && doc.content.toLowerCase().includes(`artículo ${articleMatch[1].toLowerCase()}`)) {
       // Encontrar el artículo y extraer contexto amplio
-      const articleRegex = new RegExp(`(artículo\\s*${articleMatch[1]}[^]*?)(artículo\\s*\\d+|$)`, 'gi')
+      const articleNum = articleMatch[1].replace(/\./g, '\\.')
+      const articleRegex = new RegExp(
+        `(artículo\\s*${articleNum}[\\s\\S]*?)(\\n\\s*artículo\\s*\\d+|$)`,
+        'gi'
+      )
       const articleContent = doc.content.match(articleRegex)
       if (articleContent && articleContent[0]) {
-        contentSnippet = articleContent[0].substring(0, maxDocLength)
-        console.log(`  📌 Extrayendo artículo ${articleMatch[1]} específicamente`)
+        // Incluir artículo completo + algo de contexto posterior
+        const extracted = articleContent[0].substring(0, maxDocLength)
+        contentSnippet = extracted
+        console.log(`  📌 Extrayendo artículo ${articleMatch[1]} específicamente (${extracted.length} chars)`)
       } else {
-        contentSnippet = doc.content.substring(0, maxDocLength)
+        // Fallback: buscar el artículo de forma más amplia
+        const index = doc.content.toLowerCase().indexOf(`artículo ${articleMatch[1].toLowerCase()}`)
+        if (index !== -1) {
+          // Extraer desde 200 chars antes hasta maxDocLength después
+          const start = Math.max(0, index - 200)
+          contentSnippet = doc.content.substring(start, start + maxDocLength)
+          console.log(`  📌 Extrayendo contexto amplio del artículo ${articleMatch[1]}`)
+        } else {
+          contentSnippet = doc.content.substring(0, maxDocLength)
+        }
       }
     } else {
       contentSnippet = doc.content.substring(0, maxDocLength)
@@ -289,29 +310,49 @@ export async function generateRAGResponse(
   console.log(`[RAG] Contexto optimizado: ${contextText.length} caracteres totales`)
   console.log(`[RAG] Documentos incluidos: ${context.length}`)
 
-  // System prompt muy conciso y directo
-  const systemPrompt = `Eres un experto jurídico en Seguridad Social Española especializado en preparación de oposiciones.
+  // System prompt MEJORADO: más estricto y preciso
+  const systemPrompt = `Eres un ASESOR JURÍDICO EXPERTO en Seguridad Social Española y preparación de oposiciones al Cuerpo General Administrativo de la Seguridad Social.
 
-REGLAS CRÍTICAS DE RESPUESTA:
-1. ✅ RESPONDE SOLO con información de los documentos proporcionados abajo
-2. ✅ CITA SIEMPRE la fuente: "[Artículo X de LEY Y]" o "[Tema Z: Sección...]"
-3. ✅ Para artículos específicos: cita textualmente el número y contenido
-4. ✅ Si NO encuentras información: responde "No dispongo de información sobre [tema] en los documentos disponibles"
-5. ❌ NUNCA inventes artículos, números, porcentajes o datos
-6. ❌ NUNCA menciones "Artículo X" si no está en los documentos
-7. ✅ Si hay varios documentos con información: menciona todos
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ REGLAS ABSOLUTAS - INCUMPLIMIENTO = RESPUESTA INVÁLIDA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-FORMATO DE RESPUESTA:
-- Inicia con la respuesta directa
-- Luego explica con detalle
-- Cita fuentes específicas con formato: **[Artículo XXX de LGSS]** o **[Tema X: título]**
-- Si son varios artículos: enuméralos
-- Incluye ejemplos prácticos si los hay en los documentos
+✅ SOLO información de los documentos proporcionados
+✅ CITA TEXTUAL de artículos cuando los menciones: "El artículo X.Y establece: '[CITA EXACTA]'"
+✅ FORMATO de referencias: **[Artículo XXX del RDL 8/2015]**, **[Tema X: título]**
+✅ Si un artículo NO está en los documentos: responde "No dispongo del texto del artículo X en los documentos disponibles. Recomiendo consultar el BOE."
+✅ Si NO hay información: "No encuentro información sobre [tema] en la documentación disponible."
 
-DOCUMENTOS DISPONIBLES:
+❌ PROHIBIDO ABSOLUTAMENTE:
+   - Inventar números de artículos
+   - Mencionar artículos que no están en los documentos
+   - Dar información no presente en los documentos
+   - Usar datos aproximados o "probablemente"
+   - Decir "según el artículo X" si X no aparece arriba
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📚 DOCUMENTOS DISPONIBLES PARA CONSULTA:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${contextText}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-IMPORTANTE: Si mencionas un artículo, cita el número EXACTO que aparece arriba. Si no está, NO lo menciones.`
+📋 FORMATO DE RESPUESTA OBLIGATORIO:
+
+1. **RESPUESTA DIRECTA** (1-2 frases con la respuesta principal)
+
+2. **FUNDAMENTACIÓN LEGAL** (citar artículos específicos):
+   - **[Artículo XXX del RDL 8/2015]**: "[Cita textual del artículo]"
+   - **[Tema X: Título]**: Contenido relevante
+
+3. **EXPLICACIÓN DETALLADA** (desarrollar conceptos si están en documentos)
+
+4. **EJEMPLOS PRÁCTICOS** (solo si los documentos los incluyen)
+
+5. **FUENTES CONSULTADAS**: Listar documentos utilizados
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+RECORDATORIO: Si dudas de que un dato esté en los documentos, NO lo menciones. Es mejor decir "no tengo esa información" que inventarla.`
 
   const messages: ChatMessage[] = [
     { role: 'system', content: systemPrompt },
@@ -330,10 +371,10 @@ IMPORTANTE: Si mencionas un artículo, cita el número EXACTO que aparece arriba
         content: m.content
       })),
       model: 'llama-3.3-70b-versatile',
-      temperature: 0.05, // MUY BAJA: máxima precisión, mínima invención
-      max_tokens: 1500,
-      top_p: 0.9, // Reducir creatividad
-      frequency_penalty: 0.2, // Evitar repetición
+      temperature: 0.1, // MUY BAJA: máxima precisión, casi cero invención
+      max_tokens: 2000, // Permitir respuestas más completas
+      top_p: 0.85, // Reducir creatividad aún más
+      frequency_penalty: 0.3, // Evitar repetición
       presence_penalty: 0.1 // Mantener enfoque
     })
 
