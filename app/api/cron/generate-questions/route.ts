@@ -131,17 +131,24 @@ Formato JSON:
 
 export async function GET(req: NextRequest) {
   try {
-    // Verificar autenticación por token secreto
+    // Verificar autenticación por token secreto (Vercel Cron envía header específico)
     const authHeader = req.headers.get('authorization')
     const cronSecret = process.env.CRON_SECRET
+    
+    // Vercel Cron Jobs también puede verificarse por el header específico
+    const vercelCronHeader = req.headers.get('x-vercel-cron')
 
     if (!cronSecret) {
       console.error('[Cron] CRON_SECRET no configurado')
       return NextResponse.json({ error: 'Configuración incompleta' }, { status: 500 })
     }
 
-    if (authHeader !== `Bearer ${cronSecret}`) {
-      console.error('[Cron] Token inválido')
+    // Aceptar tanto el header de Vercel Cron como autenticación manual
+    const isVercelCron = vercelCronHeader === '1'
+    const isValidManualAuth = authHeader === `Bearer ${cronSecret}`
+
+    if (!isVercelCron && !isValidManualAuth) {
+      console.error('[Cron] Token inválido o no es Vercel Cron')
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
