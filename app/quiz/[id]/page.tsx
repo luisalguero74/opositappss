@@ -309,6 +309,7 @@ export default function QuizPage() {
 
   const results = getResults()
   const allAnswered = userAnswers.length === questionnaire.questions.length
+  const hasAnswers = userAnswers.length > 0
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8 px-4">
@@ -511,14 +512,15 @@ export default function QuizPage() {
               </button>
               <button
                 onClick={handleCorrection}
-                disabled={!allAnswered || submitting || timeExpired}
+                disabled={submitting || timeExpired}
                 className={`px-8 py-3 rounded-lg font-bold text-white transition-all ${
-                  allAnswered && !submitting && !timeExpired
+                  !submitting && !timeExpired
                     ? 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 shadow-lg'
                     : 'bg-gray-300 cursor-not-allowed'
                 }`}
+                title={!allAnswered ? `Has respondido ${userAnswers.length} de ${questionnaire.questions.length} preguntas. Puedes corregir igualmente.` : 'Corregir todas las respuestas'}
               >
-                {submitting ? 'Enviando...' : '✓ CORRECCIÓN'}
+                {submitting ? 'Enviando...' : allAnswered ? '✓ CORRECCIÓN' : `✓ CORRECCIÓN (${userAnswers.length}/${questionnaire.questions.length})`}
               </button>
             </>
           ) : (
