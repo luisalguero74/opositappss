@@ -70,6 +70,7 @@ export default function QuizPage() {
     }
 
     if (params.id) {
+      // Cargar cuestionario
       fetch(`/api/questionnaires/${params.id}`)
         .then(res => res.json())
         .then(data => {
@@ -83,6 +84,19 @@ export default function QuizPage() {
           }
           setQuestionnaire(parsedData)
           setLoading(false)
+          
+          // Cargar preguntas marcadas del usuario para este cuestionario
+          if (parsedData.questions?.length > 0) {
+            fetch('/api/user/marked-questions')
+              .then(res => res.json())
+              .then(markedData => {
+                if (markedData.marked) {
+                  const markedIds = new Set(markedData.marked.map((m: any) => m.questionId))
+                  setMarkedQuestions(markedIds)
+                }
+              })
+              .catch(err => console.error('Error loading marked questions:', err))
+          }
         })
         .catch(err => {
           console.error(err)
@@ -142,10 +156,24 @@ export default function QuizPage() {
 
       if (res.ok) {
         setMarkedQuestions(prev => new Set(prev).add(questionId))
-        // Opcional: mostrar notificación de éxito
+        
+        // Mostrar notificación de éxito
+        const typeText = type === 'doubt' ? 'Duda 🤔' : type === 'review' ? 'Repasar 📚' : 'Importante ⭐'
+        const toast = document.createElement('div')
+        toast.className = 'fixed top-20 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in'
+        toast.textContent = `✓ Marcada como: ${typeText}`
+        document.body.appendChild(toast)
+        setTimeout(() => {
+          toast.remove()
+        }, 2000)
+      } else {
+        const errorData = await res.json()
+        console.error('Error al marcar:', errorData)
+        alert('Error al marcar la pregunta. Inténtalo de nuevo.')
       }
     } catch (err) {
       console.error('Error marking question:', err)
+      alert('Error de conexión. Inténtalo de nuevo.')
     } finally {
       setMarkingQuestion(null)
     }
