@@ -91,7 +91,7 @@ export default function QuizPage() {
               .then(res => res.json())
               .then(markedData => {
                 if (markedData.marked) {
-                  const markedIds = new Set(markedData.marked.map((m: any) => m.questionId))
+                  const markedIds = new Set<string>(markedData.marked.map((m: any) => m.questionId as string))
                   setMarkedQuestions(markedIds)
                 }
               })
