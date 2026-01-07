@@ -88,13 +88,35 @@ npm run dev
 
 # Exportar preguntas locales
 node export-questions-local.mjs
-**ESTADO:** ✅ Sistema completamente funcional.  
-**PRÓXIMOS PASOS:** Generar preguntas para completar el banco de datos
-1. **Cambiar a OpenAI** (más confiable pero de pago)
-2. **Proxy/workaround** para Groq
-3. **Continuar con método local** (funciona 100%)
+
+# Build y deploy
+npm run build
+npx vercel --prod --yes
+```
 
 ---
 
-**ESTADO:** Sistema funcional con método export/import.  
-**PENDIENTE:** Verificar si reintentos solucionan conexión Groq en producción.
+## 🎥 AULAS VIRTUALES - CONFIGURADAS
+
+**Problema resuelto:** Pantalla negra al unirse (variables LiveKit no configuradas)
+
+### Variables LiveKit en Vercel
+- ✅ `LIVEKIT_URL`: Configurada
+- ✅ `LIVEKIT_API_KEY`: Configurada
+- ✅ `LIVEKIT_API_SECRET`: Configurada
+
+### Funcionalidades activas
+- ✅ Crear y publicar aulas (admin con rol moderador)
+- ✅ Video/audio funcionando
+- ✅ Chat en tiempo real
+- ✅ Menú flotante para salir
+- ✅ Permisos de moderador
+
+### URLs
+- Admin: https://opositappss.vercel.app/admin (Gestionar Aulas)
+- Usuario: https://opositappss.vercel.app/classrooms
+
+---
+
+**ESTADO:** ✅ Sistema completamente funcional (Generador + Aulas).  
+**PRÓXIMOS PASOS:** Generar preguntas para completar el banco de datos.
