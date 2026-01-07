@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || (session.user && session.user.role !== 'ADMIN')) {
+    if (!session || (session.user && String(session.user.role || '').toLowerCase() !== 'admin')) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || (session.user && session.user.role !== 'admin')) {
+    if (!session || (session.user && String(session.user.role || '').toLowerCase() !== 'admin')) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 

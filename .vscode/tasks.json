@@ -26,6 +26,198 @@
 			"command": "npm run dev",
 			"isBackground": true,
 			"problemMatcher": []
+		},
+		{
+			"label": "Build (Production)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Deploy Vercel (Prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"--prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

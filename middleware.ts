@@ -12,7 +12,7 @@ const RATE_LIMITS = {
   '/api/': { requests: 50, window: 60000 }, // 50 requests por minuto para otras APIs
 }
 
-// Security headers
+// Security headers (base)
 const securityHeaders = {
   'X-DNS-Prefetch-Control': 'on',
   'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
@@ -20,11 +20,13 @@ const securityHeaders = {
   'X-Content-Type-Options': 'nosniff',
   'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
+  // Default-deny; some routes (classrooms) override to allow Jitsi.
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
 }
 
 // Content Security Policy
-const CSP = `
+// IMPORTANT: Do not duplicate directives (e.g. multiple `script-src`). Browsers only honor the first occurrence.
+const CSP_BASE = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
@@ -33,6 +35,22 @@ const CSP = `
   connect-src 'self' https://api.groq.com https://api.stripe.com wss:;
   media-src 'self' data: blob:;
   frame-src 'self' https://js.stripe.com;
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'self';
+  upgrade-insecure-requests;
+`.replace(/\s{2,}/g, ' ').trim()
+
+const CSP_JITSI = `
+  default-src 'self';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: https://js.stripe.com https://cdn.jsdelivr.net https://meet.jit.si https://*.jit.si https://*.jitsi.net;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  img-src 'self' data: https: blob:;
+  font-src 'self' data: https://fonts.gstatic.com;
+  connect-src 'self' https://api.groq.com https://api.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net https://meet-jit-si-turnrelay.jitsi.net wss:;
+  media-src 'self' data: blob:;
+  worker-src 'self' blob:;
+  frame-src 'self' https://js.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net;
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'self';
@@ -119,8 +137,17 @@ export async function middleware(request: NextRequest) {
   Object.entries(securityHeaders).forEach(([key, value]) => {
     response.headers.set(key, value)
   })
-  
-  response.headers.set('Content-Security-Policy', CSP)
+
+  const isClassroomRoute = pathname.startsWith('/classroom')
+  response.headers.set('Content-Security-Policy', isClassroomRoute ? CSP_JITSI : CSP_BASE)
+
+  if (isClassroomRoute) {
+    // Allow camera/mic for embedded Jitsi in classroom pages
+    response.headers.set(
+      'Permissions-Policy',
+      'camera=(self "https://meet.jit.si" "https://*.jit.si" "https://*.jitsi.net"), microphone=(self "https://meet.jit.si" "https://*.jit.si" "https://*.jitsi.net"), geolocation=()'
+    )
+  }
 
   // Rate limiting para rutas API
   if (pathname.startsWith('/api/')) {
@@ -161,7 +188,7 @@ export async function middleware(request: NextRequest) {
 
     // Verificar si es ruta de admin y si el usuario es admin
     if (adminRoutes.some(route => pathname.startsWith(route))) {
-      if (token.role !== 'admin') {
+      if (String(token.role || '').toLowerCase() !== 'admin') {
         return NextResponse.redirect(new URL('/dashboard', request.url))
       }
     }

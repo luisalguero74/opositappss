@@ -11,8 +11,8 @@ export async function GET() {
       return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
+    const user = await prisma.user.findFirst({
+      where: { email: { equals: session.user.email, mode: 'insensitive' } },
       include: {
         classroomParticipants: {
           where: {
@@ -57,6 +57,7 @@ export async function GET() {
       description: p.classroom.description,
       roomId: p.classroom.roomId,
       active: p.classroom.active,
+      requiresPassword: Boolean((p.classroom as any).password),
       participant: {
         role: p.role,
         joinedAt: p.joinedAt

@@ -75,21 +75,52 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    jwt: ({ token, user }: { token: JWT & { role?: string }; user?: User }) => {
+    jwt: async ({ token, user }: { token: JWT & { role?: string }; user?: User }) => {
       console.log('[JWT Callback] user:', user, 'token before:', token)
-      if (user && 'role' in user) {
-        token.role = (user as unknown as { role?: string }).role
-        console.log('[JWT Callback] token role set to:', token.role)
+      try {
+        if (user && 'role' in user) {
+          token.role = String((user as unknown as { role?: string }).role || '').toLowerCase()
+          console.log('[JWT Callback] token role set to (from user):', token.role)
+        } else if (!token.role && token.sub) {
+          // Backfill role for old sessions/tokens that predate role propagation
+          const dbUser = await prisma.user.findUnique({
+            where: { id: token.sub },
+            select: { role: true }
+          })
+          if (dbUser?.role) {
+            token.role = String(dbUser.role).toLowerCase()
+            console.log('[JWT Callback] token role backfilled (from DB):', token.role)
+          }
+        }
+      } catch (error) {
+        console.error('[JWT Callback] role hydration error:', error)
       }
       console.log('[JWT Callback] token after:', token)
       return token
     },
-    session: ({ session, token }: { session: Session; token: JWT & { role?: string } }) => {
+    session: async ({ session, token }: { session: Session; token: JWT & { role?: string } }) => {
       console.log('[Session Callback] token:', token, 'session before:', session)
-      // Solo añadimos id y rol cuando existe un usuario en sesión (evita errores en estado no autenticado)
-      if (session.user) {
-        session.user.id = token.sub ?? session.user.id
-        session.user.role = token.role ?? session.user.role ?? 'user'
+      try {
+        // Solo añadimos id y rol cuando existe un usuario en sesión (evita errores en estado no autenticado)
+        if (session.user) {
+          session.user.id = token.sub ?? session.user.id
+
+          let role: string | undefined = token.role ?? session.user.role
+          if (!role && session.user.id) {
+            const dbUser = await prisma.user.findUnique({
+              where: { id: session.user.id },
+              select: { role: true }
+            })
+            role = dbUser?.role ? String(dbUser.role) : undefined
+          }
+
+          session.user.role = String(role ?? 'user').toLowerCase()
+        }
+      } catch (error) {
+        console.error('[Session Callback] role hydration error:', error)
+        if (session.user) {
+          session.user.role = String(session.user.role ?? token.role ?? 'user').toLowerCase()
+        }
       }
       console.log('[Session Callback] session after:', session)
       return session

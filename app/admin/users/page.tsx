@@ -72,19 +72,24 @@ export default function UsersManagement() {
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
+    if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
       router.push('/dashboard')
     }
   }, [session, status, router])
 
   useEffect(() => {
+    if (status !== 'authenticated') return
+    if (String(session?.user?.role || '').toLowerCase() !== 'admin') return
     loadUsers()
-  }, [])
+  }, [status, session])
 
   const loadUsers = async () => {
     try {
       console.log('[Users Management] Cargando usuarios...')
-      const res = await fetch('/api/admin/users')
+      const res = await fetch('/api/admin/users', {
+        cache: 'no-store',
+        credentials: 'include'
+      })
       console.log('[Users Management] Respuesta:', res.status, res.ok)
       if (res.ok) {
         const data = await res.json()
@@ -206,6 +211,45 @@ export default function UsersManagement() {
       }
     } catch (error) {
       console.error('Error deleting user:', error)
+    }
+  }
+
+  const handleResetPassword = async (user: User) => {
+    if (String(user.role || '').toLowerCase() === 'admin') {
+      alert('No se permite resetear la contraseña de un administrador')
+      return
+    }
+
+    if (!confirm(`¿Resetear la contraseña de ${user.email}?\n\nSe generará una contraseña temporal y se mostrará una sola vez.`)) {
+      return
+    }
+
+    try {
+      const res = await fetch(`/api/admin/users/${user.id}/reset-password`, {
+        method: 'POST'
+      })
+
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        alert(data?.error || 'Error al resetear contraseña')
+        return
+      }
+
+      const newPassword = String(data?.newPassword || '')
+      if (!newPassword) {
+        alert('Contraseña reseteada, pero no se pudo obtener la nueva contraseña')
+        return
+      }
+
+      try {
+        await navigator.clipboard.writeText(newPassword)
+        alert(`✅ Contraseña temporal generada (copiada al portapapeles):\n\n${newPassword}\n\nComunícasela al usuario y recomiéndale cambiarla tras entrar.`)
+      } catch {
+        alert(`✅ Contraseña temporal generada:\n\n${newPassword}\n\nComunícasela al usuario y recomiéndale cambiarla tras entrar.`)
+      }
+    } catch (error) {
+      console.error('Error resetting password:', error)
+      alert('Error al resetear contraseña')
     }
   }
 
@@ -411,6 +455,23 @@ export default function UsersManagement() {
                         title="Exportar historial completo"
                       >
                         📥 Exportar
+                      </button>
+
+                      <button
+                        onClick={() => handleResetPassword(selectedUser)}
+                        className={`px-4 py-2 font-semibold rounded-lg transition ${
+                          String(selectedUser.role || '').toLowerCase() === 'admin'
+                            ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                            : 'bg-purple-600 text-white hover:bg-purple-700'
+                        }`}
+                        title={
+                          String(selectedUser.role || '').toLowerCase() === 'admin'
+                            ? 'No permitido para administradores'
+                            : 'Genera una contraseña temporal'
+                        }
+                        disabled={String(selectedUser.role || '').toLowerCase() === 'admin'}
+                      >
+                        🔑 Reset contraseña
                       </button>
                       
                       <button

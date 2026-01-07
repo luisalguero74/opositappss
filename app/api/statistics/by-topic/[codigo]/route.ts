@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { use } from 'react';
+import { temaCodigoVariants } from '@/lib/tema-codigo';
 
 export async function GET(
   request: Request,
@@ -15,6 +16,7 @@ export async function GET(
     }
 
     const { codigo } = await context.params;
+    const codigoVariants = temaCodigoVariants(String(codigo)).map(c => c.toUpperCase());
 
     // Obtener respuestas del usuario para este tema
     // @ts-ignore - Prisma tipos no actualizados
@@ -22,7 +24,7 @@ export async function GET(
       where: {
         userId: session.user.id,
         question: {
-          temaCodigo: codigo,
+          temaCodigo: { in: codigoVariants },
         } as any,
       },
       include: {

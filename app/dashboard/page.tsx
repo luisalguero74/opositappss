@@ -14,16 +14,10 @@ export default function Dashboard() {
 
   if (!session) return <div>Cargando...</div>
 
-  // DEBUG: Mostrar el rol en pantalla
-  const debugRole = (
-    <div style={{background:'#ffeeba',color:'#333',padding:'8px',marginBottom:'8px',borderRadius:'6px',fontWeight:'bold'}}>
-      Rol detectado: {session.user?.role || 'Sin rol'}
-    </div>
-  )
+  const isAdmin = String(session.user?.role || '').toLowerCase() === 'admin'
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
-      {debugRole}
       <SubscriptionBanner />
       <HelpButton />
       <div className="p-4">
@@ -213,7 +207,7 @@ export default function Dashboard() {
         </div>
 
         {/* Panel Admin - Solo para administradores */}
-        { session.user?.role === 'ADMIN' && (
+        {isAdmin && (
           <Link href="/admin" className="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition mb-4">
             <div className="bg-gradient-to-r from-red-500 to-orange-600 p-4 flex items-center justify-between">
               <h2 className="text-lg font-bold text-white">Panel de Administrador</h2>

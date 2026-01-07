@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -33,9 +33,12 @@ export default function QuestionsReview() {
   const [editData, setEditData] = useState<any>({})
   const [filter, setFilter] = useState<'all' | 'general' | 'especifico'>('all')
   const [difficultyFilter, setDifficultyFilter] = useState<'all' | 'facil' | 'media' | 'dificil'>('all')
+  const [selectedTemas, setSelectedTemas] = useState<number[]>([])
+  const [selectedQuestions, setSelectedQuestions] = useState<Set<string>>(new Set())
+  const [creatingQuestionnaire, setCreatingQuestionnaire] = useState(false)
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
+    if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
       router.push('/dashboard')
     } else if (status === 'authenticated') {
       loadQuestions()
@@ -123,9 +126,25 @@ export default function QuestionsReview() {
     }
   }
 
+  // Obtener lista única de temas según el filtro de categoría
+  const availableTemas = useMemo(() => {
+    const temas = new Map<number, string>()
+    questions
+      .filter(q => filter === 'all' || q.temaParte?.toLowerCase() === filter)
+      .forEach(q => {
+        if (q.temaNumero !== null && q.temaTitulo) {
+          temas.set(q.temaNumero, q.temaTitulo)
+        }
+      })
+    return Array.from(temas.entries())
+      .sort((a, b) => a[0] - b[0])
+      .map(([num, titulo]) => ({ numero: num, titulo }))
+  }, [questions, filter])
+
   const filteredQuestions = questions.filter(q => {
     if (filter !== 'all' && q.temaParte?.toLowerCase() !== filter) return false
     if (difficultyFilter !== 'all' && q.difficulty !== difficultyFilter) return false
+    if (selectedTemas.length > 0 && !selectedTemas.includes(q.temaNumero || -1)) return false
     return true
   })
 
@@ -140,7 +159,77 @@ export default function QuestionsReview() {
     return acc
   }, {} as Record<string, { questionnaire: any, questions: Question[] }>)
 
-  if (!session || !session.user || session.user.role !== 'ADMIN') {
+  const handleToggleQuestion = (id: string) => {
+    const newSelected = new Set(selectedQuestions)
+    if (newSelected.has(id)) {
+      newSelected.delete(id)
+    } else {
+      newSelected.add(id)
+    }
+    setSelectedQuestions(newSelected)
+  }
+
+  const handleSelectAll = () => {
+    if (selectedQuestions.size === filteredQuestions.length) {
+      setSelectedQuestions(new Set())
+    } else {
+      setSelectedQuestions(new Set(filteredQuestions.map(q => q.id)))
+    }
+  }
+
+  const handleToggleTema = (temaNum: number) => {
+    setSelectedTemas(prev => 
+      prev.includes(temaNum) 
+        ? prev.filter(t => t !== temaNum)
+        : [...prev, temaNum]
+    )
+  }
+
+  const handleSelectAllTemas = () => {
+    if (selectedTemas.length === availableTemas.length) {
+      setSelectedTemas([])
+    } else {
+      setSelectedTemas(availableTemas.map(t => t.numero))
+    }
+  }
+
+  const handleCreateQuestionnaireFromSelected = async () => {
+    if (selectedQuestions.size === 0) {
+      alert('Selecciona al menos una pregunta')
+      return
+    }
+
+    const title = prompt(`Nombre del cuestionario (${selectedQuestions.size} preguntas):`)
+    if (!title) return
+
+    setCreatingQuestionnaire(true)
+    try {
+      const res = await fetch('/api/admin/questionnaires/from-selection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title,
+          questionIds: Array.from(selectedQuestions)
+        })
+      })
+
+      const data = await res.json()
+      if (res.ok) {
+        alert(`✅ Cuestionario "${title}" creado con ${selectedQuestions.size} preguntas`)
+        setSelectedQuestions(new Set())
+        loadQuestions()
+      } else {
+        alert(`Error: ${data.error || 'No se pudo crear el cuestionario'}`)
+      }
+    } catch (error) {
+      console.error('Error creando cuestionario:', error)
+      alert('Error al crear cuestionario')
+    } finally {
+      setCreatingQuestionnaire(false)
+    }
+  }
+
+  if (!session || !session.user || String(session.user.role || '').toLowerCase() !== 'admin') {
     return null
   }
 
@@ -169,12 +258,15 @@ export default function QuestionsReview() {
 
         {/* Filtros */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Filtrar por Categoría:</label>
               <select
                 value={filter}
-                onChange={(e) => setFilter(e.target.value as any)}
+                onChange={(e) => {
+                  setFilter(e.target.value as any)
+                  setSelectedTemas([])
+                }}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">Todos</option>
@@ -195,7 +287,68 @@ export default function QuestionsReview() {
                 <option value="dificil">Difícil</option>
               </select>
             </div>
+            <div className="flex items-end">
+              <div className="w-full">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Preguntas mostradas: {filteredQuestions.length}
+                </label>
+                <div className="text-sm text-gray-600">
+                  Seleccionadas: {selectedQuestions.size}
+                </div>
+              </div>
+            </div>
           </div>
+
+          {/* Filtro de Temas */}
+          {availableTemas.length > 0 && (
+            <div className="mt-4 pt-4 border-t">
+              <div className="flex items-center justify-between mb-3">
+                <label className="text-sm font-semibold text-gray-700">
+                  Filtrar por Tema ({filter === 'general' ? 'General' : filter === 'especifico' ? 'Específico' : 'Todos'}):
+                </label>
+                <button
+                  onClick={handleSelectAllTemas}
+                  className="text-sm text-blue-600 hover:text-blue-800 font-semibold"
+                >
+                  {selectedTemas.length === availableTemas.length ? 'Deseleccionar todos' : 'Seleccionar todos'}
+                </button>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-48 overflow-y-auto border rounded-lg p-3 bg-gray-50">
+                {availableTemas.map(tema => (
+                  <label key={tema.numero} className="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 p-2 rounded">
+                    <input
+                      type="checkbox"
+                      checked={selectedTemas.includes(tema.numero)}
+                      onChange={() => handleToggleTema(tema.numero)}
+                      className="rounded text-blue-600 focus:ring-blue-500"
+                    />
+                    <span className="text-sm">
+                      Tema {tema.numero}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Acciones de selección masiva */}
+          {filteredQuestions.length > 0 && (
+            <div className="mt-4 pt-4 border-t flex gap-3 flex-wrap">
+              <button
+                onClick={handleSelectAll}
+                className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 font-semibold text-sm"
+              >
+                {selectedQuestions.size === filteredQuestions.length ? '☑️ Deseleccionar todas' : '☐ Seleccionar todas'}
+              </button>
+              <button
+                onClick={handleCreateQuestionnaireFromSelected}
+                disabled={selectedQuestions.size === 0 || creatingQuestionnaire}
+                className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-sm"
+              >
+                {creatingQuestionnaire ? '⏳ Creando...' : `📝 Crear Cuestionario (${selectedQuestions.size})`}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Cuestionarios */}
@@ -305,57 +458,70 @@ export default function QuestionsReview() {
                     </div>
                   ) : (
                     /* Modo Vista */
-                    <div>
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-semibold text-blue-600">
-                              {q.temaParte} - Tema {q.temaNumero}
-                            </span>
-                            <span className={`text-xs px-2 py-1 rounded ${
-                              q.difficulty === 'facil' ? 'bg-green-100 text-green-700' :
-                              q.difficulty === 'media' ? 'bg-yellow-100 text-yellow-700' :
-                              'bg-red-100 text-red-700'
-                            }`}>
-                              {q.difficulty}
-                            </span>
-                          </div>
-                          <p className="text-lg font-bold text-gray-800 mb-3">
-                            {index + 1}. {q.text}
-                          </p>
-                          <div className="space-y-2 mb-3">
-                            {JSON.parse(q.options).map((opt: string, i: number) => (
-                              <div 
-                                key={i}
-                                className={`px-3 py-2 rounded ${
-                                  String.fromCharCode(65 + i) === q.correctAnswer 
-                                    ? 'bg-green-100 border-2 border-green-400 font-semibold' 
-                                    : 'bg-gray-50'
-                                }`}
-                              >
-                                {String.fromCharCode(65 + i)}) {opt}
-                              </div>
-                            ))}
-                          </div>
-                          <div className="bg-blue-50 border-l-4 border-blue-500 p-3">
-                            <p className="text-sm text-gray-700">
-                              <strong>Explicación:</strong> {q.explanation}
+                    <div className="flex items-start gap-3">
+                      {/* Checkbox de selección */}
+                      <div className="pt-1">
+                        <input
+                          type="checkbox"
+                          checked={selectedQuestions.has(q.id)}
+                          onChange={() => handleToggleQuestion(q.id)}
+                          className="w-5 h-5 rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                          title="Seleccionar pregunta"
+                        />
+                      </div>
+                      
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <span className="text-sm font-semibold text-blue-600">
+                                {q.temaParte} - Tema {q.temaNumero}
+                              </span>
+                              <span className={`text-xs px-2 py-1 rounded ${
+                                q.difficulty === 'facil' ? 'bg-green-100 text-green-700' :
+                                q.difficulty === 'media' ? 'bg-yellow-100 text-yellow-700' :
+                                'bg-red-100 text-red-700'
+                              }`}>
+                                {q.difficulty}
+                              </span>
+                            </div>
+                            <p className="text-lg font-bold text-gray-800 mb-3">
+                              {index + 1}. {q.text}
                             </p>
+                            <div className="space-y-2 mb-3">
+                              {JSON.parse(q.options).map((opt: string, i: number) => (
+                                <div 
+                                  key={i}
+                                  className={`px-3 py-2 rounded ${
+                                    String.fromCharCode(65 + i) === q.correctAnswer 
+                                      ? 'bg-green-100 border-2 border-green-400 font-semibold' 
+                                      : 'bg-gray-50'
+                                  }`}
+                                >
+                                  {String.fromCharCode(65 + i)}) {opt}
+                                </div>
+                              ))}
+                            </div>
+                            <div className="bg-blue-50 border-l-4 border-blue-500 p-3">
+                              <p className="text-sm text-gray-700">
+                                <strong>Explicación:</strong> {q.explanation}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex gap-2 ml-4">
-                          <button
-                            onClick={() => handleEdit(q)}
-                            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
-                          >
-                            ✏️ Editar
-                          </button>
-                          <button
-                            onClick={() => handleDelete(q.id)}
-                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
-                          >
-                            🗑️
-                          </button>
+                          <div className="flex gap-2 ml-4">
+                            <button
+                              onClick={() => handleEdit(q)}
+                              className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
+                            >
+                              ✏️ Editar
+                            </button>
+                            <button
+                              onClick={() => handleDelete(q.id)}
+                              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                            >
+                              🗑️
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>

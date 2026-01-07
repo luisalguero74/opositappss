@@ -88,7 +88,7 @@ export default function ManageClassroom({ params }: { params: Promise<{ id: stri
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
-    if (session?.user?.role !== 'admin') {
+    if (String(session?.user?.role || '').toLowerCase() !== 'admin') {
       router.push('/dashboard')
       return
     }

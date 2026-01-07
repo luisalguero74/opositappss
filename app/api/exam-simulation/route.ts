@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { temaCodigoVariants } from '@/lib/tema-codigo'
 
 // Crear nuevo simulacro
 export async function POST(req: NextRequest) {
@@ -16,7 +17,13 @@ export async function POST(req: NextRequest) {
     const { generalTopics = [], specificTopics = [], difficulty = 'todas' } = body
 
     // Build topic filter
-    const topicCodes = [...generalTopics, ...specificTopics].map(t => t.toUpperCase())
+    const topicCodes = Array.from(
+      new Set(
+        [...generalTopics, ...specificTopics]
+          .flatMap((t: any) => temaCodigoVariants(String(t)))
+          .map(t => t.toUpperCase())
+      )
+    )
     const hasTopicFilter = topicCodes.length > 0
 
     // Build difficulty filter

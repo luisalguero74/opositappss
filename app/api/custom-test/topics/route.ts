@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { TEMARIO_OFICIAL } from '@/lib/temario-oficial'
+import { temaCodigoVariants } from '@/lib/tema-codigo'
 
 // GET - Obtener temas disponibles con conteo de preguntas
 export async function GET(req: NextRequest) {
@@ -18,9 +19,10 @@ export async function GET(req: NextRequest) {
     const allTopics: { id: string; topic: string; count: number }[] = []
 
     for (const tema of TEMARIO_OFICIAL) {
+      const variantes = temaCodigoVariants(tema.id).map(v => v.toUpperCase())
       const count = await prisma.question.count({
         where: {
-          temaCodigo: tema.id.toUpperCase(),
+          temaCodigo: { in: variantes },
           ...(isAdmin ? {} : { questionnaire: { published: true } })
         }
       })

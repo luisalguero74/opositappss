@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || session.user.role !== 'admin') {
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -42,7 +42,8 @@ export async function POST(req: NextRequest) {
     
     try {
       // Intentar primero extraer con pdf-parse (más rápido)
-      const pdfParse = require('pdf-parse/dist/node/cjs/index.cjs')
+      const pdfParseModule = (await import('pdf-parse')) as any
+      const pdfParse = pdfParseModule?.default ?? pdfParseModule
       const pdfData = await pdfParse(Buffer.from(buffer))
       pages = pdfData.numpages ?? 0
 

@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { temaCodigoVariants } from '@/lib/tema-codigo'
+
+function uniqueStrings(values: string[]): string[] {
+  return Array.from(new Set(values))
+}
 
 // POST - Crear test personalizado
 export async function POST(req: NextRequest) {
@@ -48,10 +53,18 @@ export async function POST(req: NextRequest) {
       specificQuestionsCount = questionCount
     }
 
+    const generalTopicCodes = uniqueStrings(
+      (generalTopics || []).flatMap((t: string) => temaCodigoVariants(String(t)))
+    ).map(t => t.toUpperCase())
+
+    const specificTopicCodes = uniqueStrings(
+      (specificTopics || []).flatMap((t: string) => temaCodigoVariants(String(t)))
+    ).map(t => t.toUpperCase())
+
     // Obtener preguntas de temas generales
     const generalQuestions = hasGeneral ? await prisma.question.findMany({
       where: {
-        temaCodigo: { in: generalTopics.map((t: string) => t.toUpperCase()) },
+        temaCodigo: { in: generalTopicCodes },
         ...(difficulty && difficulty !== 'todas' ? { difficulty } : {})
       },
       include: {
@@ -66,7 +79,7 @@ export async function POST(req: NextRequest) {
     // Obtener preguntas de temas específicos
     const specificQuestions = hasSpecific ? await prisma.question.findMany({
       where: {
-        temaCodigo: { in: specificTopics.map((t: string) => t.toUpperCase()) },
+        temaCodigo: { in: specificTopicCodes },
         ...(difficulty && difficulty !== 'todas' ? { difficulty } : {})
       },
       include: {

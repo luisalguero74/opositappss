@@ -29,7 +29,7 @@ export default function BibliotecaLegalPage() {
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login')
-    } else if (session?.user?.role !== 'ADMIN') {
+      } else if (String(session?.user?.role || '').toLowerCase() !== 'admin') {
       router.push('/')
     } else {
       cargarBiblioteca()

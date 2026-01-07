@@ -14,7 +14,7 @@ export async function GET() {
       where: { email: session.user.email }
     })
 
-    if (user?.role !== 'admin') {
+    if (String(user?.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
     }
 

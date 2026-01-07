@@ -25,6 +25,19 @@ export async function POST(
       }, { status: 400 })
     }
 
+    const parsedDuration = typeof duration === 'number' ? duration : Number(duration)
+    if (!Number.isFinite(parsedDuration) || !Number.isInteger(parsedDuration)) {
+      return NextResponse.json({ error: 'La duración debe ser un número entero (minutos)' }, { status: 400 })
+    }
+    if (parsedDuration < 5 || parsedDuration > 600) {
+      return NextResponse.json({ error: 'La duración debe estar entre 5 y 600 minutos' }, { status: 400 })
+    }
+
+    const scheduledDate = new Date(scheduledAt)
+    if (Number.isNaN(scheduledDate.getTime())) {
+      return NextResponse.json({ error: 'Fecha/hora inválida' }, { status: 400 })
+    }
+
     // Obtener aula
     const classroom = await prisma.virtualClassroom.findUnique({
       where: { id }
@@ -54,15 +67,15 @@ export async function POST(
         classroomId: id,
         title,
         description,
-        scheduledAt: new Date(scheduledAt),
-        duration
+        scheduledAt: scheduledDate,
+        duration: parsedDuration
       }
     })
 
     // Enviar invitaciones si se solicita
     if (sendInvitations && participants.length > 0) {
       const classroomUrl = `${process.env.NEXTAUTH_URL}/classroom/${classroom.id}`
-      const scheduledDate = new Date(scheduledAt).toLocaleString('es-ES', {
+      const scheduledDateStr = scheduledDate.toLocaleString('es-ES', {
         dateStyle: 'full',
         timeStyle: 'short'
       })
@@ -84,7 +97,7 @@ export async function POST(
                 <h3 style="margin-top: 0;">${title}</h3>
                 <p><strong>Aula:</strong> ${classroom.name}</p>
                 ${description ? `<p><strong>Descripción:</strong> ${description}</p>` : ''}
-                <p><strong>Fecha y hora:</strong> ${scheduledDate}</p>
+                <p><strong>Fecha y hora:</strong> ${scheduledDateStr}</p>
                 <p><strong>Duración:</strong> ${duration} minutos</p>
               </div>
 

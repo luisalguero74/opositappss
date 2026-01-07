@@ -76,6 +76,8 @@ export default function AdminClassrooms() {
         try {
           const data = await res.json()
           if (data?.error) message = data.error
+          if (data?.code) message = `${message} (código: ${data.code})`
+          if (data?.details) message = `${message}: ${data.details}`
         } catch {
           // ignore
         }

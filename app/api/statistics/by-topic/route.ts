@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { normalizeTemaCodigo } from '@/lib/tema-codigo';
 
 export async function GET() {
   try {
@@ -42,9 +43,11 @@ export async function GET() {
       const temaCodigo = answer.question.temaCodigo;
       if (!temaCodigo) return; // Skip preguntas sin tema asignado
 
-      if (!statsByTopic.has(temaCodigo)) {
-        statsByTopic.set(temaCodigo, {
-          codigo: temaCodigo,
+      const normalized = normalizeTemaCodigo(String(temaCodigo)) || String(temaCodigo);
+
+      if (!statsByTopic.has(normalized)) {
+        statsByTopic.set(normalized, {
+          codigo: normalized,
           numero: answer.question.temaNumero,
           parte: answer.question.temaParte,
           titulo: answer.question.temaTitulo,
@@ -55,7 +58,7 @@ export async function GET() {
         });
       }
 
-      const stats = statsByTopic.get(temaCodigo)!;
+      const stats = statsByTopic.get(normalized)!;
       stats.totalPreguntas++;
       if (answer.isCorrect) {
         stats.correctas++;

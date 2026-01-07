@@ -8,7 +8,10 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || session.user.role !== 'admin') {
+    console.log('[Questions Review] Session:', session ? `User: ${session.user?.email}, Role: ${session.user?.role}` : 'No session')
+    
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
+      console.log('[Questions Review] Unauthorized - Role:', session?.user?.role)
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -31,6 +34,7 @@ export async function GET(req: NextRequest) {
       ]
     })
 
+    console.log('[Questions Review] Returning', questions.length, 'questions')
     return NextResponse.json({ questions })
   } catch (error) {
     console.error('[Questions Review] Error:', error)
@@ -43,7 +47,7 @@ export async function PUT(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || session.user.role !== 'admin') {
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -72,7 +76,7 @@ export async function DELETE(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || session.user.role !== 'admin') {
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 

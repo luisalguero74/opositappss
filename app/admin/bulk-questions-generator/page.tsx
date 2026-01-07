@@ -4,6 +4,20 @@ import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { TEMARIO_OFICIAL } from '@/lib/temario-oficial'
+
+function chunkArray<T>(items: T[], size: number): T[][] {
+  if (size <= 0) return [items]
+  const chunks: T[][] = []
+  for (let i = 0; i < items.length; i += size) {
+    chunks.push(items.slice(i, i + size))
+  }
+  return chunks
+}
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 export default function BulkQuestionsGenerator() {
   const { data: session, status } = useSession()
@@ -12,8 +26,17 @@ export default function BulkQuestionsGenerator() {
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
 
+  const preguntasGeneradasDisplay = (() => {
+    const direct = Number(result?.preguntasGeneradas)
+    if (Number.isFinite(direct) && direct >= 0) return direct
+    const perTopic = Array.isArray(result?.preguntasPorTema)
+      ? result.preguntasPorTema.reduce((acc: number, t: any) => acc + Number(t?.preguntasCreadas ?? 0), 0)
+      : 0
+    return Number.isFinite(perTopic) ? perTopic : 0
+  })()
+
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
+    if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
       router.push('/dashboard')
     }
   }, [status, session, router])
@@ -34,22 +57,107 @@ export default function BulkQuestionsGenerator() {
     setResult(null)
 
     try {
-      const res = await fetch('/api/admin/generate-bulk-questions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          categoria,
-          preguntasPorTema: categoria === 'lgss' ? 30 : 20
+      const preguntasPorTema = categoria === 'lgss' ? 30 : 20
+
+      // LGSS se procesa en una sola petición
+      if (categoria === 'lgss') {
+        const res = await fetch('/api/admin/generate-bulk-questions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ categoria, preguntasPorTema })
         })
-      })
 
-      const data = await res.json()
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Error al generar preguntas')
+            const data = await res.json().catch(() => ({}))
+            if (!res.ok) {
+              throw new Error(data?.details || data?.error || 'Error al generar preguntas')
+        }
+        setResult({
+          ...data,
+          temasProcesados: data?.temasProcesados ?? 0,
+          temasTotal: data?.temasTotal ?? 1,
+          preguntasGeneradas: data?.preguntasGeneradas ?? 0
+        })
+        if (Number(data?.preguntasGeneradas ?? 0) === 0) {
+          throw new Error('No se crearon preguntas (0). Revisa el detalle por tema o la configuración de Groq.')
+        }
+        return
       }
 
-      setResult(data)
+      // General/Específico: procesar por lotes pequeños (por tema) para evitar timeouts/rate limits
+      const temas = TEMARIO_OFICIAL.filter(t => t.categoria === categoria)
+      const temaIds = temas.map(t => t.id)
+      const batches = chunkArray(temaIds, 1)
+
+      let questionnaireId: string | undefined
+      let temasProcesadosTotal = 0
+      let preguntasGeneradasTotal = 0
+
+      // Pintar contadores desde el inicio
+      setResult({
+        success: true,
+        message: `Generación en progreso para ${categoria}`,
+        questionnaireId: undefined,
+        temasProcesados: 0,
+        temasTotal: temaIds.length,
+        preguntasGeneradas: 0
+      })
+
+      for (const batch of batches) {
+        try {
+          const res = await fetch('/api/admin/generate-bulk-questions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              categoria,
+              preguntasPorTema,
+              questionnaireId,
+              temaIds: batch
+            })
+          })
+
+          const data = await res.json().catch(() => ({ error: 'Error al parsear respuesta' }))
+          
+          if (!res.ok) {
+            const msg = data?.details ? `${data.error || 'Error al generar preguntas'}: ${data.details}` : (data.error || 'Error al generar preguntas')
+            console.error('Error en batch:', batch, msg)
+            throw new Error(msg)
+          }
+
+          questionnaireId = data?.questionnaireId ?? questionnaireId
+          temasProcesadosTotal += Number(data?.temasProcesados ?? 0)
+          preguntasGeneradasTotal += Number(data?.preguntasGeneradas ?? 0)
+
+          setResult({
+            success: true,
+            message: `Generación en progreso para ${categoria}`,
+            questionnaireId,
+            temasProcesados: temasProcesadosTotal,
+            temasTotal: temaIds.length,
+            preguntasGeneradas: preguntasGeneradasTotal
+          })
+
+          // Pausa pequeña para ser amable con el proveedor
+          await sleep(400)
+        } catch (batchError) {
+          console.error('Error procesando batch:', batch, batchError)
+          // Continuar con el siguiente tema en vez de abortar todo
+          const errorMsg = batchError instanceof Error ? batchError.message : String(batchError)
+          console.warn(`Saltando tema ${batch[0]} por error: ${errorMsg}`)
+          continue
+        }
+      }
+
+      setResult({
+        success: true,
+        message: `Generación completada para ${categoria}`,
+        questionnaireId,
+        temasProcesados: temasProcesadosTotal,
+        temasTotal: temaIds.length,
+        preguntasGeneradas: preguntasGeneradasTotal
+      })
+          if (preguntasGeneradasTotal === 0) {
+            throw new Error('No se crearon preguntas (0). Revisa el detalle por tema o la configuración de Groq.')
+          }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido')
     } finally {
@@ -57,7 +165,7 @@ export default function BulkQuestionsGenerator() {
     }
   }
 
-  if (!session || !session.user || session.user.role !== 'ADMIN') {
+  if (!session || !session.user || String(session.user.role || '').toLowerCase() !== 'admin') {
     return null
   }
 
@@ -80,7 +188,7 @@ export default function BulkQuestionsGenerator() {
             <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-6">
               <div className="text-white text-5xl mb-3 text-center">📘</div>
               <h2 className="text-2xl font-bold text-white text-center">Temario General</h2>
-              <p className="text-blue-100 text-center mt-2">23 temas oficiales</p>
+              <p className="text-blue-100 text-center mt-2">{TEMARIO_OFICIAL.filter(t => t.categoria === 'general').length} temas oficiales</p>
             </div>
             <div className="p-6">
               <ul className="space-y-2 mb-6 text-sm text-gray-600">
@@ -105,7 +213,7 @@ export default function BulkQuestionsGenerator() {
             <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-6">
               <div className="text-white text-5xl mb-3 text-center">📕</div>
               <h2 className="text-2xl font-bold text-white text-center">Temario Específico</h2>
-              <p className="text-green-100 text-center mt-2">13 temas oficiales</p>
+              <p className="text-green-100 text-center mt-2">{TEMARIO_OFICIAL.filter(t => t.categoria === 'especifico').length} temas oficiales</p>
             </div>
             <div className="p-6">
               <ul className="space-y-2 mb-6 text-sm text-gray-600">
@@ -154,22 +262,30 @@ export default function BulkQuestionsGenerator() {
         {/* Resultado */}
         {result && (
           <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6 mb-6">
-            <h3 className="text-xl font-bold text-green-800 mb-4">✅ Generación Completada</h3>
+            <h3 className="text-xl font-bold text-green-800 mb-4">
+              {loading || String(result?.message || '').toLowerCase().includes('progreso')
+                ? '⏳ Generación en progreso'
+                : '✅ Generación Completada'}
+            </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
               <div className="bg-white p-4 rounded-lg text-center">
-                <div className="text-3xl font-bold text-blue-600">{result.temasProcesados}</div>
+                <div className="text-3xl font-bold text-blue-600">{result.temasProcesados ?? 0}</div>
                 <div className="text-sm text-gray-600">Temas procesados</div>
               </div>
               <div className="bg-white p-4 rounded-lg text-center">
-                <div className="text-3xl font-bold text-green-600">{result.preguntasGeneradas}</div>
+                <div className="text-3xl font-bold text-green-600">{preguntasGeneradasDisplay}</div>
                 <div className="text-sm text-gray-600">Preguntas creadas</div>
               </div>
               <div className="bg-white p-4 rounded-lg text-center">
-                <div className="text-3xl font-bold text-purple-600">{Math.round(result.preguntasGeneradas / result.temasProcesados)}</div>
+                <div className="text-3xl font-bold text-purple-600">{
+                  (result.temasProcesados ?? 0) > 0
+                    ? Math.round((preguntasGeneradasDisplay ?? 0) / (result.temasProcesados ?? 1))
+                    : 0
+                }</div>
                 <div className="text-sm text-gray-600">Por tema (promedio)</div>
               </div>
               <div className="bg-white p-4 rounded-lg text-center">
-                <div className="text-3xl font-bold text-orange-600">{result.temasTotal}</div>
+                <div className="text-3xl font-bold text-orange-600">{result.temasTotal ?? 0}</div>
                 <div className="text-sm text-gray-600">Temas totales</div>
               </div>
             </div>
@@ -187,6 +303,23 @@ export default function BulkQuestionsGenerator() {
                 👁️ Ver Cuestionarios
               </Link>
             </div>
+
+            {Array.isArray(result?.preguntasPorTema) && result.preguntasPorTema.length > 0 && (
+              <div className="mt-5 bg-white rounded-lg p-4 border border-green-200">
+                <div className="text-sm font-semibold text-gray-800 mb-2">Detalle por tema</div>
+                <div className="max-h-56 overflow-auto text-sm">
+                  {result.preguntasPorTema
+                    .slice()
+                    .sort((a: any, b: any) => Number(a?.temaNumero ?? 0) - Number(b?.temaNumero ?? 0))
+                    .map((t: any) => (
+                      <div key={String(t?.temaId ?? t?.temaNumero)} className="flex items-center justify-between py-1 border-b border-gray-100 last:border-b-0">
+                        <div className="text-gray-700">Tema {t?.temaNumero}: {t?.temaTitulo}</div>
+                        <div className="font-semibold text-gray-900">{Number(t?.preguntasCreadas ?? 0)}</div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 

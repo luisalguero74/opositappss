@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       where: { email: session.user.email }
     })
 
-    if (user?.role !== 'admin') {
+    if (String(user?.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json(
         { error: 'Forbidden: Admin role required' },
         { status: 403 }
@@ -105,7 +105,7 @@ export async function PATCH(request: NextRequest) {
       where: { email: session.user.email }
     })
 
-    if (user?.role !== 'admin') {
+    if (String(user?.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json(
         { error: 'Forbidden' },
         { status: 403 }

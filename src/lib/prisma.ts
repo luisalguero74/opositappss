@@ -9,14 +9,38 @@ const datasourceUrl =
   process.env.POSTGRES_PRISMA_URL ??
   process.env.POSTGRES_URL
 
+function withPrismaServerlessPgWorkaround(url: string): string {
+  // In serverless + PgBouncer setups (common on Supabase), prepared statements can collide across requests.
+  // Disabling Prisma's statement cache avoids the `prepared statement "sX" already exists` error.
+  try {
+    const parsed = new URL(url)
+
+    if (!parsed.searchParams.has('pgbouncer')) {
+      parsed.searchParams.set('pgbouncer', 'true')
+    }
+    if (!parsed.searchParams.has('statement_cache_size')) {
+      parsed.searchParams.set('statement_cache_size', '0')
+    }
+
+    return parsed.toString()
+  } catch {
+    return url
+  }
+}
+
+const effectiveDatasourceUrl =
+  datasourceUrl && process.env.NODE_ENV === 'production'
+    ? withPrismaServerlessPgWorkaround(datasourceUrl)
+    : datasourceUrl
+
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient(
-    datasourceUrl
+    effectiveDatasourceUrl
       ? {
           datasources: {
             db: {
-              url: datasourceUrl,
+              url: effectiveDatasourceUrl,
             },
           },
         }

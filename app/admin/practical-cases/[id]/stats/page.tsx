@@ -66,7 +66,7 @@ export default function PracticalCaseStats() {
   const [title, setTitle] = useState('')
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
+    if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
       router.push('/dashboard')
     } else if (status === 'authenticated' && params.id) {
       loadStats()

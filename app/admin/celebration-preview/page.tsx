@@ -49,7 +49,7 @@ export default function CelebrationPreview() {
     )
   }
 
-  if (!session || session.user.role !== 'ADMIN') {
+  if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
     router.push('/dashboard')
     return null
   }

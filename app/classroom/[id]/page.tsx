@@ -17,6 +17,7 @@ interface ClassroomData {
   description: string | null
   roomId: string
   active: boolean
+  requiresPassword?: boolean
   participant: {
     role: string
     joinedAt: string
@@ -39,6 +40,7 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
   const [leaveReason, setLeaveReason] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false)
+  const [passwordVerified, setPasswordVerified] = useState(false)
 
   useEffect(() => {
     if (!session?.user) {
@@ -98,8 +100,34 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
   }
 
   const handleJoin = () => {
+    if (classroom?.requiresPassword && classroom.participant.role !== 'moderator' && !passwordVerified) {
+      setShowPasswordPrompt(true)
+      return
+    }
     setShowPasswordPrompt(false)
     setJoined(true)
+  }
+
+  const verifyPasswordAndJoin = async () => {
+    if (!classroom) return
+    try {
+      const res = await fetch(`/api/classrooms/${classroom.id}/verify-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: passwordInput })
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setError(data?.error || 'Contraseña incorrecta')
+        return
+      }
+      setPasswordVerified(true)
+      setError('')
+      setShowPasswordPrompt(false)
+      setJoined(true)
+    } catch (e) {
+      setError('Error verificando contraseña')
+    }
   }
 
   if (loading) {
@@ -144,16 +172,25 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
               <input
                 type="password"
                 value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleJoin()}
+                onChange={(e) => {
+                  setPasswordInput(e.target.value)
+                  if (error) setError('')
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') verifyPasswordAndJoin()
+                }}
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 placeholder="Introduce la contraseña"
                 autoFocus
               />
             </div>
 
+            {error && (
+              <div className="text-sm text-red-600 font-semibold">{error}</div>
+            )}
+
             <button
-              onClick={handleJoin}
+              onClick={verifyPasswordAndJoin}
               className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-lg hover:from-purple-700 hover:to-pink-700 transition"
             >
               Entrar al Aula
@@ -388,10 +425,29 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
             }
           }) as any)
         }}
-        getIFrameRef={(iframe) => {
-          if (iframe) {
-            iframe.style.height = '100vh'
-            iframe.style.width = '100vw'
+        getIFrameRef={(node) => {
+          if (!node) return
+
+          // The SDK types this as an HTMLDivElement and, depending on version,
+          // it may be a container div (with an iframe inside) or the iframe itself.
+          const root = node as any
+          const iframeEl: any =
+            root?.tagName === 'IFRAME' ? root : (root?.querySelector?.('iframe') as any)
+
+          // Apply sizing to both container and iframe when present.
+          root.style.height = '100vh'
+          root.style.width = '100vw'
+          if (iframeEl?.style) {
+            iframeEl.style.height = '100vh'
+            iframeEl.style.width = '100vw'
+          }
+
+          // Ensure browser permissions for the embedded meeting.
+          if (iframeEl?.setAttribute) {
+            iframeEl.setAttribute(
+              'allow',
+              'camera; microphone; display-capture; autoplay; fullscreen; clipboard-read; clipboard-write'
+            )
           }
         }}
       />

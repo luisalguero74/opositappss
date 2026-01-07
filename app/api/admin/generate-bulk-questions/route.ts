@@ -4,11 +4,74 @@ import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { TEMARIO_OFICIAL } from '@/lib/temario-oficial'
 import { logError } from '@/lib/error-logger'
-import Groq from 'groq-sdk'
+import { temaCodigoFromTemaOficialId, temaCodigoVariants } from '@/lib/tema-codigo'
+// Configuración aumentada para evitar timeouts
+export const maxDuration = 300 // 5 minutos
+export const dynamic = 'force-dynamic'
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY || ''
-})
+// Usar fetch directo en lugar de SDK para evitar problemas de conectividad en Vercel
+async function callGroqWithRetry(
+  messages: Array<{ role: 'system' | 'user'; content: string }>,
+  model: string,
+  temperature: number,
+  max_tokens: number,
+  maxAttempts = 5
+) {
+  const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
+  const GROQ_API_KEY = process.env.GROQ_API_KEY
+
+  if (!GROQ_API_KEY) {
+    throw new Error('GROQ_API_KEY no configurada')
+  }
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      console.log(`[Groq Attempt ${attempt}/${maxAttempts}] Calling API with fetch...`)
+      
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 60000) // 60s timeout
+      
+      const response = await fetch(GROQ_API_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${GROQ_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages,
+          model,
+          temperature,
+          max_tokens,
+        }),
+        signal: controller.signal,
+      })
+
+      clearTimeout(timeoutId)
+
+      if (!response.ok) {
+        const errorText = await response.text()
+        throw new Error(`Groq API error ${response.status}: ${errorText}`)
+      }
+
+      const completion = await response.json()
+      console.log(`[Groq Attempt ${attempt}] Success!`)
+      return completion
+      
+    } catch (error: any) {
+      console.error(`[Groq Attempt ${attempt}] Error:`, error.message)
+      
+      if (attempt === maxAttempts) {
+        throw error
+      }
+      
+      // Backoff exponencial: 2s, 4s, 8s, 16s
+      const waitTime = Math.pow(2, attempt) * 1000
+      console.log(`[Groq] Waiting ${waitTime/1000}s before retry...`)
+      await new Promise(resolve => setTimeout(resolve, waitTime))
+    }
+  }
+  throw new Error('Max retries exceeded')
+}
 
 interface PreguntaGenerada {
   pregunta: string
@@ -77,11 +140,44 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || session.user.role !== 'ADMIN') {
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
-    const { categoria, preguntasPorTema = 20 } = await req.json()
+    // Evitar ejecuciones “silenciosas” con 0 resultados cuando falta la API key
+    if (!process.env.GROQ_API_KEY) {
+      return NextResponse.json(
+        {
+          error: 'GROQ_API_KEY no está configurada',
+          details: 'Configura GROQ_API_KEY en las variables de entorno de Vercel (.env) para poder generar preguntas.'
+        },
+        { status: 500 }
+      )
+    }
+    // Verificar conexión a base de datos
+    try {
+      await prisma.$queryRaw`SELECT 1`
+    } catch (dbError) {
+      console.error('[Bulk Generate] Database connection error:', dbError)
+      return NextResponse.json(
+        {
+          error: 'Error de conexión a base de datos',
+          details: dbError instanceof Error ? dbError.message : 'No se puede conectar a la base de datos de producción'
+        },
+        { status: 500 }
+      )
+    }
+    const body = await req.json()
+    const { categoria, preguntasPorTema = 20, temaIds, questionnaireId } = body as {
+      categoria?: string
+      preguntasPorTema?: number
+      temaIds?: unknown
+      questionnaireId?: string
+    }
+
+    const requestedTemaIds = Array.isArray(temaIds)
+      ? (temaIds.filter((x): x is string => typeof x === 'string' && x.trim().length > 0) as string[])
+      : undefined
 
     if (!categoria || !['general', 'especifico', 'lgss'].includes(categoria)) {
       return NextResponse.json({ 
@@ -157,7 +253,10 @@ export async function POST(req: NextRequest) {
     })
 
     const estadisticasTemas = new Map(
-      temasConPreguntas.map(t => [t.temaCodigo?.toLowerCase(), t._count])
+      temasConPreguntas.map(t => [
+        t.temaCodigo?.toLowerCase(),
+        (t as any)?._count?._all ?? (t as any)?._count ?? 0
+      ])
     )
 
     console.log(`\n📊 Estadísticas de ${categoria}:`)
@@ -165,24 +264,40 @@ export async function POST(req: NextRequest) {
     console.log(`   - Temas con preguntas: ${temasConPreguntas.length}`)
     console.log(`   - Se generarán ${preguntasPorTema} preguntas nuevas por tema\n`)
 
-    // Procesar TODOS los temas (no solo los pendientes)
-    const temasAProcesar = temasFiltrados
+    // Procesar temas (por lotes si se especifica temaIds)
+    const temasAProcesar = requestedTemaIds && requestedTemaIds.length > 0
+      ? temasFiltrados.filter(t => requestedTemaIds.includes(t.id))
+      : temasFiltrados
 
-    // Crear cuestionario contenedor
-    const questionnaire = await prisma.questionnaire.create({
-      data: {
-        title: `${categoria === 'general' ? 'Temario General' : 'Temario Específico'} - ${new Date().toLocaleDateString()}`,
-        type: 'theory',
-        published: false // No publicar hasta revisar
-      }
-    })
+    // Crear o reutilizar cuestionario contenedor
+    const questionnaire = questionnaireId
+      ? await prisma.questionnaire.findUnique({ where: { id: questionnaireId } })
+      : await prisma.questionnaire.create({
+          data: {
+            title: `${categoria === 'general' ? 'Temario General' : 'Temario Específico'} - ${new Date().toLocaleDateString()}`,
+            type: 'theory',
+            published: false // No publicar hasta revisar
+          }
+        })
+
+    if (!questionnaire) {
+      return NextResponse.json({ error: 'Cuestionario no encontrado' }, { status: 404 })
+    }
 
     let totalPreguntas = 0
     let temasConPreguntasNuevas = 0
+    let temasIntentados = 0
+    const preguntasCreadasPorTema: Array<{ temaId: string; temaNumero: number; temaTitulo: string; preguntasCreadas: number; error?: string }> = []
+    const erroresPorTema: Array<{ temaId: string; temaNumero: number; temaTitulo: string; error: string }> = []
 
     // Generar preguntas para cada tema
     for (const tema of temasAProcesar) {
-      const preguntasExistentesCant = estadisticasTemas.get(tema.id.toLowerCase()) || 0
+      temasIntentados++
+      const codigoCanonico = temaCodigoFromTemaOficialId(tema.id) ?? tema.id.toUpperCase()
+      const variantes = temaCodigoVariants(tema.id)
+      const preguntasExistentesCant = Math.max(
+        ...variantes.map(v => Number(estadisticasTemas.get(v.toLowerCase()) ?? 0))
+      )
       
       console.log(`\n📝 Procesando: Tema ${tema.numero} - ${tema.titulo}`)
       console.log(`   ℹ️  Preguntas existentes: ${preguntasExistentesCant}`)
@@ -190,25 +305,45 @@ export async function POST(req: NextRequest) {
       // Obtener preguntas existentes de este tema para evitar duplicados
       const preguntasExistentes = await prisma.question.findMany({
         where: {
-          temaCodigo: tema.id.toUpperCase()
+          temaCodigo: { in: variantes.map(v => v.toUpperCase()) }
         },
         select: {
           text: true
         }
       })
 
-      const preguntas = await generarPreguntasParaTema(
-        tema.id,
-        tema.numero,
-        tema.titulo,
-        tema.descripcion,
-        tema.categoria,
-        preguntasPorTema,
-        preguntasExistentes.map(p => p.text)
-      )
+      let preguntas: PreguntaGenerada[] = []
+      try {
+        preguntas = await generarPreguntasParaTema(
+          tema.id,
+          tema.numero,
+          tema.titulo,
+          tema.descripcion,
+          tema.categoria,
+          preguntasPorTema,
+          preguntasExistentes.map(p => p.text)
+        )
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e)
+        erroresPorTema.push({ temaId: tema.id, temaNumero: tema.numero, temaTitulo: tema.titulo, error: msg })
+        preguntasCreadasPorTema.push({
+          temaId: tema.id,
+          temaNumero: tema.numero,
+          temaTitulo: tema.titulo,
+          preguntasCreadas: 0,
+          error: msg
+        })
+        continue
+      }
 
       if (preguntas.length === 0) {
         console.log(`   ⚠️  No se generaron preguntas`)
+        preguntasCreadasPorTema.push({
+          temaId: tema.id,
+          temaNumero: tema.numero,
+          temaTitulo: tema.titulo,
+          preguntasCreadas: 0
+        })
         continue
       }
 
@@ -220,6 +355,12 @@ export async function POST(req: NextRequest) {
 
       if (preguntasFiltradas.length === 0) {
         console.log(`   ⚠️  Todas las preguntas generadas eran duplicadas`)
+        preguntasCreadasPorTema.push({
+          temaId: tema.id,
+          temaNumero: tema.numero,
+          temaTitulo: tema.titulo,
+          preguntasCreadas: 0
+        })
         continue
       }
 
@@ -236,7 +377,7 @@ export async function POST(req: NextRequest) {
             options: JSON.stringify(p.opciones),
             correctAnswer: ['A', 'B', 'C', 'D'][p.respuestaCorrecta],
             explanation: p.explicacion,
-            temaCodigo: tema.id.toUpperCase(),
+            temaCodigo: codigoCanonico,
             temaNumero: tema.numero,
             temaParte: tema.categoria === 'general' ? 'GENERAL' : 'ESPECÍFICO',
             temaTitulo: tema.titulo,
@@ -247,20 +388,47 @@ export async function POST(req: NextRequest) {
 
       totalPreguntas += preguntasFiltradas.length
       temasConPreguntasNuevas++
+
+      preguntasCreadasPorTema.push({
+        temaId: tema.id,
+        temaNumero: tema.numero,
+        temaTitulo: tema.titulo,
+        preguntasCreadas: preguntasFiltradas.length
+      })
       
       console.log(`   ✅ ${preguntasFiltradas.length} preguntas guardadas`)
 
-      // Pequeña pausa para evitar rate limits
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Pequeña pausa para evitar rate limits (solo cuando se procesan varios temas en una misma petición)
+      if (temasAProcesar.length > 1) {
+        await new Promise(resolve => setTimeout(resolve, 2000))
+      }
+    }
+
+    // Si no se creó ninguna pregunta, devolver error con detalles para que no aparezca como "éxito".
+    if (totalPreguntas === 0) {
+      const topError = erroresPorTema[0]?.error
+      return NextResponse.json(
+        {
+          error: 'No se crearon preguntas',
+          details: topError || 'Groq devolvió 0 preguntas o fueron filtradas como duplicadas.',
+          temasProcesados: temasIntentados,
+          temasTotal: temasAProcesar.length,
+          preguntasGeneradas: 0,
+          preguntasPorTema: preguntasCreadasPorTema
+        },
+        { status: 500 }
+      )
     }
 
     return NextResponse.json({
       success: true,
       message: `Generación completada para ${categoria}`,
       questionnaireId: questionnaire.id,
-      temasProcesados: temasConPreguntasNuevas,
+      temasProcesados: temasIntentados,
+      temasConPreguntasNuevas,
       temasTotal: temasAProcesar.length,
-      preguntasGeneradas: totalPreguntas
+      preguntasGeneradas: totalPreguntas,
+      preguntasPorTema: preguntasCreadasPorTema
     })
 
   } catch (error) {
@@ -387,8 +555,8 @@ INSTRUCCIONES FINALES:
 
   try {
     console.log('[LGSS] Llamando a Groq API...')
-    const completion = await groq.chat.completions.create({
-      messages: [
+    const completion = await callGroqWithRetry(
+      [
         {
           role: 'system',
           content: 'Eres un experto en crear preguntas sobre la Ley General de la Seguridad Social. Respondes siempre en formato JSON válido y bien formado.'
@@ -398,10 +566,10 @@ INSTRUCCIONES FINALES:
           content: prompt
         }
       ],
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.7,
-      max_tokens: 4000
-    })
+      'llama-3.3-70b-versatile',
+      0.7,
+      4000
+    )
 
     const responseText = completion.choices[0]?.message?.content || ''
     console.log('[LGSS] Respuesta recibida de Groq, longitud:', responseText.length)
@@ -548,8 +716,8 @@ INSTRUCCIONES FINALES:
 - NO incluyas explicaciones antes ni después del JSON`
 
   try {
-    const completion = await groq.chat.completions.create({
-      messages: [
+    const completion = await callGroqWithRetry(
+      [
         {
           role: 'system',
           content: 'Eres un experto jurídico en oposiciones a la Administración Pública. Tus preguntas son rigurosas, profesionales y basadas en normativa oficial. Responde SIEMPRE en formato JSON válido y bien formado.'
@@ -559,11 +727,10 @@ INSTRUCCIONES FINALES:
           content: prompt
         }
       ],
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.7,
-      max_tokens: 8000,
-      response_format: { type: 'json_object' }
-    })
+      'llama-3.3-70b-versatile',
+      0.7,
+      8000
+    )
 
     const content = completion.choices[0]?.message?.content
     if (!content) {
@@ -585,7 +752,22 @@ INSTRUCCIONES FINALES:
     }
 
     // Normalizar formato
-    const preguntas = Array.isArray(parsed) ? parsed : (parsed.preguntas || parsed.questions || [])
+    let preguntas: any = Array.isArray(parsed)
+      ? parsed
+      : (parsed.preguntas || parsed.questions || parsed.items || parsed.data || parsed.result || [])
+
+    // Algunos proveedores fuerzan json_object y envuelven el array en claves arbitrarias.
+    // Si no encontramos un array en las claves esperadas, buscamos el primer valor que sea array.
+    if (!Array.isArray(preguntas) && parsed && typeof parsed === 'object') {
+      const firstArray = Object.values(parsed).find(v => Array.isArray(v))
+      if (Array.isArray(firstArray)) {
+        preguntas = firstArray
+      }
+    }
+
+    if (!Array.isArray(preguntas)) {
+      preguntas = []
+    }
     
     return preguntas.map((p: any) => ({
       pregunta: p.pregunta || p.question || p.text,
@@ -620,7 +802,8 @@ INSTRUCCIONES FINALES:
     }).catch((logErr) => {
       console.error('Failed to log error:', logErr)
     })
-    
-    return []
+
+    // No “fallar silenciosamente”: el caller decide si continuar o abortar.
+    throw new Error(errorMessage)
   }
 }
