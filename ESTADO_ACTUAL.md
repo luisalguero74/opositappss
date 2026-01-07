@@ -1,26 +1,31 @@
-# 🔄 ESTADO ACTUAL - Generador de Preguntas
+# ✅ ESTADO ACTUAL - Generador de Preguntas
 
 **Fecha:** 7 de enero de 2026  
-**Último cambio:** Implementación de reintentos y timeouts aumentados
+**Estado:** ✅ **FUNCIONANDO CORRECTAMENTE**
 
 ---
 
-## ❌ PROBLEMA PRINCIPAL
+## 🎉 PROBLEMA RESUELTO
 
-El **generador masivo de preguntas** falla en producción con error:
-```
-Connection error
-```
+**Problema:** Groq SDK no conectaba desde Vercel (Connection error)
 
-### Causa identificada:
-- Groq API **no conecta desde servidores de Vercel**
-- La base de datos funciona perfectamente (1140 preguntas ya en producción)
-- Variables de entorno configuradas correctamente
-- El problema es específico de la conectividad Groq ↔ Vercel
+**Solución exitosa:** Reemplazar `groq-sdk` por llamadas `fetch` directas a la API REST de Groq
+- ✅ Funciona correctamente en Vercel
+- ✅ Mayor compatibilidad con infraestructura serverless
+- ✅ Mejor control sobre timeouts y reintentos
+- ✅ Generación masiva de preguntas operativa
 
 ---
 
-## ✅ SOLUCIONES IMPLEMENTADAS
+## 📝 CONFIGURACIÓN TÉCNICA
+
+### API de Groq
+- Método: `fetch` directo a https://api.groq.com/openai/v1/chat/completions
+- Timeout: 60 segundos por petición
+- Reintentos: 5 intentos con backoff exponencial (2s → 4s → 8s → 16s)
+- Duración máxima función: 300 segundos
+
+### Herramientas adicionales
 
 ### 1. Sistema de diagnóstico
 - **URL:** https://opositappss.vercel.app/admin/diagnostics
@@ -39,13 +44,13 @@ Connection error
 
 ---
 
-## 🎯 PRÓXIMOS PASOS AL VOLVER
+## 🚀 SISTEMA OPERATIVO
 
-### OPCIÓN A: Probar generador con nuevos reintentos
-1. Ir a: **https://opositappss.vercel.app/admin/bulk-questions-generator**
-2. Abrir consola del navegador (F12)
-3. Intentar generar preguntas de un tema
-4. Ver si los reintentos funcionan o sigue fallando
+### Generador masivo funcionando
+- **URL:** https://opositappss.vercel.app/admin/bulk-questions-generator
+- **Estado:** Completamente funcional
+- **Capacidad:** Generación automática por temas
+- **Base de datos:** 1140+ preguntas en producción
 
 ### OPCIÓN B: Generar localmente (método garantizado)
 ```bash
@@ -54,12 +59,12 @@ npm run dev
 
 # 2. Generar en: http://localhost:3000/admin/bulk-questions-generator
 
-# 3. Exportar preguntas locales
-node export-questions-local.mjs
+# 3. Exportar pCLAVE
 
-# 4. Importar en producción: /admin/import-questions
-```
-
+- `app/api/admin/generate-bulk-questions/route.ts` - Generador con fetch directo
+- `app/admin/bulk-questions-generator/page.tsx` - UI del generador
+- `app/api/admin/diagnostics/route.ts` - Diagnóstico del sistema
+- `export-questions-local.mjs` - Script de respaldo para exportación local
 ---
 
 ## 📋 ARCHIVOS MODIFICADOS RECIENTEMENTE
@@ -83,17 +88,8 @@ npm run dev
 
 # Exportar preguntas locales
 node export-questions-local.mjs
-
-# Build y deploy
-npm run build
-npx vercel --prod --yes
-```
-
----
-
-## ⚠️ SI SIGUE FALLANDO
-
-Opciones alternativas:
+**ESTADO:** ✅ Sistema completamente funcional.  
+**PRÓXIMOS PASOS:** Generar preguntas para completar el banco de datos
 1. **Cambiar a OpenAI** (más confiable pero de pago)
 2. **Proxy/workaround** para Groq
 3. **Continuar con método local** (funciona 100%)

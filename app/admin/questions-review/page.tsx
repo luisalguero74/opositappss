@@ -108,21 +108,25 @@ export default function QuestionsReview() {
   }
 
   const handlePublish = async (questionnaireId: string) => {
-    if (!confirm('¿Publicar este cuestionario? Los usuarios podrán verlo.')) return
+    if (!confirm('¿Publicar este cuestionario? Los usuarios podrán verlo y aparecerá en sus estadísticas.')) return
 
     try {
-      const res = await fetch('/api/admin/questionnaires/publish', {
+      const res = await fetch(`/api/admin/questionnaires/${questionnaireId}/publish`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ questionnaireId, published: true })
+        body: JSON.stringify({ published: true })
       })
 
       if (res.ok) {
         loadQuestions()
-        alert('✅ Cuestionario publicado')
+        alert('✅ Cuestionario publicado correctamente.\n\nLos usuarios ahora pueden:\n• Realizarlo de forma interactiva\n• Ver soluciones y explicaciones\n• Obtener celebración al 100%\n• Registrar resultados en estadísticas')
+      } else {
+        const data = await res.json()
+        alert(`Error: ${data.error || 'No se pudo publicar'}`)
       }
     } catch (error) {
       console.error('Error publicando:', error)
+      alert('Error al publicar el cuestionario')
     }
   }
 
