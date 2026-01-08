@@ -14,15 +14,6 @@ export default function UpdatePDFContentPage() {
   const [documents, setDocuments] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
-  if (status === 'loading') {
-    return <div className="p-8">Cargando...</div>
-  }
-
-  if (!session || (session.user.role !== 'ADMIN' && session.user.role !== 'admin')) {
-    router.push('/dashboard')
-    return null
-  }
-
   // Cargar lista de documentos
   useEffect(() => {
     fetch('/api/admin/list-documents')
@@ -35,6 +26,15 @@ export default function UpdatePDFContentPage() {
       })
       .catch(() => setLoading(false))
   }, [])
+
+  if (status === 'loading') {
+    return <div className="p-8">Cargando...</div>
+  }
+
+  if (!session || (session.user.role !== 'ADMIN' && session.user.role !== 'admin')) {
+    router.push('/dashboard')
+    return null
+  }
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
