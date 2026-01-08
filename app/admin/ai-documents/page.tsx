@@ -89,6 +89,32 @@ export default function AIDocumentsPage() {
     }
   }
 
+  const handleMigrateBiblioteca = async () => {
+    if (!confirm('¿Migrar Biblioteca Legal (JSON) a base de datos?\n\nEsto:\n- Extraerá contenido de PDFs/TXT/EPUB\n- Creará relaciones con Temas\n- Puede tardar varios minutos\n\n¿Continuar?')) return
+
+    const btn = document.getElementById('migrate-btn')
+    if (btn) btn.textContent = '⏳ Migrando...'
+
+    try {
+      const res = await fetch('/api/admin/migrate-biblioteca', {
+        method: 'POST'
+      })
+
+      const data = await res.json()
+      
+      if (res.ok) {
+        alert(`✅ Migración completada!\n\n📊 Estadísticas:\n- ${data.documentosMigrados} documentos migrados\n- ${data.relacionesCreadas} relaciones creadas\n\n📋 Logs:\n${data.logs.slice(-10).join('\n')}`)
+        loadDocuments()
+      } else {
+        alert(`❌ Error en migración:\n${data.details || data.error}`)
+      }
+    } catch (error: any) {
+      alert(`❌ Error: ${error.message}`)
+    } finally {
+      if (btn) btn.textContent = '📚 Migrar Biblioteca Legal'
+    }
+  }
+
   const loadQuestions = async () => {
     setLoading(true)
     try {
@@ -403,6 +429,14 @@ export default function AIDocumentsPage() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2">
+                  <button
+                    id="migrate-btn"
+                    onClick={handleMigrateBiblioteca}
+                    disabled={loading}
+                    className="bg-purple-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-purple-700 transition disabled:opacity-50 whitespace-nowrap text-sm"
+                  >
+                    📚 Migrar Biblioteca Legal
+                  </button>
                   <button
                     onClick={async () => {
                       if (!confirm('¿Generar embeddings para TODOS los documentos? Esto usará la API de OpenAI.\n\nCosto estimado: ~$0.05-0.10')) return

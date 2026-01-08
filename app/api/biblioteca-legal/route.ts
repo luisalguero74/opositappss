@@ -1,27 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { readFile, writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
-
-const BIBLIOTECA_PATH = join(process.cwd(), 'data', 'biblioteca-legal.json')
-
-async function loadBiblioteca() {
-  if (!existsSync(BIBLIOTECA_PATH)) {
-    return { documentos: [], relaciones: {} }
-  }
-  const data = await readFile(BIBLIOTECA_PATH, 'utf-8')
-  return JSON.parse(data)
-}
-
-async function saveBiblioteca(data: any) {
-  const dataDir = join(process.cwd(), 'data')
-  if (!existsSync(dataDir)) {
-    await mkdir(dataDir, { recursive: true })
-  }
-  await writeFile(BIBLIOTECA_PATH, JSON.stringify(data, null, 2))
-}
+import { prisma } from '@/lib/prisma'
 
 // GET - Obtener biblioteca completa o por tema
 export async function GET(req: NextRequest) {
@@ -35,25 +15,72 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url)
     const temaId = searchParams.get('temaId')
 
-    const biblioteca = await loadBiblioteca()
-
     if (temaId) {
       // Devolver solo los documentos asociados a este tema
-      const documentosIds = biblioteca.relaciones[temaId] || []
-      const documentos = biblioteca.documentos.filter((doc: any) => 
-        documentosIds.includes(doc.id)
-      )
+      const relaciones = await prisma.temaLegalDocument.findMany({
+        where: { temaId },
+        include: {
+          document: true
+        }
+      })
+
+      const documentos = relaciones.map(rel => ({
+        id: rel.document.id,
+        nombre: rel.document.title,
+        archivo: rel.document.fileName || '',
+        tipo: rel.document.type || 'ley',
+        numeroPaginas: Math.floor((rel.document.fileSize || 0) / 1024),
+        fechaActualizacion: rel.document.updatedAt.toISOString().split('T')[0]
+      }))
+
       return NextResponse.json({ documentos })
     }
 
-    return NextResponse.json(biblioteca)
+    // Devolver toda la biblioteca
+    const documentos = await prisma.legalDocument.findMany({
+      where: { active: true },
+      include: {
+        temas: {
+          include: {
+            tema: true
+          }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    })
+
+    // Construir relaciones { temaId: [docIds] }
+    const relaciones: { [temaId: string]: string[] } = {}
+    
+    documentos.forEach(doc => {
+      doc.temas.forEach(relacion => {
+        if (!relaciones[relacion.temaId]) {
+          relaciones[relacion.temaId] = []
+        }
+        relaciones[relacion.temaId].push(doc.id)
+      })
+    })
+
+    const documentosFormateados = documentos.map(doc => ({
+      id: doc.id,
+      nombre: doc.title,
+      archivo: doc.fileName || '',
+      tipo: doc.type || 'ley',
+      numeroPaginas: Math.floor((doc.fileSize || 0) / 1024),
+      fechaActualizacion: doc.updatedAt.toISOString().split('T')[0]
+    }))
+
+    return NextResponse.json({
+      documentos: documentosFormateados,
+      relaciones
+    })
   } catch (error) {
     console.error('Error al leer biblioteca:', error)
     return NextResponse.json({ documentos: [], relaciones: {} })
   }
 }
 
-// POST - Agregar documento a la biblioteca
+// POST - Agregar documento a la biblioteca o asociar con tema
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -63,41 +90,64 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
-    const biblioteca = await loadBiblioteca()
 
     if (body.action === 'add-documento') {
       // Agregar nuevo documento
-      const nuevoDoc = {
-        id: body.id || `doc_${Date.now()}`,
-        nombre: body.nombre,
-        archivo: body.archivo,
-        tipo: body.tipo,
-        numeroPaginas: body.numeroPaginas,
-        fechaActualizacion: body.fechaActualizacion || new Date().toISOString().split('T')[0]
-      }
-      biblioteca.documentos.push(nuevoDoc)
-      await saveBiblioteca(biblioteca)
-      return NextResponse.json({ success: true, documento: nuevoDoc })
+      const nuevoDoc = await prisma.legalDocument.create({
+        data: {
+          title: body.nombre,
+          type: body.tipo || 'ley',
+          fileName: body.archivo,
+          fileSize: (body.numeroPaginas || 0) * 1024,
+          content: `Documento añadido desde Biblioteca Legal: ${body.nombre}`,
+          active: true,
+          processedAt: new Date()
+        }
+      })
+
+      return NextResponse.json({ 
+        success: true, 
+        documento: {
+          id: nuevoDoc.id,
+          nombre: nuevoDoc.title,
+          archivo: nuevoDoc.fileName || '',
+          tipo: nuevoDoc.type || 'ley',
+          numeroPaginas: Math.floor((nuevoDoc.fileSize || 0) / 1024),
+          fechaActualizacion: nuevoDoc.updatedAt.toISOString().split('T')[0]
+        }
+      })
     }
 
     if (body.action === 'asociar-tema') {
       // Asociar documentos a un tema
       const { temaId, documentosIds } = body
-      biblioteca.relaciones[temaId] = documentosIds
-      await saveBiblioteca(biblioteca)
+
+      // Eliminar asociaciones anteriores de este tema
+      await prisma.temaLegalDocument.deleteMany({
+        where: { temaId }
+      })
+
+      // Crear nuevas asociaciones
+      if (documentosIds && documentosIds.length > 0) {
+        await prisma.temaLegalDocument.createMany({
+          data: documentosIds.map((docId: string) => ({
+            temaId,
+            documentId: docId
+          })),
+          skipDuplicates: true
+        })
+      }
+
       return NextResponse.json({ success: true })
     }
 
     if (body.action === 'delete-documento') {
-      // Eliminar documento
-      biblioteca.documentos = biblioteca.documentos.filter((doc: any) => doc.id !== body.id)
-      // Limpiar relaciones
-      Object.keys(biblioteca.relaciones).forEach(temaId => {
-        biblioteca.relaciones[temaId] = biblioteca.relaciones[temaId].filter(
-          (docId: string) => docId !== body.id
-        )
+      // Eliminar documento (las relaciones se eliminan por CASCADE)
+      await prisma.legalDocument.update({
+        where: { id: body.id },
+        data: { active: false } // Soft delete
       })
-      await saveBiblioteca(biblioteca)
+
       return NextResponse.json({ success: true })
     }
 
