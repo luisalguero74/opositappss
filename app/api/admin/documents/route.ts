@@ -41,13 +41,13 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData()
     const file = formData.get('file') as File
     const title = formData.get('title') as string
-    const type = formData.get('type') as string
+    // const type = formData.get('type') as string // REMOVIDO - columna no existe en BD producción
     const topic = formData.get('topic') as string | null
     const reference = formData.get('reference') as string | null
 
-    if (!file || !title || !type) {
+    if (!file || !title) {
       return NextResponse.json({ 
-        error: 'Archivo, título y tipo son requeridos' 
+        error: 'Archivo y título son requeridos' 
       }, { status: 400 })
     }
 
