@@ -25,11 +25,11 @@ export default function UpdatePDFContentPage() {
 
   // Cargar lista de documentos
   useEffect(() => {
-    fetch('/api/admin/debug-documents')
+    fetch('/api/admin/list-documents')
       .then(res => res.json())
       .then(data => {
-        if (data.examples) {
-          setDocuments(data.examples)
+        if (data.documents) {
+          setDocuments(data.documents)
         }
         setLoading(false)
       })
