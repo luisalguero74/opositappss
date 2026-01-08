@@ -103,7 +103,7 @@ export default function AIDocumentsPage() {
       const data = await res.json()
       
       if (res.ok) {
-        alert(`✅ Migración completada!\n\n📊 Estadísticas:\n- ${data.documentosMigrados} documentos migrados\n- ${data.relacionesCreadas} relaciones creadas\n\n📋 Logs:\n${data.logs.slice(-10).join('\n')}`)
+        alert(`✅ Migración completada!\n\n📊 Estadísticas:\n- ${data.documentosMigrados} documentos migrados\n- ${data.relacionesCreadas} relaciones creadas\n\n📋 Logs (${data.logs.length} mensajes):\n${data.logs.join('\n')}`)
         loadDocuments()
       } else {
         alert(`❌ Error en migración:\n${data.details || data.error}`)
