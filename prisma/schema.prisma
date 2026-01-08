@@ -282,20 +282,23 @@ model ClassroomParticipant {
 model LegalDocument {
   id            String   @id @default(cuid())
   title         String
-  // type          String?  // REMOVIDO TEMPORALMENTE - columna no existe en BD producción
-  topic         String?  // "Tema 1", "Tema 2", etc. - Para categorizar por temas del temario
+  documentType  String   // "ley", "real_decreto", "constitucion", etc. - REQUIRED en producción
+  content       String   @db.Text
+  metadata      String?  @db.Text // JSON metadata adicional
+  embedding     String?  @db.Text // Vector embedding JSON serializado
+  topic         String?  // "Tema 1", "Tema 2", etc.
+  active        Boolean  @default(true)
   reference     String?  // Ej: "Ley 39/2015", "RD 8/2015"
   fileName      String?
   fileSize      Int?     // Tamaño en bytes
-  content       String   @db.Text // Contenido completo extraído
-  embedding     String?  @db.Text // Vector embedding JSON serializado
   processedAt   DateTime?
-  active        Boolean  @default(true)
-  sections      DocumentSection[]
-  questions     GeneratedQuestion[]
-  temas         TemaLegalDocument[] // Relación many-to-many con TemaOficial
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  
+  // Relaciones (pueden no existir en producción aún)
+  sections      DocumentSection[]
+  questions     GeneratedQuestion[]
+  temas         TemaLegalDocument[]
 }
 
 model DocumentSection {
