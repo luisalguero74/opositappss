@@ -32,6 +32,9 @@ export async function POST(req: NextRequest) {
       if (!section) {
         return NextResponse.json({ error: 'Sección no encontrada' }, { status: 404 })
       }
+      if (!section.document) {
+        return NextResponse.json({ error: 'Documento asociado no encontrado' }, { status: 404 })
+      }
       content = section.content
       docTopic = section.document.topic
     } else {
