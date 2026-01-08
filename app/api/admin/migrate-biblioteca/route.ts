@@ -141,11 +141,11 @@ export async function POST(req: NextRequest) {
           logs.push(`⚠️  Archivo no encontrado: ${filePath}`)
         }
 
-        // Crear documento
+        // Crear documento (SIN campo type - columna no existe en BD producción)
         const newDoc = await prisma.legalDocument.create({
           data: {
             title: doc.nombre,
-            type: doc.tipo || 'ley',
+            // type: doc.tipo || 'ley', // REMOVIDO - columna no existe en producción
             fileName: doc.archivo,
             fileSize: doc.numeroPaginas * 1024,
             content: content.substring(0, 500000),
