@@ -15,10 +15,14 @@ export async function GET(req: NextRequest) {
     const activeDocs = await prisma.legalDocument.count({ where: { active: true } })
     const inactiveDocs = await prisma.legalDocument.count({ where: { active: false } })
     const withEmbeddings = await prisma.legalDocument.count({ 
-      where: { embedding: { not: null } } 
+      where: { 
+        NOT: { embedding: null }
+      } 
     })
     const withContent = await prisma.legalDocument.count({ 
-      where: { content: { not: null } } 
+      where: { 
+        NOT: { content: null }
+      } 
     })
 
     // Obtener algunos documentos de ejemplo
