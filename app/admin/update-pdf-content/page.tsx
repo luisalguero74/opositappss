@@ -16,8 +16,8 @@ export default function UpdatePDFContentPage() {
     return <div className="p-8">Cargando...</div>
   }
 
-  if (!session || session.user.role !== 'ADMIN') {
-    router.push('/')
+  if (!session || (session.user.role !== 'ADMIN' && session.user.role !== 'admin')) {
+    router.push('/dashboard')
     return null
   }
 
