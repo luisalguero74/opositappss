@@ -126,7 +126,7 @@ export async function POST(req: NextRequest) {
 
         if (existing) {
           documentMap.set(doc.id, existing.id)
-          logs.push(`⏭️  Ya existe: ${doc.nombre}`)
+          logs.push(`⏭️  Ya existe: ${doc.nombre} (${existing.id})`)
           continue
         }
 
@@ -190,13 +190,22 @@ export async function POST(req: NextRequest) {
 
     logs.push(`✅ ${documentMap.size} documentos migrados`)
     logs.push(`✅ ${relacionesCreadas} relaciones creadas`)
+    
+    // Resumen final
+    const yaExistentes = biblioteca.documentos.length - documentMap.size
+    if (yaExistentes > 0) {
+      logs.push(`ℹ️  ${yaExistentes} documentos ya existían en la base de datos`)
+    }
+    
     logs.push(`🎉 Migración completada`)
 
     return NextResponse.json({ 
       success: true,
       logs,
       documentosMigrados: documentMap.size,
-      relacionesCreadas
+      documentosExistentes: yaExistentes,
+      relacionesCreadas,
+      totalDocumentos: biblioteca.documentos.length
     })
   } catch (error: any) {
     console.error('Error en migración:', error)
