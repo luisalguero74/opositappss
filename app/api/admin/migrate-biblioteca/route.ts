@@ -116,6 +116,10 @@ export async function POST(req: NextRequest) {
 
     // Migrar documentos
     const documentMap = new Map<string, string>()
+    
+    // Primero verificar cuántos docs hay en total
+    const totalExistentes = await prisma.legalDocument.count()
+    logs.push(`📊 Documentos existentes en BD antes de migrar: ${totalExistentes}`)
 
     for (const doc of biblioteca.documentos) {
       try {
@@ -142,6 +146,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Crear documento (SIN campo type - columna no existe en BD producción)
+        logs.push(`🆕 Creando nuevo documento: ${doc.nombre}`)
         const newDoc = await prisma.legalDocument.create({
           data: {
             title: doc.nombre,
@@ -155,11 +160,16 @@ export async function POST(req: NextRequest) {
         })
 
         documentMap.set(doc.id, newDoc.id)
-        logs.push(`✅ Migrado: ${doc.nombre}`)
+        logs.push(`✅ Creado: ${doc.nombre} → ${newDoc.id}`)
       } catch (error: any) {
         logs.push(`❌ Error: ${doc.nombre} - ${error.message}`)
+        console.error(`Error migrando ${doc.nombre}:`, error)
       }
     }
+    
+    // Verificar cuántos docs hay después
+    const totalDespues = await prisma.legalDocument.count()
+    logs.push(`📊 Documentos en BD después de migrar: ${totalDespues}`)
 
     // Migrar relaciones
     let relacionesCreadas = 0
