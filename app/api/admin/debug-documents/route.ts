@@ -14,16 +14,17 @@ export async function GET(req: NextRequest) {
     const totalDocs = await prisma.legalDocument.count()
     const activeDocs = await prisma.legalDocument.count({ where: { active: true } })
     const inactiveDocs = await prisma.legalDocument.count({ where: { active: false } })
-    const withEmbeddings = await prisma.legalDocument.count({ 
-      where: { 
-        NOT: { embedding: null }
-      } 
+    
+    // Para embeddings y content, obtener todos y contar manualmente
+    const allDocs = await prisma.legalDocument.findMany({
+      select: {
+        embedding: true,
+        content: true
+      }
     })
-    const withContent = await prisma.legalDocument.count({ 
-      where: { 
-        NOT: { content: null }
-      } 
-    })
+    
+    const withEmbeddings = allDocs.filter(d => d.embedding !== null && d.embedding !== '').length
+    const withContent = allDocs.filter(d => d.content !== null && d.content.length > 100).length
 
     // Obtener algunos documentos de ejemplo
     const samples = await prisma.legalDocument.findMany({
