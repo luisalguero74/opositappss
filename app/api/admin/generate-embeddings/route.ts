@@ -27,11 +27,11 @@ export async function POST(req: NextRequest) {
     let documents
     if (mode === 'missing') {
       // Solo documentos sin embeddings
-      documents = await prisma.document.findMany({
+      documents = await prisma.legalDocument.findMany({
         where: {
           OR: [
             { embedding: null },
-            { embedding: { equals: [] } }
+            { embedding: { equals: '' } }
           ]
         },
         include: {
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       })
     } else {
       // Todos los documentos
-      documents = await prisma.document.findMany({
+      documents = await prisma.legalDocument.findMany({
         include: {
           sections: {
             select: {
@@ -95,10 +95,10 @@ export async function POST(req: NextRequest) {
           continue
         }
 
-        // Guardar en base de datos
-        await prisma.document.update({
+        // Guardar en base de datos como string JSON
+        await prisma.legalDocument.update({
           where: { id: doc.id },
-          data: { embedding: embedding }
+          data: { embedding: JSON.stringify(embedding) }
         })
 
         // Estimar tokens (aproximadamente 1 token = 4 caracteres)
