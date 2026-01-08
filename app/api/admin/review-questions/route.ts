@@ -7,6 +7,7 @@ import { PROMPT_MEJORADO_LGSS, PROMPT_MEJORADO_TEMAGENERAL } from '@/lib/prompts
 
 export const maxDuration = 300
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 interface PreguntaConProblemas {
   id: string
