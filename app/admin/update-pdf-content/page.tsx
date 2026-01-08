@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
@@ -11,6 +11,8 @@ export default function UpdatePDFContentPage() {
   const [fileName, setFileName] = useState('')
   const [uploading, setUploading] = useState(false)
   const [result, setResult] = useState<string>('')
+  const [documents, setDocuments] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
   if (status === 'loading') {
     return <div className="p-8">Cargando...</div>
@@ -20,6 +22,19 @@ export default function UpdatePDFContentPage() {
     router.push('/dashboard')
     return null
   }
+
+  // Cargar lista de documentos
+  useEffect(() => {
+    fetch('/api/admin/debug-documents')
+      .then(res => res.json())
+      .then(data => {
+        if (data.examples) {
+          setDocuments(data.examples)
+        }
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -99,18 +114,27 @@ export default function UpdatePDFContentPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Nombre del archivo (debe coincidir con BD)
+              Seleccionar documento de la BD
             </label>
-            <input
-              type="text"
-              value={fileName}
-              onChange={(e) => setFileName(e.target.value)}
-              disabled={uploading}
-              placeholder="ejemplo: LEY_47_2003.pdf"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50"
-            />
+            {loading ? (
+              <p className="text-gray-500 text-sm">Cargando documentos...</p>
+            ) : (
+              <select
+                value={fileName}
+                onChange={(e) => setFileName(e.target.value)}
+                disabled={uploading}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50"
+              >
+                <option value="">-- Selecciona un documento --</option>
+                {documents.map(doc => (
+                  <option key={doc.id} value={doc.fileName}>
+                    {doc.fileName} - {doc.title}
+                  </option>
+                ))}
+              </select>
+            )}
             <p className="mt-1 text-xs text-gray-500">
-              Debe coincidir EXACTAMENTE con el fileName en la base de datos
+              {documents.length} documentos en la base de datos
             </p>
           </div>
 
