@@ -1,10 +1,4 @@
-import type { ChatCompletionMessageParam } from 'groq-sdk/resources/chat/completions'
-
-// Groq SDK se inicializa bajo demanda
-async function getGroqClient() {
-  const Groq = (await import('groq-sdk')).default
-  return new Groq({ apiKey: process.env.GROQ_API_KEY || '' })
-}
+// Usar fetch directo en lugar del SDK de Groq para evitar problemas de conexión
 
 // Función para realizar búsquedas web de fuentes oficiales
 async function searchWebSources(query: string): Promise<Array<{ title: string; content: string; source: string }>> {
@@ -364,20 +358,31 @@ RECORDATORIO: Si dudas de que un dato esté en los documentos, NO lo menciones. 
   console.log(`[RAG] Mensajes: ${messages.length} | Query: "${userQuery.substring(0, 100)}"`)
 
   try {
-    const groq = await getGroqClient()
-    const completion = await groq.chat.completions.create({
-      messages: messages.map(m => ({
-        role: m.role,
-        content: m.content
-      })),
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.1, // MUY BAJA: máxima precisión, casi cero invención
-      max_tokens: 2000, // Permitir respuestas más completas
-      top_p: 0.85, // Reducir creatividad aún más
-      frequency_penalty: 0.3, // Evitar repetición
-      presence_penalty: 0.1 // Mantener enfoque
+    const apiResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        messages: messages.map(m => ({
+          role: m.role,
+          content: m.content
+        })),
+        model: 'llama-3.3-70b-versatile',
+        temperature: 0.1,
+        max_tokens: 2000,
+        top_p: 0.85,
+        frequency_penalty: 0.3,
+        presence_penalty: 0.1
+      })
     })
 
+    if (!apiResponse.ok) {
+      throw new Error(`Groq API error: ${apiResponse.status} ${apiResponse.statusText}`)
+    }
+
+    const completion = await apiResponse.json()
     const response = completion.choices[0]?.message?.content || 'No pude generar una respuesta'
     console.log(`[RAG] Respuesta: ${response.length} caracteres`)
     
@@ -434,23 +439,34 @@ Instrucciones de precisión:
 - Señala con ✅ los puntos clave para examen`
 
   try {
-    const groq = await getGroqClient()
-    const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: 'Eres un experto en resumir documentación legal para oposiciones, manteniendo máxima precisión y usando solo información literal del documento.'
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.1, // Más preciso
-      max_tokens: 1024
+    const apiResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        messages: [
+          {
+            role: 'system',
+            content: 'Eres un experto en resumir documentación legal para oposiciones, manteniendo máxima precisión y usando solo información literal del documento.'
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        model: 'llama-3.3-70b-versatile',
+        temperature: 0.1,
+        max_tokens: 1024
+      })
     })
 
+    if (!apiResponse.ok) {
+      throw new Error(`Groq API error: ${apiResponse.status} ${apiResponse.statusText}`)
+    }
+
+    const completion = await apiResponse.json()
     return completion.choices[0]?.message?.content || 'No se pudo generar el resumen'
   } catch (error) {
     console.error('Error generando resumen:', error)
@@ -505,23 +521,34 @@ La explicación debe seguir esta estructura:
 Máximo 400 palabras. Sé preciso, no inventes, cita literalmente.`
 
   try {
-    const groq = await getGroqClient()
-    const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: 'Eres un profesor experto explicando conceptos jurídicos para oposiciones. Mantén máxima precisión, cita literalmente documentos, y enfoca todo a aplicación práctica en Seguridad Social.'
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.1, // Más preciso
-      max_tokens: 1500
+    const apiResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        messages: [
+          {
+            role: 'system',
+            content: 'Eres un profesor experto explicando conceptos jurídicos para oposiciones. Mantén máxima precisión, cita literalmente documentos, y enfoca todo a aplicación práctica en Seguridad Social.'
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        model: 'llama-3.3-70b-versatile',
+        temperature: 0.1,
+        max_tokens: 1500
+      })
     })
 
+    if (!apiResponse.ok) {
+      throw new Error(`Groq API error: ${apiResponse.status} ${apiResponse.statusText}`)
+    }
+
+    const completion = await apiResponse.json()
     return completion.choices[0]?.message?.content || 'No se pudo generar la explicación'
   } catch (error) {
     console.error('Error explicando concepto:', error)

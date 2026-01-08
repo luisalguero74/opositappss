@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import Groq from 'groq-sdk'
 
 export async function GET(req: NextRequest) {
   try {
@@ -50,26 +49,37 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // 3. Verificar API de Groq
+    // 3. Verificar API de Groq (usando fetch directo)
     if (process.env.GROQ_API_KEY) {
       try {
-        const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
         const startGroq = Date.now()
         
-        // Intentar con timeout de 10 segundos
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Timeout después de 10 segundos')), 10000)
-        )
+        // Timeout de 10 segundos
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 10000)
         
-        const apiPromise = groq.chat.completions.create({
-          messages: [{ role: 'user', content: 'Test' }],
-          model: 'llama-3.3-70b-versatile',
-          temperature: 0.1,
-          max_tokens: 10
+        const apiResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            messages: [{ role: 'user', content: 'Test' }],
+            model: 'llama-3.3-70b-versatile',
+            temperature: 0.1,
+            max_tokens: 10
+          }),
+          signal: controller.signal
         })
         
-        const completion = await Promise.race([apiPromise, timeoutPromise]) as any
+        clearTimeout(timeoutId)
         
+        if (!apiResponse.ok) {
+          throw new Error(`Groq API error: ${apiResponse.status} ${apiResponse.statusText}`)
+        }
+        
+        const completion = await apiResponse.json()
         const groqTime = Date.now() - startGroq
         
         diagnostics.checks.groq = {
