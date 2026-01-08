@@ -51,12 +51,12 @@ export async function POST(req: NextRequest) {
         title: true,
         content: true,
         documentId: true,
-        embedding: true,
         document: {
           select: {
             title: true,
             topic: true,
-            active: true
+            active: true,
+            embedding: true
           }
         }
       }
@@ -80,10 +80,10 @@ export async function POST(req: NextRequest) {
       })),
       ...validSections.map(sec => ({
         id: sec.id,
-        title: `${sec.document.title} - ${sec.title}`,
+        title: `${sec.document!.title} - ${sec.title}`,
         content: sec.content,
-        topic: sec.document.topic ?? undefined,
-        embedding: sec.embedding
+        topic: sec.document!.topic ?? undefined,
+        embedding: sec.document!.embedding
       }))
     ]
 
