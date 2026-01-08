@@ -6,7 +6,9 @@ export async function POST(req: NextRequest) {
   try {
     // Verificar autenticación admin
     const session = await getServerSession(authOptions)
-    if (!session || session.user.role !== 'ADMIN') {
+    const role = session?.user?.role?.toUpperCase()
+    
+    if (!session || role !== 'ADMIN') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
