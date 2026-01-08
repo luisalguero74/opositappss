@@ -382,6 +382,86 @@ export default function AIDocumentsPage() {
               </button>
             </div>
 
+            {/* Embeddings Generation */}
+            <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg shadow-md p-6 mb-6 text-white">
+              <div className="flex items-start gap-4">
+                <div className="flex-1">
+                  <h2 className="text-xl font-bold mb-2">🔍 Generar Embeddings (Búsqueda Semántica)</h2>
+                  <p className="mb-2 text-blue-100">
+                    Genera vectores de embeddings para búsqueda semántica inteligente con OpenAI
+                  </p>
+                  <p className="text-sm text-blue-200">
+                    ✨ Mejora el asistente IA y la generación de preguntas con contexto más preciso
+                  </p>
+                  <p className="text-xs text-blue-200 mt-1">
+                    💰 Costo estimado: ~$0.05-0.10 para todos los documentos
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={async () => {
+                      if (!confirm('¿Generar embeddings para TODOS los documentos? Esto usará la API de OpenAI.\n\nCosto estimado: ~$0.05-0.10')) return
+                      
+                      setLoading(true)
+                      try {
+                        const res = await fetch('/api/admin/generate-embeddings', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ mode: 'all' })
+                        })
+                        
+                        const data = await res.json()
+                        if (data.success) {
+                          alert(`✅ Embeddings generados correctamente!\n\n📊 Documentos procesados: ${data.processed}\n💰 Tokens usados: ${data.tokensUsed?.toLocaleString()}\n\nLa búsqueda semántica ya está activa.`)
+                          loadDocuments()
+                        } else {
+                          alert(`❌ Error: ${data.error}`)
+                        }
+                      } catch (error) {
+                        alert('Error generando embeddings')
+                      } finally {
+                        setLoading(false)
+                      }
+                    }}
+                    disabled={loading}
+                    className="bg-white text-blue-600 px-6 py-3 rounded-lg font-bold hover:bg-blue-50 transition disabled:opacity-50 whitespace-nowrap"
+                  >
+                    {loading ? '⏳ Generando...' : '🚀 Generar Todos'}
+                  </button>
+                  <button
+                    onClick={async () => {
+                      if (!confirm('¿Generar embeddings solo para documentos que NO los tienen?\n\nCosto: solo por documentos nuevos')) return
+                      
+                      setLoading(true)
+                      try {
+                        const res = await fetch('/api/admin/generate-embeddings', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ mode: 'missing' })
+                        })
+                        
+                        const data = await res.json()
+                        if (data.success) {
+                          alert(`✅ Embeddings generados!\n\n📊 Documentos procesados: ${data.processed}\n⏭️ Documentos saltados: ${data.skipped}`)
+                          loadDocuments()
+                        } else {
+                          alert(`❌ Error: ${data.error}`)
+                        }
+                      } catch (error) {
+                        alert('Error generando embeddings')
+                      } finally {
+                        setLoading(false)
+                      }
+                    }}
+                    disabled={loading}
+                    className="bg-white text-cyan-600 px-6 py-3 rounded-lg font-bold hover:bg-cyan-50 transition disabled:opacity-50 whitespace-nowrap text-sm"
+                  >
+                    {loading ? '⏳ Procesando...' : '➕ Solo Nuevos'}
+                  </button>
+                </div>
+              </div>
+            </div>
+
             {/* Upload Form */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 className="text-xl font-bold mb-4">Subir Documento</h2>
