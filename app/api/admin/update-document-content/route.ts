@@ -15,17 +15,56 @@ export async function POST(req: NextRequest) {
     } else {
       // Verificar sesión normal
       const session = await getServerSession(authOptions)
-      if (!session || session.user.role !== 'admin') {
+      const role = session?.user?.role?.toUpperCase()
+      if (!session || role !== 'ADMIN') {
         return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
       }
     }
 
-    const { fileName, content } = await req.json()
+    let fileName: string
+    let content: string
 
-    if (!fileName || !content) {
-      return NextResponse.json({ 
-        error: 'fileName y content son requeridos' 
-      }, { status: 400 })
+    // Verificar si es FormData (con PDF) o JSON (con content)
+    const contentType = req.headers.get('content-type') || ''
+    
+    if (contentType.includes('multipart/form-data')) {
+      // Procesar PDF desde FormData
+      const formData = await req.formData()
+      const file = formData.get('file') as File
+      fileName = formData.get('fileName') as string
+      
+      if (!file || !fileName) {
+        return NextResponse.json({ 
+          error: 'file y fileName son requeridos' 
+        }, { status: 400 })
+      }
+
+      // Verificar que es PDF
+      if (!file.name.endsWith('.pdf')) {
+        return NextResponse.json({ 
+          error: 'Solo se aceptan archivos PDF' 
+        }, { status: 400 })
+      }
+
+      // Extraer contenido del PDF
+      const bytes = await file.arrayBuffer()
+      const buffer = Buffer.from(bytes)
+      
+      const pdfParse = (await import('pdf-parse-fork')).default
+      const pdfData = await pdfParse(buffer)
+      
+      content = pdfData.text
+    } else {
+      // Procesar JSON con content directo
+      const body = await req.json()
+      fileName = body.fileName
+      content = body.content
+
+      if (!fileName || !content) {
+        return NextResponse.json({ 
+          error: 'fileName y content son requeridos' 
+        }, { status: 400 })
+      }
     }
 
     // Buscar documento por fileName

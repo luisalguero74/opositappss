@@ -40,36 +40,22 @@ export default function UpdatePDFContentPage() {
     setResult('')
 
     try {
-      // Leer contenido del PDF
+      // Enviar PDF directamente al endpoint de actualización
       const formData = new FormData()
       formData.append('file', selectedFile)
+      formData.append('fileName', fileName)
 
-      const extractResponse = await fetch('/api/admin/extract-pdf', {
+      const response = await fetch('/api/admin/update-document-content', {
         method: 'POST',
         body: formData
       })
 
-      if (!extractResponse.ok) {
-        throw new Error('Error extrayendo contenido del PDF')
-      }
-
-      const { content } = await extractResponse.json()
-
-      // Actualizar documento
-      const updateResponse = await fetch('/api/admin/update-document-content', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ fileName, content })
-      })
-
-      if (!updateResponse.ok) {
-        const error = await updateResponse.json()
+      if (!response.ok) {
+        const error = await response.json()
         throw new Error(error.error || 'Error actualizando documento')
       }
 
-      const data = await updateResponse.json()
+      const data = await response.json()
       setResult(`✅ Actualizado: ${data.documentId}\n📊 ${data.contentLength} caracteres\n🔍 Embedding: ${data.embeddingGenerated ? 'Sí' : 'No'}`)
       setSelectedFile(null)
       setFileName('')
