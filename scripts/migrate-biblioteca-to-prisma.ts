@@ -2,7 +2,8 @@
  * Script de migración: Biblioteca Legal (JSON) → Prisma (PostgreSQL)
  * 
  * Migra los documentos de data/biblioteca-legal.json a la tabla LegalDocument
- * y crea las relaciones con TemaOficial en TemaLegalDocument
+ * Lee los archivos físicos (PDF/TXT/EPUB) de documentos-temario/biblioteca/
+ * Extrae contenido y crea las relaciones con TemaOficial en TemaLegalDocument
  */
 
 import { PrismaClient } from '@prisma/client'
@@ -11,6 +12,7 @@ import { join } from 'path'
 import { existsSync } from 'fs'
 
 const prisma = new PrismaClient()
+const BIBLIOTECA_DIR = join(process.cwd(), 'documentos-temario', 'biblioteca')
 
 interface BibliotecaJSON {
   documentos: Array<{
@@ -23,6 +25,80 @@ interface BibliotecaJSON {
   }>
   relaciones: {
     [temaId: string]: string[] // temaId → [documentoIds]
+  }
+}
+
+// Extraer contenido de archivo según tipo
+async function extractContent(filePath: string): Promise<string> {
+  const extension = filePath.split('.').pop()?.toLowerCase()
+
+  try {
+    if (extension === 'txt') {
+      // Archivo TXT
+      const content = await readFile(filePath, 'utf-8')
+      console.log(`      📄 TXT: ${content.length} caracteres extraídos`)
+      return content
+    }
+
+    if (extension === 'pdf') {
+      // Archivo PDF
+      const pdfParse = require('pdf-parse-fork')
+      const buffer = await readFile(filePath)
+      const pdfData = await pdfParse(buffer)
+      console.log(`      📕 PDF: ${pdfData.text.length} caracteres extraídos`)
+      return pdfData.text
+    }
+
+    if (extension === 'epub') {
+      // Archivo EPUB
+      const EPub = require('epub')
+      const buffer = await readFile(filePath)
+      const epub = new EPub(buffer)
+      
+      const content = await new Promise<string>((resolve, reject) => {
+        const timeout = setTimeout(() => reject(new Error('Timeout EPUB')), 30000)
+
+        epub.on('end', async () => {
+          try {
+            clearTimeout(timeout)
+            const chapters = epub.flow.map((chapter: any) => chapter.id)
+            let fullText = ''
+            
+            for (const chapterId of chapters.slice(0, 200)) {
+              const chapterText = await new Promise<string>((res, rej) => {
+                epub.getChapter(chapterId, (error: any, text: string) => {
+                  if (error) rej(error)
+                  else {
+                    const cleanText = text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+                    res(cleanText)
+                  }
+                })
+              })
+              fullText += chapterText + '\n\n'
+              if (fullText.length > 500000) break
+            }
+            
+            console.log(`      📚 EPUB: ${fullText.length} caracteres extraídos`)
+            resolve(fullText)
+          } catch (err) {
+            clearTimeout(timeout)
+            reject(err)
+          }
+        })
+        epub.on('error', (err: any) => {
+          clearTimeout(timeout)
+          reject(err)
+        })
+        epub.parse()
+      })
+
+      return content
+    }
+
+    throw new Error(`Formato no soportado: ${extension}`)
+  } catch (error: any) {
+    console.error(`      ❌ Error extrayendo contenido: ${error.message}`)
+    return `Error al extraer contenido de ${filePath}`
   }
 }
 
@@ -62,6 +138,17 @@ async function migrateBiblioteca() {
         continue
       }
 
+      // Intentar extraer contenido del archivo físico
+      const filePath = join(BIBLIOTECA_DIR, doc.archivo)
+      let content = `Documento migrado de Biblioteca Legal: ${doc.nombre}`
+      
+      if (existsSync(filePath)) {
+        console.log(`   📂 Procesando archivo: ${doc.archivo}`)
+        content = await extractContent(filePath)
+      } else {
+        console.log(`   ⚠️  Archivo no encontrado: ${filePath}`)
+      }
+
       // Crear nuevo documento
       const newDoc = await prisma.legalDocument.create({
         data: {
@@ -69,7 +156,7 @@ async function migrateBiblioteca() {
           type: doc.tipo || 'ley',
           fileName: doc.archivo,
           fileSize: doc.numeroPaginas * 1024, // Estimación: 1KB por página
-          content: `Documento migrado de Biblioteca Legal: ${doc.nombre}`,
+          content: content.substring(0, 500000), // Limitar a 500k caracteres
           active: true,
           processedAt: new Date(doc.fechaActualizacion || Date.now())
         }
@@ -128,6 +215,12 @@ async function migrateBiblioteca() {
   console.log('🎉 Migración completada exitosamente!')
   console.log('\nℹ️  El archivo data/biblioteca-legal.json NO ha sido eliminado.')
   console.log('   Puedes guardarlo como backup y eliminar manualmente si todo funciona bien.')
+  
+  // Opción para generar embeddings
+  console.log('\n💡 SIGUIENTE PASO RECOMENDADO:')
+  console.log('   Ejecuta: npm run generate-embeddings')
+  console.log('   O desde admin: Panel "Generar Embeddings" → Botón "🚀 Generar Todos"')
+  console.log('\n   Esto habilitará búsqueda semántica en todos los documentos migrados.')
 }
 
 // Ejecutar migración
