@@ -293,6 +293,7 @@ model LegalDocument {
   active        Boolean  @default(true)
   sections      DocumentSection[]
   questions     GeneratedQuestion[]
+  temas         TemaLegalDocument[] // Relación many-to-many con TemaOficial
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -339,6 +340,7 @@ model TemaOficial {
   categoria         String   // "general" o "especifico"
   normativaBase     String?  @db.Text // JSON array
   archivos          TemaArchivo[]
+  documentos        TemaLegalDocument[] // Relación many-to-many con LegalDocument
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   
@@ -354,6 +356,20 @@ model TemaArchivo {
   uploadedAt      DateTime @default(now())
   
   @@index([temaId])
+}
+
+// Tabla intermedia para relación many-to-many: TemaOficial ↔ LegalDocument
+model TemaLegalDocument {
+  id            String   @id @default(cuid())
+  temaId        String
+  documentId    String
+  tema          TemaOficial @relation(fields: [temaId], references: [id], onDelete: Cascade)
+  document      LegalDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  
+  @@unique([temaId, documentId])
+  @@index([temaId])
+  @@index([documentId])
 }
 
 model AllowedPhoneNumber {
