@@ -183,7 +183,8 @@ export async function GET(req: NextRequest) {
           select: {
             id: true,
             title: true,
-            type: true
+            documentType: true,
+            topic: true
           }
         },
         section: {
@@ -195,7 +196,16 @@ export async function GET(req: NextRequest) {
       }
     })
 
-    return NextResponse.json({ questions })
+    // Normalizar el campo type para compatibilidad con frontend
+    const normalizedQuestions = questions.map(q => ({
+      ...q,
+      document: {
+        ...q.document,
+        type: q.document.documentType
+      }
+    }))
+
+    return NextResponse.json({ questions: normalizedQuestions })
   } catch (error) {
     console.error('[AI Questions] Error al listar:', error)
     return NextResponse.json({ error: 'Error al listar preguntas' }, { status: 500 })
