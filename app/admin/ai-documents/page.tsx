@@ -121,10 +121,15 @@ export default function AIDocumentsPage() {
         e.currentTarget.reset()
       } else {
         const error = await res.json()
-        alert(`Error: ${error.error}`)
+        const errorMsg = error.details 
+          ? `Error: ${error.error}\n\nDetalles: ${error.details}` 
+          : `Error: ${error.error}`
+        alert(errorMsg)
+        console.error('Error al subir documento:', error)
       }
-    } catch (error) {
-      alert('Error al subir documento')
+    } catch (error: any) {
+      alert(`Error al subir documento: ${error.message}`)
+      console.error('Error en handleUpload:', error)
     } finally {
       setUploading(false)
     }

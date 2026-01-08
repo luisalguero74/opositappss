@@ -140,9 +140,13 @@ export async function POST(req: NextRequest) {
       document,
       message: 'Documento procesado exitosamente' 
     }, { status: 201 })
-  } catch (error) {
+  } catch (error: any) {
     console.error('[Documents] Error al subir:', error)
-    return NextResponse.json({ error: 'Error al procesar documento' }, { status: 500 })
+    return NextResponse.json({ 
+      error: 'Error al procesar documento',
+      details: error?.message || String(error),
+      stack: process.env.NODE_ENV === 'development' ? error?.stack : undefined
+    }, { status: 500 })
   }
 }
 
