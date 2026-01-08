@@ -1,4 +1,5 @@
 // Usar fetch directo en lugar del SDK de Groq para evitar problemas de conexión
+import { generateEmbedding, cosineSimilarity, deserializeEmbedding } from './embeddings'
 
 // Función para realizar búsquedas web de fuentes oficiales
 async function searchWebSources(query: string): Promise<Array<{ title: string; content: string; source: string }>> {
@@ -37,20 +38,49 @@ export interface RAGContext {
   relevanceScore: number
   category?: string
   documentType?: 'ley' | 'tema_general' | 'tema_especifico' | 'normativa'
+  embedding?: number[] // Vector embedding para búsqueda semántica
 }
 
 /**
- * Búsqueda AVANZADA de contexto relevante en TODOS los documentos
- * Incluye leyes, temas del temario general y específico, y validación cruzada
+ * Búsqueda AVANZADA de contexto relevante con EMBEDDINGS VECTORIALES + Keywords
+ * Combina búsqueda semántica (embeddings) con búsqueda por palabras clave
  */
 export async function searchRelevantContext(
   query: string,
-  documents: Array<{ id: string; title: string; content: string; topic?: string }>,
+  documents: Array<{ id: string; title: string; content: string; topic?: string; embedding?: string | null }>,
   maxResults: number = 5
 ): Promise<RAGContext[]> {
   console.log(`🔍 [searchRelevantContext] Buscando en ${documents.length} documentos...`)
   
-  // Análisis avanzado de la query
+  // 1. BÚSQUEDA POR EMBEDDINGS (si están disponibles)
+  const docsWithEmbeddings = documents.filter(d => d.embedding)
+  let semanticResults: Array<{ id: string; score: number }> = []
+  
+  if (docsWithEmbeddings.length > 0 && process.env.OPENAI_API_KEY) {
+    console.log(`🎯 Usando búsqueda vectorial semántica (${docsWithEmbeddings.length} docs con embeddings)`)
+    
+    try {
+      // Generar embedding de la query
+      const queryEmbedding = await generateEmbedding(query)
+      
+      if (queryEmbedding.length > 0) {
+        // Calcular similitud con cada documento
+        semanticResults = docsWithEmbeddings.map(doc => {
+          const docEmbedding = deserializeEmbedding(doc.embedding!)
+          const similarity = cosineSimilarity(queryEmbedding, docEmbedding)
+          return { id: doc.id, score: similarity * 500 } // Escalar a rango similar al keyword search
+        }).filter(r => r.score > 0)
+        
+        console.log(`  ✅ ${semanticResults.length} resultados semánticos`)
+      }
+    } catch (error: any) {
+      console.error('❌ Error en búsqueda semántica:', error.message)
+    }
+  } else {
+    console.log(`📝 Usando solo búsqueda por keywords (embeddings no disponibles)`)
+  }
+  
+  // 2. BÚSQUEDA POR KEYWORDS (sistema original mejorado)
   const queryLower = query.toLowerCase()
   const queryWords = queryLower.split(/\s+/).filter(w => w.length > 3)
   
@@ -189,26 +219,47 @@ export async function searchRelevantContext(
     }
   }).filter(Boolean) as RAGContext[]
   
-  // Ordenar por relevancia y devolver los más relevantes
-  let results = scored
+  // 3. COMBINAR RESULTADOS: Sumar scores de embeddings + keywords
+  const combinedScores = new Map<string, number>()
+  
+  // Agregar scores de keywords
+  scored.forEach(doc => {
+    combinedScores.set(doc.documentId, doc.relevanceScore)
+  })
+  
+  // Agregar/sumar scores de embeddings
+  semanticResults.forEach(result => {
+    const existing = combinedScores.get(result.id) || 0
+    combinedScores.set(result.id, existing + result.score)
+  })
+  
+  // Crear resultado final con scores combinados
+  const allDocs = documents.reduce((acc, doc) => {
+    acc.set(doc.id, doc)
+    return acc
+  }, new Map())
+  
+  const combinedResults = Array.from(combinedScores.entries())
+    .map(([id, score]) => {
+      const doc = allDocs.get(id)!
+      return {
+        documentId: id,
+        documentTitle: doc.title,
+        content: doc.content,
+        relevanceScore: score,
+        category: doc.topic || 'General',
+        documentType: detectDocumentType(doc.title, doc.content)
+      }
+    })
     .sort((a, b) => b.relevanceScore - a.relevanceScore)
     .slice(0, maxResults)
-
-  // Fallback: si no hay resultados o son pocos, fuerza inclusión de LGSS (RDL 8/2015) si está en el corpus
-  const hasLgss = results.some(r => r.documentTitle.toLowerCase().includes('8/2015') || r.documentTitle.toLowerCase().includes('ley general de la seguridad social'))
-  if (!hasLgss) {
-    const lgssDoc = scored.find(r => r.documentTitle.toLowerCase().includes('8/2015') || r.documentTitle.toLowerCase().includes('ley general de la seguridad social'))
-    if (lgssDoc) {
-      results = [lgssDoc, ...results].slice(0, maxResults)
-    }
-  }
-    
-  console.log(`🔍 Resultados de búsqueda para: "${query}"`)
-  results.forEach((r, i) => {
+  
+  console.log(`🔍 Resultados finales (embeddings + keywords) para: "${query}"`)
+  combinedResults.forEach((r, i) => {
     console.log(`  ${i + 1}. ${r.documentTitle} (score: ${Math.round(r.relevanceScore)}, tipo: ${r.documentType})`)
   })
   
-  return results
+  return combinedResults.length > 0 ? combinedResults : scored.slice(0, maxResults)
 }
 
 /**

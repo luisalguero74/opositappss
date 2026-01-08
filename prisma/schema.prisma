@@ -288,6 +288,7 @@ model LegalDocument {
   fileName      String?
   fileSize      Int?     // Tamaño en bytes
   content       String   @db.Text // Contenido completo extraído
+  embedding     String?  @db.Text // Vector embedding JSON serializado
   processedAt   DateTime?
   active        Boolean  @default(true)
   sections      DocumentSection[]
@@ -303,6 +304,7 @@ model DocumentSection {
   title         String   // "Artículo 12", "Tema 5", etc.
   content       String   @db.Text
   order         Int
+  embedding     String?  @db.Text // Vector embedding JSON serializado
   questions     GeneratedQuestion[]
   createdAt     DateTime @default(now())
 }
