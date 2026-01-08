@@ -430,6 +430,12 @@ export default function AIDocumentsPage() {
                 </div>
                 <div className="flex flex-col gap-2">
                   <button
+                    onClick={() => router.push('/admin/update-pdf-content')}
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-green-700 transition whitespace-nowrap text-sm"
+                  >
+                    📄 Actualizar PDFs
+                  </button>
+                  <button
                     id="migrate-btn"
                     onClick={handleMigrateBiblioteca}
                     disabled={loading}
