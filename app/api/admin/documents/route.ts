@@ -152,47 +152,64 @@ export async function POST(req: NextRequest) {
 
 // Función auxiliar para dividir contenido en secciones
 async function createSections(documentId: string, content: string) {
-  const sections: Array<{ title: string; content: string; order: number }> = []
-  
-  // Dividir por artículos o temas (lógica básica)
-  const articlePattern = /(?:Artículo|Art\.|Tema|TEMA)\s+(\d+[.\-]?\d*)[:\s]+(.*?)(?=(?:Artículo|Art\.|Tema|TEMA)\s+\d+|$)/gi
-  const matches = content.matchAll(articlePattern)
-  
-  let order = 0
-  for (const match of matches) {
-    const number = match[1]
-    const sectionContent = match[0]
+  try {
+    const sections: Array<{ title: string; content: string; order: number }> = []
     
-    if (sectionContent.length > 100) { // Ignorar secciones muy cortas
-      sections.push({
-        title: `Artículo ${number}`,
-        content: sectionContent,
-        order: order++
-      })
-    }
-  }
-
-  // Si no se encontraron secciones, dividir por párrafos largos
-  if (sections.length === 0) {
-    const paragraphs = content.split(/\n\n+/)
-    paragraphs.forEach((para, idx) => {
-      if (para.trim().length > 200) {
+    // Dividir por artículos o temas (lógica básica)
+    const articlePattern = /(?:Artículo|Art\.|Tema|TEMA)\s+(\d+[.\-]?\d*)[:\s]+(.*?)(?=(?:Artículo|Art\.|Tema|TEMA)\s+\d+|$)/gis
+    const matches = content.matchAll(articlePattern)
+    
+    let order = 0
+    for (const match of matches) {
+      const number = match[1]
+      const sectionContent = match[0]
+      
+      if (sectionContent.length > 100 && sectionContent.length < 50000) { // Limitar tamaño
         sections.push({
-          title: `Sección ${idx + 1}`,
-          content: para.trim(),
-          order: idx
+          title: `Artículo ${number}`,
+          content: sectionContent.substring(0, 50000), // Limitar a 50k caracteres
+          order: order++
         })
       }
-    })
-  }
+    }
 
-  // Guardar secciones
-  if (sections.length > 0) {
-    await prisma.documentSection.createMany({
-      data: sections.map(s => ({
-        ...s,
-        documentId
-      }))
-    })
+    // Si no se encontraron secciones, dividir por párrafos largos
+    if (sections.length === 0) {
+      const paragraphs = content.split(/\n\n+/)
+      let validParas = 0
+      paragraphs.forEach((para, idx) => {
+        if (para.trim().length > 200 && para.trim().length < 50000) {
+          sections.push({
+            title: `Sección ${validParas + 1}`,
+            content: para.trim().substring(0, 50000),
+            order: validParas
+          })
+          validParas++
+        }
+      })
+    }
+
+    // Si aún no hay secciones, crear una sección con todo el contenido
+    if (sections.length === 0) {
+      sections.push({
+        title: 'Contenido completo',
+        content: content.substring(0, 50000),
+        order: 0
+      })
+    }
+
+    // Guardar secciones (máximo 100)
+    if (sections.length > 0) {
+      const sectionsToSave = sections.slice(0, 100)
+      await prisma.documentSection.createMany({
+        data: sectionsToSave.map(s => ({
+          ...s,
+          documentId
+        }))
+      })
+    }
+  } catch (error) {
+    console.error('[createSections] Error:', error)
+    // No lanzar error, solo log - el documento ya está creado
   }
 }
