@@ -177,7 +177,7 @@ export async function POST(req: NextRequest) {
     const document = await prisma.legalDocument.create({
       data: {
         title,
-        type,
+        // type, // Comentado temporalmente - columna no existe en BD producción
         topic: topic || null,
         reference: reference || null,
         fileName: file.name,
