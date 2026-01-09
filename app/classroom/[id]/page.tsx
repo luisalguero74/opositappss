@@ -36,6 +36,7 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [joined, setJoined] = useState(false)
+  const [jitsiLoading, setJitsiLoading] = useState(true)
   const [sessionEnded, setSessionEnded] = useState(false)
   const [leaveReason, setLeaveReason] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
@@ -295,13 +296,15 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
   return (
     <div className="h-screen w-screen bg-black relative">
       {/* Indicador de carga de Jitsi */}
-      <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-40 pointer-events-none">
-        <div className="text-center text-white">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
-          <p className="text-lg font-semibold">Conectando al aula virtual...</p>
-          <p className="text-sm text-gray-400 mt-2">Preparando cámara y micrófono</p>
+      {jitsiLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-40">
+          <div className="text-center text-white">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
+            <p className="text-lg font-semibold">Conectando al aula virtual...</p>
+            <p className="text-sm text-gray-400 mt-2">Preparando cámara y micrófono</p>
+          </div>
         </div>
-      </div>
+      )}
       
       {/* Botón flotante para salir */}
       <button
@@ -393,6 +396,9 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
         onApiReady={(externalApi) => {
           console.log('Jitsi API ready')
           
+          // Ocultar indicador de carga cuando la API está lista
+          setTimeout(() => setJitsiLoading(false), 1000)
+          
           // Configurar permisos según rol
           if (classroom.participant.role === 'moderator') {
             console.log('Usuario es moderador')
@@ -412,6 +418,7 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
           externalApi.addEventListener('videoConferenceJoined', () => {
             console.log('Joined conference successfully')
             hasJoined = true
+            setJitsiLoading(false) // Asegurar que se oculta al unirse
           })
 
           externalApi.addEventListener('videoConferenceLeft', () => {
