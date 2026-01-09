@@ -7,6 +7,7 @@ import { logError } from '@/lib/error-logger'
 import { temaCodigoFromTemaOficialId, temaCodigoVariants } from '@/lib/tema-codigo'
 import { PROMPT_MEJORADO_LGSS, PROMPT_MEJORADO_TEMAGENERAL } from '@/lib/prompts-mejorados'
 import { ValidadorPreguntas } from '@/lib/validador-preguntas'
+import { buscarDocumentosLegalesParaTema, enriquecerPromptConRAG, generarContextoLGSS } from '@/lib/rag-questions'
 // Configuración aumentada para evitar timeouts
 export const maxDuration = 300 // 5 minutos
 export const dynamic = 'force-dynamic'
@@ -487,16 +488,29 @@ async function generarPreguntasLGSS(
     return []
   }
   
+  // 🔍 SISTEMA RAG: Consultar documentos legales de la biblioteca
+  console.log('[LGSS] 📚 Consultando biblioteca legal...')
+  const documentosLegales = await generarContextoLGSS()
+  console.log(`[LGSS] ✅ Cargados ${documentosLegales.length} documentos de LGSS`)
+  
   // Usar el prompt mejorado con ejemplos reales
-  const prompt = PROMPT_MEJORADO_LGSS(numPreguntas)
+  let prompt = PROMPT_MEJORADO_LGSS(numPreguntas)
+  
+  // Enriquecer prompt con documentos legales de la biblioteca
+  if (documentosLegales.length > 0) {
+    prompt = enriquecerPromptConRAG(prompt, documentosLegales)
+    console.log('[LGSS] ✨ Prompt enriquecido con contexto legal de la biblioteca')
+  } else {
+    console.warn('[LGSS] ⚠️ No se encontraron documentos de LGSS en la biblioteca')
+  }
 
   try {
-    console.log('[LGSS] Llamando a Groq API con prompt mejorado...')
+    console.log('[LGSS] Llamando a Groq API con prompt mejorado y RAG...')
     const completion = await callGroqWithRetry(
       [
         {
           role: 'system',
-          content: 'Eres un experto en crear preguntas sobre la Ley General de la Seguridad Social. Respondes siempre en formato JSON válido y bien formado.'
+          content: 'Eres un experto jurídico en Seguridad Social. DEBES usar EXCLUSIVAMENTE la información de los documentos legales proporcionados. Cita textualmente los artículos. Respondes siempre en formato JSON válido y bien formado.'
         },
         {
           role: 'user',
@@ -602,6 +616,19 @@ async function generarPreguntasParaTema(
   preguntasExistentes: string[] = []
 ): Promise<PreguntaGenerada[]> {
   
+  console.log(`[Tema ${temaNumero}] Iniciando generación con RAG...`)
+  
+  // 🔍 SISTEMA RAG: Buscar documentos legales relevantes en la biblioteca
+  console.log(`[Tema ${temaNumero}] 📚 Consultando biblioteca legal...`)
+  const documentosRAG = await buscarDocumentosLegalesParaTema(
+    temaId,
+    temaNumero,
+    temaTitulo,
+    temaDescripcion,
+    categoria
+  )
+  console.log(`[Tema ${temaNumero}] ✅ Encontrados ${documentosRAG.length} documentos relevantes`)
+  
   // Construir texto con preguntas existentes para evitar duplicados
   let seccionPreguntasExistentes = ''
   if (preguntasExistentes.length > 0) {
@@ -617,66 +644,31 @@ Genera preguntas COMPLETAMENTE NUEVAS sobre aspectos diferentes del tema.
 `
   }
 
-  const prompt = `CONTEXTO: Eres un EXPERTO en la elaboración de preguntas para exámenes oficiales de oposiciones al Cuerpo General Administrativo de la Seguridad Social. Tienes experiencia en exámenes reales de 2022-2025.
-
-OBJETIVO: Generar ${numPreguntas} preguntas tipo test basadas en ${categoria === 'general' ? 'Temario General (Constitución, Administración Pública, etc.)' : 'Temario Específico (Seguridad Social, Derecho Laboral, etc.)'} con el máximo rigor académico y profesional.
-
-TEMA A TRABAJAR:
-- NÚMERO: Tema ${temaNumero}
-- TÍTULO: ${temaTitulo}
-- DESCRIPCIÓN: ${temaDescripcion}
-- NIVEL: ${categoria === 'general' ? 'Temario General' : 'Temario Específico'}
-${seccionPreguntasExistentes}
-
-ESTÁNDAR DE CALIDAD OBLIGATORIO:
-✓ Lenguaje completamente formal, legal y profesional
-✓ Contenido basado en normativa oficial y jurisprudencia consolidada
-✓ Preguntas directas sin ambigüedades (formato de examen oficial)
-✓ EXPLICACIONES EXHAUSTIVAS que incluyan:
-  - Referencia exacta a artículos, apartados y párrafos de la normativa
-  - Cita de leyes, decretos, órdenes ministeriales
-  - Explicación del concepto jurídico clave
-  - Por qué las otras opciones son incorrectas (indicar el error en cada una)
-✓ Opciones creadas como "distractores reales": errores comunes, confusiones frecuentes, datos parcialmente correctos
-✓ Distribución de dificultad: 40% fácil, 40% media, 20% difícil
-✓ Variación en la posición de la respuesta correcta
-
-NORMAS DE REDACCIÓN:
-1. Las preguntas deben ser claras y directas (nunca negativas como "¿Cuál NO es...?")
-2. Usa vocabulario exacto de la normativa
-3. Incluye referencias precisas: "Según el artículo X de la Ley Y..." o "De conformidad con..."
-4. Las opciones deben ser mutuamente excluyentes y plausibles
-5. Una sola respuesta correcta, inequívocamente clara con la normativa
-
-FORMATO JSON OBLIGATORIO (es crítico que sea válido):
-[
-  {
-    "pregunta": "Texto de la pregunta con referencia a normativa cuando aplique",
-    "opciones": [
-      "Opción A - respuesta correcta con datos específicos",
-      "Opción B - error común o confusión habitual",
-      "Opción C - interpretación errónea de la norma",
-      "Opción D - dato similar pero incorrecto"
-    ],
-    "respuestaCorrecta": 0,
-    "explicacion": "[Artículo/Ley]: Cita o paráfrasis de la norma. La opción A es correcta porque... Las opciones B/C/D son incorrectas porque... [referencias complementarias]",
-    "dificultad": "media"
+  // Usar prompt mejorado
+  let prompt = PROMPT_MEJORADO_TEMAGENERAL(
+    temaNumero,
+    temaTitulo,
+    temaDescripcion,
+    categoria,
+    numPreguntas,
+    preguntasExistentes
+  )
+  
+  // Enriquecer prompt con documentos RAG si existen
+  if (documentosRAG.length > 0) {
+    prompt = enriquecerPromptConRAG(prompt, documentosRAG)
+    console.log(`[Tema ${temaNumero}] ✨ Prompt enriquecido con ${documentosRAG.length} documentos legales`)
+  } else {
+    console.log(`[Tema ${temaNumero}] ⚠️ No se encontraron documentos legales relevantes en biblioteca`)
   }
-]
-
-INSTRUCCIONES FINALES:
-- Responde SOLO con el array JSON válido
-- Verifica que sea JSON parseble
-- dificultad: "facil" (preguntas directas), "media" (requieren análisis), "dificil" (análisis profundo o combinación de conceptos)
-- respuestaCorrecta: 0=A, 1=B, 2=C, 3=D
-- NO incluyas explicaciones antes ni después del JSON`
 
   try {
+    console.log(`[Tema ${temaNumero}] Llamando a Groq API con RAG...`)
     const completion = await callGroqWithRetry(
       [
         {
           role: 'system',
-          content: 'Eres un experto jurídico en oposiciones a la Administración Pública. Tus preguntas son rigurosas, profesionales y basadas en normativa oficial. Responde SIEMPRE en formato JSON válido y bien formado.'
+          content: 'Eres un experto jurídico en oposiciones. DEBES usar EXCLUSIVAMENTE información de los documentos legales oficiales proporcionados (BOE, Aranzadi, Universidad de Deusto). Cita textualmente artículos. Responde en JSON válido.'
         },
         {
           role: 'user',
@@ -684,14 +676,17 @@ INSTRUCCIONES FINALES:
         }
       ],
       'llama-3.3-70b-versatile',
-      0.7,
+      0.3, // Reducido de 0.7 a 0.3 para mayor precisión con RAG
       8000
     )
 
     const content = completion.choices[0]?.message?.content
     if (!content) {
+      console.log(`[Tema ${temaNumero}] ⚠️ Respuesta vacía de Groq`)
       return []
     }
+
+    console.log(`[Tema ${temaNumero}] ✅ Respuesta recibida, parseando...`)
 
     // Intentar parsear diferentes formatos de respuesta
     let parsed: any

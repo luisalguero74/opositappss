@@ -16,6 +16,7 @@ export default function Admin() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ type: '', text: '' })
   const [showAISubmenu, setShowAISubmenu] = useState(false)
+  const [showQuestionsSubmenu, setShowQuestionsSubmenu] = useState(false)
 
   useEffect(() => {
     if (session && session.user && String(session.user.role || '').toLowerCase() !== 'admin') {
@@ -246,16 +247,35 @@ export default function Admin() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
             <div className="bg-gradient-to-r from-red-500 to-pink-600 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">📰</div>
             </div>
             <div className="p-6">
               <h2 className="text-xl font-bold text-gray-800 mb-3">Base de Datos de Preguntas</h2>
-              <p className="text-gray-600 mb-4 text-sm">Visualiza todas las preguntas de tests de temario y supuestos prácticos con sus respuestas.</p>
-              <Link href="/admin/questions" className="inline-block bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition text-sm">
-                Ver Preguntas →
-              </Link>
+              <p className="text-gray-600 mb-4 text-sm">Visualiza, gestiona y corrige preguntas de tests y supuestos prácticos.</p>
+              
+              <button
+                onClick={() => setShowQuestionsSubmenu(!showQuestionsSubmenu)}
+                className="w-full inline-flex items-center justify-between bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition text-sm mb-3"
+              >
+                <span>Opciones</span>
+                <span className="text-xl">{showQuestionsSubmenu ? '▲' : '▼'}</span>
+              </button>
+
+              {showQuestionsSubmenu && (
+                <div className="space-y-2 mt-3 pl-2 border-l-4 border-amber-500">
+                  <Link href="/admin/questions" className="block text-gray-700 hover:text-amber-600 font-medium text-sm py-2 px-3 hover:bg-amber-50 rounded transition">
+                    📋 Ver Base de Datos
+                  </Link>
+                  <Link href="/admin/questions-quality" className="block text-gray-700 hover:text-amber-600 font-medium text-sm py-2 px-3 hover:bg-amber-50 rounded transition">
+                    ✨ Control de Calidad
+                  </Link>
+                  <Link href="/admin/questions-review" className="block text-gray-700 hover:text-amber-600 font-medium text-sm py-2 px-3 hover:bg-amber-50 rounded transition">
+                    ✏️ Revisar Preguntas
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
 

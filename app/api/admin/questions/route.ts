@@ -29,7 +29,10 @@ export async function GET(req: NextRequest) {
       options: JSON.parse(q.options),
       correctAnswer: q.correctAnswer,
       explanation: q.explanation,
-      questionnaireName: q.questionnaire.title
+      questionnaireName: q.questionnaire.title,
+      temaCodigo: q.temaCodigo,
+      temaNumero: q.temaNumero,
+      difficulty: q.difficulty
     }))
 
     return NextResponse.json(formattedQuestions)
