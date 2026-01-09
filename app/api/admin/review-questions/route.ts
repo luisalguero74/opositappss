@@ -239,11 +239,13 @@ export async function POST(req: NextRequest) {
             pregunta.temaTitulo || 'Tema General'
           )
 
-          // Actualizar en BD
+          // Actualizar en BD con marca de revisión
           await prisma.question.update({
             where: { id: questionId },
             data: {
-              explanation: nuevaExplicacion
+              explanation: nuevaExplicacion,
+              aiReviewed: true,
+              aiReviewedAt: new Date()
             }
           })
 

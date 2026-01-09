@@ -15,6 +15,8 @@ interface Question {
   temaCodigo?: string | null
   temaNumero?: number | null
   difficulty?: string | null
+  aiReviewed?: boolean
+  aiReviewedAt?: string | null
 }
 
 export default function QuestionsDatabase() {
@@ -303,6 +305,23 @@ export default function QuestionsDatabase() {
                       {q.temaCodigo && (
                         <div className="text-xs text-gray-500 mt-1">
                           {q.temaCodigo} - Tema {q.temaNumero}
+                        </div>
+                      )}
+                      {q.aiReviewed && (
+                        <div className="mt-2">
+                          <span className="inline-flex items-center gap-1 px-2 py-1 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 rounded-full text-xs font-semibold border border-green-300">
+                            <span>✨</span>
+                            <span>Revisada por IA</span>
+                          </span>
+                          {q.aiReviewedAt && (
+                            <div className="text-xs text-gray-500 mt-1">
+                              {new Date(q.aiReviewedAt).toLocaleDateString('es-ES', { 
+                                day: '2-digit', 
+                                month: 'short', 
+                                year: 'numeric' 
+                              })}
+                            </div>
+                          )}
                         </div>
                       )}
                     </td>

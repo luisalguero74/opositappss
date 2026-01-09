@@ -32,7 +32,9 @@ export async function GET(req: NextRequest) {
       questionnaireName: q.questionnaire.title,
       temaCodigo: q.temaCodigo,
       temaNumero: q.temaNumero,
-      difficulty: q.difficulty
+      difficulty: q.difficulty,
+      aiReviewed: q.aiReviewed,
+      aiReviewedAt: q.aiReviewedAt?.toISOString()
     }))
 
     return NextResponse.json(formattedQuestions)

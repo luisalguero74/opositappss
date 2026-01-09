@@ -109,6 +109,10 @@ model Question {
   // Nivel de dificultad
   difficulty       String?        // "facil", "media", "dificil"
   
+  // Control de calidad
+  aiReviewed       Boolean        @default(false) // Indica si fue revisada/corregida por IA
+  aiReviewedAt     DateTime?      // Fecha de última revisión por IA
+  
   userAnswers      UserAnswer[]
   
   // Nuevas funcionalidades
