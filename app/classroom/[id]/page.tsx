@@ -293,7 +293,16 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
   }
 
   return (
-    <div className="h-screen w-screen bg-gray-900 relative">
+    <div className="h-screen w-screen bg-black relative">
+      {/* Indicador de carga de Jitsi */}
+      <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-40 pointer-events-none">
+        <div className="text-center text-white">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-lg font-semibold">Conectando al aula virtual...</p>
+          <p className="text-sm text-gray-400 mt-2">Preparando cámara y micrófono</p>
+        </div>
+      </div>
+      
       {/* Botón flotante para salir */}
       <button
         onClick={() => {
@@ -370,7 +379,7 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
           MOBILE_APP_PROMO: false,
           TOOLBAR_ALWAYS_VISIBLE: false,
           TOOLBAR_TIMEOUT: 4000,
-          DEFAULT_BACKGROUND: '#474747',
+          DEFAULT_BACKGROUND: '#1a1a1a',
           DEFAULT_REMOTE_DISPLAY_NAME: 'Usuario',
           DEFAULT_LOCAL_DISPLAY_NAME: session?.user?.name || 'Yo',
           FILM_STRIP_MAX_HEIGHT: 120,
