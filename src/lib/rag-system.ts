@@ -387,6 +387,15 @@ export async function generateRAGResponse(
    - Decir "según el artículo X" si X no aparece arriba
    - Lenguaje informal o coloquial
    - Respuestas sin fundamento legal explícito
+   - Respuestas vagas o genéricas tipo "depende del caso"
+   - Información sin citar la fuente específica
+   - Explicaciones sin base en los documentos proporcionados
+
+🚫 SI NO TIENES LA INFORMACIÓN COMPLETA:
+   - NO intentes responder parcialmente
+   - NO inventes ni aproximes datos
+   - Indica claramente: "No dispongo de información completa sobre [X] en los documentos disponibles"
+   - Sugiere consultar la fuente oficial (BOE, normativa específica)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📚 DOCUMENTOS DISPONIBLES PARA CONSULTA:
@@ -415,7 +424,17 @@ ${contextText}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-RECORDATORIO: Si dudas de que un dato esté en los documentos, NO lo menciones. Es mejor decir "no tengo esa información" que inventarla.`
+⚠️ VALIDACIÓN FINAL ANTES DE RESPONDER:
+Antes de enviar tu respuesta, verifica:
+1. ✓ ¿Cité al menos UN artículo específico con su número exacto?
+2. ✓ ¿Incluí el texto literal del artículo entre comillas?
+3. ✓ ¿Toda la información proviene de los documentos anteriores?
+4. ✓ ¿Usé terminología jurídica profesional?
+5. ✓ ¿Evité frases vagas como "depende", "normalmente", "suele"?
+
+Si NO puedes cumplir los 5 puntos, responde: "No dispongo de información suficiente en los documentos disponibles para responder con la precisión jurídica requerida. Recomiendo consultar [fuente oficial específica]."
+
+RECORDATORIO: Es mejor decir "no tengo esa información" que dar una respuesta vaga o inventada. La precisión jurídica es FUNDAMENTAL para oposiciones.`
 
   const messages: ChatMessage[] = [
     { role: 'system', content: systemPrompt },
@@ -453,21 +472,59 @@ RECORDATORIO: Si dudas de que un dato esté en los documentos, NO lo menciones. 
 
     const completion = await apiResponse.json()
     const response = completion.choices[0]?.message?.content || 'No pude generar una respuesta'
-    console.log(`[RAG] Respuesta: ${response.length} caracteres`)
+    console.log(`[RAG] Respuesta generada: ${response.length} caracteres`)
     
-    // Validar que la respuesta no invente artículos
-    const mentionedArticles = [...response.matchAll(/artículo\s*(\d+)/gi)]
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // VALIDACIÓN DE CALIDAD DE RESPUESTA
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    
+    // 1. Verificar que no sea una respuesta genérica/vaga
+    const vaguePatterns = [
+      /depende del caso/i,
+      /puede variar/i,
+      /normalmente/i,
+      /generalmente/i,
+      /suele ser/i,
+      /en algunos casos/i,
+      /esto depende/i
+    ]
+    
+    const hasVagueLanguage = vaguePatterns.some(pattern => pattern.test(response))
+    if (hasVagueLanguage && response.length < 300) {
+      console.warn(`⚠️ ADVERTENCIA: Respuesta contiene lenguaje vago y es corta (${response.length} chars)`)
+    }
+    
+    // 2. Verificar que incluya citas de artículos o referencias legales
+    const hasLegalReferences = /artículo\s*\d+|art\.\s*\d+|\[.*?\]|tema\s*\d+/gi.test(response)
+    if (!hasLegalReferences && context.length > 0) {
+      console.warn(`⚠️ ADVERTENCIA: Respuesta sin referencias legales a pesar de tener contexto disponible`)
+    }
+    
+    // 3. Validar que los artículos mencionados existen en el contexto
+    const mentionedArticles = [...response.matchAll(/artículo\s*(\d+(?:\.\d+)?)/gi)]
     if (mentionedArticles.length > 0) {
       console.log(`[RAG] Artículos mencionados en respuesta: ${mentionedArticles.map(m => m[1]).join(', ')}`)
       
       // Verificar que están en el contexto
+      const invalidArticles: string[] = []
       mentionedArticles.forEach(match => {
         const articleNum = match[1]
         const inContext = new RegExp(`artículo\\s*${articleNum}[^0-9]`, 'gi').test(contextText)
         if (!inContext) {
+          invalidArticles.push(articleNum)
           console.warn(`⚠️ ADVERTENCIA: Respuesta menciona Artículo ${articleNum} que NO está en contexto`)
         }
       })
+      
+      // Si hay artículos inventados, advertir en la respuesta
+      if (invalidArticles.length > 0) {
+        console.error(`❌ ERROR CRÍTICO: Respuesta menciona artículos NO presentes en documentos: ${invalidArticles.join(', ')}`)
+      }
+    }
+    
+    // 4. Verificar longitud mínima razonable para respuesta profesional
+    if (response.length < 150 && context.length > 0) {
+      console.warn(`⚠️ ADVERTENCIA: Respuesta muy corta (${response.length} chars) con contexto disponible`)
     }
     
     return response
