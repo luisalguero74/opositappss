@@ -44,8 +44,18 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    // Buscar todas las secciones primero (sin filtrar por document en where)
+    // Buscar secciones cuyo documento esté activo
+    const sectionWhere: any = {
+      document: {
+        active: true
+      }
+    }
+    if (topic) {
+      sectionWhere.document.topic = topic
+    }
+
     const sections = await prisma.documentSection.findMany({
+      where: sectionWhere,
       select: {
         id: true,
         title: true,
@@ -62,13 +72,7 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    // Filtrar secciones con documento null y por topic si es necesario
-    const validSections = sections.filter(sec => {
-      if (!sec.document) return false
-      if (!sec.document.active) return false
-      if (topic && sec.document.topic !== topic) return false
-      return true
-    })
+    const validSections = sections
 
     const mergedDocs = [
       ...documents.map(doc => ({ 
