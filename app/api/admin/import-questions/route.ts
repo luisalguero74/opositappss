@@ -41,7 +41,8 @@ export async function POST(req: NextRequest) {
                 temaNumero: question.temaNumero || null,
                 temaParte: question.temaParte || null,
                 temaTitulo: question.temaTitulo || null,
-                difficulty: question.difficulty || 'media'
+                difficulty: question.difficulty || 'media',
+                legalBasis: question.legalBasis || null
               }))
             }
           }
