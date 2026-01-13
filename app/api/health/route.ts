@@ -21,17 +21,23 @@ export async function GET() {
     await prisma.$queryRaw`SELECT 1`
     
     // Try to count documents and sections if they exist
+    checks.documentCount = 0
+    checks.sectionCount = 0
+    
     try {
-      const [documents, sections] = await Promise.all([
-        (prisma.legalDocument as any)?.count?.() || Promise.resolve(0),
-        (prisma.documentSection as any)?.count?.() || Promise.resolve(0)
-      ])
-      checks.documentCount = documents
-      checks.sectionCount = sections
+      if ((prisma as any).legalDocument && typeof (prisma as any).legalDocument.count === 'function') {
+        checks.documentCount = await (prisma as any).legalDocument.count()
+      }
     } catch (e) {
-      // Tables might not exist yet, that's okay
-      checks.documentCount = 0
-      checks.sectionCount = 0
+      // Table might not exist, that's okay
+    }
+    
+    try {
+      if ((prisma as any).documentSection && typeof (prisma as any).documentSection.count === 'function') {
+        checks.sectionCount = await (prisma as any).documentSection.count()
+      }
+    } catch (e) {
+      // Table might not exist, that's okay
     }
     
     checks.db = 'ok'
