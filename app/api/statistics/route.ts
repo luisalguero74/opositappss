@@ -266,40 +266,33 @@ export async function GET(request: NextRequest) {
     }
 
     // Obtener todas las respuestas del usuario de forma simple y rápida
-    let userAnswers: any[] = []
-    try {
-      userAnswers = await prisma.userAnswer.findMany({
-        where: { userId: user.id },
-        select: {
-          id: true,
-          questionId: true,
-          questionnaireId: true,
-          answer: true,
-          isCorrect: true,
-          createdAt: true,
-          question: {
-            select: {
-              id: true,
-              text: true,
-              correctAnswer: true,
-              explanation: true,
-              questionnaire: {
-                select: {
-                  id: true,
-                  title: true,
-                  type: true
-                }
+    const userAnswers = await prisma.userAnswer.findMany({
+      where: { userId: user.id },
+      select: {
+        id: true,
+        questionId: true,
+        questionnaireId: true,
+        answer: true,
+        isCorrect: true,
+        createdAt: true,
+        question: {
+          select: {
+            id: true,
+            text: true,
+            correctAnswer: true,
+            explanation: true,
+            questionnaire: {
+              select: {
+                id: true,
+                title: true,
+                type: true
               }
             }
           }
-        },
-        orderBy: { createdAt: 'desc' }
-      })
-    } catch (e: any) {
-      console.error('[Statistics] Error fetching answers from Prisma:', e.message)
-      // If Prisma fails, return empty statistics rather than error
-      userAnswers = []
-    }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    })
 
     // Calcular estadísticas generales - filtrando respuestas sin pregunta
     const validAnswers = userAnswers.filter((a: any) => a.question) as any[]
@@ -388,27 +381,30 @@ export async function GET(request: NextRequest) {
       .slice(0, 15) // Top 15 preguntas con más errores
 
     // Procesar cada pregunta fallada para obtener su fundamento legal (con búsqueda en BD)
-    const failedQuestions = failedQuestionsData.map(async (q) => {
-      // Extraer artículos legales de la explicación de forma simple
-      let legalArticle = 'No especificado'
-      if (q.explanation) {
-        const matches = q.explanation.match(/art[íi]culo\s+\d+(\.\d+)?/gi)
-        if (matches && matches[0]) {
-          legalArticle = matches[0]
+    const failedQuestions = await Promise.all(
+      failedQuestionsData.map(async (q) => {
+        // Buscar la pregunta completa para obtener temaCodigo
+        const fullQuestion = await prisma.question.findUnique({
+          where: { id: q.questionId },
+          select: { temaCodigo: true }
+        })
+        
+        const legalArticle = await extractLegalArticle(
+          q.explanation || '', 
+          q.correctAnswer || '',
+          q.questionText || '',
+          fullQuestion?.temaCodigo
+        )
+        
+        return {
+          questionText: q.questionText,
+          questionnaireTitle: q.questionnaireTitle,
+          correctAnswer: q.correctAnswer,
+          legalArticle: legalArticle,
+          errors: q.errors
         }
-      }
-      
-      return {
-        questionText: q.questionText,
-        questionnaireTitle: q.questionnaireTitle,
-        correctAnswer: q.correctAnswer,
-        legalArticle: legalArticle,
-        errors: q.errors
-      }
-    })
-    
-    // Wait for all promises to resolve
-    const resolvedFailedQuestions = await Promise.all(failedQuestions)
+      })
+    )
 
     // 2. Agrupar errores por tema y generar recomendaciones
     const errorsByTheme = new Map<string, { errorCount: number; totalQuestions: number }>()
@@ -506,7 +502,7 @@ export async function GET(request: NextRequest) {
           date: a.createdAt
         })),
       studyRecommendations: {
-        failedQuestions: resolvedFailedQuestions,
+        failedQuestions,
         themesToReview
       }
     })
