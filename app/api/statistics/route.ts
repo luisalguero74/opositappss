@@ -10,228 +10,42 @@ async function extractLegalArticle(
   questionText: string,
   temaCodigo?: string | null
 ): Promise<string> {
-  // Patrones comunes de artículos legales mejorados
-  const patterns = [
-    /art[íi]culo\s+\d+(\.\d+)?(\s+(?:bis|ter|quater|quinquies))?[^\n.]*/gi,
-    /art\.\s*\d+(\.\d+)?(\s+(?:bis|ter|quater))?[^\n.]*/gi,
-    /según\s+(?:el\s+)?art[íi]culo\s+\d+[^\n.]*/gi,
-    /conforme\s+(?:al\s+)?art[íi]culo\s+\d+[^\n.]*/gi,
-    /de\s+acuerdo\s+con\s+(?:el\s+)?art[íi]culo\s+\d+[^\n.]*/gi,
-    /ley\s+\d+\/\d+[^\n.]*/gi,
-    /real\s+decreto\s+legislativo\s+\d+\/\d+[^\n.]*/gi,
-    /real\s+decreto\s+\d+\/\d+[^\n.]*/gi,
-    /RDL\s+\d+\/\d+[^\n.]*/gi,
-    /RD\s+\d+\/\d+[^\n.]*/gi,
-    /disposición\s+adicional\s+\w+[^\n.]*/gi,
-    /disposición\s+transitoria\s+\w+[^\n.]*/gi,
-    /disposición\s+final\s+\w+[^\n.]*/gi,
-  ]
-
-  // 1. Buscar en la explicación y respuesta correcta primero (más rápido)
-  const textsToSearch = [explanation, correctAnswer, questionText].filter(Boolean)
-  
-  for (const text of textsToSearch) {
-    for (const pattern of patterns) {
-      const matches = text.match(pattern)
-      if (matches && matches[0]) {
-        const foundReference = matches[0].trim()
-        
-        // Si encontramos una referencia, intentar enriquecerla con contexto del documento
-        const enrichedReference = await enrichLegalReference(foundReference, temaCodigo)
-        if (enrichedReference) {
-          return enrichedReference
-        }
-        
-        return foundReference
-      }
-    }
-  }
-
-  // 2. Si no encuentra referencia directa, buscar en documentos legales por contenido relacionado
-  if (temaCodigo) {
-    const relatedDocument = await findRelatedLegalDocument(questionText, temaCodigo)
-    if (relatedDocument) {
-      return relatedDocument
-    }
-  }
-
-  // 3. Búsqueda amplia en toda la base de documentos
-  const broadSearch = await searchInAllDocuments(questionText, correctAnswer)
-  if (broadSearch) {
-    return broadSearch
-  }
-
-  // Mensaje por defecto si no se encuentra
-  return 'Fundamento legal no especificado. Consulta el temario o normativa aplicable según el contexto de la pregunta.'
-}
-
-// Función para enriquecer la referencia legal con contexto del documento
-async function enrichLegalReference(reference: string, temaCodigo?: string | null): Promise<string | null> {
   try {
-    // Extraer número de artículo de la referencia
-    const articleMatch = reference.match(/art[íi]culo\s+(\d+)/i) || reference.match(/art\.\s*(\d+)/i)
-    const lawMatch = reference.match(/(ley|RDL?|real decreto\s+legislativo?)\s+\d+\/\d+/i)
+    // Patrones comunes de artículos legales mejorados
+    const patterns = [
+      /art[íi]culo\s+\d+(\.\d+)?(\s+(?:bis|ter|quater|quinquies))?[^\n.]*/gi,
+      /art\.\s*\d+(\.\d+)?(\s+(?:bis|ter|quater))?[^\n.]*/gi,
+      /según\s+(?:el\s+)?art[íi]culo\s+\d+[^\n.]*/gi,
+      /conforme\s+(?:al\s+)?art[íi]culo\s+\d+[^\n.]*/gi,
+      /de\s+acuerdo\s+con\s+(?:el\s+)?art[íi]culo\s+\d+[^\n.]*/gi,
+      /ley\s+\d+\/\d+[^\n.]*/gi,
+      /real\s+decreto\s+legislativo\s+\d+\/\d+[^\n.]*/gi,
+      /real\s+decreto\s+\d+\/\d+[^\n.]*/gi,
+      /RDL\s+\d+\/\d+[^\n.]*/gi,
+      /RD\s+\d+\/\d+[^\n.]*/gi,
+      /disposición\s+adicional\s+\w+[^\n.]*/gi,
+      /disposición\s+transitoria\s+\w+[^\n.]*/gi,
+      /disposición\s+final\s+\w+[^\n.]*/gi,
+    ]
+
+    // 1. Buscar en la explicación y respuesta correcta primero (más rápido)
+    const textsToSearch = [explanation, correctAnswer, questionText].filter(Boolean)
     
-    if (!articleMatch && !lawMatch) return null
-
-    // Buscar en documentos que contengan esa referencia
-    const searchTerms = []
-    if (articleMatch) searchTerms.push(`artículo ${articleMatch[1]}`)
-    if (lawMatch) searchTerms.push(lawMatch[0])
-
-    const documents = await prisma.legalDocument.findMany({
-      where: {
-        active: true,
-        OR: searchTerms.map(term => ({
-          content: {
-            contains: term,
-            mode: 'insensitive' as const
-          }
-        }))
-      },
-      select: {
-        reference: true,
-        title: true,
-        content: true
-      },
-      take: 1
-    })
-
-    if (documents.length > 0) {
-      const doc = documents[0]
-      if (doc.reference) {
-        return `${reference} de ${doc.reference}`
-      }
-    }
-
-    return null
-  } catch (error) {
-    console.error('Error enriching legal reference:', error)
-    return null
-  }
-}
-
-// Función para buscar documento legal relacionado por tema
-async function findRelatedLegalDocument(questionText: string, temaCodigo: string): Promise<string | null> {
-  try {
-    // Extraer palabras clave de la pregunta (eliminar palabras comunes)
-    const stopWords = ['el', 'la', 'de', 'en', 'y', 'a', 'los', 'las', 'del', 'al', 'por', 'con', 'para', 'que', 'es', 'se', 'un', 'una']
-    const keywords = questionText
-      .toLowerCase()
-      .replace(/[¿?¡!.,;:]/g, ' ')
-      .split(/\s+/)
-      .filter(word => word.length > 3 && !stopWords.includes(word))
-      .slice(0, 5) // Top 5 keywords
-
-    if (keywords.length === 0) return null
-
-    // Buscar documentos que contengan esas palabras clave
-    const documents = await prisma.legalDocument.findMany({
-      where: {
-        active: true,
-        OR: keywords.map(keyword => ({
-          content: {
-            contains: keyword,
-            mode: 'insensitive' as const
-          }
-        }))
-      },
-      select: {
-        reference: true,
-        title: true,
-        content: true,
-        type: true
-      },
-      take: 3
-    })
-
-    if (documents.length > 0) {
-      // Buscar el documento más relevante
-      for (const doc of documents) {
-        // Buscar artículos en el contenido del documento
-        const articleMatches = doc.content.match(/art[íi]culo\s+\d+(\.\d+)?/gi)
-        if (articleMatches && articleMatches.length > 0) {
-          const firstArticle = articleMatches[0]
-          if (doc.reference) {
-            return `${firstArticle} de ${doc.reference} - ${doc.title}`
-          }
-          return `${firstArticle} - ${doc.title}`
-        }
-      }
-
-      // Si no encontramos artículos específicos, devolver referencia del documento
-      const doc = documents[0]
-      if (doc.reference) {
-        return `${doc.reference} - ${doc.title}`
-      }
-    }
-
-    return null
-  } catch (error) {
-    console.error('Error finding related legal document:', error)
-    return null
-  }
-}
-
-// Función para búsqueda amplia en todos los documentos
-async function searchInAllDocuments(questionText: string, correctAnswer: string): Promise<string | null> {
-  try {
-    // Combinar pregunta y respuesta correcta para mejor contexto
-    const searchText = `${questionText} ${correctAnswer}`.toLowerCase()
-    
-    // Extraer frases clave (más de 3 palabras juntas)
-    const phrases = searchText.match(/\b\w+\s+\w+\s+\w+\s+\w+\b/g)
-    if (!phrases || phrases.length === 0) return null
-
-    // Buscar la frase más relevante en documentos
-    const topPhrase = phrases[0]
-
-    const documents = await prisma.legalDocument.findMany({
-      where: {
-        active: true,
-        content: {
-          contains: topPhrase,
-          mode: 'insensitive' as const
-        }
-      },
-      select: {
-        reference: true,
-        title: true,
-        content: true
-      },
-      take: 1
-    })
-
-    if (documents.length > 0) {
-      const doc = documents[0]
-      
-      // Buscar el fragmento exacto en el contenido
-      const contentLower = doc.content.toLowerCase()
-      const phraseIndex = contentLower.indexOf(topPhrase.toLowerCase())
-      
-      if (phraseIndex !== -1) {
-        // Extraer contexto alrededor de la frase (100 caracteres antes y después)
-        const start = Math.max(0, phraseIndex - 100)
-        const end = Math.min(doc.content.length, phraseIndex + topPhrase.length + 100)
-        const context = doc.content.substring(start, end).trim()
-        
-        // Buscar artículo en ese contexto
-        const articleMatch = context.match(/art[íi]culo\s+\d+(\.\d+)?/i)
-        
-        if (articleMatch && doc.reference) {
-          return `${articleMatch[0]} de ${doc.reference}`
-        }
-        
-        if (doc.reference) {
-          return `Consultar ${doc.reference} - ${doc.title}`
+    for (const text of textsToSearch) {
+      for (const pattern of patterns) {
+        const matches = text.match(pattern)
+        if (matches && matches[0]) {
+          const foundReference = matches[0].trim()
+          return foundReference
         }
       }
     }
 
-    return null
+    // Mensaje por defecto si no se encuentra
+    return 'Fundamento legal no especificado. Consulta el temario o normativa aplicable según el contexto de la pregunta.'
   } catch (error) {
-    console.error('Error searching in all documents:', error)
-    return null
+    console.warn('[Statistics] Error in extractLegalArticle:', error)
+    return 'Fundamento legal no especificado.'
   }
 }
 
@@ -383,18 +197,35 @@ export async function GET(request: NextRequest) {
     // Procesar cada pregunta fallada para obtener su fundamento legal (con búsqueda en BD)
     const failedQuestions = await Promise.all(
       failedQuestionsData.map(async (q) => {
-        // Buscar la pregunta completa para obtener temaCodigo
-        const fullQuestion = await prisma.question.findUnique({
-          where: { id: q.questionId },
-          select: { temaCodigo: true }
-        })
+        let legalArticle = 'No especificado'
         
-        const legalArticle = await extractLegalArticle(
-          q.explanation || '', 
-          q.correctAnswer || '',
-          q.questionText || '',
-          fullQuestion?.temaCodigo
-        )
+        try {
+          // Buscar la pregunta completa para obtener temaCodigo
+          const fullQuestion = await prisma.question.findUnique({
+            where: { id: q.questionId },
+            select: { temaCodigo: true }
+          })
+          
+          const extractedArticle = await extractLegalArticle(
+            q.explanation || '', 
+            q.correctAnswer || '',
+            q.questionText || '',
+            fullQuestion?.temaCodigo
+          )
+          
+          if (extractedArticle) {
+            legalArticle = extractedArticle
+          }
+        } catch (error) {
+          console.warn(`[Statistics] Error extracting legal article for question ${q.questionId}:`, error)
+          // Fall back to simple extraction from explanation
+          if (q.explanation) {
+            const matches = q.explanation.match(/art[íi]culo\s+\d+(\.\d+)?/i)
+            if (matches) {
+              legalArticle = matches[0]
+            }
+          }
+        }
         
         return {
           questionText: q.questionText,
