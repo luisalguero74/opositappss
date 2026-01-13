@@ -51,10 +51,16 @@ export default function MonetizationWrapper({ position }: MonetizationWrapperPro
 
   if (loading || !settings) return null
 
+  const effectiveClientId = settings.adsenseClientId || 'ca-pub-3330699408382004'
+  const defaultSlot = '5720224718'
+
   // Dashboard: Afiliados + Donaciones
   if (position === 'dashboard') {
     return (
       <div className="space-y-6">
+        {settings.adsEnabled && effectiveClientId && (
+          <GoogleAds clientId={effectiveClientId} slot={defaultSlot} />
+        )}
         {settings.affiliatesEnabled && settings.amazonAffiliateId && (
           <AffiliatesSection amazonId={settings.amazonAffiliateId} />
         )}
@@ -72,8 +78,8 @@ export default function MonetizationWrapper({ position }: MonetizationWrapperPro
   if (position === 'test-end') {
     return (
       <div className="space-y-6">
-        {settings.adsEnabled && settings.adsenseClientId && (
-          <GoogleAds clientId={settings.adsenseClientId} />
+        {settings.adsEnabled && effectiveClientId && (
+          <GoogleAds clientId={effectiveClientId} slot={defaultSlot} />
         )}
         {settings.donationsEnabled && (
           <DonationButtons 
@@ -89,8 +95,8 @@ export default function MonetizationWrapper({ position }: MonetizationWrapperPro
   if (position === 'sidebar') {
     return (
       <div>
-        {settings.adsEnabled && settings.adsenseClientId && (
-          <GoogleAds clientId={settings.adsenseClientId} slot="9876543210" />
+        {settings.adsEnabled && effectiveClientId && (
+          <GoogleAds clientId={effectiveClientId} slot={defaultSlot} />
         )}
       </div>
     )

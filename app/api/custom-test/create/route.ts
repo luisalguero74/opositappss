@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { temaCodigoVariants } from '@/lib/tema-codigo'
+import { rebalanceQuestionsABCD } from '@/lib/answer-alternation'
 
 function uniqueStrings(values: string[]): string[] {
   return Array.from(new Set(values))
@@ -124,6 +125,17 @@ export async function POST(req: NextRequest) {
     const selectedQuestions = [...selectedGeneralQuestions, ...selectedSpecificQuestions]
       .sort(() => Math.random() - 0.5) // Mezclar todas las preguntas
 
+    // Reequilibrar distribución de respuestas correctas (máx 2 iguales seguidas)
+    const rebalanced = rebalanceQuestionsABCD(
+      selectedQuestions.map((q: any) => ({
+        id: q.id,
+        options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options,
+        correctAnswer: q.correctAnswer
+      })),
+      2
+    )
+    const rebalanceById = new Map(rebalanced.map((x: any) => [x.id, x]))
+
     // Crear cuestionario temporal
     const distributionMsg = hasGeneral && hasSpecific 
       ? ` (${generalQuestionsCount} generales, ${specificQuestionsCount} específicas)`
@@ -141,12 +153,15 @@ export async function POST(req: NextRequest) {
     // Crear preguntas en el cuestionario (copiar las preguntas seleccionadas)
     await Promise.all(
       selectedQuestions.map((q: any, index: any) => {
+        const rb = rebalanceById.get(q.id)
+        const newOptions = rb?.options && Array.isArray(rb.options) ? rb.options : JSON.parse(q.options)
+        const newCorrectAnswer = rb?.correctAnswer || q.correctAnswer
         return prisma.question.create({
           data: {
             questionnaireId: questionnaire.id,
             text: q.text,
-            options: q.options,
-            correctAnswer: q.correctAnswer,
+            options: JSON.stringify(newOptions),
+            correctAnswer: newCorrectAnswer,
             explanation: q.explanation,
             temaCodigo: q.temaCodigo,
             temaNumero: q.temaNumero,

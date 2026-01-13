@@ -26,12 +26,13 @@ export default function AdminRooms() {
   const [rooms, setRooms] = useState<RoomInfo[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null)
+  const [loadError, setLoadError] = useState<string | null>(null)
 
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login')
     }
-    if (session?.user?.role !== 'admin') {
+    if (session && String(session.user.role || '').toLowerCase() !== 'admin') {
       router.push('/dashboard')
     }
   }, [session, status, router])
@@ -48,9 +49,24 @@ export default function AdminRooms() {
       if (res.ok) {
         const data = await res.json()
         setRooms(data.rooms || [])
+        setLoadError(null)
+      } else {
+        const data = await res.json().catch(() => ({}))
+        const base = String(data?.error || `HTTP ${res.status}`)
+        const details = data?.details
+          ? `\n\nDetalles: host=${String(data.details.host || '')}` +
+            ` | keyLength=${Number(data.details.keyLength || 0)}` +
+            (data.details.rawKeyLength != null ? ` (raw=${Number(data.details.rawKeyLength || 0)})` : '') +
+            ` | secretLength=${Number(data.details.secretLength || 0)}` +
+            (data.details.rawSecretLength != null ? ` (raw=${Number(data.details.rawSecretLength || 0)})` : '') +
+            (data.details.rawKeyHasWhitespace != null ? ` | keyHasWhitespace=${String(Boolean(data.details.rawKeyHasWhitespace))}` : '') +
+            (data.details.rawSecretHasWhitespace != null ? ` | secretHasWhitespace=${String(Boolean(data.details.rawSecretHasWhitespace))}` : '')
+          : ''
+        setLoadError(base + details)
       }
     } catch (error) {
       console.error('Error loading rooms:', error)
+      setLoadError('Error de red cargando salas de LiveKit')
     } finally {
       setLoading(false)
     }
@@ -233,6 +249,24 @@ export default function AdminRooms() {
     }
   }
 
+  const getJoinUrl = (roomName: string) => {
+    const safeName = encodeURIComponent(String(roomName || ''))
+    const origin = typeof window !== 'undefined' ? window.location.origin : ''
+    return {
+      relative: `/room/${safeName}`,
+      absolute: origin ? `${origin}/room/${safeName}` : `/room/${safeName}`
+    }
+  }
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      alert('Enlace copiado')
+    } catch {
+      alert('No se pudo copiar el enlace')
+    }
+  }
+
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
@@ -248,6 +282,18 @@ export default function AdminRooms() {
           <h1 className="text-4xl font-bold text-white">Panel de Moderación</h1>
           <Link href="/admin" className="text-orange-200 hover:text-white font-semibold">← Panel Admin</Link>
         </div>
+
+        {loadError && (
+          <div className="mb-6 bg-red-500/20 border border-red-300/30 text-red-50 rounded-xl p-4">
+            <div className="font-semibold">No se pudieron cargar las salas</div>
+            <div className="text-sm opacity-90 mt-1">{loadError}</div>
+            <div className="text-sm opacity-90 mt-2">
+              {String(loadError).includes('Unauthorized')
+                ? 'Asegúrate de estar logueado como admin (rol admin) y vuelve a cargar.'
+                : 'Revisa que estén configuradas las variables LIVEKIT_URL, LIVEKIT_API_KEY y LIVEKIT_API_SECRET en producción.'}
+            </div>
+          </div>
+        )}
         {/* Moderation Menu */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20 mb-6">
           <h2 className="text-2xl font-bold text-white mb-6">Menú de Moderación</h2>
@@ -314,6 +360,18 @@ export default function AdminRooms() {
                     <div>
                       <h3 className="text-xl font-bold text-white">{room.name}</h3>
                       <p className="text-gray-300">{room.numParticipants} participante(s)</p>
+                      <div className="mt-2 text-sm text-white/80">
+                        <div>Enlace para usuarios: <span className="font-mono">{getJoinUrl(room.name).relative}</span></div>
+                        <div className="mt-1 flex gap-2">
+                          <button
+                            onClick={() => copyToClipboard(getJoinUrl(room.name).absolute)}
+                            className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded text-xs font-semibold transition"
+                            type="button"
+                          >
+                            Copiar enlace
+                          </button>
+                        </div>
+                      </div>
                     </div>
                     <div className="flex gap-2">
                       <button

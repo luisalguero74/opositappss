@@ -246,7 +246,7 @@ export async function POST(req: NextRequest) {
               explanation: nuevaExplicacion,
               aiReviewed: true,
               aiReviewedAt: new Date()
-            }
+            } as any
           })
 
           resultados.exitosas++

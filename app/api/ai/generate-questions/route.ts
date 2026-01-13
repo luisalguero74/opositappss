@@ -140,24 +140,38 @@ export async function GET(req: NextRequest) {
 
     const questions = await prisma.generatedQuestion.findMany({
       where,
-      include: {
-        document: {
-          select: {
-            title: true,
-            topic: true
-          }
-        },
-        section: {
-          select: {
-            title: true
-          }
-        }
-      },
       orderBy: { createdAt: 'desc' },
       take: 50
     })
 
-    return NextResponse.json({ questions })
+    const documentIds = Array.from(new Set(questions.map(q => q.documentId).filter(Boolean)))
+    const sectionIds = Array.from(new Set(questions.map(q => q.sectionId).filter(Boolean)))
+
+    const [documents, sections] = await Promise.all([
+      documentIds.length
+        ? prisma.legalDocument.findMany({
+            where: { id: { in: documentIds } },
+            select: { id: true, title: true, topic: true }
+          })
+        : Promise.resolve([]),
+      sectionIds.length
+        ? prisma.documentSection.findMany({
+            where: { id: { in: sectionIds as string[] } },
+            select: { id: true, title: true }
+          })
+        : Promise.resolve([])
+    ])
+
+    const docById = new Map(documents.map(d => [d.id, d]))
+    const sectionById = new Map(sections.map(s => [s.id, s]))
+
+    return NextResponse.json({
+      questions: questions.map(q => ({
+        ...q,
+        document: docById.get(q.documentId) ?? null,
+        section: q.sectionId ? (sectionById.get(q.sectionId) ?? null) : null
+      }))
+    })
   } catch (error) {
     console.error('Error obteniendo preguntas:', error)
     return NextResponse.json(

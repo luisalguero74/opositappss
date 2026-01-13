@@ -223,9 +223,12 @@ export default function QuizPage() {
       })
 
       if (!response.ok) {
-        console.error('Error al guardar respuestas:', await response.text())
+        const text = await response.text()
+        console.error('Error al guardar respuestas:', text)
+        alert('No se han podido guardar tus respuestas en estadísticas. ' + text)
       } else {
-        console.log('✓ Respuestas guardadas en estadísticas')
+        const data = await response.json().catch(() => null)
+        console.log('✓ Respuestas guardadas en estadísticas', data)
       }
 
       setShowResults(true)
@@ -250,7 +253,7 @@ export default function QuizPage() {
     const total = questionnaire.questions.length
     const correct = questionnaire.questions.filter(q => {
       const userAnswer = userAnswers.find(a => a.questionId === q.id)
-      return userAnswer?.selectedAnswer === q.correctAnswer
+      return userAnswer?.selectedAnswer === getCorrectLetter(q)
     }).length
     
     return {

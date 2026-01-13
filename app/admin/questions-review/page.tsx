@@ -24,6 +24,30 @@ interface Question {
   }
 }
 
+interface AIQuestion {
+  id: string
+  text: string
+  options: string
+  correctAnswer: string
+  explanation: string | null
+  difficulty: string | null
+  topic: string | null
+  reviewed: boolean
+  approved: boolean
+  reviewedAt: string | null
+  document?: {
+    id: string
+    title: string
+    type?: string | null
+    documentType?: string | null
+    topic?: string | null
+  } | null
+  section?: {
+    id: string
+    title: string
+  } | null
+}
+
 export default function QuestionsReview() {
   const { data: session, status } = useSession()
   const router = useRouter()
@@ -37,6 +61,14 @@ export default function QuestionsReview() {
   const [selectedQuestions, setSelectedQuestions] = useState<Set<string>>(new Set())
   const [creatingQuestionnaire, setCreatingQuestionnaire] = useState(false)
 
+  const [mode, setMode] = useState<'db' | 'ai'>('db')
+  const [aiQuestions, setAiQuestions] = useState<AIQuestion[]>([])
+  const [aiLoading, setAiLoading] = useState(false)
+  const [aiSelected, setAiSelected] = useState<Set<string>>(new Set())
+  const [aiWorking, setAiWorking] = useState<'qa' | 'promote' | null>(null)
+  const [aiReviewedFilter, setAiReviewedFilter] = useState<'all' | 'unreviewed' | 'reviewed'>('unreviewed')
+  const [aiApprovedFilter, setAiApprovedFilter] = useState<'all' | 'approved' | 'unapproved'>('all')
+
   useEffect(() => {
     if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
       router.push('/dashboard')
@@ -44,6 +76,13 @@ export default function QuestionsReview() {
       loadQuestions()
     }
   }, [status, session, router])
+
+  useEffect(() => {
+    if (status === 'authenticated' && mode === 'ai') {
+      loadAiQuestions()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, status, aiReviewedFilter, aiApprovedFilter])
 
   const loadQuestions = async () => {
     try {
@@ -54,6 +93,24 @@ export default function QuestionsReview() {
       console.error('Error cargando preguntas:', error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const loadAiQuestions = async () => {
+    setAiLoading(true)
+    try {
+      const params = new URLSearchParams({ limit: '200' })
+      if (aiReviewedFilter === 'reviewed') params.set('reviewed', 'true')
+      if (aiReviewedFilter === 'unreviewed') params.set('reviewed', 'false')
+      if (aiApprovedFilter === 'approved') params.set('approved', 'true')
+      if (aiApprovedFilter === 'unapproved') params.set('approved', 'false')
+      const res = await fetch(`/api/admin/ai-questions?${params.toString()}`)
+      const data = await res.json()
+      setAiQuestions((data.questions || []) as AIQuestion[])
+    } catch (error) {
+      console.error('Error cargando preguntas IA:', error)
+    } finally {
+      setAiLoading(false)
     }
   }
 
@@ -233,6 +290,84 @@ export default function QuestionsReview() {
     }
   }
 
+  const toggleAiSelected = (id: string) => {
+    const next = new Set(aiSelected)
+    if (next.has(id)) next.delete(id)
+    else next.add(id)
+    setAiSelected(next)
+  }
+
+  const selectAllAi = () => {
+    if (aiSelected.size === aiQuestions.length) {
+      setAiSelected(new Set())
+    } else {
+      setAiSelected(new Set(aiQuestions.map(q => q.id)))
+    }
+  }
+
+  const applyAiQa = async () => {
+    if (aiSelected.size === 0) {
+      alert('Selecciona al menos una pregunta IA')
+      return
+    }
+    if (!confirm(`¿Aplicar QA (RAG + embeddings) a ${aiSelected.size} preguntas IA?`)) return
+
+    setAiWorking('qa')
+    try {
+      const res = await fetch('/api/admin/ai-questions/batch-qa', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questionIds: Array.from(aiSelected), batchSize: 5 })
+      })
+
+      const data = await res.json()
+      if (res.ok && data.success) {
+        alert(`✅ QA completado:\n- Procesadas: ${data.procesadas}\n- Exitosas: ${data.exitosas}\n- Fallidas: ${data.fallidas}`)
+        setAiSelected(new Set())
+        loadAiQuestions()
+      } else {
+        alert(`Error: ${data.error || 'No se pudo aplicar QA'}`)
+      }
+    } catch (error) {
+      console.error('Error aplicando QA:', error)
+      alert('Error aplicando QA')
+    } finally {
+      setAiWorking(null)
+    }
+  }
+
+  const promoteAiToDb = async () => {
+    if (aiSelected.size === 0) {
+      alert('Selecciona al menos una pregunta IA')
+      return
+    }
+
+    const title = prompt(`Nombre del cuestionario destino (${aiSelected.size} preguntas):`)
+    if (!title) return
+
+    setAiWorking('promote')
+    try {
+      const res = await fetch('/api/admin/ai-questions/promote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questionIds: Array.from(aiSelected), questionnaireTitle: title })
+      })
+
+      const data = await res.json()
+      if (res.ok && data.success) {
+        alert(`✅ Enviadas a la base de datos:\n- Cuestionario: ${data.questionnaire?.title}\n- Preguntas creadas: ${data.createdQuestions}`)
+        setAiSelected(new Set())
+      } else {
+        alert(`Error: ${data.error || 'No se pudieron enviar'}`)
+      }
+    } catch (error) {
+      console.error('Error enviando a BD:', error)
+      alert('Error enviando a la base de datos')
+    } finally {
+      setAiWorking(null)
+    }
+  }
+
   if (!session || !session.user || String(session.user.role || '').toLowerCase() !== 'admin') {
     return null
   }
@@ -253,15 +388,199 @@ export default function QuestionsReview() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <Link href="/admin" className="text-blue-600 hover:text-blue-800 mb-4 inline-block font-semibold">
-            ← Volver al Panel Admin
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <Link href="/admin" className="text-blue-600 hover:text-blue-800 inline-block font-semibold">
+              ← Volver al Panel Admin
+            </Link>
+            <Link
+              href="/admin/questions-quality"
+              className="inline-block bg-white border border-blue-200 text-blue-700 font-semibold px-4 py-2 rounded-lg hover:bg-blue-50 transition text-sm"
+            >
+              ✨ Revisión de Calidad
+            </Link>
+          </div>
+
           <h1 className="text-4xl font-bold text-gray-800 mb-2">📋 Revisar y Gestionar Preguntas</h1>
           <p className="text-gray-600">Edita, elimina y publica cuestionarios generados</p>
         </div>
 
         {/* Filtros */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+          {/* Submenú */}
+          <div className="flex flex-wrap gap-3 mb-6">
+            <button
+              onClick={() => setMode('db')}
+              className={`px-4 py-2 rounded-lg font-semibold text-sm border ${mode === 'db' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50'}`}
+            >
+              📚 Preguntas (BD)
+            </button>
+            <button
+              onClick={() => setMode('ai')}
+              className={`px-4 py-2 rounded-lg font-semibold text-sm border ${mode === 'ai' ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-purple-700 border-purple-200 hover:bg-purple-50'}`}
+            >
+              🤖 Preguntas IA
+            </button>
+          </div>
+
+          {mode === 'ai' && (
+            <div className="border rounded-lg p-4 bg-purple-50 mb-6">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <div className="font-bold text-gray-800">Submenú: QA + Enviar a Base de Datos</div>
+                  <div className="text-sm text-gray-600">
+                    Mostradas: {aiQuestions.length} · Seleccionadas: {aiSelected.size}
+                  </div>
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-semibold text-gray-700">Estado:</label>
+                    <select
+                      value={aiReviewedFilter}
+                      onChange={(e) => {
+                        setAiReviewedFilter(e.target.value as any)
+                        setAiSelected(new Set())
+                      }}
+                      className="px-3 py-2 border border-purple-200 rounded-lg text-sm bg-white"
+                    >
+                      <option value="all">Todas</option>
+                      <option value="unreviewed">Sin revisar</option>
+                      <option value="reviewed">Revisadas</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-semibold text-gray-700">Aprobación:</label>
+                    <select
+                      value={aiApprovedFilter}
+                      onChange={(e) => {
+                        setAiApprovedFilter(e.target.value as any)
+                        setAiSelected(new Set())
+                      }}
+                      className="px-3 py-2 border border-purple-200 rounded-lg text-sm bg-white"
+                    >
+                      <option value="all">Todas</option>
+                      <option value="approved">Aprobadas</option>
+                      <option value="unapproved">No aprobadas</option>
+                    </select>
+                  </div>
+                  <button
+                    onClick={selectAllAi}
+                    disabled={aiLoading || aiQuestions.length === 0}
+                    className="px-4 py-2 bg-white border border-purple-200 text-purple-700 rounded-lg hover:bg-purple-100 disabled:opacity-50 font-semibold text-sm"
+                  >
+                    {aiSelected.size === aiQuestions.length && aiQuestions.length > 0 ? '☑️ Deseleccionar todas' : '☐ Seleccionar todas'}
+                  </button>
+                  <button
+                    onClick={applyAiQa}
+                    disabled={aiWorking !== null || aiSelected.size === 0}
+                    className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 disabled:opacity-50 font-semibold text-sm"
+                  >
+                    {aiWorking === 'qa' ? '⏳ Aplicando QA...' : `✨ Aplicar QA (${aiSelected.size})`}
+                  </button>
+                  <button
+                    onClick={promoteAiToDb}
+                    disabled={aiWorking !== null || aiSelected.size === 0}
+                    className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 disabled:opacity-50 font-semibold text-sm"
+                  >
+                    {aiWorking === 'promote' ? '⏳ Enviando...' : `📥 Enviar a BD (${aiSelected.size})`}
+                  </button>
+                </div>
+              </div>
+
+              {aiLoading && (
+                <div className="mt-3 text-sm text-gray-600">Cargando preguntas IA...</div>
+              )}
+
+              {!aiLoading && aiQuestions.length === 0 && (
+                <div className="mt-3 text-sm text-gray-600">No hay preguntas IA para mostrar.</div>
+              )}
+
+              {!aiLoading && aiQuestions.length > 0 && (
+                <div className="mt-4 space-y-3">
+                  {aiQuestions.map(q => {
+                    const options = (() => {
+                      try {
+                        return JSON.parse(q.options) as string[]
+                      } catch {
+                        return []
+                      }
+                    })()
+
+                    return (
+                      <div key={q.id} className="bg-white border border-purple-100 rounded-lg p-4">
+                        <div className="flex items-start gap-3">
+                          <input
+                            type="checkbox"
+                            checked={aiSelected.has(q.id)}
+                            onChange={() => toggleAiSelected(q.id)}
+                            className="mt-1 w-5 h-5 rounded"
+                          />
+                          <div className="flex-1">
+                            <div className="flex flex-wrap items-center gap-2 justify-between">
+                              <div className="text-sm text-gray-600">
+                                {q.document?.title ? <span className="font-semibold">{q.document.title}</span> : 'Documento'}
+                                {q.section?.title ? <span> · {q.section.title}</span> : null}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                {q.reviewed ? (
+                                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                                    ✅ Revisada
+                                  </span>
+                                ) : (
+                                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
+                                    ⏳ Sin revisar
+                                  </span>
+                                )}
+                                {q.difficulty ? (
+                                  <span className="px-2 py-1 rounded text-xs bg-gray-100 text-gray-700">
+                                    {q.difficulty}
+                                  </span>
+                                ) : null}
+                              </div>
+                            </div>
+
+                            <div className="mt-2 font-semibold text-gray-900">{q.text}</div>
+
+                            {options.length > 0 && (
+                              <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
+                                {options.map((opt, idx) => {
+                                  const label = ['A', 'B', 'C', 'D'][idx]
+                                  const isCorrect = label === q.correctAnswer
+                                  return (
+                                    <div key={idx} className={`text-sm p-2 rounded border ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}>
+                                      <span className="font-semibold">{label})</span> {opt}
+                                    </div>
+                                  )
+                                })}
+                              </div>
+                            )}
+
+                            {q.explanation && (
+                              <div className="mt-3 text-sm text-gray-700 bg-purple-50 border border-purple-100 rounded p-3">
+                                <span className="font-semibold">Explicación:</span> {q.explanation}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+
+          {mode === 'ai' && (
+            <div className="text-sm text-gray-500 mb-4">
+              Consejo: aplica QA antes de enviar a la base de datos.
+            </div>
+          )}
+
+          {mode === 'ai' && (
+            <div className="border-t pt-6" />
+          )}
+
+          {mode === 'db' && (
+            <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Filtrar por Categoría:</label>
@@ -353,10 +672,12 @@ export default function QuestionsReview() {
               </button>
             </div>
           )}
+            </>
+          )}
         </div>
 
         {/* Cuestionarios */}
-        {Object.entries(questionsByQuestionnaire).map(([qId, { questionnaire, questions }]) => (
+        {mode === 'db' && Object.entries(questionsByQuestionnaire).map(([qId, { questionnaire, questions }]) => (
           <div key={qId} className="bg-white rounded-lg shadow-lg p-6 mb-8">
             <div className="flex items-center justify-between mb-6 pb-4 border-b">
               <div>
@@ -536,7 +857,7 @@ export default function QuestionsReview() {
           </div>
         ))}
 
-        {filteredQuestions.length === 0 && (
+        {mode === 'db' && filteredQuestions.length === 0 && (
           <div className="bg-white rounded-lg shadow-lg p-12 text-center">
             <p className="text-xl text-gray-600">No hay preguntas generadas todavía</p>
             <Link 

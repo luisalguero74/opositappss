@@ -7,12 +7,78 @@ import Link from 'next/link'
 import { TEMARIO_OFICIAL } from '@/lib/temario-oficial'
 
 const MAX_FILE_MB = 50
+const OCR_RENDER_SCALE = Number(process.env.NEXT_PUBLIC_OCR_RENDER_SCALE ?? '2')
 
 type OcrMeta = {
   pages?: number
   usedOCR?: boolean
   sizeMB?: number
   durationMs?: number
+  ocrMaxPages?: number
+}
+
+async function renderPdfPageToPngBlob(page: any, scale: number): Promise<Blob> {
+  const viewport = page.getViewport({ scale })
+  const canvas = document.createElement('canvas')
+  const context = canvas.getContext('2d')
+  if (!context) throw new Error('No se pudo crear contexto de canvas para OCR')
+
+  canvas.width = Math.ceil(viewport.width)
+  canvas.height = Math.ceil(viewport.height)
+
+  await page.render({ canvasContext: context, viewport }).promise
+
+  const blob: Blob | null = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'))
+  if (!blob) throw new Error('No se pudo convertir la página a imagen para OCR')
+
+  // Help GC
+  canvas.width = 0
+  canvas.height = 0
+
+  return blob
+}
+
+async function ocrPdfInBrowserThenServer(
+  file: File,
+  options: { maxPages: number; scale: number; onStatus: (msg: string) => void }
+): Promise<{ text: string; pages: number }>
+  {
+  const pdfjs = (await import('pdfjs-dist/legacy/build/pdf')) as any
+
+  const data = new Uint8Array(await file.arrayBuffer())
+  const loadingTask = pdfjs.getDocument({ data, disableWorker: true })
+  const pdf = await loadingTask.promise
+  const totalPages = Number(pdf?.numPages ?? 0)
+
+  if (!totalPages || totalPages <= 0) {
+    throw new Error('No se pudieron detectar páginas del PDF')
+  }
+
+  const pagesToProcess = Math.min(totalPages, options.maxPages)
+  let out = ''
+
+  for (let pageIndex = 1; pageIndex <= pagesToProcess; pageIndex++) {
+    options.onStatus(`Renderizando página ${pageIndex}/${pagesToProcess}...`)
+    const page = await pdf.getPage(pageIndex)
+    const pngBlob = await renderPdfPageToPngBlob(page, options.scale)
+
+    options.onStatus(`OCR servidor página ${pageIndex}/${pagesToProcess}...`)
+    const formData = new FormData()
+    formData.append('image', pngBlob, `page-${pageIndex}.png`)
+    formData.append('pageIndex', String(pageIndex))
+
+    const res = await fetch('/api/admin/ocr-pdf', { method: 'POST', body: formData })
+    const data = await res.json().catch(() => ({}))
+
+    if (!res.ok) {
+      throw new Error(data?.error || `Error OCR en página ${pageIndex}`)
+    }
+
+    const pageText = String(data?.text || '')
+    out += `\n\n[Página ${pageIndex}/${pagesToProcess}]\n${pageText}`
+  }
+
+  return { text: out.trim(), pages: totalPages }
 }
 
 export default function OCRConverterPage() {
@@ -77,16 +143,42 @@ export default function OCRConverterPage() {
         body: formData
       })
 
-      const data = await res.json()
+      const data = await res.json().catch(() => ({}))
 
       if (!res.ok) {
-        throw new Error(data.error || 'Error al extraer texto')
+        if (data?.code === 'OCR_REQUIRED') {
+          const ocrMaxPages = Number(data?.meta?.ocrMaxPages ?? 30)
+          const pagesHint = Number(data?.meta?.pages ?? 0)
+          const maxPages = Math.min(ocrMaxPages, pagesHint || ocrMaxPages)
+
+          if (pagesHint && pagesHint > ocrMaxPages) {
+            throw new Error(
+              `PDF escaneado (${pagesHint} páginas). En Vercel, OCR recomendado hasta ${ocrMaxPages} páginas. Divide el PDF.`
+            )
+          }
+
+          setStatusMsg('PDF escaneado: iniciando OCR por páginas...')
+          const ocr = await ocrPdfInBrowserThenServer(file, {
+            maxPages,
+            scale: OCR_RENDER_SCALE,
+            onStatus: setStatusMsg
+          })
+
+          setExtractedText(ocr.text)
+          setDocName(file.name.replace('.pdf', ''))
+          setMeta({ pages: ocr.pages, usedOCR: true, ocrMaxPages, durationMs: undefined })
+          setStatusMsg('OCR completado')
+          setStep('preview')
+          return
+        }
+
+        throw new Error(data?.error || 'Error al extraer texto')
       }
 
-      setExtractedText(data.text)
+      setExtractedText(String(data?.text || ''))
       setDocName(file.name.replace('.pdf', ''))
-      setMeta(data.meta ?? null)
-      setStatusMsg(data.meta?.usedOCR ? 'OCR completado' : 'Texto embebido extraído')
+      setMeta(data?.meta ?? null)
+      setStatusMsg(data?.meta?.usedOCR ? 'OCR completado' : 'Texto embebido extraído')
       setStep('preview')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido')

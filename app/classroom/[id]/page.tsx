@@ -1,6 +1,6 @@
 'use client'
 
-import { use, useState, useEffect } from 'react'
+import { use, useCallback, useMemo, useRef, useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
@@ -30,26 +30,194 @@ interface ClassroomData {
 
 export default function ClassroomRoom({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
-  const { data: session } = useSession()
+  const { data: session, status: sessionStatus } = useSession()
   const router = useRouter()
   const [classroom, setClassroom] = useState<ClassroomData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [joined, setJoined] = useState(false)
   const [jitsiLoading, setJitsiLoading] = useState(true)
+  const [jitsiError, setJitsiError] = useState('')
+  const [iframeLoaded, setIframeLoaded] = useState(false)
+  const [jitsiApiReady, setJitsiApiReady] = useState(false)
   const [sessionEnded, setSessionEnded] = useState(false)
   const [leaveReason, setLeaveReason] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false)
   const [passwordVerified, setPasswordVerified] = useState(false)
 
+  const didConferenceJoinRef = useRef(false)
+  const conferenceJoinedAtMsRef = useRef<number | null>(null)
+  const connectStartedAtMsRef = useRef<number | null>(null)
+  const [connectElapsedSec, setConnectElapsedSec] = useState(0)
+
+  // IMPORTANT: `@jitsi/react-sdk` may tear down/recreate the iframe if these props change.
+  // Keep them stable to avoid "me veo y luego me expulsa" caused by a re-render.
+  const jitsiConfigOverwrite = useMemo(() => {
+    const role = classroom?.participant.role
+    const isModerator = role === 'moderator'
+    return {
+      startWithAudioMuted: !isModerator,
+      startWithVideoMuted: !isModerator,
+      disableModeratorIndicator: false,
+      startScreenSharing: false,
+      enableEmailInStats: false,
+      enableNoisyMicDetection: true,
+      enableWelcomePage: false,
+      prejoinPageEnabled: false,
+      hideConferenceSubject: false,
+      hideConferenceTimer: false,
+      disableInviteFunctions: !isModerator,
+      toolbarButtons: [
+        'camera',
+        'chat',
+        'closedcaptions',
+        'desktop',
+        'download',
+        'embedmeeting',
+        'etherpad',
+        'feedback',
+        'filmstrip',
+        'fullscreen',
+        'hangup',
+        'help',
+        'highlight',
+        'invite',
+        'linktosalesforce',
+        'livestreaming',
+        'microphone',
+        'noisesuppression',
+        'participants-pane',
+        'profile',
+        'raisehand',
+        'recording',
+        'security',
+        'select-background',
+        'settings',
+        'shareaudio',
+        'sharedvideo',
+        'shortcuts',
+        'stats',
+        'tileview',
+        'toggle-camera',
+        'videoquality',
+        'whiteboard'
+      ]
+    }
+  }, [classroom?.participant.role])
+
+  const jitsiInterfaceConfigOverwrite = useMemo(() => {
+    return {
+      DISABLE_JOIN_LEAVE_NOTIFICATIONS: false,
+      DISABLE_PRESENCE_STATUS: false,
+      DISPLAY_WELCOME_PAGE_CONTENT: false,
+      DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
+      SHOW_JITSI_WATERMARK: false,
+      SHOW_WATERMARK_FOR_GUESTS: false,
+      SHOW_BRAND_WATERMARK: false,
+      BRAND_WATERMARK_LINK: '',
+      SHOW_POWERED_BY: false,
+      MOBILE_APP_PROMO: false,
+      TOOLBAR_ALWAYS_VISIBLE: false,
+      TOOLBAR_TIMEOUT: 4000,
+      DEFAULT_BACKGROUND: '#1a1a1a',
+      DEFAULT_REMOTE_DISPLAY_NAME: 'Usuario',
+      DEFAULT_LOCAL_DISPLAY_NAME: session?.user?.name || 'Yo',
+      FILM_STRIP_MAX_HEIGHT: 120,
+      SUPPORT_URL: '',
+      SETTINGS_SECTIONS: ['devices', 'language', 'moderator', 'profile', 'calendar', 'sounds', 'more']
+    }
+  }, [session?.user?.name])
+
+  const jitsiUserInfo = useMemo(() => {
+    return {
+      displayName: session?.user?.name || 'Usuario',
+      email: session?.user?.email || ''
+    }
+  }, [session?.user?.email, session?.user?.name])
+
   useEffect(() => {
+    if (!joined) return
+    if (!classroom) return
+
+    if (!connectStartedAtMsRef.current) {
+      connectStartedAtMsRef.current = Date.now()
+      setConnectElapsedSec(0)
+    }
+
+    const interval = window.setInterval(() => {
+      const start = connectStartedAtMsRef.current
+      if (!start) return
+      setConnectElapsedSec(Math.floor((Date.now() - start) / 1000))
+    }, 250)
+
+    // Global timeout: covers the common case where `onApiReady` never fires
+    // (external_api blocked by CSP/adblock or network issues).
+    const t = setTimeout(() => {
+      if (jitsiApiReady) return
+
+      const hasExternalApi = typeof (globalThis as any)?.JitsiMeetExternalAPI === 'function'
+      const hint = hasExternalApi
+        ? 'El API de Jitsi está disponible, pero no termina de iniciar la reunión.'
+        : 'El API de Jitsi no ha cargado (posible CSP/AdBlock/red).'
+
+      setJitsiError(
+        `${hint}\n\n` +
+          'Prueba: permitir cámara/micrófono, desactivar AdBlock/Brave Shields, o abrir la sala en una pestaña nueva.'
+      )
+    }, 15000)
+
+    const onUnhandledRejection = (event: PromiseRejectionEvent) => {
+      const message =
+        typeof (event as any)?.reason?.message === 'string'
+          ? (event as any).reason.message
+          : typeof (event as any)?.reason === 'string'
+            ? (event as any).reason
+            : ''
+      if (message) {
+        setJitsiError(`Error en carga de la videollamada: ${message}`)
+      }
+    }
+
+    window.addEventListener('unhandledrejection', onUnhandledRejection)
+    return () => {
+      clearTimeout(t)
+      window.clearInterval(interval)
+      window.removeEventListener('unhandledrejection', onUnhandledRejection)
+    }
+  }, [joined, classroom, jitsiApiReady])
+
+  useEffect(() => {
+    if (!joined) return
+    if (!jitsiLoading) return
+    if (jitsiError) return
+
+    // Failsafe: never allow an infinite "Conectando...".
+    // If we reach 20s without a join, show a clear message.
+    if (connectElapsedSec >= 20) {
+      const hasExternalApi = typeof (globalThis as any)?.JitsiMeetExternalAPI === 'function'
+      const apiHint = jitsiApiReady
+        ? 'El API de Jitsi está listo, pero no termina de unirse.'
+        : hasExternalApi
+          ? 'El API de Jitsi parece estar disponible, pero no llega a iniciar la reunión.'
+          : 'El API de Jitsi no parece haber cargado (posible AdBlock/Brave Shields/CSP/red).'
+
+      setJitsiError(
+        `${apiHint}\n\n` +
+          'Prueba: desactivar AdBlock/Brave Shields, desactivar VPN, permitir cámara/micrófono y abrir en una pestaña nueva.'
+      )
+    }
+  }, [joined, jitsiLoading, jitsiError, connectElapsedSec, jitsiApiReady])
+
+  useEffect(() => {
+    if (sessionStatus === 'loading') return
     if (!session?.user) {
       router.push('/login')
       return
     }
     loadClassroom()
-  }, [session, router, id])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionStatus, session?.user?.email, router, id])
 
   const loadClassroom = async () => {
     try {
@@ -106,8 +274,181 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
       return
     }
     setShowPasswordPrompt(false)
+    setJitsiLoading(true)
+    setJitsiError('')
+    setIframeLoaded(false)
+    setJitsiApiReady(false)
+    connectStartedAtMsRef.current = Date.now()
+    setConnectElapsedSec(0)
+    didConferenceJoinRef.current = false
+    conferenceJoinedAtMsRef.current = null
     setJoined(true)
   }
+
+  const handleApiReady = useCallback(
+    (externalApi: any) => {
+      console.log('Jitsi API ready')
+
+      setJitsiApiReady(true)
+
+      // Mantener el loader hasta que realmente se una a la conferencia.
+      // Si la unión falla (adblock/CSP/permisos/red), mostramos un error en vez de dejar pantalla negra.
+
+      if (classroom?.participant.role === 'moderator') {
+        console.log('Usuario es moderador')
+      }
+
+      let hasJoined = false
+
+      const joinTimeout = setTimeout(() => {
+        if (hasJoined) return
+        setJitsiError(
+          'La videollamada no ha terminado de cargar.\n\n' +
+            'Prueba: permitir cámara/micrófono, desactivar AdBlock/Brave Shields, o abrir la sala en una pestaña nueva.'
+        )
+      }, 15000)
+
+      externalApi.addEventListener(
+        'participantJoined',
+        ((event: any) => {
+          console.log('Participant joined:', event)
+        }) as any
+      )
+
+      externalApi.addEventListener(
+        'participantLeft',
+        ((event: any) => {
+          console.log('Participant left:', event)
+        }) as any
+      )
+
+      externalApi.addEventListener('videoConferenceJoined', () => {
+        console.log('Joined conference successfully')
+        hasJoined = true
+        didConferenceJoinRef.current = true
+        conferenceJoinedAtMsRef.current = Date.now()
+        connectStartedAtMsRef.current = null
+        setJitsiLoading(false)
+        setJitsiError('')
+        clearTimeout(joinTimeout)
+      })
+
+      externalApi.addEventListener(
+        'connectionFailed',
+        ((evt: any) => {
+          console.error('Jitsi connectionFailed:', evt)
+          setJitsiError('Conexión fallida con el servidor de videollamada (red/firewall/adblock).')
+        }) as any
+      )
+
+      externalApi.addEventListener(
+        'iceConnectionFailed',
+        ((evt: any) => {
+          console.error('Jitsi iceConnectionFailed:', evt)
+          setJitsiError('Fallo estableciendo conexión de audio/vídeo (ICE). Prueba otra red o desactiva VPN.')
+        }) as any
+      )
+
+      externalApi.addEventListener('videoConferenceLeft', () => {
+        console.log('Left conference')
+
+        const joinedAt = conferenceJoinedAtMsRef.current
+        const aliveMs = joinedAt ? Date.now() - joinedAt : null
+        const leftVeryEarly = !didConferenceJoinRef.current || (typeof aliveMs === 'number' && aliveMs < 5000)
+
+        if (leftVeryEarly) {
+          // When Jitsi closes immediately, presenting it as a normal "session ended" is misleading.
+          // This is usually caused by AdBlock/Brave shields, third-party restrictions, VPN/firewall, or CSP.
+          setJitsiLoading(false)
+          setJitsiError(
+            'La videollamada se ha cerrado automáticamente al iniciar.\n\n' +
+              'Causas típicas: AdBlock/Brave Shields, VPN/firewall, restricciones del navegador, o red corporativa.\n\n' +
+              'Prueba: abrir en pestaña nueva (botón), desactivar AdBlock/Brave Shields, o probar otra red.'
+          )
+          setLeaveReason('')
+          return
+        }
+
+        setSessionEnded(true)
+        setLeaveReason('Se ha cerrado la conexión con el aula virtual')
+        clearTimeout(joinTimeout)
+      })
+
+      externalApi.addEventListener(
+        'conferenceFailed',
+        ((evt: any) => {
+          console.error('Jitsi conferenceFailed:', evt)
+          const reason =
+            typeof evt?.error === 'string'
+              ? evt.error
+              : typeof evt?.message === 'string'
+                ? evt.message
+                : ''
+          if (reason) {
+            setJitsiError(`No se pudo iniciar la conferencia: ${reason}`)
+          } else {
+            setJitsiError('No se pudo iniciar la conferencia (posible bloqueo de red/permisos)')
+          }
+        }) as any
+      )
+
+      externalApi.addEventListener('readyToClose', () => {
+        console.log('Ready to close - setting sessionEnded to true')
+        setSessionEnded(true)
+        setLeaveReason('La sesión ha finalizado')
+        clearTimeout(joinTimeout)
+      })
+
+      externalApi.addEventListener(
+        'errorOccurred',
+        ((error: any) => {
+          if (error && Object.keys(error).length > 0) {
+            console.error('Jitsi error:', error)
+            const message =
+              typeof error?.message === 'string'
+                ? error.message
+                : typeof error?.error === 'string'
+                  ? error.error
+                  : 'Error de Jitsi (revisa permisos/cortafuegos/adblock)'
+            setJitsiError(message)
+          }
+        }) as any
+      )
+    },
+    [classroom?.participant.role]
+  )
+
+  const handleIFrameRef = useCallback((node: any) => {
+    if (!node) return
+
+    const root = node as any
+    const iframeEl: any =
+      root?.tagName === 'IFRAME' ? root : (root?.querySelector?.('iframe') as any)
+
+    root.style.height = '100vh'
+    root.style.width = '100vw'
+    if (iframeEl?.style) {
+      iframeEl.style.height = '100vh'
+      iframeEl.style.width = '100vw'
+    }
+
+    if (iframeEl?.addEventListener) {
+      iframeEl.addEventListener(
+        'load',
+        () => {
+          setIframeLoaded(true)
+        },
+        { once: true }
+      )
+    }
+
+    if (iframeEl?.setAttribute) {
+      iframeEl.setAttribute(
+        'allow',
+        'camera; microphone; display-capture; autoplay; fullscreen; clipboard-read; clipboard-write'
+      )
+    }
+  }, [])
 
   const verifyPasswordAndJoin = async () => {
     if (!classroom) return
@@ -129,6 +470,14 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
     } catch (e) {
       setError('Error verificando contraseña')
     }
+  }
+
+  if (sessionStatus === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <p className="text-xl text-white">Cargando sesión...</p>
+      </div>
+    )
   }
 
   if (loading) {
@@ -301,8 +650,67 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
           <div className="text-center text-white">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
             <p className="text-lg font-semibold">Conectando al aula virtual...</p>
-            <p className="text-sm text-gray-400 mt-2">Preparando cámara y micrófono</p>
+            <p className="text-sm text-gray-400 mt-2">
+              Preparando cámara y micrófono{connectElapsedSec > 0 ? ` · ${connectElapsedSec}s` : ''}
+            </p>
+            {jitsiError && (
+              <div className="mt-4 max-w-md text-left bg-gray-800/60 border border-gray-700 rounded-lg p-4">
+                <p className="text-sm font-semibold text-red-300 mb-2">No se ha podido conectar</p>
+                <p className="text-xs text-gray-200 whitespace-pre-wrap">{jitsiError}</p>
+                <div className="mt-3 flex items-center justify-center gap-3">
+                  <a
+                    href={`https://meet.jit.si/${encodeURIComponent(classroom.roomId)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-sm font-semibold"
+                  >
+                    Abrir en Jitsi
+                  </a>
+                  <button
+                    onClick={() => {
+                      setSessionEnded(true)
+                      setLeaveReason('No se pudo conectar al aula virtual')
+                    }}
+                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-semibold"
+                  >
+                    Volver
+                  </button>
+                </div>
+                <p className="mt-3 text-[11px] text-gray-400">
+                  Sala: {classroom.roomId} · Iframe: {iframeLoaded ? 'cargado' : 'no cargado'}
+                </p>
+              </div>
+            )}
           </div>
+        </div>
+      )}
+
+      {/* Errores de Jitsi visibles incluso después de entrar */}
+      {!jitsiLoading && jitsiError && (
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50 max-w-2xl w-[92vw] bg-gray-900/85 border border-red-500/40 rounded-xl p-4 text-white shadow-2xl">
+          <p className="text-sm font-semibold text-red-300 mb-1">Problema en el aula virtual</p>
+          <p className="text-xs text-gray-200 whitespace-pre-wrap">{jitsiError}</p>
+          <div className="mt-3 flex items-center justify-end gap-2">
+            <a
+              href={`https://meet.jit.si/${encodeURIComponent(classroom.roomId)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="px-3 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-sm font-semibold"
+            >
+              Abrir en Jitsi
+            </a>
+            <button
+              onClick={() => {
+                setJitsiError('')
+              }}
+              className="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-semibold"
+            >
+              Cerrar aviso
+            </button>
+          </div>
+          <p className="mt-2 text-[11px] text-gray-400">
+            Sala: {classroom.roomId} · Iframe: {iframeLoaded ? 'cargado' : 'no cargado'}
+          </p>
         </div>
       )}
       
@@ -321,151 +729,11 @@ export default function ClassroomRoom({ params }: { params: Promise<{ id: string
       <JitsiMeeting
         domain="meet.jit.si"
         roomName={classroom.roomId}
-        configOverwrite={{
-          startWithAudioMuted: classroom.participant.role !== 'moderator',
-          startWithVideoMuted: classroom.participant.role !== 'moderator',
-          disableModeratorIndicator: false,
-          startScreenSharing: false,
-          enableEmailInStats: false,
-          enableNoisyMicDetection: true,
-          enableWelcomePage: false,
-          prejoinPageEnabled: false,
-          hideConferenceSubject: false,
-          hideConferenceTimer: false,
-          disableInviteFunctions: classroom.participant.role !== 'moderator',
-          toolbarButtons: [
-            'camera',
-            'chat',
-            'closedcaptions',
-            'desktop',
-            'download',
-            'embedmeeting',
-            'etherpad',
-            'feedback',
-            'filmstrip',
-            'fullscreen',
-            'hangup',
-            'help',
-            'highlight',
-            'invite',
-            'linktosalesforce',
-            'livestreaming',
-            'microphone',
-            'noisesuppression',
-            'participants-pane',
-            'profile',
-            'raisehand',
-            'recording',
-            'security',
-            'select-background',
-            'settings',
-            'shareaudio',
-            'sharedvideo',
-            'shortcuts',
-            'stats',
-            'tileview',
-            'toggle-camera',
-            'videoquality',
-            'whiteboard'
-          ]
-        }}
-        interfaceConfigOverwrite={{
-          DISABLE_JOIN_LEAVE_NOTIFICATIONS: false,
-          DISABLE_PRESENCE_STATUS: false,
-          DISPLAY_WELCOME_PAGE_CONTENT: false,
-          DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
-          SHOW_JITSI_WATERMARK: false,
-          SHOW_WATERMARK_FOR_GUESTS: false,
-          SHOW_BRAND_WATERMARK: false,
-          BRAND_WATERMARK_LINK: '',
-          SHOW_POWERED_BY: false,
-          MOBILE_APP_PROMO: false,
-          TOOLBAR_ALWAYS_VISIBLE: false,
-          TOOLBAR_TIMEOUT: 4000,
-          DEFAULT_BACKGROUND: '#1a1a1a',
-          DEFAULT_REMOTE_DISPLAY_NAME: 'Usuario',
-          DEFAULT_LOCAL_DISPLAY_NAME: session?.user?.name || 'Yo',
-          FILM_STRIP_MAX_HEIGHT: 120,
-          SUPPORT_URL: '',
-          SETTINGS_SECTIONS: ['devices', 'language', 'moderator', 'profile', 'calendar', 'sounds', 'more']
-        }}
-        userInfo={{
-          displayName: session?.user?.name || 'Usuario',
-          email: session?.user?.email || ''
-        }}
-        onApiReady={(externalApi) => {
-          console.log('Jitsi API ready')
-          
-          // Ocultar indicador de carga cuando la API está lista
-          setTimeout(() => setJitsiLoading(false), 1000)
-          
-          // Configurar permisos según rol
-          if (classroom.participant.role === 'moderator') {
-            console.log('Usuario es moderador')
-          }
-
-          let hasJoined = false
-
-          // Eventos de sala
-          externalApi.addEventListener('participantJoined', ((event: any) => {
-            console.log('Participant joined:', event)
-          }) as any)
-
-          externalApi.addEventListener('participantLeft', ((event: any) => {
-            console.log('Participant left:', event)
-          }) as any)
-
-          externalApi.addEventListener('videoConferenceJoined', () => {
-            console.log('Joined conference successfully')
-            hasJoined = true
-            setJitsiLoading(false) // Asegurar que se oculta al unirse
-          })
-
-          externalApi.addEventListener('videoConferenceLeft', () => {
-            console.log('Left conference - setting sessionEnded to true')
-            setSessionEnded(true)
-            setLeaveReason('Has salido del aula virtual')
-          })
-
-          externalApi.addEventListener('readyToClose', () => {
-            console.log('Ready to close - setting sessionEnded to true')
-            setSessionEnded(true)
-            setLeaveReason('La sesión ha finalizado')
-          })
-
-          // Capturar errores de Jitsi
-          externalApi.addEventListener('errorOccurred', ((error: any) => {
-            // Solo mostrar errores que tengan contenido real
-            if (error && Object.keys(error).length > 0) {
-              console.error('Jitsi error:', error)
-            }
-          }) as any)
-        }}
-        getIFrameRef={(node) => {
-          if (!node) return
-
-          // The SDK types this as an HTMLDivElement and, depending on version,
-          // it may be a container div (with an iframe inside) or the iframe itself.
-          const root = node as any
-          const iframeEl: any =
-            root?.tagName === 'IFRAME' ? root : (root?.querySelector?.('iframe') as any)
-
-          // Apply sizing to both container and iframe when present.
-          root.style.height = '100vh'
-          root.style.width = '100vw'
-          if (iframeEl?.style) {
-            iframeEl.style.height = '100vh'
-            iframeEl.style.width = '100vw'
-          }
-
-          // Ensure browser permissions for the embedded meeting.
-          if (iframeEl?.setAttribute) {
-            iframeEl.setAttribute(
-              'allow',
-              'camera; microphone; display-capture; autoplay; fullscreen; clipboard-read; clipboard-write'
-            )
-          }
-        }}
+        configOverwrite={jitsiConfigOverwrite as any}
+        interfaceConfigOverwrite={jitsiInterfaceConfigOverwrite as any}
+        userInfo={jitsiUserInfo}
+        onApiReady={handleApiReady}
+        getIFrameRef={handleIFrameRef}
       />
     </div>
   )

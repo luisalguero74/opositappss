@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     const document = await prisma.legalDocument.create({
       data: {
         title: fileName.replace(/\.[^/.]+$/, ''),
-        type: type || 'temario_general',
+        documentType: type || 'temario_general',
         topic,
         reference,
         fileName,

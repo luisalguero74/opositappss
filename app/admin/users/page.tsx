@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
@@ -70,6 +70,12 @@ export default function UsersManagement() {
   const [loadingHistory, setLoadingHistory] = useState(false)
   const [filter, setFilter] = useState<'all' | 'admin' | 'user'>('all')
   const [searchTerm, setSearchTerm] = useState('')
+
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmNewPassword, setConfirmNewPassword] = useState('')
+  const [changingPassword, setChangingPassword] = useState(false)
+  const [passwordMessage, setPasswordMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
 
   useEffect(() => {
     if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
@@ -259,6 +265,55 @@ export default function UsersManagement() {
     return matchesFilter && matchesSearch
   })
 
+  const handleChangeMyPassword = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setPasswordMessage(null)
+
+    if (!currentPassword.trim() || !newPassword.trim() || !confirmNewPassword.trim()) {
+      setPasswordMessage({ type: 'error', text: 'Completa todos los campos.' })
+      return
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      setPasswordMessage({ type: 'error', text: 'Las contraseñas nuevas no coinciden.' })
+      return
+    }
+
+    if (!confirm('¿Cambiar tu contraseña ahora?\n\nSe cerrará tu sesión y tendrás que volver a iniciar sesión.')) {
+      return
+    }
+
+    setChangingPassword(true)
+    try {
+      const res = await fetch('/api/admin/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword, newPassword })
+      })
+
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        const details = Array.isArray(data?.details) ? data.details.join(' ') : ''
+        setPasswordMessage({
+          type: 'error',
+          text: String(data?.error || 'Error al cambiar contraseña') + (details ? ` ${details}` : '')
+        })
+        return
+      }
+
+      setPasswordMessage({ type: 'success', text: 'Contraseña cambiada. Cerrando sesión…' })
+      setCurrentPassword('')
+      setNewPassword('')
+      setConfirmNewPassword('')
+      await signOut({ callbackUrl: '/login' })
+    } catch (error) {
+      console.error('Error changing password:', error)
+      setPasswordMessage({ type: 'error', text: 'Error de conexión al cambiar contraseña.' })
+    } finally {
+      setChangingPassword(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -284,6 +339,61 @@ export default function UsersManagement() {
               <div className="text-3xl font-bold text-blue-600">{users.length}</div>
               <div className="text-sm text-gray-600">Total usuarios</div>
             </div>
+          </div>
+
+          {/* Cambiar mi contraseña (admin) */}
+          <div id="change-password" className="mt-6 border-t pt-6">
+            <h2 className="text-lg font-bold text-gray-900 mb-3">🔐 Cambiar mi contraseña</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Se requiere la contraseña actual. Al cambiarla, se cerrará tu sesión.
+            </p>
+
+            <form onSubmit={handleChangeMyPassword} className="grid grid-cols-1 md:grid-cols-4 gap-3">
+              <input
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="Contraseña actual"
+                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                autoComplete="current-password"
+              />
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Nueva contraseña"
+                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                autoComplete="new-password"
+              />
+              <input
+                type="password"
+                value={confirmNewPassword}
+                onChange={(e) => setConfirmNewPassword(e.target.value)}
+                placeholder="Confirmar nueva"
+                className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                autoComplete="new-password"
+              />
+
+              <button
+                type="submit"
+                disabled={changingPassword}
+                className={`px-4 py-2 rounded-lg font-semibold transition ${
+                  changingPassword ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
+              >
+                {changingPassword ? 'Cambiando…' : 'Cambiar contraseña'}
+              </button>
+            </form>
+
+            {passwordMessage && (
+              <div
+                className={`mt-3 text-sm font-semibold ${
+                  passwordMessage.type === 'success' ? 'text-green-700' : 'text-red-700'
+                }`}
+              >
+                {passwordMessage.text}
+              </div>
+            )}
           </div>
         </div>
 

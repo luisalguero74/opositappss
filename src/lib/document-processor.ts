@@ -22,13 +22,14 @@ export interface DocumentSection {
  * Procesa un documento y extrae su contenido completo
  */
 export async function processDocument(
-  filePath: string,
+  filePath: string | Buffer,
   fileName: string
 ): Promise<ProcessedDocument> {
   const extension = fileName.split('.').pop()?.toLowerCase()
-  // Si filePath es absoluto, usarlo directamente; si no, combinarlo con cwd
-  const fullPath = filePath.startsWith('/') ? filePath : join(process.cwd(), filePath)
-  const buffer = await readFile(fullPath)
+  const buffer =
+    typeof filePath === 'string'
+      ? await readFile(filePath.startsWith('/') ? filePath : join(process.cwd(), filePath))
+      : filePath
 
   let content = ''
   let pageCount: number | undefined

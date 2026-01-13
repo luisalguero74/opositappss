@@ -68,7 +68,7 @@ function generatePracticalCaseHTML(
     }
 
     .container {
-      max-width: 900px;
+      max-width: 1400px;
       margin: 0 auto;
       background: white;
       border-radius: 20px;
@@ -84,7 +84,7 @@ function generatePracticalCaseHTML(
     }
 
     .header h1 {
-      font-size: 2.5em;
+      font-size: 2.1em;
       margin-bottom: 10px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
@@ -126,8 +126,8 @@ function generatePracticalCaseHTML(
 
     .statement-text {
       color: #4B5563;
-      line-height: 1.8;
-      font-size: 1.05em;
+      line-height: 1.6;
+      font-size: 0.95em;
       white-space: pre-wrap;
     }
 
@@ -517,7 +517,7 @@ function generatePracticalCaseHTML(
 
     @media (max-width: 768px) {
       .header h1 {
-        font-size: 1.8em;
+        font-size: 1.5em;
       }
 
       .controls {

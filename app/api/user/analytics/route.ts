@@ -2,22 +2,18 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { getPgPool } from '@/lib/pg'
 
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.email) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email }
-    })
-
-    if (!user) {
-      return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 })
-    }
+    const userId = session.user.id
+    const pool = getPgPool()
 
     // Inicializar con valores por defecto
     let analytics: any = {
@@ -41,27 +37,27 @@ export async function GET(req: NextRequest) {
 
     try {
       // 1. Estadísticas generales
-      const [totalAttempts, totalQuestions, totalCorrect, recentAttempts] = await Promise.all([
-        prisma.questionnaireAttempt.count({
-          where: { userId: user.id }
-        }).catch(() => 0),
-        prisma.userAnswer.count({
-          where: { userId: user.id }
-        }).catch(() => 0),
-        prisma.userAnswer.count({
-          where: { userId: user.id, isCorrect: true }
-        }).catch(() => 0),
-        prisma.questionnaireAttempt.findMany({
-          where: { userId: user.id },
-          orderBy: { completedAt: 'desc' },
-          take: 10,
-          include: {
-            questionnaire: {
-              select: { title: true, type: true }
-            }
-          }
-        }).catch(() => [])
+      const [totalAttemptsRes, totalQuestionsRes, totalCorrectRes, recentAttemptsRes] = await Promise.all([
+        pool.query('select count(*)::int as n from "QuestionnaireAttempt" where "userId" = $1', [userId]).catch(() => ({ rows: [{ n: 0 }] } as any)),
+        pool.query('select count(*)::int as n from "UserAnswer" where "userId" = $1', [userId]).catch(() => ({ rows: [{ n: 0 }] } as any)),
+        pool.query('select count(*)::int as n from "UserAnswer" where "userId" = $1 and "isCorrect" = true', [userId]).catch(() => ({ rows: [{ n: 0 }] } as any)),
+        pool.query(
+          `
+          select a.id, a.score, a."correctAnswers", a."totalQuestions", a."completedAt", q.title, q.type
+          from "QuestionnaireAttempt" a
+          join "Questionnaire" q on q.id = a."questionnaireId"
+          where a."userId" = $1
+          order by a."completedAt" desc
+          limit 10
+          `,
+          [userId]
+        ).catch(() => ({ rows: [] } as any))
       ])
+
+      const totalAttempts = Number(totalAttemptsRes.rows?.[0]?.n ?? 0)
+      const totalQuestions = Number(totalQuestionsRes.rows?.[0]?.n ?? 0)
+      const totalCorrect = Number(totalCorrectRes.rows?.[0]?.n ?? 0)
+      const recentAttempts = recentAttemptsRes.rows ?? []
 
       const averageScore = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0
 
@@ -75,8 +71,8 @@ export async function GET(req: NextRequest) {
 
       analytics.recentAttempts = recentAttempts.map(a => ({
         id: a.id,
-        title: a.questionnaire.title,
-        type: a.questionnaire.type,
+        title: a.title,
+        type: a.type,
         score: a.score,
         correctAnswers: a.correctAnswers,
         totalQuestions: a.totalQuestions,
@@ -85,47 +81,31 @@ export async function GET(req: NextRequest) {
 
       // 2. Estadísticas por tema
       try {
-        const answers = await prisma.userAnswer.findMany({
-          where: { 
-            userId: user.id, 
-            question: { temaCodigo: { not: null } } 
-          },
-          include: { question: true }
-        })
+        const temaRes = await pool.query(
+          `
+          select
+            q."temaCodigo" as codigo,
+            coalesce(q."temaNumero", 0) as numero,
+            coalesce(q."temaTitulo", '') as titulo,
+            count(*)::int as total,
+            sum(case when ua."isCorrect" then 1 else 0 end)::int as correct
+          from "UserAnswer" ua
+          join "Question" q on q.id = ua."questionId"
+          where ua."userId" = $1 and q."temaCodigo" is not null
+          group by q."temaCodigo", q."temaNumero", q."temaTitulo"
+          order by coalesce(q."temaNumero", 0) asc
+          `,
+          [userId]
+        )
 
-        const temaStats = new Map<string, {
-          codigo: string
-          numero: number
-          titulo: string
-          total: number
-          correct: number
-        }>()
-
-        for (const answer of answers) {
-          const tema = answer.question.temaCodigo
-          if (!tema) continue
-
-          if (!temaStats.has(tema)) {
-            temaStats.set(tema, {
-              codigo: tema,
-              numero: answer.question.temaNumero || 0,
-              titulo: answer.question.temaTitulo || '',
-              total: 0,
-              correct: 0
-            })
-          }
-
-          const stats = temaStats.get(tema)!
-          stats.total++
-          if (answer.isCorrect) stats.correct++
-        }
-
-        analytics.byTema = Array.from(temaStats.values())
-          .map(t => ({
-            ...t,
-            percentage: t.total > 0 ? Math.round((t.correct / t.total) * 100) : 0
-          }))
-          .sort((a, b) => a.numero - b.numero)
+        analytics.byTema = (temaRes.rows ?? []).map((t: any) => ({
+          codigo: String(t.codigo),
+          numero: Number(t.numero ?? 0),
+          titulo: String(t.titulo ?? ''),
+          total: Number(t.total ?? 0),
+          correct: Number(t.correct ?? 0),
+          percentage: Number(t.total ?? 0) > 0 ? Math.round((Number(t.correct ?? 0) / Number(t.total ?? 0)) * 100) : 0
+        }))
       } catch (err) {
         console.error('[Analytics] Error getting tema stats:', err)
         analytics.byTema = []
@@ -133,38 +113,38 @@ export async function GET(req: NextRequest) {
 
       // 3. Preguntas falladas
       try {
-        const failedQuestions = await prisma.userAnswer.findMany({
-          where: {
-            userId: user.id,
-            isCorrect: false
-          },
-          include: {
-            question: {
-              select: {
-                id: true,
-                text: true,
-                temaCodigo: true,
-                temaNumero: true,
-                temaTitulo: true
-              }
-            }
-          },
-          orderBy: { createdAt: 'desc' },
-          take: 100
-        })
+        const failedRes = await pool.query(
+          `
+          select
+            ua."questionId" as "questionId",
+            count(*)::int as count,
+            max(ua."createdAt") as "lastFailed",
+            q.id as id,
+            q.text as text,
+            q."temaCodigo" as "temaCodigo",
+            q."temaNumero" as "temaNumero",
+            q."temaTitulo" as "temaTitulo"
+          from "UserAnswer" ua
+          join "Question" q on q.id = ua."questionId"
+          where ua."userId" = $1 and ua."isCorrect" = false
+          group by ua."questionId", q.id, q.text, q."temaCodigo", q."temaNumero", q."temaTitulo"
+          order by count(*) desc
+          limit 10
+          `,
+          [userId]
+        )
 
-        const failedMap = new Map<string, number>()
-        for (const f of failedQuestions) {
-          failedMap.set(f.questionId, (failedMap.get(f.questionId) || 0) + 1)
-        }
-
-        analytics.failedQuestions = Array.from(failedMap.entries())
-          .map(([id, count]) => {
-            const q = failedQuestions.find(f => f.questionId === id)
-            return { questionId: id, count, question: q?.question }
-          })
-          .sort((a, b) => b.count - a.count)
-          .slice(0, 10)
+        analytics.failedQuestions = (failedRes.rows ?? []).map((r: any) => ({
+          questionId: String(r.questionId),
+          count: Number(r.count ?? 0),
+          question: {
+            id: String(r.id),
+            text: r.text,
+            temaCodigo: r.temaCodigo,
+            temaNumero: r.temaNumero,
+            temaTitulo: r.temaTitulo
+          }
+        }))
       } catch (err) {
         console.error('[Analytics] Error getting failed questions:', err)
         analytics.failedQuestions = []
@@ -173,12 +153,12 @@ export async function GET(req: NextRequest) {
       // 4. Racha de estudio
       try {
         let streak = await prisma.studyStreak.findUnique({
-          where: { userId: user.id }
+          where: { userId }
         })
 
         if (!streak) {
           streak = await prisma.studyStreak.create({
-            data: { userId: user.id }
+            data: { userId }
           })
         }
 
@@ -197,33 +177,32 @@ export async function GET(req: NextRequest) {
         const thirtyDaysAgo = new Date()
         thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
 
+        const progressRes = await pool.query(
+          `
+          select
+            date_trunc('day', ua."createdAt")::date as day,
+            count(*)::int as total,
+            sum(case when ua."isCorrect" then 1 else 0 end)::int as correct
+          from "UserAnswer" ua
+          where ua."userId" = $1 and ua."createdAt" >= $2
+          group by day
+          order by day asc
+          `,
+          [userId, thirtyDaysAgo]
+        )
+
         const progressByDay = new Map<string, { total: number, correct: number }>()
-        const recentAnswers = await prisma.userAnswer.findMany({
-          where: {
-            userId: user.id,
-            createdAt: { gte: thirtyDaysAgo }
-          },
-          select: { createdAt: true, isCorrect: true }
-        })
-        
-        for (const p of recentAnswers) {
-          const day = p.createdAt.toISOString().split('T')[0]
-          if (!progressByDay.has(day)) {
-            progressByDay.set(day, { total: 0, correct: 0 })
-          }
-          const stats = progressByDay.get(day)!
-          stats.total++
-          if (p.isCorrect) stats.correct++
+        for (const r of progressRes.rows ?? []) {
+          const dateStr = new Date(r.day).toISOString().split('T')[0]
+          progressByDay.set(dateStr, { total: Number(r.total ?? 0), correct: Number(r.correct ?? 0) })
         }
 
-        analytics.chartData = Array.from(progressByDay.entries())
-          .map(([date, stats]) => ({
-            date,
-            total: stats.total,
-            correct: stats.correct,
-            percentage: stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0
-          }))
-          .sort((a, b) => a.date.localeCompare(b.date))
+        analytics.chartData = Array.from(progressByDay.entries()).map(([date, stats]) => ({
+          date,
+          total: stats.total,
+          correct: stats.correct,
+          percentage: stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0
+        }))
 
         // Si no hay datos en los últimos 30 días, generar días vacíos para mostrar la gráfica
         if (analytics.chartData.length === 0) {

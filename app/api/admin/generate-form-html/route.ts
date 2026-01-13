@@ -6,8 +6,18 @@ import { prisma } from '@/lib/prisma'
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions)
-    
-    if (!session || session.user.role !== 'admin') {
+
+    const normalizeSecret = (value: string | null | undefined) =>
+      String(value || '')
+        .replace(/\\n/g, '')
+        .replace(/\n/g, '')
+        .trim()
+
+    const expectedApiKey = normalizeSecret(process.env.ADMIN_API_KEY)
+    const receivedApiKey = normalizeSecret((req as any)?.headers?.get?.('x-api-key') ?? null)
+    const apiKeyOk = Boolean(expectedApiKey && receivedApiKey && expectedApiKey === receivedApiKey)
+    const isAdminSession = Boolean(session && String(session.user?.role || '').toLowerCase() === 'admin')
+    if (!isAdminSession && !apiKeyOk) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -22,13 +32,6 @@ export async function POST(req: Request) {
       where: {
         id: { in: questionIds },
         approved: true
-      },
-      include: {
-        document: {
-          select: {
-            type: true
-          }
-        }
       }
     })
 

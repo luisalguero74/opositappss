@@ -1,9 +1,16 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
-import { use } from 'react';
 import { temaCodigoVariants } from '@/lib/tema-codigo';
+import { getPgPool, getUserAnswerColumnInfo } from '@/lib/pg';
+import { getCorrectAnswerText, safeParseOptions } from '@/lib/answer-normalization';
+
+function selectedLetterToText(selected: string, options: string[]): string {
+  const v = String(selected ?? '').trim().toLowerCase();
+  const idx = ['a', 'b', 'c', 'd'].indexOf(v);
+  if (idx < 0) return String(selected ?? '');
+  return options[idx] ?? String(selected ?? '');
+}
 
 export async function GET(
   request: Request,
@@ -18,38 +25,32 @@ export async function GET(
     const { codigo } = await context.params;
     const codigoVariants = temaCodigoVariants(String(codigo)).map(c => c.toUpperCase());
 
-    // Obtener respuestas del usuario para este tema
-    // @ts-ignore - Prisma tipos no actualizados
-    const answers = await prisma.userAnswer.findMany({
-      where: {
-        userId: session.user.id,
-        question: {
-          temaCodigo: { in: codigoVariants },
-        } as any,
-      },
-      include: {
-        question: {
-          select: {
-            id: true,
-            text: true,
-            temaCodigo: true,
-            temaNumero: true,
-            temaParte: true,
-            temaTitulo: true,
-            answers: {
-              select: {
-                id: true,
-                text: true,
-                isCorrect: true,
-              },
-            },
-          } as any,
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    }) as any[];
+    const pool = getPgPool();
+    const { answerColumn } = await getUserAnswerColumnInfo(pool);
+
+    const res = await pool.query(
+      `
+      select
+        ua."createdAt" as "createdAt",
+        ua."isCorrect" as "isCorrect",
+        ua."${answerColumn}" as "answer",
+        q.id as "q_id",
+        q.text as "q_text",
+        q."temaCodigo" as "q_temaCodigo",
+        q."temaNumero" as "q_temaNumero",
+        q."temaParte" as "q_temaParte",
+        q."temaTitulo" as "q_temaTitulo",
+        q.options as "q_options",
+        q."correctAnswer" as "q_correctAnswer"
+      from "UserAnswer" ua
+      join "Question" q on q.id = ua."questionId"
+      where ua."userId" = $1 and upper(q."temaCodigo") = any($2)
+      order by ua."createdAt" desc
+      `,
+      [session.user.id, codigoVariants]
+    );
+
+    const answers = res.rows as any[];
 
     if (answers.length === 0) {
       return NextResponse.json({
@@ -67,21 +68,25 @@ export async function GET(
 
     // Obtener información del tema de la primera respuesta
     const temaInfo = {
-      codigo: answers[0].question.temaCodigo,
-      numero: answers[0].question.temaNumero,
-      parte: answers[0].question.temaParte,
-      titulo: answers[0].question.temaTitulo,
+      codigo: answers[0].q_temaCodigo,
+      numero: answers[0].q_temaNumero,
+      parte: answers[0].q_temaParte,
+      titulo: answers[0].q_temaTitulo,
     };
 
     // Identificar preguntas que falló
     const preguntasFalladas = answers
       .filter((a: any) => !a.isCorrect)
-      .map((a: any) => ({
-        id: a.question.id,
-        pregunta: a.question.text,
-        respuestaCorrecta: a.question.answers.find((ans: any) => ans.isCorrect)?.text || '',
-        tuRespuesta: a.answer,
-      }));
+      .map((a: any) => {
+        const options = safeParseOptions(a.q_options);
+        const respuestaCorrecta = getCorrectAnswerText(String(a.q_correctAnswer ?? ''), options);
+        return {
+          id: a.q_id,
+          pregunta: a.q_text,
+          respuestaCorrecta,
+          tuRespuesta: selectedLetterToText(String(a.answer ?? ''), options),
+        };
+      });
 
     // Generar recomendaciones basadas en el rendimiento
     const recomendaciones = [];

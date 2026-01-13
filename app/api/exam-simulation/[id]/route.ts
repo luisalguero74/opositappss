@@ -10,7 +10,7 @@ export async function GET(
 ) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user?.email) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
     }
 
@@ -24,11 +24,7 @@ export async function GET(
       return NextResponse.json({ error: 'Simulacro no encontrado' }, { status: 404 })
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email }
-    })
-
-    if (simulation.userId !== user?.id) {
+    if (simulation.userId !== session.user.id) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
     }
 

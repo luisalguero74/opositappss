@@ -3,6 +3,38 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { temaCodigoVariants } from '@/lib/tema-codigo'
+import { getCorrectAnswerText, safeParseOptions } from '@/lib/answer-normalization'
+
+function mapDifficultyToAI(difficulty: unknown): string | null {
+  const d = String(difficulty ?? '').trim().toLowerCase()
+  if (!d || d === 'todas') return null
+  if (d === 'facil') return 'easy'
+  if (d === 'media') return 'medium'
+  if (d === 'dificil') return 'hard'
+  // fallback: allow passing through known AI values
+  if (d === 'easy' || d === 'medium' || d === 'hard') return d
+  return null
+}
+
+function topicStringsFromTemaIds(temaIds: unknown[]): string[] {
+  const asStrings = (Array.isArray(temaIds) ? temaIds : []).map(x => String(x))
+  const topics = new Set<string>()
+  for (const id of asStrings) {
+    const trimmed = id.trim().toLowerCase()
+    const m = trimmed.match(/^([ge])(\d{1,2})$/)
+    if (!m) continue
+    const kind = m[1]
+    const n = Number.parseInt(m[2], 10)
+    if (!Number.isFinite(n) || n <= 0) continue
+
+    // GeneratedQuestion.topic convention (see batch-process):
+    // - general: Tema {n}
+    // - specific: Tema {24 + n}
+    const temaNumber = kind === 'g' ? n : 24 + n
+    topics.add(`Tema ${temaNumber}`)
+  }
+  return Array.from(topics)
+}
 
 // Crear nuevo simulacro
 export async function POST(req: NextRequest) {
@@ -26,6 +58,9 @@ export async function POST(req: NextRequest) {
     )
     const hasTopicFilter = topicCodes.length > 0
 
+    const aiTopics = hasTopicFilter ? topicStringsFromTemaIds([...generalTopics, ...specificTopics]) : []
+    const aiDifficulty = mapDifficultyToAI(difficulty)
+
     // Build difficulty filter
     const difficultyFilter = difficulty && difficulty !== 'todas' ? { difficulty } : {}
 
@@ -44,13 +79,19 @@ export async function POST(req: NextRequest) {
     const aiQuestionsApproved = await prisma.generatedQuestion.findMany({
       where: {
         approved: true,
-        ...(hasTopicFilter ? { temaCodigo: { in: topicCodes } } : {}),
-        ...difficultyFilter
-      },
-      include: {
-        document: true
+        ...(aiTopics.length > 0 ? { topic: { in: aiTopics } } : {}),
+        ...(aiDifficulty ? { difficulty: aiDifficulty } : {})
       }
     })
+
+    const aiDocumentIds = Array.from(new Set(aiQuestionsApproved.map(q => q.documentId).filter(Boolean)))
+    const aiDocuments = aiDocumentIds.length
+      ? await prisma.legalDocument.findMany({
+          where: { id: { in: aiDocumentIds } },
+          select: { id: true, title: true }
+        })
+      : []
+    const aiDocById = new Map(aiDocuments.map(d => [d.id, d]))
 
     // Filtrar solo preguntas de test de temario (excluyendo prácticos)
     const theoryQuestions = manualQuestions.filter(q => 
@@ -59,27 +100,35 @@ export async function POST(req: NextRequest) {
     )
 
     // Convertir preguntas IA al formato estándar
-    const aiTheoryQuestions = aiQuestionsApproved.map(q => ({
-      id: q.id,
-      text: q.text,
-      options: JSON.parse(q.options),
-      correctAnswer: q.correctAnswer,
-      questionnaireId: null, // No tiene cuestionario asociado
-      questionnaireName: q.document.title,
-      isAI: true // Marcar como pregunta IA
-    }))
+    const aiTheoryQuestions = aiQuestionsApproved.map(q => {
+      const options = safeParseOptions(q.options)
+      const correctText = getCorrectAnswerText(q.correctAnswer, options) ?? ''
+      return {
+        id: q.id,
+        text: q.text,
+        options,
+        correctAnswer: correctText,
+        questionnaireId: null, // No tiene cuestionario asociado
+        questionnaireName: aiDocById.get(q.documentId)?.title ?? 'Documento eliminado',
+        isAI: true // Marcar como pregunta IA
+      }
+    })
 
     // Combinar preguntas manuales y IA
     const allTheoryQuestions = [
-      ...theoryQuestions.map(q => ({
-        id: q.id,
-        text: q.text,
-        options: JSON.parse(q.options),
-        correctAnswer: q.correctAnswer,
-        questionnaireId: q.questionnaireId,
-        questionnaireName: q.questionnaire.title,
-        isAI: false
-      })),
+      ...theoryQuestions.map(q => {
+        const options = safeParseOptions(q.options)
+        const correctText = getCorrectAnswerText(q.correctAnswer, options) ?? ''
+        return {
+          id: q.id,
+          text: q.text,
+          options,
+          correctAnswer: correctText,
+          questionnaireId: q.questionnaireId,
+          questionnaireName: q.questionnaire.title,
+          isAI: false
+        }
+      }),
       ...aiTheoryQuestions
     ]
 
@@ -96,15 +145,19 @@ export async function POST(req: NextRequest) {
     const shuffledManual = [...theoryQuestions].sort(() => Math.random() - 0.5)
     const shuffledAI = [...aiTheoryQuestions].sort(() => Math.random() - 0.5)
 
-    const selectedManual = shuffledManual.slice(0, manualCount).map(q => ({
-      id: q.id,
-      text: q.text,
-      options: JSON.parse(q.options),
-      correctAnswer: q.correctAnswer,
-      questionnaireId: q.questionnaireId,
-      questionnaireName: q.questionnaire.title,
-      isAI: false
-    }))
+    const selectedManual = shuffledManual.slice(0, manualCount).map(q => {
+      const options = safeParseOptions(q.options)
+      const correctText = getCorrectAnswerText(q.correctAnswer, options) ?? ''
+      return {
+        id: q.id,
+        text: q.text,
+        options,
+        correctAnswer: correctText,
+        questionnaireId: q.questionnaireId,
+        questionnaireName: q.questionnaire.title,
+        isAI: false
+      }
+    })
 
     const selectedAI = shuffledAI.slice(0, aiCount)
 

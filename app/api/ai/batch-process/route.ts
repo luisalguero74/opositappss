@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
           await prisma.legalDocument.create({
             data: {
               title: doc.fileName.replace(/\.[^/.]+$/, ''),
-              type: doc.type,
+              documentType: doc.type,
               topic: doc.topic,
               fileName: doc.fileName,
               fileSize: fileStats.size,

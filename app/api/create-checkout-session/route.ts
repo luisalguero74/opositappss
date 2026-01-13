@@ -4,6 +4,31 @@ import { authOptions } from '@/lib/auth'
 import { getStripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
 
+async function ensureAppSettingsTableExists() {
+  await prisma.$executeRawUnsafe(`
+    CREATE TABLE IF NOT EXISTS "AppSettings" (
+      "id" TEXT NOT NULL PRIMARY KEY,
+      "monetizationEnabled" BOOLEAN NOT NULL DEFAULT false,
+      "freeAccessDays" INTEGER NOT NULL DEFAULT 7,
+      "basicPrice" DOUBLE PRECISION NOT NULL DEFAULT 9.99,
+      "premiumPrice" DOUBLE PRECISION NOT NULL DEFAULT 19.99,
+      "currency" TEXT NOT NULL DEFAULT 'EUR',
+
+      "adsEnabled" BOOLEAN NOT NULL DEFAULT false,
+      "adsenseClientId" TEXT,
+      "affiliatesEnabled" BOOLEAN NOT NULL DEFAULT false,
+      "amazonAffiliateId" TEXT,
+      "sponsorsEnabled" BOOLEAN NOT NULL DEFAULT false,
+      "donationsEnabled" BOOLEAN NOT NULL DEFAULT false,
+      "patreonUrl" TEXT,
+      "kofiUrl" TEXT,
+      "premiumContentEnabled" BOOLEAN NOT NULL DEFAULT false,
+
+      "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+    );
+  `)
+}
+
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -11,8 +36,30 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
     }
 
+    const userEmail = session.user.email
+      ? String(session.user.email).trim()
+      : await prisma.user
+          .findUnique({ where: { id: session.user.id }, select: { email: true } })
+          .then((u) => u?.email)
+
+    if (!userEmail) {
+      return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
+    }
+
     // Verificar si la monetización está activada
-    const settings = await prisma.appSettings.findFirst()
+    let settings: any = null
+    try {
+      settings = await prisma.appSettings.findFirst()
+    } catch (error) {
+      console.error('[Stripe] Error fetching AppSettings:', error)
+      try {
+        await ensureAppSettingsTableExists()
+        settings = await prisma.appSettings.findFirst()
+      } catch (recoveryError) {
+        console.error('[Stripe] Recovery failed (ensureAppSettingsTableExists):', recoveryError)
+        return NextResponse.json({ error: 'El sistema de pagos no está disponible actualmente' }, { status: 503 })
+      }
+    }
     if (!settings?.monetizationEnabled) {
       return NextResponse.json({ 
         error: 'El sistema de pagos no está disponible actualmente' 
@@ -69,7 +116,7 @@ export async function POST(req: NextRequest) {
       ],
       success_url: `${process.env.NEXTAUTH_URL}/dashboard?payment=success`,
       cancel_url: `${process.env.NEXTAUTH_URL}/pricing?payment=cancelled`,
-      customer_email: session.user.email!,
+      customer_email: userEmail,
       metadata: {
         userId: session.user.id,
         plan,
@@ -82,7 +129,7 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    console.log(`[Stripe] Checkout creado para ${session.user.email}: ${plan}`)
+    console.log(`[Stripe] Checkout creado para ${userEmail}: ${plan}`)
 
     return NextResponse.json({ 
       sessionId: checkoutSession.id,

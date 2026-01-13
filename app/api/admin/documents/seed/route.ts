@@ -1150,7 +1150,7 @@ export async function POST(req: NextRequest) {
             where: { id: existing.id },
             data: {
               content: doc.content,
-              type: doc.type as any,
+                     documentType: doc.type as any,
               topic: doc.topic,
               reference: doc.reference
             }
@@ -1163,7 +1163,7 @@ export async function POST(req: NextRequest) {
         const created = await prisma.legalDocument.create({
           data: {
             title: doc.title,
-            type: doc.type as any,
+                  documentType: doc.type as any,
             topic: doc.topic,
             reference: doc.reference,
             content: doc.content,
@@ -1189,7 +1189,7 @@ export async function POST(req: NextRequest) {
       documents: [...createdDocs, ...updatedDocs].map(d => ({
         id: d.id,
         title: d.title,
-        type: d.type,
+            type: d.documentType,
         topic: d.topic
       }))
     })
@@ -1210,7 +1210,7 @@ export async function GET(req: NextRequest) {
       select: {
         id: true,
         title: true,
-        type: true,
+            documentType: true,
         topic: true,
         createdAt: true
       },
@@ -1219,7 +1219,13 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       total: totalDocs,
-      documents: docs,
+         documents: docs.map(d => ({
+            id: d.id,
+            title: d.title,
+            type: d.documentType,
+            topic: d.topic,
+            createdAt: d.createdAt
+         })),
       seedDocumentsAvailable: SEED_DOCUMENTS.length,
       message: totalDocs === 0 
         ? 'Base de datos vacía. Usa POST para cargar documentos de referencia.'

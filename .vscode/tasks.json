@@ -218,6 +218,140 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "DB Backup (from .env.production*)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL found for backup.\"; exit 1; fi && DATABASE_URL=\"$url\" npm run db:backup"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "List Env Keys (safe)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && node scripts/list-env-keys.mjs | egrep -i 'DATABASE|POSTGRES|SUPABASE|PG|PRISMA|URL' | head -n 200"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "List Env Keys (safe)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && node scripts/list-env-keys.mjs | egrep -i \"DATABASE|POSTGRES|SUPABASE|PG|PRISMA|URL\" | head -n 200"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "List Env Keys (full, safe)",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"scripts/list-env-keys.mjs"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "List Env Keys (filtered, safe)",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"scripts/list-env-keys-filtered.mjs"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Pull Vercel Env (prod)",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vercel",
+				"env",
+				"pull",
+				".env.vercel.production",
+				"--environment=production",
+				"--yes"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Check Docker",
+			"type": "shell",
+			"command": "docker",
+			"args": [
+				"--version"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Check Homebrew",
+			"type": "shell",
+			"command": "brew",
+			"args": [
+				"--version"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Check pg_dump 17",
+			"type": "shell",
+			"command": "brew",
+			"args": [
+				"list",
+				"postgresql@17"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Install postgresql@17",
+			"type": "shell",
+			"command": "brew",
+			"args": [
+				"install",
+				"postgresql@17"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Check AdSense Script (live)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && curl -sL https://www.opositapp.site/ | grep -F \"adsbygoogle.js?client=ca-pub-3330699408382004\" -n | head -n 5"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Check AdSense Script Match (live)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && curl -sL https://www.opositapp.site/ | grep -oF \"adsbygoogle.js?client=ca-pub-3330699408382004\" | head -n 5"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

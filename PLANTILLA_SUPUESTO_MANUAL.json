@@ -1,0 +1,19 @@
+{
+  "title": "SUPUESTO (TÍTULO AQUÍ)",
+  "theme": "Tema X (opcional)",
+  "statement": "Enunciado del supuesto...",
+  "questions": [
+    {
+      "text": "Texto de la pregunta 1",
+      "options": ["Opción A", "Opción B", "Opción C", "Opción D"],
+      "correctAnswer": "A",
+      "explanation": "Motivación técnica / explicación"
+    },
+    {
+      "text": "Texto de la pregunta 2",
+      "options": ["Opción A", "Opción B", "Opción C", "Opción D"],
+      "correctAnswer": "C",
+      "explanation": "Motivación técnica / explicación"
+    }
+  ]
+}

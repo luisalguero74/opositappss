@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { getPgPool, getUserAnswerColumnInfo } from '@/lib/pg'
+import { getCorrectAnswerLetter, normalizeSelectedAnswerToLetter, safeParseOptions } from '@/lib/answer-normalization'
 
 /**
  * API para registrar intentos de cuestionarios generados (desde HTML)
@@ -49,31 +51,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Cuestionario no encontrado' }, { status: 404 })
     }
 
-    // 2. Registrar cada respuesta del usuario como UserAnswer
-    const userAnswers = []
-    for (const [qId, userAnswer] of Object.entries(answers)) {
-      // Buscar la pregunta
-      const question = await prisma.question.findUnique({
-        where: { id: qId }
-      }).catch(() => null)
-
-      if (question) {
-        const isCorrect = userAnswer === question.correctAnswer
-        const answer = await prisma.userAnswer.create({
-          data: {
-            userId: session.user.id,
-            questionId: qId,
-            questionnaireId: questionnaire.id,
-            answer: userAnswer as string,
-            isCorrect,
-            createdAt: new Date()
-          }
-        })
-        userAnswers.push(answer)
-      }
-    }
-
-    // 3. Registrar el intento en QuestionnaireAttempt
+    // 2. Registrar el intento en QuestionnaireAttempt (crearlo antes para poder vincular attemptId si existe)
     const attempt = await prisma.questionnaireAttempt.create({
       data: {
         userId: session.user.id,
@@ -86,6 +64,41 @@ export async function POST(req: NextRequest) {
         createdAt: new Date()
       }
     })
+
+    // 3. Registrar cada respuesta del usuario como UserAnswer (via SQL por drift de columnas)
+    const userAnswers = []
+    const pool = getPgPool()
+    const { answerColumn, hasAttemptId } = await getUserAnswerColumnInfo(pool)
+
+    for (const [qId, userAnswer] of Object.entries(answers)) {
+      // Buscar la pregunta
+      const question = await prisma.question.findUnique({
+        where: { id: qId }
+      }).catch(() => null)
+
+      if (question) {
+        const options = safeParseOptions((question as any).options)
+        const correctLetter = getCorrectAnswerLetter(String((question as any).correctAnswer ?? ''), options)
+        const selectedLetter = normalizeSelectedAnswerToLetter(String(userAnswer ?? ''), options)
+        const isCorrect =
+          (correctLetter && selectedLetter && correctLetter === selectedLetter) ||
+          String(userAnswer ?? '').trim().toLowerCase() === String((question as any).correctAnswer ?? '').trim().toLowerCase()
+
+        const cols = ['userId', 'questionId', 'questionnaireId', answerColumn, 'isCorrect']
+        const params: any[] = [session.user.id, qId, questionnaire.id, String(userAnswer ?? ''), Boolean(isCorrect)]
+        if (hasAttemptId) {
+          cols.splice(3, 0, 'attemptId')
+          params.splice(3, 0, attempt.id)
+        }
+
+        await pool.query(
+          `insert into "UserAnswer" (${cols.map(c => `"${c}"`).join(', ')}) values (${params.map((_, i) => `$${i + 1}`).join(', ')}) returning id`,
+          params
+        )
+
+        userAnswers.push({ questionId: qId })
+      }
+    }
 
     // 4. Actualizar estadísticas del usuario (StudySession)
     await prisma.studySession.create({

@@ -23,8 +23,78 @@ export default function BibliotecaLegalPage() {
   const { data: session, status } = useSession()
   const [biblioteca, setBiblioteca] = useState<BibliotecaData>({ documentos: [], relaciones: {} })
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const [uploading, setUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
+
+  async function extractPdfTextInBrowser(file: File): Promise<{ text: string; pages: number }> {
+    const pdfjs = (await import('pdfjs-dist/legacy/build/pdf')) as any
+    try {
+      // Required by pdfjs in some bundler setups.
+      // Use local worker from pdfjs-dist package.
+      pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+        'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
+        import.meta.url
+      ).toString()
+    } catch {
+      // Best-effort: if workerSrc cannot be set, pdfjs may still work in no-worker mode.
+    }
+    const data = new Uint8Array(await file.arrayBuffer())
+    const loadingTask = pdfjs.getDocument({ data, disableWorker: true })
+    const pdf = await loadingTask.promise
+    const totalPages = Number(pdf?.numPages ?? 0)
+    const pagesToProcess = totalPages
+
+    let out = ''
+    for (let pageIndex = 1; pageIndex <= pagesToProcess; pageIndex++) {
+      const page = await pdf.getPage(pageIndex)
+      const textContent = await page.getTextContent()
+      const items = Array.isArray(textContent?.items) ? textContent.items : []
+      const pageText = items
+        .map((it: any) => String(it?.str ?? ''))
+        .join(' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+
+      if (pageText) {
+        out += `\n\n[Página ${pageIndex}/${pagesToProcess}]\n${pageText}`
+      }
+    }
+
+    return { text: out.trim(), pages: totalPages }
+  }
+
+  async function uploadPdfAsTextFallback(file: File) {
+    const { text, pages } = await extractPdfTextInBrowser(file)
+
+    if (!text) {
+      throw new Error(
+        `El PDF ${file.name} parece no tener texto seleccionable. ` +
+          `Si es un escaneo, conviene convertirlo a texto (OCR) o dividirlo antes de subirlo.`
+      )
+    }
+
+    const res = await fetch('/api/biblioteca-legal/upload-text', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: file.name.replace(/\.[^/.]+$/, ''),
+        type: 'ley',
+        reference: file.name.replace(/\.[^/.]+$/, ''),
+        fileName: file.name,
+        fileSize: file.size,
+        pageCount: pages,
+        // keep payload bounded; backend also truncates
+        content: text.slice(0, 250_000)
+      })
+    })
+
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) {
+      const requestId = data?.requestId ? ` (requestId: ${data.requestId})` : ''
+      throw new Error(String(data?.error || 'Error al subir texto') + requestId)
+    }
+  }
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -38,11 +108,22 @@ export default function BibliotecaLegalPage() {
 
   async function cargarBiblioteca() {
     try {
-      const res = await fetch('/api/biblioteca-legal')
+      const res = await fetch('/api/biblioteca-legal', { cache: 'no-store' })
       const data = await res.json()
-      setBiblioteca(data)
+
+      if (!res.ok) {
+        const requestId = data?.requestId ? ` (requestId: ${data.requestId})` : ''
+        throw new Error((data?.error ? String(data.error) : 'Error al cargar biblioteca') + requestId)
+      }
+
+      setBiblioteca({
+        documentos: Array.isArray(data?.documentos) ? data.documentos : [],
+        relaciones: data?.relaciones && typeof data.relaciones === 'object' ? data.relaciones : {}
+      })
+      setLoadError(null)
     } catch (error) {
       console.error('Error al cargar biblioteca:', error)
+      setLoadError(error instanceof Error ? error.message : 'Error al cargar biblioteca')
     } finally {
       setLoading(false)
     }
@@ -67,38 +148,62 @@ export default function BibliotecaLegalPage() {
           body: formData
         })
 
-        let uploadData = null;
+        // Si Vercel devuelve 413, normalmente la respuesta no es JSON.
+        // Hacemos fallback: extraer texto en el navegador y subir solo el texto.
+        if (uploadRes.status === 413) {
+          await uploadPdfAsTextFallback(file)
+          setUploadProgress(Math.round(((i + 1) / files.length) * 100))
+          continue
+        }
+
+        let uploadData = null
         try {
-          uploadData = await uploadRes.json();
+          uploadData = await uploadRes.json()
         } catch (e) {
+          if (uploadRes.status === 413 && file.type === 'application/pdf') {
+            await uploadPdfAsTextFallback(file)
+            setUploadProgress(Math.round(((i + 1) / files.length) * 100))
+            continue
+          }
           // Si la respuesta no es JSON
-          throw new Error(`Error inesperado al subir ${file.name}`);
+          throw new Error(`Error inesperado al subir ${file.name} (HTTP ${uploadRes.status})`)
         }
 
         if (!uploadRes.ok) {
-          throw new Error(uploadData?.error ? `Error al subir ${file.name}: ${uploadData.error}` : `Error al subir ${file.name}`)
+          const stage = uploadData?.stage ? ` (stage: ${uploadData.stage})` : ''
+          const requestId = uploadData?.requestId ? ` (requestId: ${uploadData.requestId})` : ''
+          const code = uploadData?.prismaCode ? ` (code: ${uploadData.prismaCode})` : ''
+          const details = uploadData?.details ? ` (details: ${uploadData.details})` : ''
+          throw new Error(
+            uploadData?.error
+              ? `Error al subir ${file.name}: ${uploadData.error}${stage}${requestId}${code}${details}`
+              : `Error al subir ${file.name}${stage}${requestId}${code}${details}`
+          )
         }
 
-        // Agregar a la biblioteca
-        const addRes = await fetch('/api/biblioteca-legal', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            action: 'add-documento',
-            nombre: uploadData.nombre,
-            archivo: uploadData.archivo,
-            tipo: uploadData.tipo,
-            numeroPaginas: uploadData.numeroPaginas,
-            fechaActualizacion: new Date().toISOString().split('T')[0]
+        // Si el endpoint de upload ya crea el documento en BD (documentId), no hacer doble alta.
+        // Mantiene compatibilidad con respuestas antiguas (sin documentId).
+        if (!uploadData?.documentId) {
+          const addRes = await fetch('/api/biblioteca-legal', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'add-documento',
+              nombre: uploadData.nombre,
+              archivo: uploadData.archivo,
+              tipo: uploadData.tipo,
+              numeroPaginas: uploadData.numeroPaginas,
+              fechaActualizacion: new Date().toISOString().split('T')[0]
+            })
           })
-        })
 
-        if (!addRes.ok) {
-          let addData = null;
-          try {
-            addData = await addRes.json();
-          } catch (e) {}
-          throw new Error(addData?.error ? `Error al registrar ${file.name}: ${addData.error}` : `Error al registrar ${file.name}`)
+          if (!addRes.ok) {
+            let addData = null;
+            try {
+              addData = await addRes.json();
+            } catch (e) {}
+            throw new Error(addData?.error ? `Error al registrar ${file.name}: ${addData.error}` : `Error al registrar ${file.name}`)
+          }
         }
 
         setUploadProgress(Math.round(((i + 1) / files.length) * 100))
@@ -215,7 +320,7 @@ export default function BibliotecaLegalPage() {
         </div>
 
         {/* Lista de documentos */}
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white rounded-lg shadow overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -240,7 +345,13 @@ export default function BibliotecaLegalPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {biblioteca.documentos.length === 0 ? (
+              {loadError ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-4 text-center text-red-600">
+                    {loadError}
+                  </td>
+                </tr>
+              ) : biblioteca.documentos.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
                     No hay documentos en la biblioteca. Sube algunos para empezar.
@@ -249,9 +360,9 @@ export default function BibliotecaLegalPage() {
               ) : (
                 biblioteca.documentos.map((doc) => (
                   <tr key={doc.id}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{doc.nombre}</div>
-                      <div className="text-xs text-gray-500">{doc.archivo}</div>
+                    <td className="px-6 py-4 whitespace-normal break-words">
+                      <div className="text-xs sm:text-sm font-medium text-gray-900 break-words">{doc.nombre}</div>
+                      <div className="text-xs text-gray-500 break-words">{doc.archivo}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">

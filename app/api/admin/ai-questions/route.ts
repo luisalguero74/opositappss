@@ -8,7 +8,18 @@ import { generateQuestions } from '@/lib/groq'
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session || session.user.role !== 'admin') {
+
+    const normalizeSecret = (value: string | null | undefined) =>
+      String(value || '')
+        .replace(/\\n/g, '')
+        .replace(/\n/g, '')
+        .trim()
+
+    const expectedApiKey = normalizeSecret(process.env.ADMIN_API_KEY)
+    const receivedApiKey = normalizeSecret(req.headers.get('x-api-key'))
+    const apiKeyOk = Boolean(expectedApiKey && receivedApiKey && expectedApiKey === receivedApiKey)
+    const isAdminSession = Boolean(session && String(session.user?.role || '').toLowerCase() === 'admin')
+    if (!isAdminSession && !apiKeyOk) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -157,7 +168,18 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session || session.user.role !== 'admin') {
+
+    const normalizeSecret = (value: string | null | undefined) =>
+      String(value || '')
+        .replace(/\\n/g, '')
+        .replace(/\n/g, '')
+        .trim()
+
+    const expectedApiKey = normalizeSecret(process.env.ADMIN_API_KEY)
+    const receivedApiKey = normalizeSecret(req.headers.get('x-api-key'))
+    const apiKeyOk = Boolean(expectedApiKey && receivedApiKey && expectedApiKey === receivedApiKey)
+    const isAdminSession = Boolean(session && String(session.user?.role || '').toLowerCase() === 'admin')
+    if (!isAdminSession && !apiKeyOk) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -177,33 +199,44 @@ export async function GET(req: NextRequest) {
     const questions = await prisma.generatedQuestion.findMany({
       where,
       orderBy: { createdAt: 'desc' },
-      take: limit ? parseInt(limit) : undefined,
-      include: {
-        document: {
-          select: {
-            id: true,
-            title: true,
-            documentType: true,
-            topic: true
-          }
-        },
-        section: {
-          select: {
-            id: true,
-            title: true
-          }
-        }
-      }
+      take: limit ? parseInt(limit) : undefined
     })
 
-    // Normalizar el campo type para compatibilidad con frontend
-    const normalizedQuestions = questions.map(q => ({
-      ...q,
-      document: {
-        ...q.document,
-        type: q.document.documentType
+    const documentIds = Array.from(new Set(questions.map(q => q.documentId).filter(Boolean)))
+    const sectionIds = Array.from(new Set(questions.map(q => q.sectionId).filter(Boolean)))
+
+    const [documents, sections] = await Promise.all([
+      documentIds.length
+        ? prisma.legalDocument.findMany({
+            where: { id: { in: documentIds } },
+            select: { id: true, title: true, documentType: true, topic: true }
+          })
+        : Promise.resolve([]),
+      sectionIds.length
+        ? prisma.documentSection.findMany({
+            where: { id: { in: sectionIds as string[] } },
+            select: { id: true, title: true }
+          })
+        : Promise.resolve([])
+    ])
+
+    const docById = new Map(documents.map(d => [d.id, d]))
+    const sectionById = new Map(sections.map(s => [s.id, s]))
+
+    const normalizedQuestions = questions.map(q => {
+      const doc = docById.get(q.documentId) ?? null
+      const section = q.sectionId ? (sectionById.get(q.sectionId) ?? null) : null
+      return {
+        ...q,
+        document: doc
+          ? {
+              ...doc,
+              type: doc.documentType
+            }
+          : null,
+        section
       }
-    }))
+    })
 
     return NextResponse.json({ questions: normalizedQuestions })
   } catch (error) {

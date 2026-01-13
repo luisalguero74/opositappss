@@ -190,6 +190,9 @@ export default function ExamModePage() {
   if (finished) {
     const percentage = Math.round((score / questions.length) * 100)
     const passed = percentage >= 50
+    const answeredCount = Object.keys(answers).length
+    const unansweredCount = questions.length - answeredCount
+    const incorrectCount = answeredCount - score
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-100 flex items-center justify-center p-4">
@@ -213,11 +216,11 @@ export default function ExamModePage() {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Incorrectas:</span>
-                <span className="text-red-600 font-bold">{questions.length - Object.keys(answers).length - score + Object.keys(answers).length - score}</span>
+                <span className="text-red-600 font-bold">{incorrectCount}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">En blanco:</span>
-                <span className="text-gray-600 font-bold">{questions.length - Object.keys(answers).length}</span>
+                <span className="text-gray-600 font-bold">{unansweredCount}</span>
               </div>
             </div>
           </div>

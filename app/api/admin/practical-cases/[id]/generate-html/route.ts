@@ -236,7 +236,7 @@ function generatePracticalCaseHTML(practicalCase: PracticalCase): string {
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1400px;
       margin: 0 auto;
       background: white;
       border-radius: 20px;
@@ -255,7 +255,7 @@ function generatePracticalCaseHTML(practicalCase: PracticalCase): string {
     }
 
     .header h1 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       margin-bottom: 10px;
       font-weight: 700;
     }
@@ -280,7 +280,7 @@ function generatePracticalCaseHTML(practicalCase: PracticalCase): string {
       }
 
       .header h1 {
-        font-size: 2rem;
+        font-size: 1.7rem;
       }
 
       .header .meta {
@@ -296,7 +296,7 @@ function generatePracticalCaseHTML(practicalCase: PracticalCase): string {
       margin: 0;
       border-radius: 0;
       line-height: 1.5;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -320,12 +320,12 @@ function generatePracticalCaseHTML(practicalCase: PracticalCase): string {
     @media (min-width: 768px) {
       .statement-box {
         padding: 20px 30px;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
       }
 
       .statement-box h3 {
         margin-bottom: 10px;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
       }
     }
 

@@ -1,0 +1,24 @@
+ENUNCIADO
+
+(Escribe aquí el enunciado completo del supuesto. Puede ocupar varias líneas.)
+
+PREGUNTAS
+
+PREGUNTA 1: (texto de la pregunta 1)
+A) (opción A)
+B) (opción B)
+C) (opción C)
+D) (opción D)
+
+PREGUNTA 2: (texto de la pregunta 2)
+OPCIÓN A: (opción A)
+OPCIÓN B: (opción B)
+OPCIÓN C: (opción C)
+OPCIÓN D: (opción D)
+
+SOLUCIONARIO
+
+PREGUNTA 1: A (motivación técnica / explicación breve)
+(Puedes continuar la explicación en líneas posteriores.)
+
+PREGUNTA 2: C (motivación técnica / explicación breve)

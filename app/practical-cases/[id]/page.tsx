@@ -181,12 +181,12 @@ export default function TakePracticalCase() {
     <>
       <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 pb-20">
         {/* Sticky header with statement */}
-        <div className="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-orange-500">
-          <div className="max-w-7xl mx-auto p-6">
+        <div className="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-orange-500 max-h-[70vh] overflow-y-auto lg:max-h-none lg:overflow-visible">
+          <div className="max-w-screen-2xl mx-auto p-4 sm:p-6">
             <div className="flex justify-between items-center mb-4">
-              <h1 className="text-2xl font-bold text-gray-800">{practicalCase.title}</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-gray-800 leading-tight">{practicalCase.title}</h1>
               <div className="flex items-center gap-4">
-                <div className="text-2xl font-bold text-orange-600">⏱️ {formatTime(timeElapsed)}</div>
+                <div className="text-xl sm:text-2xl font-bold text-orange-600">⏱️ {formatTime(timeElapsed)}</div>
                 
                 {!isSubmitted && (
                   <>
@@ -226,21 +226,18 @@ export default function TakePracticalCase() {
               </div>
             </div>
 
-            {/* Statement - Con scroll para textos largos */}
+            {/* Statement (móvil): visible siempre en el sticky header */}
             {practicalCase.statement ? (
-              <div className="bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 rounded-lg p-6 mb-4">
-                <h2 className="text-lg font-bold text-orange-900 mb-3">📋 ENUNCIADO DEL SUPUESTO</h2>
-                <div className="max-h-96 overflow-y-auto bg-white rounded p-4 border border-orange-100 shadow-inner">
-                  <p className="text-gray-700 whitespace-pre-wrap leading-relaxed text-sm md:text-base">
+              <div className="bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 rounded-lg p-4 sm:p-6 mb-4 lg:hidden">
+                <h2 className="text-base sm:text-lg font-bold text-orange-900 mb-2 sm:mb-3">📋 ENUNCIADO DEL SUPUESTO</h2>
+                <div className="max-h-32 sm:max-h-48 overflow-y-auto bg-white rounded p-4 border border-orange-100 shadow-inner">
+                  <p className="text-gray-700 whitespace-pre-wrap leading-normal text-xs sm:text-sm">
                     {practicalCase.statement}
                   </p>
                 </div>
-                <p className="text-xs text-orange-600 mt-2 italic">
-                  ({practicalCase.statement.length} caracteres)
-                </p>
               </div>
             ) : (
-              <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6 mb-4">
+              <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6 mb-4 lg:hidden">
                 <p className="text-yellow-800 text-sm">⚠️ No hay enunciado disponible para este supuesto</p>
               </div>
             )}
@@ -264,7 +261,7 @@ export default function TakePracticalCase() {
         </div>
 
         {/* Questions */}
-        <div className="max-w-7xl mx-auto p-6">
+        <div className="max-w-screen-2xl mx-auto p-6">
           {isSubmitted && results && (
             <div className="mb-6 bg-white rounded-2xl shadow-xl p-8">
               <h2 className="text-3xl font-bold text-center mb-6">📊 Resultados</h2>
@@ -303,8 +300,30 @@ export default function TakePracticalCase() {
             </div>
           )}
 
-          <div className="space-y-6">
-            {practicalCase.questions.map((question, index) => {
+          <div className="lg:grid lg:grid-cols-12 lg:gap-6">
+            {/* Statement (escritorio): sidebar sticky durante el scroll */}
+            <div className="hidden lg:block lg:col-span-4">
+              {practicalCase.statement ? (
+                <div className="sticky top-6 bg-white rounded-2xl shadow-xl border-2 border-orange-200 p-6">
+                  <h2 className="text-lg font-bold text-orange-900 mb-3">📋 ENUNCIADO DEL SUPUESTO</h2>
+                  <div className="max-h-[70vh] overflow-y-auto bg-orange-50 rounded p-4 border border-orange-100">
+                    <p className="text-gray-700 whitespace-pre-wrap leading-normal text-xs sm:text-sm">
+                      {practicalCase.statement}
+                    </p>
+                  </div>
+                  <p className="text-xs text-orange-600 mt-2 italic">
+                    ({practicalCase.statement.length} caracteres)
+                  </p>
+                </div>
+              ) : (
+                <div className="sticky top-6 bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6">
+                  <p className="text-yellow-800 text-sm">⚠️ No hay enunciado disponible para este supuesto</p>
+                </div>
+              )}
+            </div>
+
+            <div className="lg:col-span-8 space-y-6">
+              {practicalCase.questions.map((question, index) => {
               // Manejar options tanto si viene como string o como array
               const options = typeof question.options === 'string' 
                 ? JSON.parse(question.options) 
@@ -379,7 +398,8 @@ export default function TakePracticalCase() {
                   )}
                 </div>
               )
-            })}
+              })}
+            </div>
           </div>
         </div>
       </div>

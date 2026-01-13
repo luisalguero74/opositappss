@@ -1,11 +1,5 @@
 {
   "buildCommand": "next build",
   "devCommand": "next dev",
-  "installCommand": "npm install",
-  "crons": [
-    {
-      "path": "/api/cron/generate-questions",
-      "schedule": "0 3 * * *"
-    }
-  ]
+  "installCommand": "npm install"
 }

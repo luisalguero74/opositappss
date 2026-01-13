@@ -93,7 +93,13 @@ export default function MonetizationSettings() {
         setMessage({ type: 'success', text: 'Configuración guardada exitosamente' })
         setTimeout(() => setMessage({ type: '', text: '' }), 3000)
       } else {
-        setMessage({ type: 'error', text: 'Error al guardar configuración' })
+        const payload = await res.json().catch(() => null)
+        const reason = typeof payload?.error === 'string' ? payload.error : undefined
+        if (res.status === 401) {
+          setMessage({ type: 'error', text: 'No autorizado. Inicia sesión de admin y reintenta.' })
+        } else {
+          setMessage({ type: 'error', text: `Error al guardar configuración${reason ? `: ${reason}` : ''}` })
+        }
       }
     } catch (error) {
       setMessage({ type: 'error', text: 'Error de conexión' })

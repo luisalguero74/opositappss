@@ -5,6 +5,21 @@ import { prisma } from '@/lib/prisma'
 import { sendVerificationEmail } from '../../../../src/lib/email'
 import crypto from 'crypto'
 
+function normalizeEnv(value: string | undefined): string {
+  return String(value ?? '').trim()
+}
+
+function isTrueEnv(value: string | undefined): boolean {
+  return normalizeEnv(value).toLowerCase() === 'true'
+}
+
+function parseDateEnv(value: string | undefined): Date | null {
+  const raw = normalizeEnv(value)
+  if (!raw) return null
+  const date = new Date(raw)
+  return Number.isFinite(date.getTime()) ? date : null
+}
+
 export async function POST(request: NextRequest) {
   try {
     console.log('[REGISTER] Starting registration process')
@@ -112,15 +127,30 @@ export async function POST(request: NextRequest) {
     })
 
     // Try to send verification email (non-blocking)
+    let verificationEmailSent = false
     try {
       console.log('[REGISTER] Sending verification email')
       await sendVerificationEmail(normalizedEmail, token)
+      verificationEmailSent = true
     } catch (emailError) {
       console.error('[REGISTER] Error sending verification email:', emailError)
       // Continue without email verification
     }
 
     console.log('[REGISTER] Registration successful')
+
+    const enforceEnabled = isTrueEnv(process.env.ENFORCE_EMAIL_VERIFICATION)
+    const enforceAfter = parseDateEnv(process.env.EMAIL_VERIFICATION_ENFORCE_AFTER)
+    const enforcementApplies = enforceEnabled && !!enforceAfter && user.createdAt >= enforceAfter
+
+    if (enforcementApplies) {
+      return NextResponse.json({
+        message: verificationEmailSent
+          ? 'Usuario creado. Revisa tu email para verificar tu cuenta antes de iniciar sesión.'
+          : 'Usuario creado. No hemos podido enviar el email de verificación; usa "Reenviar verificación" desde el login.'
+      })
+    }
+
     return NextResponse.json({ message: 'Usuario creado exitosamente. Ya puedes iniciar sesión.' })
   } catch (error: unknown) {
     if (error instanceof Error) {

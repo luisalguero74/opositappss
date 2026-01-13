@@ -21,7 +21,7 @@ interface MarkedQuestion {
 }
 
 export default function MarkedQuestionsPage() {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const router = useRouter()
   const [questions, setQuestions] = useState<MarkedQuestion[]>([])
   const [loading, setLoading] = useState(true)

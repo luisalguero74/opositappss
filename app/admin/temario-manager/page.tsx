@@ -122,6 +122,11 @@ export default function TemarioManager() {
     }
   }
 
+  const isTemaCompleto = (tema: TemaOficial) =>
+    (tema.archivosAsociados && tema.archivosAsociados.length > 0) ||
+    !!tema.archivoAsociado ||
+    (documentosBiblioteca[tema.id] && documentosBiblioteca[tema.id].length > 0)
+
   const temasFiltrados = temasData.filter(tema => {
     // Filtro por categoría
     if (filtroCategoria !== 'todos' && tema.categoria !== filtroCategoria) {
@@ -129,10 +134,10 @@ export default function TemarioManager() {
     }
     
     // Filtro por estado
-    if (filtroEstado === 'completo' && !tema.archivoAsociado) {
+    if (filtroEstado === 'completo' && !isTemaCompleto(tema)) {
       return false
     }
-    if (filtroEstado === 'pendiente' && tema.archivoAsociado) {
+    if (filtroEstado === 'pendiente' && isTemaCompleto(tema)) {
       return false
     }
     
@@ -436,8 +441,8 @@ export default function TemarioManager() {
             </div>
           </div>
           <div className="mt-2 text-sm text-gray-600 flex justify-between">
-            <span>General: {temasData.filter(t => t.categoria === 'general' && t.archivoAsociado).length}/23</span>
-            <span>Específico: {temasData.filter(t => t.categoria === 'especifico' && t.archivoAsociado).length}/13</span>
+            <span>General: {temasData.filter(t => t.categoria === 'general' && isTemaCompleto(t)).length}/23</span>
+            <span>Específico: {temasData.filter(t => t.categoria === 'especifico' && isTemaCompleto(t)).length}/13</span>
           </div>
         </div>
 
@@ -522,7 +527,7 @@ export default function TemarioManager() {
             <div
               key={tema.id}
               className={`bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:shadow-xl ${
-                tema.archivoAsociado ? 'border-l-4 border-green-500' : 'border-l-4 border-orange-400'
+                isTemaCompleto(tema) ? 'border-l-4 border-green-500' : 'border-l-4 border-orange-400'
               } ${temasSeleccionados.has(tema.id) ? 'ring-4 ring-blue-300' : ''}`}
             >
               <div className="p-6">

@@ -69,6 +69,7 @@ export default function StatisticsPage() {
   const router = useRouter()
   const [stats, setStats] = useState<Statistics | null>(null)
   const [loading, setLoading] = useState(true)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'general' | 'errors' | 'repeated' | 'recommendations'>('general')
 
   useEffect(() => {
@@ -78,18 +79,25 @@ export default function StatisticsPage() {
   }, [status, router])
 
   useEffect(() => {
+    if (status !== 'authenticated') return
     loadStats()
-  }, [])
+  }, [status])
 
   const loadStats = async () => {
     try {
+      setErrorMessage(null)
       const res = await fetch('/api/statistics')
       if (res.ok) {
         const data = await res.json()
         setStats(data)
+      } else {
+        const body = await res.json().catch(() => null)
+        const stageSuffix = body?.stage ? ` (stage: ${String(body.stage)})` : ''
+        setErrorMessage((body?.error || 'No se pudieron cargar las estadísticas') + stageSuffix)
       }
     } catch (error) {
       console.error('Error loading statistics:', error)
+      setErrorMessage('Error de red al cargar estadísticas')
     } finally {
       setLoading(false)
     }
@@ -106,7 +114,7 @@ export default function StatisticsPage() {
   if (!stats) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center">
-        <div className="text-xl text-gray-700">No se pudieron cargar las estadísticas</div>
+        <div className="text-xl text-gray-700">{errorMessage || 'No se pudieron cargar las estadísticas'}</div>
       </div>
     )
   }

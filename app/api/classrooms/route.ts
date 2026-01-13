@@ -7,12 +7,12 @@ import { prisma } from '@/lib/prisma'
 export async function GET() {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user?.email) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
     }
 
-    const user = await prisma.user.findFirst({
-      where: { email: { equals: session.user.email, mode: 'insensitive' } },
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
       include: {
         classroomParticipants: {
           where: {

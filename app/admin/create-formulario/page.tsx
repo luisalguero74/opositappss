@@ -13,13 +13,31 @@ interface UnifiedQuestion {
   explanation: string
   difficulty: string
   tema: string
+  temaOficialId?: string | null
+  temarioCategoria?: 'general' | 'especifico' | null
+  temaNumero?: number | null
+  temaTitulo?: string | null
   source: 'manual' | 'ai'
+}
+
+interface TemaOficialOption {
+  id: string
+  categoria: 'general' | 'especifico'
+  numero: number
+  codigo: string
+  titulo: string
+  count: number
 }
 
 interface UnifiedQuestionsResponse {
   success: boolean
   questions: UnifiedQuestion[]
   temas: string[]
+  temasOficiales?: TemaOficialOption[]
+  temasOficialesPorTemario?: {
+    general: TemaOficialOption[]
+    especifico: TemaOficialOption[]
+  }
   summary: {
     manual: number
     ai: number
@@ -31,7 +49,10 @@ export default function CreateFormulario() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [questions, setQuestions] = useState<UnifiedQuestion[]>([])
-  const [availableTemas, setAvailableTemas] = useState<string[]>([])
+  const [temasOficialesPorTemario, setTemasOficialesPorTemario] = useState<{
+    general: TemaOficialOption[]
+    especifico: TemaOficialOption[]
+  }>({ general: [], especifico: [] })
   const [selectedQuestions, setSelectedQuestions] = useState<string[]>([])
   const [formTitle, setFormTitle] = useState('Formulario de Prueba - opositAPPSS')
   const [showExplanations, setShowExplanations] = useState(true)
@@ -40,27 +61,47 @@ export default function CreateFormulario() {
   const [loading, setLoading] = useState(false)
   const [publishingAsQuestionnaire, setPublishingAsQuestionnaire] = useState(false)
   const [loadingQuestions, setLoadingQuestions] = useState(true)
-  const [filterTema, setFilterTema] = useState<string>('all')
+  const [filterTemario, setFilterTemario] = useState<'ambos' | 'general' | 'especifico'>('ambos')
+  const [selectedTemaIds, setSelectedTemaIds] = useState<string[]>([]) // vacío => todos
   const [filterDifficulty, setFilterDifficulty] = useState<string>('all')
   const [showPreview, setShowPreview] = useState(false)
+  const [loadError, setLoadError] = useState<string>('')
 
   useEffect(() => {
-    if (status === 'authenticated' && session?.user?.role === 'admin') {
+    if (status === 'authenticated' && String(session?.user?.role || '').toLowerCase() === 'admin') {
       loadQuestions()
     }
   }, [status, session])
 
   const loadQuestions = async () => {
     setLoadingQuestions(true)
+    setLoadError('')
     try {
-      const res = await fetch('/api/admin/unified-questions?limit=500')
-      if (res.ok) {
-        const data: UnifiedQuestionsResponse = await res.json()
-        setQuestions(data.questions || [])
-        setAvailableTemas(data.temas || [])
+      const res = await fetch('/api/admin/unified-questions?limit=500', {
+        credentials: 'include'
+      })
+
+      const data: UnifiedQuestionsResponse & { error?: string; diagnostics?: any } = await res.json().catch(() => ({} as any))
+      if (!res.ok) {
+        const msg = data?.error || `Error al cargar preguntas (${res.status})`
+        setLoadError(msg)
+        setQuestions([])
+        setTemasOficialesPorTemario({ general: [], especifico: [] })
+        return
+      }
+
+      setQuestions(data.questions || [])
+      if (data.temasOficialesPorTemario) {
+        setTemasOficialesPorTemario({
+          general: data.temasOficialesPorTemario.general || [],
+          especifico: data.temasOficialesPorTemario.especifico || []
+        })
+      } else {
+        setTemasOficialesPorTemario({ general: [], especifico: [] })
       }
     } catch (error) {
       console.error('Error loading questions:', error)
+      setLoadError(error instanceof Error ? error.message : 'Error al cargar preguntas')
     } finally {
       setLoadingQuestions(false)
     }
@@ -75,8 +116,24 @@ export default function CreateFormulario() {
     return null
   }
 
+  const temasDisponibles: TemaOficialOption[] =
+    filterTemario === 'general'
+      ? temasOficialesPorTemario.general
+      : filterTemario === 'especifico'
+        ? temasOficialesPorTemario.especifico
+        : [...temasOficialesPorTemario.general, ...temasOficialesPorTemario.especifico]
+
   const filteredQuestions = questions.filter(q => {
-    if (filterTema !== 'all' && q.tema !== filterTema) return false
+    if (filterTemario !== 'ambos') {
+      if (!q.temarioCategoria) return false
+      if (q.temarioCategoria !== filterTemario) return false
+    }
+
+    if (selectedTemaIds.length > 0) {
+      if (!q.temaOficialId) return false
+      if (!selectedTemaIds.includes(q.temaOficialId)) return false
+    }
+
     if (filterDifficulty !== 'all' && q.difficulty !== filterDifficulty) return false
     return true
   })
@@ -105,6 +162,24 @@ export default function CreateFormulario() {
     try {
       // Obtener datos de preguntas seleccionadas
       const selectedQuestionData = questions.filter(q => selectedQuestions.includes(q.id))
+
+      const selectedTemaItems = selectedTemaIds
+        .map(id => temasDisponibles.find(t => t.id === id))
+        .filter((t): t is TemaOficialOption => Boolean(t))
+
+      const temarioLabel =
+        filterTemario === 'general'
+          ? 'Temario General'
+          : filterTemario === 'especifico'
+            ? 'Temario Específico'
+            : 'Temario General + Específico'
+
+      const temaLabel =
+        selectedTemaItems.length === 1
+          ? `${selectedTemaItems[0].codigo} - ${selectedTemaItems[0].titulo}`
+          : selectedTemaItems.length > 1
+            ? `${temarioLabel} (${selectedTemaItems.length} temas)`
+            : temarioLabel
       
       const res = await fetch('/api/admin/generate-form-with-solution', {
         method: 'POST',
@@ -115,7 +190,7 @@ export default function CreateFormulario() {
           showExplanations,
           showDifficulty,
           randomizeOrder,
-          tema: filterTema !== 'all' ? filterTema : 'General'
+          tema: temaLabel
         })
       })
 
@@ -203,6 +278,32 @@ export default function CreateFormulario() {
     )
   }
 
+  if (loadError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50 p-6">
+        <div className="max-w-xl bg-white rounded-2xl shadow-lg p-6">
+          <h1 className="text-xl font-bold text-gray-800 mb-2">Error cargando temas/preguntas</h1>
+          <p className="text-gray-600 mb-4">{loadError}</p>
+          <div className="flex gap-2">
+            <button
+              onClick={loadQuestions}
+              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold"
+              type="button"
+            >
+              Reintentar
+            </button>
+            <Link
+              href="/admin"
+              className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-semibold"
+            >
+              Volver al Panel Admin
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 p-6">
       <div className="max-w-7xl mx-auto">
@@ -227,21 +328,46 @@ export default function CreateFormulario() {
               <h2 className="text-2xl font-bold text-gray-800 mb-4">🔍 Filtros</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Tema</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Temario</label>
                   <select
-                    value={filterTema}
-                    onChange={(e) => setFilterTema(e.target.value)}
+                    value={filterTemario}
+                    onChange={(e) => {
+                      const next = (e.target.value as 'ambos' | 'general' | 'especifico')
+                      setFilterTemario(next)
+                      setSelectedTemaIds([])
+                    }}
                     className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
                   >
-                    <option value="all">Todos los temas ({questions.length} preguntas)</option>
-                    {availableTemas.map(tema => {
-                      const count = questions.filter(q => q.tema === tema).length
-                      return (
-                        <option key={tema} value={tema}>{tema} ({count} preguntas)</option>
-                      )
-                    })}
+                    <option value="ambos">General + Específico</option>
+                    <option value="general">General</option>
+                    <option value="especifico">Específico</option>
                   </select>
                 </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Temas</label>
+                  <select
+                    multiple
+                    value={selectedTemaIds}
+                    onChange={(e) => {
+                      const values = Array.from(e.target.selectedOptions).map(o => o.value)
+                      setSelectedTemaIds(values)
+                    }}
+                    className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
+                    style={{ minHeight: 96 }}
+                  >
+                    {temasDisponibles.map(tema => (
+                      <option key={tema.id} value={tema.id}>
+                        {tema.codigo} - {tema.titulo} ({tema.count})
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Si no seleccionas ningún tema, se usarán todos.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Dificultad</label>
                   <select
@@ -254,6 +380,15 @@ export default function CreateFormulario() {
                     <option value="media">🟡 Media</option>
                     <option value="dificil">🔴 Difícil</option>
                   </select>
+                </div>
+                <div className="flex items-end gap-2">
+                  <button
+                    onClick={() => setSelectedTemaIds([])}
+                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-semibold"
+                    type="button"
+                  >
+                    Limpiar temas
+                  </button>
                 </div>
               </div>
               <div className="mt-4 flex gap-2">

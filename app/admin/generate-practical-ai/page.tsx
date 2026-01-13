@@ -99,7 +99,8 @@ export default function GeneratePracticalAI() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Error al generar el supuesto práctico')
+        const requestId = data?.requestId ? ` (requestId: ${data.requestId})` : ''
+        throw new Error((data?.error || 'Error al generar el supuesto práctico') + requestId)
       }
 
       setSuccess(`✅ Supuesto práctico "${data.practicalCase.title}" generado exitosamente con ${data.questionCount} preguntas`)

@@ -28,13 +28,13 @@ const securityHeaders = {
 // IMPORTANT: Do not duplicate directives (e.g. multiple `script-src`). Browsers only honor the first occurrence.
 const CSP_BASE = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' data: https: blob:;
+  img-src 'self' data: https: blob: https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com;
   font-src 'self' data: https://fonts.gstatic.com;
-  connect-src 'self' https://api.groq.com https://api.stripe.com wss:;
+  connect-src 'self' https://api.groq.com https://api.stripe.com https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com https://www.google.com wss:;
   media-src 'self' data: blob:;
-  frame-src 'self' https://js.stripe.com;
+  frame-src 'self' https://js.stripe.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'self';
@@ -43,14 +43,14 @@ const CSP_BASE = `
 
 const CSP_JITSI = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: https://js.stripe.com https://cdn.jsdelivr.net https://meet.jit.si https://*.jit.si https://*.jitsi.net;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: https://js.stripe.com https://cdn.jsdelivr.net https://meet.jit.si https://*.jit.si https://*.jitsi.net https://8x8.vc https://*.8x8.vc https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' data: https: blob:;
+  img-src 'self' data: https: blob: https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com;
   font-src 'self' data: https://fonts.gstatic.com;
-  connect-src 'self' https://api.groq.com https://api.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net https://meet-jit-si-turnrelay.jitsi.net wss:;
+  connect-src 'self' https://api.groq.com https://api.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net https://8x8.vc https://*.8x8.vc https://meet-jit-si-turnrelay.jitsi.net https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com https://www.google.com wss:;
   media-src 'self' data: blob:;
   worker-src 'self' blob:;
-  frame-src 'self' https://js.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net;
+  frame-src 'self' https://js.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net https://8x8.vc https://*.8x8.vc https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'self';
@@ -69,6 +69,7 @@ const protectedRoutes = [
   '/spaced-repetition',
   '/marked-questions',
   '/failed-questions',
+  '/admin',
 ]
 
 // Rutas de administrador
@@ -80,6 +81,7 @@ const publicRoutes = [
   '/register',
   '/pricing',
   '/',
+  '/admin/recover-password',
   '/api/auth',
   '/_next',
   '/favicon.ico',
@@ -131,6 +133,22 @@ setInterval(() => {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
+  // Hotfix: some clients may hit relative API URLs from within /dashboard (e.g. /dashboard/api/statistics).
+  // Canonical API routes live at /api/*.
+  if (pathname.startsWith('/dashboard/api/')) {
+    const targetPath = pathname.replace('/dashboard', '')
+    const url = request.nextUrl.clone()
+    url.pathname = targetPath
+    const redirectResponse = NextResponse.redirect(url)
+
+    Object.entries(securityHeaders).forEach(([key, value]) => {
+      redirectResponse.headers.set(key, value)
+    })
+    redirectResponse.headers.set('Content-Security-Policy', CSP_BASE)
+
+    return redirectResponse
+  }
+
   // Aplicar security headers a todas las respuestas
   const response = NextResponse.next()
   
@@ -145,7 +163,7 @@ export async function middleware(request: NextRequest) {
     // Allow camera/mic for embedded Jitsi in classroom pages
     response.headers.set(
       'Permissions-Policy',
-      'camera=(self "https://meet.jit.si" "https://*.jit.si" "https://*.jitsi.net"), microphone=(self "https://meet.jit.si" "https://*.jit.si" "https://*.jitsi.net"), geolocation=()'
+      'camera=(self "https://meet.jit.si" "https://*.jit.si" "https://*.jitsi.net" "https://8x8.vc" "https://*.8x8.vc"), microphone=(self "https://meet.jit.si" "https://*.jit.si" "https://*.jitsi.net" "https://8x8.vc" "https://*.8x8.vc"), geolocation=()'
     )
   }
 

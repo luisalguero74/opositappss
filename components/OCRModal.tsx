@@ -13,8 +13,60 @@ export default function OCRModal({ temaId, temaTitulo, onClose, onSuccess }: OCR
   const [file, setFile] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [statusMsg, setStatusMsg] = useState('')
   const [extractedText, setExtractedText] = useState('')
   const [step, setStep] = useState<'upload' | 'preview' | 'confirm'>('upload')
+
+  const renderPdfPageToPngBlob = async (page: any, scale: number): Promise<Blob> => {
+    const viewport = page.getViewport({ scale })
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+    if (!context) throw new Error('No se pudo crear contexto de canvas para OCR')
+
+    canvas.width = Math.ceil(viewport.width)
+    canvas.height = Math.ceil(viewport.height)
+
+    await page.render({ canvasContext: context, viewport }).promise
+
+    const blob: Blob | null = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'))
+    if (!blob) throw new Error('No se pudo convertir la página a imagen para OCR')
+
+    canvas.width = 0
+    canvas.height = 0
+
+    return blob
+  }
+
+  const ocrPdfInBrowserThenServer = async (pdfFile: File, maxPages: number) => {
+    const pdfjs = (await import('pdfjs-dist/legacy/build/pdf')) as any
+    const data = new Uint8Array(await pdfFile.arrayBuffer())
+    const loadingTask = pdfjs.getDocument({ data, disableWorker: true })
+    const pdf = await loadingTask.promise
+    const totalPages = Number(pdf?.numPages ?? 0)
+    const pagesToProcess = Math.min(totalPages || 0, maxPages)
+
+    if (!pagesToProcess) throw new Error('No se pudieron detectar páginas del PDF')
+
+    let out = ''
+    for (let pageIndex = 1; pageIndex <= pagesToProcess; pageIndex++) {
+      setStatusMsg(`PDF escaneado: renderizando página ${pageIndex}/${pagesToProcess}...`)
+      const page = await pdf.getPage(pageIndex)
+      const pngBlob = await renderPdfPageToPngBlob(page, 2)
+
+      setStatusMsg(`PDF escaneado: OCR en servidor ${pageIndex}/${pagesToProcess}...`)
+      const formData = new FormData()
+      formData.append('image', pngBlob, `page-${pageIndex}.png`)
+      formData.append('pageIndex', String(pageIndex))
+
+      const res = await fetch('/api/admin/ocr-pdf', { method: 'POST', body: formData })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data?.error || `Error OCR en página ${pageIndex}`)
+
+      out += `\n\n[Página ${pageIndex}/${pagesToProcess}]\n${String(data?.text || '')}`
+    }
+
+    return out.trim()
+  }
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0]
@@ -34,26 +86,44 @@ export default function OCRModal({ temaId, temaTitulo, onClose, onSuccess }: OCR
 
     setLoading(true)
     setError('')
+    setStatusMsg('Subiendo PDF...')
 
     try {
       const formData = new FormData()
       formData.append('file', file)
 
+      setStatusMsg('Extrayendo texto (intento rápido)...')
       const res = await fetch('/api/admin/ocr-pdf', {
         method: 'POST',
         body: formData
       })
 
-      const data = await res.json()
+      const data = await res.json().catch(() => ({}))
 
       if (!res.ok) {
-        throw new Error(data.error || 'Error al extraer texto')
+        if (data?.code === 'OCR_REQUIRED') {
+          const maxPages = Number(data?.meta?.ocrMaxPages ?? 30)
+          const pagesHint = Number(data?.meta?.pages ?? 0)
+          if (pagesHint && pagesHint > maxPages) {
+            throw new Error(`PDF escaneado (${pagesHint} páginas). OCR recomendado hasta ${maxPages} páginas. Divide el PDF.`)
+          }
+
+          const text = await ocrPdfInBrowserThenServer(file, maxPages)
+          setStatusMsg('OCR completado')
+          setExtractedText(text)
+          setStep('preview')
+          return
+        }
+
+        throw new Error(data?.error || 'Error al extraer texto')
       }
 
-      setExtractedText(data.text)
+      setExtractedText(String(data?.text || ''))
+      setStatusMsg('Texto extraído')
       setStep('preview')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido')
+      setStatusMsg('')
     } finally {
       setLoading(false)
     }
@@ -109,6 +179,12 @@ export default function OCRModal({ temaId, temaTitulo, onClose, onSuccess }: OCR
               {error && (
                 <div className="bg-red-50 p-3 rounded border border-red-200 text-red-700 text-sm">
                   {error}
+                </div>
+              )}
+
+              {statusMsg && !error && (
+                <div className="bg-blue-50 p-3 rounded border border-blue-200 text-blue-900 text-sm">
+                  {statusMsg}
                 </div>
               )}
 

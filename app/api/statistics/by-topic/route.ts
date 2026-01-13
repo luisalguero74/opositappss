@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
 import { normalizeTemaCodigo } from '@/lib/tema-codigo';
+import { getPgPool, getUserAnswerColumnInfo } from '@/lib/pg';
 
 export async function GET() {
   try {
@@ -11,21 +11,26 @@ export async function GET() {
       return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
     }
 
-    // Obtener todas las respuestas del usuario
-    // @ts-ignore - Prisma tipos no actualizados
-    const answers = await prisma.userAnswer.findMany({
-      where: { userId: session.user.id },
-      include: {
-        question: {
-          select: {
-            temaCodigo: true,
-            temaNumero: true,
-            temaParte: true,
-            temaTitulo: true,
-          } as any,
-        },
-      },
-    }) as any[];
+    const pool = getPgPool();
+    const { answerColumn } = await getUserAnswerColumnInfo(pool);
+
+    const res = await pool.query(
+      `
+      select
+        ua."isCorrect" as "isCorrect",
+        q."temaCodigo" as "temaCodigo",
+        q."temaNumero" as "temaNumero",
+        q."temaParte" as "temaParte",
+        q."temaTitulo" as "temaTitulo",
+        ua."${answerColumn}" as "answer"
+      from "UserAnswer" ua
+      join "Question" q on q.id = ua."questionId"
+      where ua."userId" = $1
+      `,
+      [session.user.id]
+    );
+
+    const answers = res.rows as any[];
 
     // Agrupar por tema
     const statsByTopic = new Map<string, {
@@ -40,7 +45,7 @@ export async function GET() {
     }>();
 
     answers.forEach((answer) => {
-      const temaCodigo = answer.question.temaCodigo;
+      const temaCodigo = answer.temaCodigo;
       if (!temaCodigo) return; // Skip preguntas sin tema asignado
 
       const normalized = normalizeTemaCodigo(String(temaCodigo)) || String(temaCodigo);
@@ -48,9 +53,9 @@ export async function GET() {
       if (!statsByTopic.has(normalized)) {
         statsByTopic.set(normalized, {
           codigo: normalized,
-          numero: answer.question.temaNumero,
-          parte: answer.question.temaParte,
-          titulo: answer.question.temaTitulo,
+          numero: answer.temaNumero,
+          parte: answer.temaParte,
+          titulo: answer.temaTitulo,
           totalPreguntas: 0,
           correctas: 0,
           incorrectas: 0,

@@ -28,10 +28,10 @@ export async function POST(req: NextRequest) {
         continue
       }
 
-      // Determinar carpeta según type
+      // Determinar carpeta según documentType
       let subDir = 'biblioteca'
-      if (doc.type === 'temario_general') subDir = 'general'
-      else if (doc.type === 'temario_especifico') subDir = 'especifico'
+      if (doc.documentType === 'temario_general') subDir = 'general'
+      else if (doc.documentType === 'temario_especifico') subDir = 'especifico'
 
       const filePath = join(baseDir, subDir, doc.fileName)
       if (!existsSync(filePath)) {

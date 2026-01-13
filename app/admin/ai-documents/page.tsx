@@ -35,7 +35,7 @@ interface GeneratedQuestion {
     title: string
     type: string
     topic: string | null
-  }
+  } | null
 }
 
 export default function AIDocumentsPage() {
@@ -59,20 +59,28 @@ export default function AIDocumentsPage() {
   const [filterStatus, setFilterStatus] = useState<string>('all')
 
   useEffect(() => {
+    // Important: wait for the session to resolve; otherwise we may redirect
+    // admins to /dashboard during the initial `loading` state.
+    if (status === 'loading') return
     if (status === 'unauthenticated') {
       router.push('/login')
-    } else if (session?.user?.role !== 'admin') {
+      return
+    }
+    if (status === 'authenticated' && String(session?.user?.role || '').toLowerCase() !== 'admin') {
       router.push('/dashboard')
     }
   }, [session, status, router])
 
   useEffect(() => {
+    if (status !== 'authenticated') return
+    if (String(session?.user?.role || '').toLowerCase() !== 'admin') return
+
     if (tab === 'documents') {
       loadDocuments()
     } else {
       loadQuestions()
     }
-  }, [tab])
+  }, [tab, session?.user?.role, status])
 
   const loadDocuments = async () => {
     setLoading(true)
@@ -228,7 +236,13 @@ export default function AIDocumentsPage() {
   }
 
   const startEdit = (question: GeneratedQuestion) => {
-    const options = JSON.parse(question.options)
+    const options = (() => {
+      try {
+        return JSON.parse(question.options)
+      } catch {
+        return []
+      }
+    })()
     setEditingId(question.id)
     setEditForm({
       text: question.text,
@@ -239,7 +253,7 @@ export default function AIDocumentsPage() {
       correctAnswer: question.correctAnswer,
       explanation: question.explanation || '',
       difficulty: question.difficulty,
-      type: question.document.type,
+      type: question.document?.type || 'pdf',
       topic: question.topic || ''
     })
   }
@@ -320,8 +334,10 @@ export default function AIDocumentsPage() {
 
   // Filtros
   const filteredQuestions = questions.filter(q => {
-    if (filterType !== 'all' && q.document.type !== filterType) return false
-    if (filterTopic !== 'all' && q.document.topic !== filterTopic) return false
+    const docType = q.document?.type || 'unknown'
+    const docTopic = q.document?.topic || q.topic || null
+    if (filterType !== 'all' && docType !== filterType) return false
+    if (filterTopic !== 'all' && docTopic !== filterTopic) return false
     if (filterStatus === 'approved' && !q.approved) return false
     if (filterStatus === 'pending' && q.approved) return false
     if (filterStatus === 'rejected' && (!q.reviewed || q.approved)) return false
@@ -721,7 +737,13 @@ export default function AIDocumentsPage() {
               ) : (
                 filteredQuestions.map(q => {
                   const isEditing = editingId === q.id
-                  const options = JSON.parse(q.options)
+                  const options = (() => {
+                    try {
+                      return JSON.parse(q.options)
+                    } catch {
+                      return []
+                    }
+                  })()
                   
                   return (
                     <div key={q.id} className={`bg-white rounded-lg shadow-md p-6 ${
@@ -737,7 +759,8 @@ export default function AIDocumentsPage() {
                             {q.difficulty}
                           </span>
                           <span className="text-xs text-gray-500 ml-2">
-                            {q.document.title} {q.document.topic && `- ${q.document.topic}`}
+                            {q.document?.title || 'Documento eliminado'}
+                            {(q.document?.topic || q.topic) && `- ${q.document?.topic || q.topic}`}
                           </span>
                           {q.approved && <span className="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded">✓ Aprobada</span>}
                         </div>

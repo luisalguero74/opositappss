@@ -86,28 +86,70 @@ export default function QuestionsDatabase() {
     setMessage({ type: '', text: '' })
 
     try {
-      const response = await fetch('/api/admin/review-questions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          questionIds: Array.from(selectedQuestions),
-          action: 'regenerate',
-          batchSize: 5
-        })
-      })
+      const ids = Array.from(selectedQuestions)
+      const chunkSize = 3
 
-      const data = await response.json()
+      let totalProcesadas = 0
+      let totalExitosas = 0
+      let totalFallidas = 0
+      const errores: string[] = []
 
-      if (data.success) {
-        setMessage({ 
-          type: 'success', 
-          text: `✅ Correcciones aplicadas:\\n- Procesadas: ${data.procesadas}\\n- Exitosas: ${data.exitosas}\\n- Fallidas: ${data.fallidas}` 
+      for (let i = 0; i < ids.length; i += chunkSize) {
+        const chunk = ids.slice(i, i + chunkSize)
+        setMessage({
+          type: '',
+          text: `⏳ Procesando ${Math.min(i + chunk.length, ids.length)}/${ids.length}...`
         })
-        setSelectedQuestions(new Set())
-        loadQuestions() // Recargar preguntas
-      } else {
-        setMessage({ type: 'error', text: data.error || 'Error al aplicar correcciones' })
+
+        let response: Response
+        try {
+          response = await fetch('/api/admin/review-questions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              questionIds: chunk,
+              action: 'regenerate',
+              batchSize: chunk.length
+            })
+          })
+        } catch (error: any) {
+          throw new Error(
+            `Error de red al contactar con /api/admin/review-questions. ` +
+              `Suele ocurrir por timeout/corte de conexión. Prueba con menos preguntas. ` +
+              `Detalle: ${error?.message || String(error)}`
+          )
+        }
+
+        let data: any = null
+        try {
+          data = await response.json()
+        } catch {
+          // Ignorar parseo; se manejará por status
+        }
+
+        if (!response.ok || !data?.success) {
+          const detail = data?.error || `HTTP ${response.status}`
+          throw new Error(detail)
+        }
+
+        totalProcesadas += Number(data.procesadas || 0)
+        totalExitosas += Number(data.exitosas || 0)
+        totalFallidas += Number(data.fallidas || 0)
+        if (Array.isArray(data.errores) && data.errores.length) {
+          errores.push(...data.errores)
+        }
       }
+
+      setMessage({
+        type: 'success',
+        text:
+          `✅ Correcciones aplicadas:\n- Procesadas: ${totalProcesadas}` +
+          `\n- Exitosas: ${totalExitosas}` +
+          `\n- Fallidas: ${totalFallidas}` +
+          (errores.length ? `\n\nDetalles (primeros 5):\n- ${errores.slice(0, 5).join('\n- ')}` : '')
+      })
+      setSelectedQuestions(new Set())
+      loadQuestions() // Recargar preguntas
     } catch (error: any) {
       setMessage({ type: 'error', text: 'Error: ' + error.message })
     } finally {

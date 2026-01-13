@@ -8,6 +8,7 @@ import { temaCodigoFromTemaOficialId, temaCodigoVariants } from '@/lib/tema-codi
 import { PROMPT_MEJORADO_LGSS, PROMPT_MEJORADO_TEMAGENERAL } from '@/lib/prompts-mejorados'
 import { ValidadorPreguntas } from '@/lib/validador-preguntas'
 import { buscarDocumentosLegalesParaTema, enriquecerPromptConRAG, generarContextoLGSS } from '@/lib/rag-questions'
+import { rebalancePreguntasPorIndice } from '@/lib/answer-alternation'
 // Configuración aumentada para evitar timeouts
 export const maxDuration = 300 // 5 minutos
 export const dynamic = 'force-dynamic'
@@ -142,8 +143,19 @@ function filtrarDuplicadosPorSimilaridad(
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
-    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
+
+    const normalizeSecret = (value: string | null | undefined) =>
+      String(value || '')
+        .replace(/\\n/g, '')
+        .replace(/\n/g, '')
+        .trim()
+
+    const expectedApiKey = normalizeSecret(process.env.ADMIN_API_KEY)
+    const receivedApiKey = normalizeSecret(req.headers.get('x-api-key'))
+    const apiKeyOk = Boolean(expectedApiKey && receivedApiKey && expectedApiKey === receivedApiKey)
+
+    const isAdminSession = Boolean(session && String(session.user?.role || '').toLowerCase() === 'admin')
+    if (!isAdminSession && !apiKeyOk) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -216,7 +228,8 @@ export async function POST(req: NextRequest) {
       }
 
       // Guardar preguntas
-      for (const p of preguntasLGSS) {
+      const preguntasLGSSRebalanceadas = rebalancePreguntasPorIndice(preguntasLGSS, 2)
+      for (const p of preguntasLGSSRebalanceadas) {
         await prisma.question.create({
           data: {
             questionnaireId: questionnaire.id,
@@ -371,8 +384,10 @@ export async function POST(req: NextRequest) {
         console.log(`   🔍 Filtradas ${preguntas.length - preguntasFiltradas.length} preguntas duplicadas/similares`)
       }
 
+      const preguntasRebalanceadas = rebalancePreguntasPorIndice(preguntasFiltradas, 2)
+
       // Guardar preguntas en la BD
-      for (const p of preguntasFiltradas) {
+      for (const p of preguntasRebalanceadas) {
         await prisma.question.create({
           data: {
             questionnaireId: questionnaire.id,
@@ -389,14 +404,14 @@ export async function POST(req: NextRequest) {
         })
       }
 
-      totalPreguntas += preguntasFiltradas.length
+      totalPreguntas += preguntasRebalanceadas.length
       temasConPreguntasNuevas++
 
       preguntasCreadasPorTema.push({
         temaId: tema.id,
         temaNumero: tema.numero,
         temaTitulo: tema.titulo,
-        preguntasCreadas: preguntasFiltradas.length
+        preguntasCreadas: preguntasRebalanceadas.length
       })
       
       console.log(`   ✅ ${preguntasFiltradas.length} preguntas guardadas`)

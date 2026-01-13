@@ -2,18 +2,19 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { getCorrectAnswerLetter, safeParseOptions } from '@/lib/answer-normalization'
 
 // Marcar pregunta
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.email) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
     const user = await prisma.user.findUnique({
-      where: { email: session.user.email }
+      where: { id: session.user.id }
     })
 
     if (!user) {
@@ -57,12 +58,12 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.email) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
     const user = await prisma.user.findUnique({
-      where: { email: session.user.email }
+      where: { id: session.user.id }
     })
 
     if (!user) {
@@ -83,7 +84,20 @@ export async function GET(req: NextRequest) {
       orderBy: { markedAt: 'desc' }
     })
 
-    return NextResponse.json({ marked })
+    const normalized = marked.map((m: any) => {
+      const options = safeParseOptions(m.question?.options)
+      const correctLetter = getCorrectAnswerLetter(String(m.question?.correctAnswer ?? ''), options)
+      return {
+        ...m,
+        question: {
+          ...m.question,
+          options,
+          correctAnswer: (correctLetter ?? 'a').toUpperCase()
+        }
+      }
+    })
+
+    return NextResponse.json({ marked: normalized })
 
   } catch (error) {
     console.error('[Marked Questions] Error:', error)
@@ -98,12 +112,12 @@ export async function DELETE(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.email) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
     const user = await prisma.user.findUnique({
-      where: { email: session.user.email }
+      where: { id: session.user.id }
     })
 
     if (!user) {

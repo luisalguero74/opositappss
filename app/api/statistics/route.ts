@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { prisma } from '@/lib/prisma'
+import { getPgPool, getUserAnswerColumnInfo } from '@/lib/pg'
+import type { Pool } from 'pg'
 
 // Función mejorada para extraer fundamento legal con búsqueda en documentos
 async function extractLegalArticle(
+  pool: Pool,
   explanation: string, 
   correctAnswer: string, 
   questionText: string,
@@ -37,7 +39,7 @@ async function extractLegalArticle(
         const foundReference = matches[0].trim()
         
         // Si encontramos una referencia, intentar enriquecerla con contexto del documento
-        const enrichedReference = await enrichLegalReference(foundReference, temaCodigo)
+        const enrichedReference = await enrichLegalReference(pool, foundReference, temaCodigo)
         if (enrichedReference) {
           return enrichedReference
         }
@@ -49,14 +51,14 @@ async function extractLegalArticle(
 
   // 2. Si no encuentra referencia directa, buscar en documentos legales por contenido relacionado
   if (temaCodigo) {
-    const relatedDocument = await findRelatedLegalDocument(questionText, temaCodigo)
+    const relatedDocument = await findRelatedLegalDocument(pool, questionText, temaCodigo)
     if (relatedDocument) {
       return relatedDocument
     }
   }
 
   // 3. Búsqueda amplia en toda la base de documentos
-  const broadSearch = await searchInAllDocuments(questionText, correctAnswer)
+  const broadSearch = await searchInAllDocuments(pool, questionText, correctAnswer)
   if (broadSearch) {
     return broadSearch
   }
@@ -66,7 +68,7 @@ async function extractLegalArticle(
 }
 
 // Función para enriquecer la referencia legal con contexto del documento
-async function enrichLegalReference(reference: string, temaCodigo?: string | null): Promise<string | null> {
+async function enrichLegalReference(pool: Pool, reference: string, temaCodigo?: string | null): Promise<string | null> {
   try {
     // Extraer número de artículo de la referencia
     const articleMatch = reference.match(/art[íi]culo\s+(\d+)/i) || reference.match(/art\.\s*(\d+)/i)
@@ -79,29 +81,17 @@ async function enrichLegalReference(reference: string, temaCodigo?: string | nul
     if (articleMatch) searchTerms.push(`artículo ${articleMatch[1]}`)
     if (lawMatch) searchTerms.push(lawMatch[0])
 
-    const documents = await prisma.legalDocument.findMany({
-      where: {
-        active: true,
-        OR: searchTerms.map(term => ({
-          content: {
-            contains: term,
-            mode: 'insensitive' as const
-          }
-        }))
-      },
-      select: {
-        reference: true,
-        title: true,
-        content: true
-      },
-      take: 1
-    })
+    const conditions = searchTerms.map((_, i) => `content ilike $${i + 1}`).join(' or ')
+    const values = searchTerms.map(term => `%${term}%`)
 
-    if (documents.length > 0) {
-      const doc = documents[0]
-      if (doc.reference) {
-        return `${reference} de ${doc.reference}`
-      }
+    const documentsRes = await pool.query(
+      `select reference, title, content from "LegalDocument" where active = true and (${conditions}) limit 1`,
+      values
+    )
+
+    if (documentsRes.rows.length > 0) {
+      const doc = documentsRes.rows[0] as any
+      if (doc.reference) return `${reference} de ${doc.reference}`
     }
 
     return null
@@ -112,7 +102,7 @@ async function enrichLegalReference(reference: string, temaCodigo?: string | nul
 }
 
 // Función para buscar documento legal relacionado por tema
-async function findRelatedLegalDocument(questionText: string, temaCodigo: string): Promise<string | null> {
+async function findRelatedLegalDocument(pool: Pool, questionText: string, temaCodigo: string): Promise<string | null> {
   try {
     // Extraer palabras clave de la pregunta (eliminar palabras comunes)
     const stopWords = ['el', 'la', 'de', 'en', 'y', 'a', 'los', 'las', 'del', 'al', 'por', 'con', 'para', 'que', 'es', 'se', 'un', 'una']
@@ -126,28 +116,17 @@ async function findRelatedLegalDocument(questionText: string, temaCodigo: string
     if (keywords.length === 0) return null
 
     // Buscar documentos que contengan esas palabras clave
-    const documents = await prisma.legalDocument.findMany({
-      where: {
-        active: true,
-        OR: keywords.map(keyword => ({
-          content: {
-            contains: keyword,
-            mode: 'insensitive' as const
-          }
-        }))
-      },
-      select: {
-        reference: true,
-        title: true,
-        content: true,
-        type: true
-      },
-      take: 3
-    })
+    const conditions = keywords.map((_, i) => `content ilike $${i + 1}`).join(' or ')
+    const values = keywords.map(k => `%${k}%`)
 
-    if (documents.length > 0) {
+    const documentsRes = await pool.query(
+      `select reference, title, content from "LegalDocument" where active = true and (${conditions}) limit 3`,
+      values
+    )
+
+    if (documentsRes.rows.length > 0) {
       // Buscar el documento más relevante
-      for (const doc of documents) {
+      for (const doc of documentsRes.rows as any[]) {
         // Buscar artículos en el contenido del documento
         const articleMatches = doc.content.match(/art[íi]culo\s+\d+(\.\d+)?/gi)
         if (articleMatches && articleMatches.length > 0) {
@@ -160,7 +139,7 @@ async function findRelatedLegalDocument(questionText: string, temaCodigo: string
       }
 
       // Si no encontramos artículos específicos, devolver referencia del documento
-      const doc = documents[0]
+      const doc = documentsRes.rows[0] as any
       if (doc.reference) {
         return `${doc.reference} - ${doc.title}`
       }
@@ -174,7 +153,7 @@ async function findRelatedLegalDocument(questionText: string, temaCodigo: string
 }
 
 // Función para búsqueda amplia en todos los documentos
-async function searchInAllDocuments(questionText: string, correctAnswer: string): Promise<string | null> {
+async function searchInAllDocuments(pool: Pool, questionText: string, correctAnswer: string): Promise<string | null> {
   try {
     // Combinar pregunta y respuesta correcta para mejor contexto
     const searchText = `${questionText} ${correctAnswer}`.toLowerCase()
@@ -186,24 +165,13 @@ async function searchInAllDocuments(questionText: string, correctAnswer: string)
     // Buscar la frase más relevante en documentos
     const topPhrase = phrases[0]
 
-    const documents = await prisma.legalDocument.findMany({
-      where: {
-        active: true,
-        content: {
-          contains: topPhrase,
-          mode: 'insensitive' as const
-        }
-      },
-      select: {
-        reference: true,
-        title: true,
-        content: true
-      },
-      take: 1
-    })
+    const documentsRes = await pool.query(
+      `select reference, title, content from "LegalDocument" where active = true and content ilike $1 limit 1`,
+      [`%${topPhrase}%`]
+    )
 
-    if (documents.length > 0) {
-      const doc = documents[0]
+    if (documentsRes.rows.length > 0) {
+      const doc = documentsRes.rows[0] as any
       
       // Buscar el fragmento exacto en el contenido
       const contentLower = doc.content.toLowerCase()
@@ -251,45 +219,82 @@ function generateRecommendation(errorCount: number, totalQuestions: number, them
 }
 
 export async function GET(request: NextRequest) {
+  let stage = 'start'
   try {
+    stage = 'getSession'
     const session = await getServerSession(authOptions)
-    if (!session?.user?.email) {
+    stage = 'checkAuth'
+    if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+    const userId = session.user.id
 
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email }
-    })
+    // Obtener todas las respuestas del usuario con información de las preguntas.
+    // Importante: en algunas BDs el campo se llama `selectedAnswer` (no `answer`), lo que rompe Prisma.
+    stage = 'getPool'
+    const pool = getPgPool()
+    stage = 'detectAnswerColumn'
+    const { answerColumn } = await getUserAnswerColumnInfo(pool)
 
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    stage = 'queryUserAnswers'
+    let userAnswerRows: any[] = []
+    try {
+      const uaRes = await pool.query(
+        `
+        select
+          ua."questionId" as "questionId",
+          ua."isCorrect" as "isCorrect",
+          ua."createdAt" as "createdAt",
+          ua."${answerColumn}" as "answer",
+          q.text as "q_text",
+          q."temaCodigo" as "q_temaCodigo",
+          q."correctAnswer" as "q_correctAnswer",
+          q.explanation as "q_explanation",
+          qu.title as "qu_title",
+          qu.type as "qu_type"
+        from "UserAnswer" ua
+        join "Question" q on q.id = ua."questionId"
+        join "Questionnaire" qu on qu.id = q."questionnaireId"
+        where ua."userId" = $1
+        order by ua."createdAt" desc
+        `,
+        [userId]
+      )
+      userAnswerRows = uaRes.rows
+    } catch (err) {
+      // Production safety: if DB permissions/RLS/schema issues block this query,
+      // return empty stats instead of taking down the UI.
+      console.error('Error querying user answers for statistics:', err)
+      userAnswerRows = []
     }
 
-    // Obtener todas las respuestas del usuario con información de las preguntas
-    const userAnswers = await prisma.userAnswer.findMany({
-      where: { userId: user.id },
-      include: {
-        question: {
-          include: {
-            questionnaire: {
-              select: {
-                title: true,
-                type: true
-              }
-            }
-          }
+    stage = 'mapUserAnswers'
+    const userAnswers = userAnswerRows.map((r: any) => ({
+      questionId: r.questionId,
+      isCorrect: r.isCorrect,
+      createdAt: r.createdAt,
+      answer: r.answer ?? '',
+      question: {
+        text: r.q_text,
+        temaCodigo: r.q_temaCodigo ?? null,
+        correctAnswer: r.q_correctAnswer,
+        explanation: r.q_explanation,
+        questionnaire: {
+          title: r.qu_title,
+          type: r.qu_type
         }
-      },
-      orderBy: { createdAt: 'desc' }
-    })
+      }
+    }))
 
     // Calcular estadísticas generales
+    stage = 'calcGeneral'
     const totalQuestions = userAnswers.length
     const correctAnswers = userAnswers.filter((a: any) => a.isCorrect).length
     const incorrectAnswers = totalQuestions - correctAnswers
     const successRate = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0
 
     // Agrupar errores por pregunta para detectar errores repetidos
+    stage = 'groupErrors'
     const errorsByQuestion = new Map<string, {
       questionId: string
       questionText: string
@@ -299,6 +304,7 @@ export async function GET(request: NextRequest) {
       errors: number
       correctAnswer: string
       explanation: string
+      temaCodigo?: string | null
     }>()
 
     userAnswers.forEach((answer: any) => {
@@ -311,7 +317,8 @@ export async function GET(request: NextRequest) {
           attempts: 0,
           errors: 0,
           correctAnswer: answer.question.correctAnswer,
-          explanation: answer.question.explanation
+          explanation: answer.question.explanation,
+          temaCodigo: (answer.question as any).temaCodigo ?? null
         })
       }
 
@@ -329,25 +336,22 @@ export async function GET(request: NextRequest) {
 
     // NUEVAS RECOMENDACIONES DE ESTUDIO
     // 1. Extraer preguntas falladas con artículos legales (búsqueda mejorada)
+    stage = 'buildFailedQuestionsData'
     const failedQuestionsData = Array.from(errorsByQuestion.values())
       .filter(q => q.errors > 0)
       .sort((a, b) => b.errors - a.errors)
       .slice(0, 15) // Top 15 preguntas con más errores
 
     // Procesar cada pregunta fallada para obtener su fundamento legal (con búsqueda en BD)
+    stage = 'extractLegalArticles'
     const failedQuestions = await Promise.all(
       failedQuestionsData.map(async (q) => {
-        // Buscar la pregunta completa para obtener temaCodigo
-        const fullQuestion = await prisma.question.findUnique({
-          where: { id: q.questionId },
-          select: { temaCodigo: true }
-        })
-        
         const legalArticle = await extractLegalArticle(
+          pool,
           q.explanation || '', 
           q.correctAnswer || '',
           q.questionText || '',
-          fullQuestion?.temaCodigo
+          (q as any).temaCodigo ?? null
         )
         
         return {
@@ -361,6 +365,7 @@ export async function GET(request: NextRequest) {
     )
 
     // 2. Agrupar errores por tema y generar recomendaciones
+    stage = 'groupThemes'
     const errorsByTheme = new Map<string, { errorCount: number; totalQuestions: number }>()
     
     userAnswers.forEach((answer: any) => {
@@ -389,6 +394,7 @@ export async function GET(request: NextRequest) {
       .slice(0, 5) // Top 5 temas con peor rendimiento
 
     // Estadísticas por tipo de cuestionario
+    stage = 'calcByType'
     const statsByType = {
       theory: {
         total: 0,
@@ -412,6 +418,7 @@ export async function GET(request: NextRequest) {
       }
     })
 
+    stage = 'respond'
     return NextResponse.json({
       general: {
         totalQuestions,
@@ -453,7 +460,7 @@ export async function GET(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Error fetching statistics:', error)
-    return NextResponse.json({ error: 'Failed to fetch statistics' }, { status: 500 })
+    console.error('Error fetching statistics:', { stage, error })
+    return NextResponse.json({ error: 'Failed to fetch statistics', stage }, { status: 500 })
   }
 }

@@ -60,7 +60,7 @@ export async function POST(
       }
     })
 
-    console.log(`[Exam Simulation] Usuario ${session.user.email} completó simulacro: ${totalScore}/85`)
+    console.log(`[Exam Simulation] Usuario ${session.user.id} completó simulacro: ${totalScore}/85`)
 
     return NextResponse.json({
       score: totalScore,

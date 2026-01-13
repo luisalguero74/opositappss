@@ -2,11 +2,11 @@
 
 import { useSession } from 'next-auth/react'
 import type { Session } from 'next-auth'
-import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import SubscriptionBanner from '@/components/SubscriptionBanner'
 import HelpButton from '@/components/HelpButton'
 import MonetizationWrapper from '@/components/monetization/MonetizationWrapper'
+import UserMenu from '@/components/UserMenu'
 
 export default function Dashboard() {
   const { data: session } = useSession() as { data: Session | null }
@@ -22,9 +22,12 @@ export default function Dashboard() {
       <HelpButton />
       <div className="p-4">
         <div className="max-w-6xl mx-auto">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Bienvenido a opositAPPSS</h1>
-          <p className="text-gray-600 mt-1 text-sm">Hola, {session.user?.email}</p>
+        <div className="mb-6 flex items-start justify-between">
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Bienvenido a opositAPPSS</h1>
+            <p className="text-gray-600 mt-1 text-sm">Hola, {session.user?.email}</p>
+          </div>
+          <UserMenu />
         </div>
         
         {/* Grid de 3 columnas en escritorio, más compacto */}
@@ -117,6 +120,17 @@ export default function Dashboard() {
             </div>
           </Link>
 
+          {/* Canal en directo (usuarios) */}
+          <Link href="/room/moderation" className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group">
+            <div className="bg-gradient-to-r from-emerald-500 to-green-600 p-4 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-white">Canal en Directo</h2>
+              <div className="text-white text-3xl">🎥</div>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-600 text-sm">Únete a la videollamada de dudas (moderación).</p>
+            </div>
+          </Link>
+
           {/* Temario */}
           <Link href="/dashboard/temario" className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group">
             <div className="bg-gradient-to-r from-teal-500 to-cyan-600 p-4 flex items-center justify-between">
@@ -206,17 +220,29 @@ export default function Dashboard() {
           </Link>
         </div>
 
-        {/* Panel Admin - Solo para administradores */}
+        {/* Admin - Solo para administradores */}
         {isAdmin && (
-          <Link href="/admin" className="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition mb-4">
-            <div className="bg-gradient-to-r from-red-500 to-orange-600 p-4 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">Panel de Administrador</h2>
-              <div className="text-white text-3xl">⚙️</div>
-            </div>
-            <div className="p-4">
-              <p className="text-gray-600 text-sm">Gestiona cuestionarios y usuarios de la plataforma.</p>
-            </div>
-          </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <Link href="/admin" className="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+              <div className="bg-gradient-to-r from-red-500 to-orange-600 p-4 flex items-center justify-between">
+                <h2 className="text-lg font-bold text-white">Panel de Administrador</h2>
+                <div className="text-white text-3xl">⚙️</div>
+              </div>
+              <div className="p-4">
+                <p className="text-gray-600 text-sm">Gestiona cuestionarios y usuarios de la plataforma.</p>
+              </div>
+            </Link>
+
+            <Link href="/admin/rooms" className="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+              <div className="bg-gradient-to-r from-violet-500 to-fuchsia-600 p-4 flex items-center justify-between">
+                <h2 className="text-lg font-bold text-white">Moderación (Salas)</h2>
+                <div className="text-white text-3xl">🎥</div>
+              </div>
+              <div className="p-4">
+                <p className="text-gray-600 text-sm">Controla salas y participantes en directo.</p>
+              </div>
+            </Link>
+          </div>
         )}
         
         {/* Monetización */}

@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
         title: true,
         content: true,
         topic: true,
-        type: true
+        documentType: true
       }
     })
 

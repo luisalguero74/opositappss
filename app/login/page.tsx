@@ -11,6 +11,7 @@ function LoginForm() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState(false)
+  const [resendLoading, setResendLoading] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -23,6 +24,8 @@ function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    setError('')
+    setSuccess('')
     const result = await signIn('credentials', {
       email,
       password,
@@ -30,9 +33,41 @@ function LoginForm() {
     })
     setLoading(false)
     if (result?.error) {
-      setError('Credenciales inválidas')
+      if (result.error === 'EMAIL_NOT_VERIFIED') {
+        setError('Debes verificar tu email antes de iniciar sesión.')
+      } else {
+        setError('Credenciales inválidas')
+      }
     } else {
       router.push('/dashboard')
+    }
+  }
+
+  const handleResendVerification = async () => {
+    const normalizedEmail = String(email || '').trim().toLowerCase()
+    if (!normalizedEmail) {
+      setError('Introduce tu email para reenviar la verificación.')
+      return
+    }
+
+    setResendLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/auth/resend-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: normalizedEmail })
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setError(String((data as any)?.error || 'No se pudo reenviar la verificación.'))
+        return
+      }
+      setSuccess(String((data as any)?.message || 'Si el email existe, hemos enviado un enlace de verificación.'))
+    } catch {
+      setError('No se pudo reenviar la verificación.')
+    } finally {
+      setResendLoading(false)
     }
   }
 
@@ -84,12 +119,27 @@ function LoginForm() {
           >
             {loading ? 'Iniciando...' : 'Iniciar Sesión'}
           </button>
+
+          <button
+            type="button"
+            onClick={handleResendVerification}
+            disabled={resendLoading}
+            className="w-full mt-3 border-2 border-gray-200 text-gray-700 font-semibold py-3 rounded-lg hover:border-indigo-500 hover:text-indigo-700 transition disabled:opacity-50"
+          >
+            {resendLoading ? 'Enviando...' : 'Reenviar verificación'}
+          </button>
         </form>
         <div className="px-8 pb-8 text-center border-t border-gray-200">
           <p className="text-gray-600 mt-4">
             ¿No tienes cuenta?{' '}
             <a href="/register" className="text-indigo-600 font-semibold hover:text-indigo-700">
               Regístrate aquí
+            </a>
+          </p>
+          <p className="text-gray-500 mt-2 text-sm">
+            ¿Eres admin y no recuerdas la contraseña?{' '}
+            <a href="/admin/recover-password" className="text-indigo-600 font-semibold hover:text-indigo-700">
+              Recuperar acceso
             </a>
           </p>
         </div>

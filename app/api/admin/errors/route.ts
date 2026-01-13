@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSession } from 'next-auth/react'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { logError, getUnresolvedErrors, getErrorStats, resolveError } from '@/lib/error-logger'
 
@@ -9,7 +10,7 @@ import { logError, getUnresolvedErrors, getErrorStats, resolveError } from '@/li
  */
 export async function GET(request: NextRequest) {
   try {
-    const session = await getSession({ req: request as any })
+    const session = await getServerSession(authOptions)
     
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -91,7 +92,7 @@ export async function GET(request: NextRequest) {
  */
 export async function PATCH(request: NextRequest) {
   try {
-    const session = await getSession({ req: request as any })
+    const session = await getServerSession(authOptions)
     
     if (!session?.user?.email) {
       return NextResponse.json(
