@@ -5,6 +5,7 @@ import { processDocument } from '@/lib/document-processor'
 import { prisma } from '@/lib/prisma'
 import { readFile } from 'fs/promises'
 import { join } from 'path'
+import { generateEmbedding } from '@/lib/embeddings'
 
 // Procesar documento y guardarlo en BD
 export async function POST(req: NextRequest) {
@@ -33,6 +34,24 @@ export async function POST(req: NextRequest) {
     const fullPath = join(process.cwd(), filePath)
     const stats = await readFile(fullPath).then(b => ({ size: b.length }))
 
+    // Generar embedding automáticamente
+    let embeddingString: string | null = null
+    try {
+      console.log('🔄 Generando embedding automático...')
+      const embeddingText = `${fileName.replace(/\.[^/.]+$/, '')}\n\n${processed.content}`
+      const embeddingArray = await generateEmbedding(embeddingText)
+      
+      if (embeddingArray && embeddingArray.length > 0) {
+        embeddingString = JSON.stringify(embeddingArray)
+        console.log(`✅ Embedding generado (${embeddingArray.length} dimensiones)`)
+      } else {
+        console.warn('⚠️  No se pudo generar embedding, documento se guardará sin embedding')
+      }
+    } catch (embError) {
+      console.warn('⚠️  Error generando embedding (documento se guardará sin embedding):', embError)
+      // Continuar sin embedding - no es crítico
+    }
+
     // Guardar en base de datos
     const document = await prisma.legalDocument.create({
       data: {
@@ -43,6 +62,7 @@ export async function POST(req: NextRequest) {
         fileName,
         fileSize: stats.size,
         content: processed.content,
+        embedding: embeddingString,
         processedAt: new Date(),
         sections: {
           create: processed.sections.map(section => ({
@@ -59,6 +79,7 @@ export async function POST(req: NextRequest) {
 
     console.log(`Documento procesado: ${document.id}`)
     console.log(`Secciones creadas: ${document.sections.length}`)
+    console.log(`Embedding: ${embeddingString ? '✅ Generado' : '⚠️  No generado'}`)
 
     return NextResponse.json({
       success: true,
