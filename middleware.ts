@@ -28,13 +28,13 @@ const securityHeaders = {
 // IMPORTANT: Do not duplicate directives (e.g. multiple `script-src`). Browsers only honor the first occurrence.
 const CSP_BASE = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com https://fundingchoicesmessages.google.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' data: https: blob: https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com;
   font-src 'self' data: https://fonts.gstatic.com;
-  connect-src 'self' https://api.groq.com https://api.stripe.com https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com https://www.google.com wss:;
+  connect-src 'self' https://api.groq.com https://api.stripe.com https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com https://fundingchoicesmessages.google.com https://www.google.com wss:;
   media-src 'self' data: blob:;
-  frame-src 'self' https://js.stripe.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
+  frame-src 'self' https://js.stripe.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://fundingchoicesmessages.google.com;
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'self';
@@ -43,14 +43,14 @@ const CSP_BASE = `
 
 const CSP_JITSI = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: https://js.stripe.com https://cdn.jsdelivr.net https://meet.jit.si https://*.jit.si https://*.jitsi.net https://8x8.vc https://*.8x8.vc https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: https://js.stripe.com https://cdn.jsdelivr.net https://meet.jit.si https://*.jit.si https://*.jitsi.net https://8x8.vc https://*.8x8.vc https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com https://fundingchoicesmessages.google.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' data: https: blob: https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com;
   font-src 'self' data: https://fonts.gstatic.com;
-  connect-src 'self' https://api.groq.com https://api.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net https://8x8.vc https://*.8x8.vc https://meet-jit-si-turnrelay.jitsi.net https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com https://www.google.com wss:;
+  connect-src 'self' https://api.groq.com https://api.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net https://8x8.vc https://*.8x8.vc https://meet-jit-si-turnrelay.jitsi.net https://pagead2.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://adservice.google.com https://fundingchoicesmessages.google.com https://www.google.com wss:;
   media-src 'self' data: blob:;
   worker-src 'self' blob:;
-  frame-src 'self' https://js.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net https://8x8.vc https://*.8x8.vc https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
+  frame-src 'self' https://js.stripe.com https://meet.jit.si https://*.jit.si https://*.jitsi.net https://8x8.vc https://*.8x8.vc https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://fundingchoicesmessages.google.com;
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'self';

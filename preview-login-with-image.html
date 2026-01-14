@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview Login con Imagen - OpositAPP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Fondo con imagen */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2000&auto=format&fit=crop');
+            /* Alternativas que puedes probar cambiando la URL:
+               - Biblioteca: https://images.unsplash.com/photo-1507842217343-583bb7270b66
+               - Estudiando: https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8
+               - Oficina estudio: https://images.unsplash.com/photo-1434030216411-0b793f4b4173
+               - Libros de leyes: https://images.unsplash.com/photo-1589829545856-d10d557cf95f
+            */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.9);
+            z-index: 1;
+        }
+
+        /* Overlay oscuro semitransparente */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(30, 58, 138, 0.45) 0%, 
+                rgba(79, 70, 229, 0.35) 50%, 
+                rgba(139, 92, 246, 0.45) 100%
+            );
+            z-index: 2;
+        }
+
+        /* Efecto de partículas sutiles */
+        .overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 1px, transparent 1px),
+                radial-gradient(circle at 60% 70%, rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 100px 100px, 150px 150px;
+            animation: movePattern 40s linear infinite;
+        }
+
+        @keyframes movePattern {
+            0% { background-position: 0 0, 50px 50px; }
+            100% { background-position: 100px 100px, 150px 150px; }
+        }
+
+        /* Contenedor principal */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 450px;
+            padding: 1rem;
+        }
+
+        /* Badge institucional flotante */
+        .institutional-badge {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 11;
+        }
+
+        /* Tarjeta de login */
+        .login-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #4f46e5 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: rotatePattern 60s linear infinite;
+        }
+
+        @keyframes rotatePattern {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-header h1 {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .card-header p {
+            color: rgba(255,255,255,0.95);
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-body {
+            padding: 2.5rem 2rem;
+            background: white;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #1f2937;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem 1.125rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1.125rem;
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.125rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1.25rem;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 1.75rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .links a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .links a:hover {
+            color: #3730a3;
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            border: 1px solid;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            color: #1e40af;
+            border-color: #bfdbfe;
+        }
+
+        /* Decoración adicional */
+        .decorative-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .circle-1 {
+            top: 10%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            border: 3px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            animation: pulse 8s infinite;
+        }
+
+        .circle-2 {
+            bottom: 15%;
+            right: 8%;
+            width: 150px;
+            height: 150px;
+            border: 3px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            animation: pulse 10s infinite 2s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .institutional-badge {
+                top: 1rem;
+                right: 1rem;
+                font-size: 0.7rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .card-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .card-body {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con imagen -->
+    <div class="background-image"></div>
+    
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Elementos decorativos -->
+    <div class="decorative-element circle-1"></div>
+    <div class="decorative-element circle-2"></div>
+
+    <!-- Badge institucional -->
+    <div class="institutional-badge">
+        Preparación Oficial de Oposiciones
+    </div>
+
+    <!-- Contenedor -->
+    <div class="container">
+        <!-- Tarjeta de Login -->
+        <div class="login-card">
+            <div class="card-header">
+                <div class="logo">📚</div>
+                <h1>Iniciar Sesión</h1>
+                <p>Accede a tu cuenta en opositAPPSS</p>
+            </div>
+
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <strong>Preview con imagen de fondo:</strong> Imagen de biblioteca/estudio profesional con overlay azul institucional.
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="tu@email.com" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" placeholder="••••••••">
+                    </div>
+
+                    <button type="button" class="btn-login">
+                        Iniciar Sesión
+                    </button>
+                </form>
+
+                <div class="links">
+                    <a href="#">¿No tienes cuenta? Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

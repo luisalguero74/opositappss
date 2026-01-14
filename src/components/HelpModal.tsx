@@ -427,6 +427,41 @@ const HELP_TOPICS: HelpTopic[] = [
       'Administra bien el tiempo (~1.4 min/pregunta)',
       'Ideal para la semana previa al examen oficial'
     ]
+  },
+  {
+    id: 'monetization-user',
+    category: '💰 Monetización',
+    keywords: ['dinero', 'publicidad', 'adsense', 'patreon', 'ko-fi', 'donaciones', 'suscripción', 'apoyo'],
+    question: '¿Cómo puedo apoyar opositAPPSS?',
+    answer: 'Existen varias formas de apoyar el desarrollo de la plataforma:',
+    steps: [
+      '☕ DONACIONES (Ko-fi - Recomendado)',
+      '   • Haz una donación única de forma voluntaria',
+      '   • Cualquier cantidad ayuda a mantener la plataforma',
+      '   • Botón disponible en dashboard y fin de tests',
+      '   • Sin obligación, sin suscripción',
+      '',
+      '💪 APOYO MENSUAL (Patreon)',
+      '   • Suscripción mensual desde €3',
+      '   • Contribuye de forma recurrente',
+      '   • Bonificaciones y acceso prioritario',
+      '',
+      '📢 DIFUSIÓN',
+      '   • Comparte opositAPPSS con amigos y compañeros',
+      '   • Recomiéndalo en redes sociales',
+      '   • Boca a boca es muy valioso',
+      '',
+      '⭐ CALIDAD Y FEEDBACK',
+      '   • Reporta errores y sugerencias',
+      '   • Ayuda a mejorar el contenido',
+      '   • Tu feedback impulsa mejoras'
+    ],
+    tips: [
+      'Todas las donaciones van a mantener y mejorar la plataforma',
+      'Los detalles de cómo se usan los fondos están documentados',
+      'Tu apoyo es completamente voluntario y no afecta el acceso',
+      'La plataforma seguirá siendo 100% gratuita para todos'
+    ]
   }
 ]
 

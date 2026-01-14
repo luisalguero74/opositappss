@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import type { Session } from 'next-auth'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import AdminHelpButton from '@/components/AdminHelpButton'
 
 export default function Admin() {
   const { data: session } = useSession() as { data: Session | null }
@@ -65,6 +66,7 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-amber-50 p-6">
+      <AdminHelpButton />
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
           <Link href="/dashboard" className="text-orange-600 hover:text-orange-700 font-semibold mb-4 inline-block">← Volver al Dashboard</Link>
@@ -78,7 +80,7 @@ export default function Admin() {
         </div>
 
         {/* Tarjetas de acceso rápido */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
             <div className="bg-gradient-to-r from-teal-500 to-emerald-600 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">📄</div>
@@ -114,6 +116,19 @@ export default function Admin() {
               <p className="text-gray-600 mb-4 text-sm">Administra usuarios, cambia roles y visualiza el historial completo de actividad de cada usuario.</p>
               <Link href="/admin/users" className="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition text-sm">
                 Gestionar Usuarios →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-orange-500 to-red-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">📝</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Exámenes Oficiales</h2>
+              <p className="text-gray-600 mb-4 text-sm">Gestiona exámenes con sistema de puntuación -0.25. 70 preguntas + supuesto práctico.</p>
+              <Link href="/admin/exam-official" className="inline-block bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition text-sm">
+                Gestionar Exámenes →
               </Link>
             </div>
           </div>
@@ -192,6 +207,59 @@ export default function Admin() {
               <p className="text-gray-600 mb-4 text-sm">Controla salas de videollamada activas. Silencia, expulsa participantes y modera el foro.</p>
               <Link href="/admin/rooms" className="inline-block bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-purple-600 hover:to-pink-700 transition text-sm">
                 Ir a Moderación →
+              </Link>
+            </div>
+          </div>
+
+          {/* NUEVAS FUNCIONALIDADES AVANZADAS */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">📊</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Analytics Avanzado</h2>
+              <p className="text-gray-600 mb-4 text-sm">Estadísticas completas: usuarios activos, preguntas difíciles, engagement y monetización.</p>
+              <Link href="/admin/analytics" className="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition text-sm">
+                Ver Dashboard →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-slate-600 to-gray-900 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🔍</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Auditoría y Logs</h2>
+              <p className="text-gray-600 mb-4 text-sm">Registro completo de acciones administrativas, cambios y accesos al sistema.</p>
+              <Link href="/admin/audit-logs" className="inline-block bg-gradient-to-r from-slate-600 to-gray-900 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-700 hover:to-black transition text-sm">
+                Ver Logs →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">💾</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Backups y Exportación</h2>
+              <p className="text-gray-600 mb-4 text-sm">Crea backups manuales, descarga datos en JSON/CSV y gestiona restauraciones.</p>
+              <Link href="/admin/backups" className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition text-sm">
+                Gestionar Backups →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-green-500 to-emerald-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">✅</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Control de Calidad</h2>
+              <p className="text-gray-600 mb-4 text-sm">Detecta preguntas duplicadas, incompletas, sin respuesta correcta o malformadas.</p>
+              <Link href="/admin/quality-control" className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-green-600 hover:to-emerald-700 transition text-sm">
+                Validar Preguntas →
               </Link>
             </div>
           </div>

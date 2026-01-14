@@ -65,14 +65,16 @@ export default function Dashboard() {
             </div>
           </Link>
 
-          {/* Modo Examen Strict */}
-          <Link href="/exam-mode" className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group">
-            <div className="bg-gradient-to-r from-red-600 to-pink-600 p-4 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">Modo Examen</h2>
-              <div className="text-white text-3xl">⏱️</div>
+          {/* Examen Oficial */}
+          <Link href="/exam-mode" className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group relative">
+            <div className="absolute top-2 right-2 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full">OFICIAL</div>
+            <div className="bg-gradient-to-r from-amber-600 to-yellow-500 p-4 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-white">Examen Oficial</h2>
+              <div className="text-white text-3xl">🏆</div>
             </div>
             <div className="p-4">
-              <p className="text-gray-600 text-sm">Examen real: 85 preguntas, 120min, sin volver atrás.</p>
+              <p className="text-gray-600 text-sm">70 preguntas test + 15 supuesto práctico. Ranking global.</p>
+              <p className="text-xs text-blue-600 mt-2 font-semibold">→ Ver ranking</p>
             </div>
           </Link>
 

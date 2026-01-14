@@ -29,6 +29,8 @@ model User {
   posts          ForumPost[] @relation("UserPosts")
   subscription   Subscription?
   examSimulations ExamSimulation[]
+  examOfficialAttempts ExamOfficialAttempt[] @relation("UserExamAttempts")
+  examRankings   ExamRanking[] @relation("UserExamRankings")
   classroomParticipants ClassroomParticipant[]
   createdClassrooms VirtualClassroom[] @relation("ClassroomCreator")
   
@@ -108,6 +110,10 @@ model Question {
   
   // Nivel de dificultad
   difficulty       String?        // "facil", "media", "dificil"
+  
+  // Revisión por IA
+  aiReviewed       Boolean?       @default(false)
+  aiReviewedAt     DateTime?
   
   userAnswers      UserAnswer[]
   
@@ -229,6 +235,91 @@ model ExamSimulation {
   startedAt         DateTime @default(now())
   completedAt       DateTime?
   createdAt         DateTime @default(now())
+}
+
+// ============================================================================
+// EXAMEN OFICIAL - Sistema de puntuación estilo oposición real
+// ============================================================================
+// Correcta = +1 punto | Incorrecta = -0.25 puntos | En blanco = 0 puntos
+// Parte 1 (70 preguntas) sobre 50 puntos | Parte 2 (15 preguntas) sobre 50 puntos
+// ============================================================================
+
+model ExamOfficial {
+  id              String   @id @default(cuid())
+  title           String
+  description     String?
+  
+  // Parte 1: 70 preguntas tipo test
+  testQuestions   String   // JSON: [{text, options: [A,B,C,D], correctAnswer: 'A'|'B'|'C'|'D', explanation}]
+  
+  // Parte 2: Supuesto práctico con 15 preguntas
+  practicalCase   String   // JSON: {statement: string, questions: [{text, options, correctAnswer, explanation}]}
+  
+  published       Boolean  @default(false)
+  active          Boolean  @default(true)  // Solo un examen puede estar activo
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  attempts        ExamOfficialAttempt[] @relation("ExamAttempts")
+}
+
+model ExamOfficialAttempt {
+  id              String   @id @default(cuid())
+  examId          String
+  exam            ExamOfficial @relation("ExamAttempts", fields: [examId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation("UserExamAttempts", fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Respuestas (JSON arrays)
+  testAnswers     String   // JSON: ['A', 'B', '', 'C', ...] (70 elementos, '' = en blanco)
+  practicalAnswers String  // JSON: ['A', 'B', '', 'D', ...] (15 elementos)
+  
+  // Estadísticas Parte 1 (Test de 70 preguntas)
+  testCorrect     Int
+  testIncorrect   Int
+  testBlank       Int
+  testRawScore    Float    // Puntuación bruta: correctas - (incorrectas * 0.25)
+  testScore       Float    // Puntuación transformada sobre 50 puntos
+  
+  // Estadísticas Parte 2 (Supuesto práctico 15 preguntas)
+  practicalCorrect   Int
+  practicalIncorrect Int
+  practicalBlank     Int
+  practicalRawScore  Float  // Puntuación bruta: correctas - (incorrectas * 0.25)
+  practicalScore     Float  // Puntuación transformada sobre 50 puntos
+  
+  // Puntuación total
+  totalScore      Float    // testScore + practicalScore (sobre 100)
+  
+  // Metadatos
+  timeSpent       Int      // Segundos empleados
+  completed       Boolean  @default(false)
+  startedAt       DateTime @default(now())
+  completedAt     DateTime?
+  createdAt       DateTime @default(now())
+  
+  ranking         ExamRanking? @relation("AttemptRanking")
+  
+  @@index([userId, completedAt])
+  @@index([examId, totalScore])
+}
+
+model ExamRanking {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation("UserExamRankings", fields: [userId], references: [id], onDelete: Cascade)
+  attemptId  String   @unique
+  attempt    ExamOfficialAttempt @relation("AttemptRanking", fields: [attemptId], references: [id], onDelete: Cascade)
+  
+  rank       Int      // Posición en el ranking global
+  totalScore Float    // Copia desnormalizada para queries rápidas
+  userName   String   // Nombre del usuario (desnormalizado)
+  
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  @@index([totalScore(sort: Desc)])
+  @@index([rank])
 }
 
 model VirtualClassroom {
@@ -521,4 +612,123 @@ model SystemError {
   @@index([errorType, createdAt])
   @@index([severity, resolved])
   @@index([createdAt])
+}
+// Auditoría de cambios en el sistema
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String   // "CREATE", "UPDATE", "DELETE", "LOGIN", "EXPORT", "BACKUP"
+  entity    String   // "User", "Question", "Questionnaire", "Settings", etc.
+  entityId  String?  // ID de la entidad afectada
+  adminId   String   // ID del admin que hizo la acción
+  adminEmail String  // Email del admin (snapshot)
+  changes   String?  @db.Text // JSON con cambios antes/después
+  reason    String?  @db.Text // Por qué se hizo el cambio
+  ipAddress String?
+  userAgent String?  @db.Text
+  createdAt DateTime @default(now())
+  
+  @@index([action, createdAt])
+  @@index([adminId, createdAt])
+  @@index([entity, entityId])
+  @@index([createdAt])
+}
+
+// Registro de intentos de acceso fallidos
+model FailedLoginAttempt {
+  id        String   @id @default(cuid())
+  email     String
+  ipAddress String?
+  userAgent String?  @db.Text
+  reason    String   // "invalid_password", "user_not_found", "account_locked"
+  createdAt DateTime @default(now())
+  
+  @@index([email, createdAt])
+  @@index([ipAddress, createdAt])
+}
+
+// Gestión de backups automáticos
+model BackupLog {
+  id              String   @id @default(cuid())
+  backupType      String   // "full", "incremental", "manual"
+  status          String   @default("pending") // "pending", "in_progress", "completed", "failed"
+  backupSize      BigInt?  // Tamaño en bytes
+  backupLocation  String?  // Ruta o URL donde se almacena
+  tablesBackedUp  String?  @db.Text // JSON array de tablas
+  recordsCount    Int?     // Total de registros backupados
+  duration        Int?     // Duración en segundos
+  errorMessage    String?  @db.Text // Si falló
+  initiatedBy     String?  // Admin que inició el backup manual
+  metadata        String?  @db.Text // JSON con metadata adicional
+  startedAt       DateTime @default(now())
+  completedAt     DateTime?
+  nextScheduled   DateTime?
+  
+  @@index([status, startedAt])
+  @@index([backupType, startedAt])
+}
+
+// Registros de exportación de datos
+model DataExport {
+  id          String   @id @default(cuid())
+  exportType  String   // "users", "questions", "statistics", "audit_log", "all"
+  format      String   @default("json") // "json", "csv"
+  filters     String?  @db.Text // JSON con filtros aplicados
+  recordCount Int?
+  fileSize    BigInt?
+  downloadUrl String?
+  expiresAt   DateTime?
+  adminId     String   // Admin que realizó la exportación
+  adminEmail  String
+  status      String   @default("completed") // "pending", "processing", "completed", "failed"
+  errorMessage String? @db.Text
+  createdAt   DateTime @default(now())
+  
+  @@index([adminId, createdAt])
+  @@index([exportType, createdAt])
+}
+
+// Monitoreo de salud del sistema
+model SystemHealth {
+  id                String   @id @default(cuid())
+  timestamp         DateTime @default(now())
+  databaseStatus    String   // "healthy", "slow", "error"
+  apiResponseTime   Int      // ms
+  errorRate         Float    // porcentaje
+  activeUsers       Int      // Usuarios activos en los últimos 5 min
+  queuedTasks       Int      // Tareas en cola
+  memoryUsage       Int?     // MB
+  cpuUsage          Float?   // porcentaje
+  context           String?  @db.Text // JSON con detalles
+  
+  @@index([timestamp])
+}
+
+// Configuración de monetización avanzada
+model MonetizationConfig {
+  id                String   @id @default(cuid())
+  platform          String   @unique // "kofi", "patreon", "adsense", "affiliate"
+  enabled           Boolean  @default(true)
+  config            String   @db.Text // JSON con credenciales/config específica
+  metadata          String?  @db.Text // JSON con stats
+  lastSync          DateTime?
+  errorCount        Int      @default(0)
+  lastError         String?  @db.Text
+  updatedAt         DateTime @updatedAt
+}
+
+// Estadísticas de monetización en tiempo real
+model MonetizationStat {
+  id                String   @id @default(cuid())
+  date              DateTime @default(now())
+  platform          String   // "kofi", "patreon", "adsense"
+  revenue           Float    @default(0)
+  transactionCount  Int      @default(0)
+  uniquePatrons     Int      @default(0)
+  impressions       Int      @default(0) // Para ads
+  clicks            Int      @default(0) // Para ads
+  ctr               Float?   // Click-through rate
+  context           String?  @db.Text // JSON adicional
+  
+  @@index([platform, date])
+  @@index([date])
 }

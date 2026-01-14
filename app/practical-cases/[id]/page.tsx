@@ -179,14 +179,14 @@ export default function TakePracticalCase() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 pb-20">
-        {/* Sticky header with statement */}
-        <div className="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-orange-500 max-h-[70vh] overflow-y-auto lg:max-h-none lg:overflow-visible">
-          <div className="max-w-screen-2xl mx-auto p-4 sm:p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h1 className="text-lg sm:text-xl font-bold text-gray-800 leading-tight">{practicalCase.title}</h1>
-              <div className="flex items-center gap-4">
-                <div className="text-xl sm:text-2xl font-bold text-orange-600">⏱️ {formatTime(timeElapsed)}</div>
+      <div className="h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 flex flex-col overflow-hidden">
+        {/* Compact header */}
+        <div className="bg-white shadow-lg border-b-4 border-orange-500 flex-shrink-0">
+          <div className="max-w-screen-2xl mx-auto px-4 py-3">
+            <div className="flex justify-between items-center">
+              <h1 className="text-base sm:text-lg font-bold text-gray-800 truncate max-w-md">{practicalCase.title}</h1>
+              <div className="flex items-center gap-2 sm:gap-4">
+                <div className="text-base sm:text-xl font-bold text-orange-600">⏱️ {formatTime(timeElapsed)}</div>
                 
                 {!isSubmitted && (
                   <>
@@ -201,14 +201,14 @@ export default function TakePracticalCase() {
                           router.push('/practical-cases')
                         }
                       }}
-                      className="px-6 py-2 bg-gray-500 text-white font-bold rounded-lg hover:bg-gray-600 transition"
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 text-sm bg-gray-500 text-white font-bold rounded hover:bg-gray-600 transition"
                     >
                       ← Abandonar
                     </button>
                     <button
                       onClick={handleSubmit}
                       disabled={answeredCount === 0}
-                      className="px-6 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white font-bold rounded-lg hover:from-green-700 hover:to-green-800 transition disabled:opacity-50"
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 text-sm bg-gradient-to-r from-green-600 to-green-700 text-white font-bold rounded hover:from-green-700 hover:to-green-800 transition disabled:opacity-50"
                     >
                       ✓ Enviar ({answeredCount}/{practicalCase.questions.length})
                     </button>
@@ -218,40 +218,24 @@ export default function TakePracticalCase() {
                 {isSubmitted && (
                   <Link
                     href="/practical-cases"
-                    className="px-6 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 text-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded hover:from-blue-700 hover:to-blue-800 transition"
                   >
-                    ← Volver al listado
+                    ← Volver
                   </Link>
                 )}
               </div>
             </div>
 
-            {/* Statement (móvil): visible siempre en el sticky header */}
-            {practicalCase.statement ? (
-              <div className="bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 rounded-lg p-4 sm:p-6 mb-4 lg:hidden">
-                <h2 className="text-base sm:text-lg font-bold text-orange-900 mb-2 sm:mb-3">📋 ENUNCIADO DEL SUPUESTO</h2>
-                <div className="max-h-32 sm:max-h-48 overflow-y-auto bg-white rounded p-4 border border-orange-100 shadow-inner">
-                  <p className="text-gray-700 whitespace-pre-wrap leading-normal text-xs sm:text-sm">
-                    {practicalCase.statement}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6 mb-4 lg:hidden">
-                <p className="text-yellow-800 text-sm">⚠️ No hay enunciado disponible para este supuesto</p>
-              </div>
-            )}
-
-            {/* Progress bar */}
+            {/* Compact progress bar */}
             {!isSubmitted && (
-              <div className="mt-4">
-                <div className="flex justify-between text-sm text-gray-600 mb-2">
+              <div className="mt-2">
+                <div className="flex justify-between text-xs text-gray-600 mb-1">
                   <span>Progreso</span>
-                  <span>{answeredCount} de {practicalCase.questions.length} preguntas</span>
+                  <span>{answeredCount} / {practicalCase.questions.length}</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-3">
+                <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    className="bg-gradient-to-r from-orange-600 to-red-600 h-3 rounded-full transition-all"
+                    className="bg-gradient-to-r from-orange-600 to-red-600 h-2 rounded-full transition-all"
                     style={{ width: `${progressPercentage}%` }}
                   />
                 </div>
@@ -260,145 +244,144 @@ export default function TakePracticalCase() {
           </div>
         </div>
 
-        {/* Questions */}
-        <div className="max-w-screen-2xl mx-auto p-6">
-          {isSubmitted && results && (
-            <div className="mb-6 bg-white rounded-2xl shadow-xl p-8">
-              <h2 className="text-3xl font-bold text-center mb-6">📊 Resultados</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="text-center p-6 bg-blue-50 rounded-xl">
-                  <p className="text-4xl font-bold text-blue-600">{results.score.toFixed(1)}</p>
-                  <p className="text-gray-600 mt-2">Puntuación</p>
-                </div>
-                <div className="text-center p-6 bg-green-50 rounded-xl">
-                  <p className="text-4xl font-bold text-green-600">
-                    {results.correctAnswers}/{results.totalQuestions}
-                  </p>
-                  <p className="text-gray-600 mt-2">Aciertos</p>
-                </div>
-                <div className="text-center p-6 bg-orange-50 rounded-xl">
-                  <p className="text-4xl font-bold text-orange-600">{formatTime(timeElapsed)}</p>
-                  <p className="text-gray-600 mt-2">Tiempo Total</p>
-                </div>
-              </div>
-
-              {results.scorePercentage === 100 && (
-                <div className="text-center p-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl">
-                  <p className="text-3xl font-bold text-white">🎉 ¡PERFECTO! 🎉</p>
-                  <p className="text-white mt-2">Has conseguido el 100%</p>
-                </div>
-              )}
-
-              <div className="text-center mt-6">
-                <Link
-                  href="/practical-cases"
-                  className="inline-block px-8 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold rounded-lg hover:from-orange-700 hover:to-red-700 transition"
-                >
-                  ← Volver a Supuestos Prácticos
-                </Link>
-              </div>
-            </div>
-          )}
-
-          <div className="lg:grid lg:grid-cols-12 lg:gap-6">
-            {/* Statement (escritorio): sidebar sticky durante el scroll */}
-            <div className="hidden lg:block lg:col-span-4">
-              {practicalCase.statement ? (
-                <div className="sticky top-6 bg-white rounded-2xl shadow-xl border-2 border-orange-200 p-6">
-                  <h2 className="text-lg font-bold text-orange-900 mb-3">📋 ENUNCIADO DEL SUPUESTO</h2>
-                  <div className="max-h-[70vh] overflow-y-auto bg-orange-50 rounded p-4 border border-orange-100">
-                    <p className="text-gray-700 whitespace-pre-wrap leading-normal text-xs sm:text-sm">
-                      {practicalCase.statement}
-                    </p>
-                  </div>
-                  <p className="text-xs text-orange-600 mt-2 italic">
-                    ({practicalCase.statement.length} caracteres)
-                  </p>
-                </div>
-              ) : (
-                <div className="sticky top-6 bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6">
-                  <p className="text-yellow-800 text-sm">⚠️ No hay enunciado disponible para este supuesto</p>
-                </div>
-              )}
-            </div>
-
-            <div className="lg:col-span-8 space-y-6">
-              {practicalCase.questions.map((question, index) => {
-              // Manejar options tanto si viene como string o como array
-              const options = typeof question.options === 'string' 
-                ? JSON.parse(question.options) 
-                : question.options
-              const userAnswer = userAnswers[question.id]
-              const isCorrect = isSubmitted && userAnswer === question.correctAnswer
-              const isIncorrect = isSubmitted && userAnswer && userAnswer !== question.correctAnswer
-
-              return (
-                <div
-                  key={question.id}
-                  className={`bg-white rounded-2xl shadow-xl p-8 ${
-                    isCorrect ? 'border-4 border-green-500' : 
-                    isIncorrect ? 'border-4 border-red-500' : ''
-                  }`}
-                >
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">
-                    Pregunta {index + 1}
-                  </h3>
-                  <p className="text-gray-700 mb-6">{question.text}</p>
-
-                  <div className="space-y-3">
-                    {['A', 'B', 'C', 'D'].map((letter, optIndex) => {
-                      const isSelected = userAnswer === letter
-                      const isCorrectAnswer = letter === question.correctAnswer
-                      
-                      let buttonClass = 'w-full text-left px-6 py-4 rounded-lg border-2 transition '
-                      
-                      if (isSubmitted) {
-                        if (isCorrectAnswer) {
-                          buttonClass += 'bg-green-50 border-green-500 text-green-900 font-bold'
-                        } else if (isSelected) {
-                          buttonClass += 'bg-red-50 border-red-500 text-red-900 font-bold'
-                        } else {
-                          buttonClass += 'bg-gray-50 border-gray-200 text-gray-600'
-                        }
-                      } else {
-                        if (isSelected) {
-                          buttonClass += 'bg-orange-100 border-orange-500 text-orange-900 font-bold'
-                        } else {
-                          buttonClass += 'bg-white border-gray-300 text-gray-700 hover:border-orange-400 hover:bg-orange-50'
-                        }
-                      }
-
-                      return (
-                        <button
-                          key={letter}
-                          onClick={() => !isSubmitted && setUserAnswers({ ...userAnswers, [question.id]: letter })}
-                          disabled={isSubmitted}
-                          className={buttonClass}
-                        >
-                          <span className="font-bold mr-3">{letter})</span>
-                          {options[optIndex]}
-                          {isSubmitted && isCorrectAnswer && ' ✓'}
-                          {isSubmitted && isSelected && !isCorrectAnswer && ' ✗'}
-                        </button>
-                      )
-                    })}
-                  </div>
-
-                  {isSubmitted && (
-                    <div className={`mt-6 p-6 rounded-lg ${
-                      isCorrect ? 'bg-green-50 border-2 border-green-200' : 'bg-red-50 border-2 border-red-200'
-                    }`}>
-                      <h4 className="font-bold text-lg mb-2">
-                        {isCorrect ? '✓ Correcto' : '✗ Incorrecto'}
-                      </h4>
-                      <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">
-                        {question.explanation}
+        {/* Two-column layout with independent scrolling */}
+        <div className="flex-1 overflow-hidden">
+          <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-0">
+            {/* LEFT COLUMN: Statement (Enunciado) */}
+            <div className="h-full overflow-y-auto bg-gradient-to-br from-orange-50 to-red-50 border-r-4 border-orange-300">
+              <div className="p-3 sm:p-4 h-full">
+                {practicalCase.statement ? (
+                  <div className="bg-white rounded-lg shadow-lg border-2 border-orange-200 p-3 sm:p-4 h-full flex flex-col">
+                    <h2 className="text-sm sm:text-base font-bold text-orange-900 mb-2 flex-shrink-0">📋 ENUNCIADO</h2>
+                    <div className="flex-1 overflow-y-auto bg-orange-50 rounded p-2 sm:p-3 border border-orange-100">
+                      <p className="text-gray-800 whitespace-pre-wrap leading-snug text-xs sm:text-sm">
+                        {practicalCase.statement}
                       </p>
                     </div>
-                  )}
+                    <p className="text-xs text-orange-600 mt-2 italic flex-shrink-0">
+                      {practicalCase.statement.length} caracteres
+                    </p>
+                  </div>
+                ) : (
+                  <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4">
+                    <p className="text-yellow-800 text-sm">⚠️ No hay enunciado disponible</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN: Questions & Answers */}
+            <div className="h-full overflow-y-auto bg-white">
+              <div className="p-3 sm:p-4">
+                {/* Results summary */}
+                {isSubmitted && results && (
+                  <div className="mb-4 bg-white rounded-lg shadow-lg p-4 border-2 border-blue-200">
+                    <h2 className="text-lg font-bold text-center mb-3">📊 Resultados</h2>
+                    <div className="grid grid-cols-3 gap-3 mb-3">
+                      <div className="text-center p-3 bg-blue-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">{results.score.toFixed(1)}</p>
+                        <p className="text-xs text-gray-600">Puntuación</p>
+                      </div>
+                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">
+                          {results.correctAnswers}/{results.totalQuestions}
+                        </p>
+                        <p className="text-xs text-gray-600">Aciertos</p>
+                      </div>
+                      <div className="text-center p-3 bg-orange-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">{formatTime(timeElapsed)}</p>
+                        <p className="text-xs text-gray-600">Tiempo</p>
+                      </div>
+                    </div>
+
+                    {results.scorePercentage === 100 && (
+                      <div className="text-center p-3 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-lg">
+                        <p className="text-xl font-bold text-white">🎉 ¡PERFECTO! 🎉</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Questions list */}
+                <div className="space-y-3">
+                  {practicalCase.questions.map((question, index) => {
+                    const options = typeof question.options === 'string' 
+                      ? JSON.parse(question.options) 
+                      : question.options
+                    const userAnswer = userAnswers[question.id]
+                    const isCorrect = isSubmitted && userAnswer === question.correctAnswer
+                    const isIncorrect = isSubmitted && userAnswer && userAnswer !== question.correctAnswer
+
+                    return (
+                      <div
+                        key={question.id}
+                        className={`bg-white rounded-lg shadow-md p-3 sm:p-4 border-2 ${
+                          isCorrect ? 'border-green-500 bg-green-50' : 
+                          isIncorrect ? 'border-red-500 bg-red-50' : 
+                          'border-gray-200'
+                        }`}
+                      >
+                        <h3 className="text-sm sm:text-base font-bold text-gray-800 mb-2">
+                          Pregunta {index + 1}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-gray-700 mb-3 leading-snug">{question.text}</p>
+
+                        <div className="space-y-1.5 sm:space-y-2">
+                          {['A', 'B', 'C', 'D'].map((letter, optIndex) => {
+                            const isSelected = userAnswer === letter
+                            const isCorrectAnswer = letter === question.correctAnswer
+                            
+                            let buttonClass = 'w-full text-left px-3 py-2 rounded border-2 transition text-xs sm:text-sm '
+                            
+                            if (isSubmitted) {
+                              if (isCorrectAnswer) {
+                                buttonClass += 'bg-green-100 border-green-500 text-green-900 font-bold'
+                              } else if (isSelected) {
+                                buttonClass += 'bg-red-100 border-red-500 text-red-900 font-bold'
+                              } else {
+                                buttonClass += 'bg-gray-50 border-gray-200 text-gray-600'
+                              }
+                            } else {
+                              if (isSelected) {
+                                buttonClass += 'bg-orange-100 border-orange-500 text-orange-900 font-bold'
+                              } else {
+                                buttonClass += 'bg-white border-gray-300 text-gray-700 hover:border-orange-400 hover:bg-orange-50'
+                              }
+                            }
+
+                            return (
+                              <button
+                                key={letter}
+                                onClick={() => !isSubmitted && setUserAnswers({ ...userAnswers, [question.id]: letter })}
+                                disabled={isSubmitted}
+                                className={buttonClass}
+                              >
+                                <span className="font-bold mr-2">{letter})</span>
+                                {options[optIndex]}
+                                {isSubmitted && isCorrectAnswer && ' ✓'}
+                                {isSubmitted && isSelected && !isCorrectAnswer && ' ✗'}
+                              </button>
+                            )
+                          })}
+                        </div>
+
+                        {isSubmitted && (
+                          <div className={`mt-3 p-3 rounded border-2 ${
+                            isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
+                          }`}>
+                            <h4 className="font-bold text-sm mb-1">
+                              {isCorrect ? '✓ Correcto' : '✗ Incorrecto'}
+                            </h4>
+                            <p className="text-xs text-gray-700 whitespace-pre-wrap leading-snug">
+                              {question.explanation}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
-              )
-              })}
+              </div>
             </div>
           </div>
         </div>

@@ -29,6 +29,24 @@ async function ensureAppSettingsTableExists() {
     );
   `)
 
+  // Ensure missing columns exist (idempotent, IF NOT EXISTS)
+  await prisma.$executeRawUnsafe(`
+    ALTER TABLE "AppSettings"
+      ADD COLUMN IF NOT EXISTS "freeAccessDays" INTEGER NOT NULL DEFAULT 7,
+      ADD COLUMN IF NOT EXISTS "basicPrice" DOUBLE PRECISION NOT NULL DEFAULT 9.99,
+      ADD COLUMN IF NOT EXISTS "premiumPrice" DOUBLE PRECISION NOT NULL DEFAULT 19.99,
+      ADD COLUMN IF NOT EXISTS "currency" TEXT NOT NULL DEFAULT 'EUR',
+      ADD COLUMN IF NOT EXISTS "adsEnabled" BOOLEAN NOT NULL DEFAULT false,
+      ADD COLUMN IF NOT EXISTS "adsenseClientId" TEXT,
+      ADD COLUMN IF NOT EXISTS "affiliatesEnabled" BOOLEAN NOT NULL DEFAULT false,
+      ADD COLUMN IF NOT EXISTS "amazonAffiliateId" TEXT,
+      ADD COLUMN IF NOT EXISTS "sponsorsEnabled" BOOLEAN NOT NULL DEFAULT false,
+      ADD COLUMN IF NOT EXISTS "donationsEnabled" BOOLEAN NOT NULL DEFAULT false,
+      ADD COLUMN IF NOT EXISTS "patreonUrl" TEXT,
+      ADD COLUMN IF NOT EXISTS "kofiUrl" TEXT,
+      ADD COLUMN IF NOT EXISTS "premiumContentEnabled" BOOLEAN NOT NULL DEFAULT false;
+  `)
+
   // Best-effort: triggers/functions are optional and may require extra privileges.
   try {
     await prisma.$executeRawUnsafe(`
@@ -201,18 +219,27 @@ export async function PATCH(req: NextRequest) {
 
     const raw = await req.json().catch(() => null)
     const data = buildUpdateData(raw)
+
+    // Best-effort: ensure table exists (ignore errors)
+    try {
+      await ensureAppSettingsTableExists()
+    } catch (e) {
+      console.warn('[Settings] ensureAppSettingsTableExists failed (non-fatal):', e)
+    }
     
     let settings: any = null
     try {
       settings = await prisma.appSettings.findFirst()
     } catch (error) {
       console.error('[Settings] Error fetching settings for update:', error)
+      // Fallback: intentar crear configuración por defecto junto con los datos recibidos,
+      // evitando operaciones de DDL que podrían requerir permisos elevados.
       try {
-        await ensureAppSettingsTableExists()
-        settings = await prisma.appSettings.findFirst()
-      } catch (recoveryError) {
-        console.error('[Settings] Recovery failed (ensureAppSettingsTableExists):', recoveryError)
-        return NextResponse.json({ error: 'Error fetching settings' }, { status: 500 })
+        settings = await prisma.appSettings.create({ data: { ...DEFAULT_SETTINGS, ...data } as any })
+      } catch (creationError: any) {
+        console.error('[Settings] Creation attempt failed:', creationError)
+        const details = creationError?.message || String(creationError)
+        return NextResponse.json({ error: 'Error updating settings', details }, { status: 500 })
       }
     }
     
@@ -227,9 +254,9 @@ export async function PATCH(req: NextRequest) {
       }
     } catch (error) {
       console.error('[Settings] Error updating settings:', error)
-      const details = error instanceof Error ? error.message : undefined
+      const details = error instanceof Error ? error.message : String(error)
       return NextResponse.json(
-        { error: 'Error updating settings', details: process.env.NODE_ENV === 'production' ? undefined : details },
+        { error: 'Error updating settings', details },
         { status: 500 }
       )
     }
@@ -238,10 +265,10 @@ export async function PATCH(req: NextRequest) {
 
     return NextResponse.json(settings)
   } catch (error) {
-    console.error('[Settings] Error updating settings:', error)
-    const details = error instanceof Error ? error.message : undefined
+    console.error('[Settings] Error updating settings (outer):', error)
+    const details = error instanceof Error ? error.message : String(error)
     return NextResponse.json(
-      { error: 'Error updating settings', details: process.env.NODE_ENV === 'production' ? undefined : details },
+      { error: 'Error updating settings', details },
       { status: 500 }
     )
   }

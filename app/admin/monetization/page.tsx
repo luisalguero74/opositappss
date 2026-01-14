@@ -95,10 +95,12 @@ export default function MonetizationSettings() {
       } else {
         const payload = await res.json().catch(() => null)
         const reason = typeof payload?.error === 'string' ? payload.error : undefined
+        const details = typeof payload?.details === 'string' ? payload.details : undefined
         if (res.status === 401) {
           setMessage({ type: 'error', text: 'No autorizado. Inicia sesión de admin y reintenta.' })
         } else {
-          setMessage({ type: 'error', text: `Error al guardar configuración${reason ? `: ${reason}` : ''}` })
+          setMessage({ type: 'error', text: `Error al guardar configuración${reason ? `: ${reason}` : ''}${details ? `\nDetalles: ${details}` : ''}` })
+          console.error('Settings save error:', payload)
         }
       }
     } catch (error) {

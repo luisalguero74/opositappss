@@ -23,6 +23,7 @@ export default function BulkQuestionsGenerator() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [activeCategory, setActiveCategory] = useState<'general' | 'especifico' | 'lgss' | null>(null)
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
 
@@ -53,6 +54,7 @@ export default function BulkQuestionsGenerator() {
     }
 
     setLoading(true)
+    setActiveCategory(categoria)
     setError('')
     setResult(null)
 
@@ -162,6 +164,7 @@ export default function BulkQuestionsGenerator() {
       setError(err instanceof Error ? err.message : 'Error desconocido')
     } finally {
       setLoading(false)
+      setActiveCategory(null)
     }
   }
 
@@ -201,9 +204,15 @@ export default function BulkQuestionsGenerator() {
               <button
                 onClick={() => handleGenerate('general')}
                 disabled={loading}
-                className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg hover:from-blue-600 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                className={`w-full py-3 font-bold rounded-lg transition ${
+                  activeCategory === 'general'
+                    ? 'bg-blue-700 text-white cursor-wait'
+                    : loading
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700'
+                }`}
               >
-                {loading ? '⏳ Generando...' : '🚀 Generar Temario General'}
+                {activeCategory === 'general' ? '⏳ Generando...' : '🚀 Generar Temario General'}
               </button>
             </div>
           </div>
@@ -226,9 +235,15 @@ export default function BulkQuestionsGenerator() {
               <button
                 onClick={() => handleGenerate('especifico')}
                 disabled={loading}
-                className="w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg hover:from-green-600 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                className={`w-full py-3 font-bold rounded-lg transition ${
+                  activeCategory === 'especifico'
+                    ? 'bg-green-700 text-white cursor-wait'
+                    : loading
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700'
+                }`}
               >
-                {loading ? '⏳ Generando...' : '🚀 Generar Temario Específico'}
+                {activeCategory === 'especifico' ? '⏳ Generando...' : '🚀 Generar Temario Específico'}
               </button>
             </div>
           </div>
@@ -251,9 +266,15 @@ export default function BulkQuestionsGenerator() {
               <button
                 onClick={() => handleGenerate('lgss')}
                 disabled={loading}
-                className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold rounded-lg hover:from-purple-600 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                className={`w-full py-3 font-bold rounded-lg transition ${
+                  activeCategory === 'lgss'
+                    ? 'bg-purple-700 text-white cursor-wait'
+                    : loading
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:from-purple-600 hover:to-pink-700'
+                }`}
               >
-                {loading ? '⏳ Generando...' : '🚀 Generar LGSS'}
+                {activeCategory === 'lgss' ? '⏳ Generando...' : '🚀 Generar LGSS'}
               </button>
             </div>
           </div>

@@ -10,6 +10,12 @@ A professional web application for interactive questionnaires on Spanish Social 
 - Scoring system with explanations for incorrect answers
 - Victory animations and confetti for full scores
 
+## Monetization (Ko-fi + Ads)
+
+- Donations: In the admin panel, open Monetización → activate Donaciones and paste your Ko-fi page URL (for example https://ko-fi.com/tu_nombre). Ko-fi and Patreon buttons render in the user dashboard and at the end of tests when Donaciones está activado.
+- Ads: In Monetización, enable Publicidad and set your AdSense client ID (formato ca-pub-XXXXXXXXXXXXXXX) to replace the default fallback.
+- Afiliados/Patrocinio: Optional; fill IDs/URLs in the same screen when you want them live.
+
 ## Getting Started
 
 First, install dependencies:

@@ -3,13 +3,13 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-// Función mejorada para extraer fundamento legal con búsqueda en documentos
-async function extractLegalArticle(
+// Función mejorada para extraer fundamento legal
+function extractLegalArticle(
   explanation: string, 
   correctAnswer: string, 
   questionText: string,
   temaCodigo?: string | null
-): Promise<string> {
+): string {
   try {
     // Patrones comunes de artículos legales mejorados
     const patterns = [
@@ -79,34 +79,77 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
+    // ============================================================================
+    // IMPORTANTE: Query de UserAnswers sin campo 'answer'
+    // ============================================================================
+    // PROBLEMA HISTÓRICO (13 Ene 2026):
+    // - Incluir 'answer: true' en select causaba: "Field 'answer' not found"
+    // - Esto rompía toda la ruta de estadísticas
+    // - Las respuestas se guardaban pero no se mostraban
+    //
+    // SOLUCIÓN:
+    // 1. NO incluir 'answer' en el select (no es crítico)
+    // 2. Usar 'isCorrect' que es lo importante
+    // 3. Fallback con a.selectedAnswer si existe
+    //
+    // VER: SOLUCION_PERMANENTE_ESTADISTICAS.md para más detalles
+    // ============================================================================
+    
     // Obtener todas las respuestas del usuario de forma simple y rápida
-    const userAnswers = await prisma.userAnswer.findMany({
-      where: { userId: user.id },
-      select: {
-        id: true,
-        questionId: true,
-        questionnaireId: true,
-        answer: true,
-        isCorrect: true,
-        createdAt: true,
-        question: {
-          select: {
-            id: true,
-            text: true,
-            correctAnswer: true,
-            explanation: true,
-            questionnaire: {
-              select: {
-                id: true,
-                title: true,
-                type: true
+    let userAnswers: any[] = []
+    try {
+      userAnswers = await prisma.userAnswer.findMany({
+        where: { userId: user.id },
+        select: {
+          id: true,
+          questionId: true,
+          questionnaireId: true,
+          // ❌ IMPORTANTE: NO incluir 'answer' aquí (causa error en Prisma)
+          // Usar en su lugar: a.answer || a.selectedAnswer || ''
+          isCorrect: true,  // ✅ Esto es lo que importa
+          createdAt: true,
+          question: {
+            select: {
+              id: true,
+              text: true,
+              correctAnswer: true,
+              explanation: true,
+              temaCodigo: true,
+              questionnaire: {
+                select: {
+                  id: true,
+                  title: true,
+                  type: true
+                }
               }
             }
           }
-        }
-      },
-      orderBy: { createdAt: 'desc' }
-    })
+        },
+        orderBy: { createdAt: 'desc' }
+      })
+    } catch (queryError: any) {
+      console.error('[Statistics] Query error:', {
+        message: queryError?.message,
+        code: queryError?.code
+      })
+      // Fallback: try sin select específico (podría ser 'selectedAnswer' u otro campo)
+      try {
+        userAnswers = await prisma.userAnswer.findMany({
+          where: { userId: user.id },
+          orderBy: { createdAt: 'desc' }
+        })
+      } catch (fallbackError: any) {
+        console.error('[Statistics] Fallback query failed:', fallbackError)
+        return NextResponse.json(
+          { 
+            error: 'Failed to fetch statistics',
+            details: queryError?.message || 'Query error',
+            fallback: fallbackError?.message
+          },
+          { status: 500 }
+        )
+      }
+    }
 
     // Calcular estadísticas generales - filtrando respuestas sin pregunta
     const validAnswers = userAnswers.filter((a: any) => a.question) as any[]
@@ -194,48 +237,41 @@ export async function GET(request: NextRequest) {
       .sort((a, b) => b.errors - a.errors)
       .slice(0, 15) // Top 15 preguntas con más errores
 
-    // Procesar cada pregunta fallada para obtener su fundamento legal (con búsqueda en BD)
-    const failedQuestions = await Promise.all(
-      failedQuestionsData.map(async (q) => {
-        let legalArticle = 'No especificado'
+    // Procesar cada pregunta fallada para obtener su fundamento legal
+    const failedQuestions = failedQuestionsData.map((q) => {
+      let legalArticle = 'No especificado'
+      
+      try {
+        // Extraer directamente del texto ya cargado
+        const extractedArticle = extractLegalArticle(
+          q.explanation || '', 
+          q.correctAnswer || '',
+          q.questionText || '',
+          null // Ya no necesitamos temaCodigo para esta extracción simple
+        )
         
-        try {
-          // Buscar la pregunta completa para obtener temaCodigo
-          const fullQuestion = await prisma.question.findUnique({
-            where: { id: q.questionId },
-            select: { temaCodigo: true }
-          })
-          
-          const extractedArticle = await extractLegalArticle(
-            q.explanation || '', 
-            q.correctAnswer || '',
-            q.questionText || '',
-            fullQuestion?.temaCodigo
-          )
-          
-          if (extractedArticle) {
-            legalArticle = extractedArticle
-          }
-        } catch (error) {
-          console.warn(`[Statistics] Error extracting legal article for question ${q.questionId}:`, error)
-          // Fall back to simple extraction from explanation
-          if (q.explanation) {
-            const matches = q.explanation.match(/art[íi]culo\s+\d+(\.\d+)?/i)
-            if (matches) {
-              legalArticle = matches[0]
-            }
+        if (extractedArticle) {
+          legalArticle = extractedArticle
+        }
+      } catch (error) {
+        console.warn(`[Statistics] Error extracting legal article for question ${q.questionId}:`, error)
+        // Fall back to simple extraction from explanation
+        if (q.explanation) {
+          const matches = q.explanation.match(/art[íi]culo\s+\d+(\.\d+)?/i)
+          if (matches) {
+            legalArticle = matches[0]
           }
         }
-        
-        return {
-          questionText: q.questionText,
-          questionnaireTitle: q.questionnaireTitle,
-          correctAnswer: q.correctAnswer,
-          legalArticle: legalArticle,
-          errors: q.errors
-        }
-      })
-    )
+      }
+      
+      return {
+        questionText: q.questionText,
+        questionnaireTitle: q.questionnaireTitle,
+        correctAnswer: q.correctAnswer,
+        legalArticle: legalArticle,
+        errors: q.errors
+      }
+    })
 
     // 2. Agrupar errores por tema y generar recomendaciones
     const errorsByTheme = new Map<string, { errorCount: number; totalQuestions: number }>()
@@ -327,7 +363,7 @@ export async function GET(request: NextRequest) {
           questionText: a.question.text || 'Pregunta sin texto',
           questionnaireTitle: a.question.questionnaire?.title || 'Sin cuestionario',
           questionnaireType: a.question.questionnaire?.type || 'unknown',
-          userAnswer: a.answer || '',
+          userAnswer: a.answer || a.selectedAnswer || '',
           correctAnswer: a.question.correctAnswer || '',
           explanation: a.question.explanation || '',
           date: a.createdAt
@@ -337,8 +373,20 @@ export async function GET(request: NextRequest) {
         themesToReview
       }
     })
-  } catch (error) {
-    console.error('Error fetching statistics:', error)
-    return NextResponse.json({ error: 'Failed to fetch statistics' }, { status: 500 })
+  } catch (error: any) {
+    console.error('Error fetching statistics:', {
+      message: error?.message,
+      code: error?.code,
+      meta: error?.meta,
+      stack: error?.stack
+    })
+    return NextResponse.json(
+      { 
+        error: 'Failed to fetch statistics',
+        details: error?.message || 'Unknown error',
+        code: error?.code
+      }, 
+      { status: 500 }
+    )
   }
 }
