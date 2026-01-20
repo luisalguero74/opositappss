@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 
     const questions = await prisma.question.findMany({
       where: {
-        temaCodigo: { not: null } // Solo preguntas vinculadas a temas
+        temaCodigo: { not: null } // Solo preguntas vinculadas a temas del temario
       },
       include: {
         questionnaire: {
@@ -28,9 +28,12 @@ export async function GET(req: NextRequest) {
           }
         }
       },
+      // Orden principal por parte (general/específico) y número de tema,
+      // y dentro de cada tema, por fecha/hora de creación (más recientes primero).
       orderBy: [
         { temaParte: 'asc' },
-        { temaNumero: 'asc' }
+        { temaNumero: 'asc' },
+        { createdAt: 'desc' }
       ]
     })
 
@@ -80,13 +83,26 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
-    const { id } = await req.json()
+    const body = await req.json()
+
+    if (Array.isArray(body?.ids) && body.ids.length > 0) {
+      // Borrado en lote
+      await prisma.question.deleteMany({
+        where: { id: { in: body.ids as string[] } }
+      })
+      return NextResponse.json({ success: true, deletedCount: body.ids.length })
+    }
+
+    const id = body?.id as string | undefined
+    if (!id) {
+      return NextResponse.json({ error: 'ID no proporcionado' }, { status: 400 })
+    }
 
     await prisma.question.delete({
       where: { id }
     })
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, deletedCount: 1 })
   } catch (error) {
     console.error('[Questions Review] Error:', error)
     return NextResponse.json({ error: 'Error al eliminar pregunta' }, { status: 500 })

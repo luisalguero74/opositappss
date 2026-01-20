@@ -1,0 +1,895 @@
+{
+  "data": [
+    {
+      "questionnaireId": "tema02-especifico-funcionarios-militares-justicia-seguro-escolar-ver1",
+      "questionCount": 55,
+      "temaCodigo": "T02",
+      "temaNumero": 2,
+      "temaParte": "ESPECÍFICO",
+      "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar",
+      "difficulty": "hard",
+      "questions": [
+        {
+          "text": "Según el art. 10.2 del TRLGSS, tal y como se explica en el texto, ¿qué afirmación describe correctamente la relación entre los funcionarios públicos y los regímenes especiales?",
+          "options": [
+            "Se considerarán regímenes especiales, entre otros, los que encuadren a los funcionarios públicos, civiles y militares, pero no todos los funcionarios están encuadrados en regímenes especiales",
+            "Todos los funcionarios públicos, civiles y militares, están necesariamente encuadrados en algún régimen especial de la Seguridad Social",
+            "Los funcionarios públicos, civiles y militares, quedan siempre incluidos en el Régimen General, sin posibilidad de regímenes especiales",
+            "Los regímenes especiales solo pueden encuadrar a funcionarios de la Administración Local"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El texto, al comentar el art. 10.2 del TRLGSS, señala que \"se considerarán regímenes especiales, entre otros, los que encuadren a los funcionarios públicos, civiles y militares\" y añade expresamente que \"no todos los funcionarios están encuadrados en regímenes especiales\". La respuesta correcta es la que recoge simultáneamente estos dos elementos: existencia de regímenes especiales que encuadran a funcionarios públicos y advertencia de que no todos los funcionarios se encuentran en ellos. Las demás opciones o bien generalizan erróneamente que todos los funcionarios están en regímenes especiales, o niegan la existencia de tales regímenes, o introducen a la Administración Local, que no se menciona en este pasaje.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "De acuerdo con el inicio del tema, ¿cuáles son los tres regímenes especiales de funcionarios que se citan como externos al sistema de la Seguridad Social y que comparten tronco común en Clases Pasivas?",
+          "options": [
+            "Régimen especial de los funcionarios de la Administración Local, Régimen especial de las Fuerzas Armadas y Régimen especial de la Administración de la Seguridad Social",
+            "Régimen especial de los funcionarios civiles del Estado, Régimen especial de las Fuerzas Armadas y Régimen especial de los funcionarios de la Administración de Justicia",
+            "Régimen especial de los funcionarios civiles del Estado, Régimen especial de las Cortes Generales y Régimen especial de las Comunidades Autónomas",
+            "Régimen especial de la Administración de la Seguridad Social, Régimen especial de las Fuerzas y Cuerpos de Seguridad del Estado y Régimen especial de la Administración Local"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El texto enumera como regímenes especiales externos al sistema de la Seguridad Social el \"Régimen especial de los funcionarios civiles del Estado\", el \"Régimen especial de las Fuerzas Armadas\" y el \"Régimen especial de los funcionarios de la Administración de Justicia\", añadiendo que estos tres regímenes tienen un tronco común, a efectos de pensiones, en el Régimen de Clases Pasivas del Estado. La respuesta correcta es la que recoge exactamente esta terna. El resto de opciones introducen otros regímenes (Administración Local, Administración de la Seguridad Social, Cortes Generales, Comunidades Autónomas o Fuerzas y Cuerpos de Seguridad) que no aparecen en este listado inicial.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según se indica en el texto, ¿qué mutualidad corresponde, respectivamente, a los funcionarios civiles del Estado, a las Fuerzas Armadas y a los funcionarios de la Administración de Justicia?",
+          "options": [
+            "MUFACE para civiles del Estado, MUFACE para Fuerzas Armadas y MUGEJU para Justicia",
+            "ISFAS para civiles del Estado, MUFACE para Fuerzas Armadas y MUGEJU para Justicia",
+            "MUFACE para civiles del Estado, ISFAS para Fuerzas Armadas y MUGEJU para Justicia",
+            "MUFACE para civiles del Estado, ISFAS para Fuerzas Armadas y MUFACE para Justicia"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El texto señala que estos regímenes especiales tienen, como mecanismos diferenciados en forma de mutualidad, a la \"Mutualidad general de funcionarios civiles del Estado (MUFACE)\", al \"Instituto Social de las Fuerzas Armadas (ISFAS)\" y a la \"Mutualidad general de funcionarios de la Administración de Justicia (MUGEJU)\". La respuesta correcta es la que asocia MUFACE a los funcionarios civiles del Estado, ISFAS a las Fuerzas Armadas y MUGEJU a los funcionarios de la Administración de Justicia. Las otras opciones alteran esa correspondencia, asignando indebidamente MUFACE o ISFAS a colectivos distintos de los que indica el texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Conforme al Real Decreto-ley 13/2010 citado, ¿cómo quedan encuadrados, a efectos de pensiones y mutualidades, los funcionarios comprendidos en el art. 2.1 del texto refundido de la Ley de Clases Pasivas que ingresan a partir del 1 de enero de 2011 (salvo la excepción mencionada)?",
+          "options": [
+            "Permanecen íntegramente en el Régimen de Clases Pasivas del Estado para todas las prestaciones, suprimiéndose las mutualidades",
+            "Se incorporan al Régimen General de la Seguridad Social a efectos de pensiones, manteniendo los mecanismos mutualistas a efectos de las demás prestaciones",
+            "Se integran en un nuevo régimen único que sustituye a Clases Pasivas y a las mutualidades",
+            "Pasan al Régimen General de la Seguridad Social para todas las prestaciones y dejan de ser mutualistas"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El texto indica que el Real Decreto-ley 13/2010 incorporó, \"en el Régimen General de la Seguridad Social, al personal de nuevo ingreso, con efectos de 1 de enero de 2011... a efectos de pensiones, manteniéndoles sin embargo, los mecanismos mutualistas a efectos de las demás prestaciones\". La respuesta correcta es la que refleja que, para estos funcionarios, las pensiones se encuadran en el Régimen General, mientras que las demás prestaciones siguen cubriéndose a través de la correspondiente mutualidad. Las otras opciones o bien los mantienen íntegramente en Clases Pasivas, o niegan la permanencia de los mecanismos mutualistas, o inventan un régimen único no previsto en el texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según el esquema recogido en el texto, ¿qué combinación correcta se aplica a los funcionarios mencionados en el art. 2.1 de la Ley de Clases Pasivas nombrados ANTES del 1 de enero de 2011?",
+          "options": [
+            "Régimen de Clases Pasivas del Estado a efectos de pensiones y correspondiente mutualidad a efectos de las demás prestaciones",
+            "Régimen General de la Seguridad Social a efectos de pensiones y mutualidad solo para prestaciones sanitarias",
+            "Régimen General de la Seguridad Social a efectos de pensiones y Clases Pasivas para el resto de prestaciones",
+            "Un régimen único de Clases Pasivas que cubre todas las prestaciones sin intervención de mutualidad"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El texto detalla que, para los funcionarios comprendidos en el art. 2.1 de la Ley de Clases Pasivas, \"a los nombrados antes del 1 de enero de 2011, se les aplica: el Régimen de clases pasivas del Estado, a efectos de pensiones; la correspondiente mutualidad, a efectos de las demás prestaciones\". La respuesta correcta es la que recoge literalmente esta doble vía: Clases Pasivas para pensiones y mutualidad para el resto de prestaciones. Las demás opciones introducen indebidamente el Régimen General de la Seguridad Social antes de 2011 o niegan el papel de la mutualidad, en contra del esquema descrito.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el art. 2.1 del texto refundido de la Ley de Clases Pasivas del Estado (Real Decreto Legislativo 670/1987), ¿cuál de los siguientes colectivos figura expresamente como incluido en el ámbito personal de cobertura?",
+          "options": [
+            "El personal laboral fijo de la Administración del Estado",
+            "Los funcionarios de carrera de carácter civil de la Administración del Estado",
+            "Los funcionarios de la Administración Local con habilitación de carácter nacional",
+            "Los trabajadores por cuenta propia del Régimen Especial de Trabajadores Autónomos"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El art. 2.1.a) del texto refundido de la Ley de Clases Pasivas del Estado (Real Decreto Legislativo 670/1987) establece que forman parte de su ámbito personal de cobertura \"los funcionarios de carrera de carácter civil de la Administración del Estado\". La respuesta correcta es la que menciona precisamente a estos funcionarios de carrera civiles de la Administración del Estado. El personal laboral fijo, los funcionarios de la Administración Local con habilitación y los trabajadores autónomos no aparecen entre las letras a) a k) del art. 2.1, por lo que las demás opciones son incorrectas.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "¿Qué previsión específica contiene la letra g) del art. 2.1 del Real Decreto Legislativo 670/1987 respecto al personal que presta servicios en las Comunidades Autónomas?",
+          "options": [
+            "Se excluye a todo el personal transferido a las Comunidades Autónomas",
+            "Se incluye al personal mencionado en las precedentes letras que preste servicio en las diferentes Comunidades Autónomas como consecuencia de haber sido transferido al servicio de las mismas",
+            "Solo se incluye al personal interino de las Comunidades Autónomas",
+            "Se incluye a cualquier empleado público autonómico, con independencia de su procedencia"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El art. 2.1.g) del texto refundido de la Ley de Clases Pasivas del Estado dispone que forman parte de su ámbito personal \"el personal mencionado en las precedentes letras que preste servicio en las diferentes Comunidades Autónomas como consecuencia de haber sido transferido al servicio de las mismas\". La respuesta correcta es la que recoge exactamente esta previsión sobre personal transferido. El resto de opciones o bien excluyen a ese personal, o restringen la inclusión solo a interinos, o la extienden a cualquier empleado autonómico, extremos que no se ajustan al tenor literal del precepto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "¿Qué dispone el apartado 2 del art. 2 del texto refundido de la Ley de Clases Pasivas del Estado sobre la posibilidad de ampliar o restringir su ámbito personal de cobertura?",
+          "options": [
+            "Que el ámbito personal podrá ser ampliado o restringido por reglamento del Gobierno",
+            "Que podrá modificarse mediante acuerdos entre Estado y Comunidades Autónomas",
+            "Que este ámbito personal de cobertura del Régimen de Clases solo podrá ser ampliado o restringido por Ley",
+            "Que corresponde al Ministerio competente en materia de función pública fijar por orden ministerial las inclusiones y exclusiones"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El art. 2.2 del texto refundido de la Ley de Clases Pasivas del Estado establece literalmente que \"este ámbito personal de cobertura del Régimen de Clases sólo podrá ser ampliado o restringido por Ley\". La respuesta correcta es, por tanto, la que exige una norma con rango de Ley para modificar el ámbito personal de cobertura. Las demás opciones atribuyen esa facultad a reglamentos del Gobierno, acuerdos Estado‑Comunidad Autónoma u órdenes ministeriales, que no cumplen el requisito de rango legal exigido.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En relación con el Régimen especial de los funcionarios civiles del Estado, ¿qué norma aprueba su texto refundido y en qué fecha, según se indica en el epígrafe correspondiente?",
+          "options": [
+            "El Real Decreto Legislativo 4/2000, de 23 de junio",
+            "El Real Decreto Legislativo 3/2000, de 23 de junio",
+            "El Real Decreto Legislativo 1/2000, de 9 de junio",
+            "El Real Decreto Legislativo 670/1987, de 30 de abril"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El epígrafe \"RÉGIMEN ESPECIAL DE LOS FUNCIONARIOS CIVILES DEL ESTADO\" indica como norma principal el \"Real Decreto Legislativo 4/2000, de 23 de junio, por el que se aprueba el texto refundido de la Ley sobre Seguridad Social de los Funcionarios Civiles del Estado\". Por ello, la respuesta correcta es la que identifica este Real Decreto Legislativo 4/2000 y su fecha. El Real Decreto Legislativo 3/2000 se refiere al régimen especial de la Administración de Justicia, el 1/2000 al de las Fuerzas Armadas y el 670/1987 al texto refundido de la Ley de Clases Pasivas del Estado.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según el art. 3 del Real Decreto Legislativo 4/2000, ¿qué colectivo queda obligatoriamente incluido en el campo de aplicación del Régimen especial de los funcionarios civiles del Estado?",
+          "options": [
+            "Los funcionarios de carrera de la Administración Civil del Estado",
+            "Los funcionarios de la Administración Local",
+            "Los funcionarios de la Administración Militar",
+            "Los funcionarios de la Administración de Justicia"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El \"Campo de aplicación (Artículo 3 del Real Decreto Legislativo 4/2000)\" establece en su apartado 1 que quedan obligatoriamente incluidos en este Régimen especial, entre otros, \"los funcionarios de carrera de la Administración Civil del Estado\" y \"los funcionarios en prácticas que aspiren a incorporarse a Cuerpos de la Administración Civil del Estado\". La respuesta correcta es la que menciona a los funcionarios de carrera de la Administración Civil del Estado. En cambio, el art. 3.2 enumera expresamente como excluidos a los funcionarios de la Administración Local, de la Administración Militar y de la Administración de Justicia, de manera que las otras opciones se refieren a colectivos excluidos, no incluidos.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según el art. 2 del Real Decreto Legislativo 4/2000, ¿qué mecanismos de cobertura integran el Régimen especial de los funcionarios civiles del Estado?",
+          "options": [
+            "Únicamente el Régimen de Clases Pasivas del Estado, sin mutualismo administrativo",
+            "El Régimen de Clases Pasivas del Estado y el Régimen del Mutualismo Administrativo regulado en la propia Ley (MUFACE)",
+            "El Régimen General de la Seguridad Social y el Mutualismo Administrativo (MUFACE), sin referencia a Clases Pasivas",
+            "Exclusivamente MUFACE, que asume también las pensiones de jubilación y retiro"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El epígrafe \"Mecanismos de cobertura. (Artículo 2 del Real Decreto Legislativo 4/2000)\" indica que este Régimen especial queda integrado por \"el Régimen de Clases Pasivas del Estado, de acuerdo con sus normas específicas\" y \"el Régimen del Mutualismo Administrativo que se regula en la presente Ley (MUFACE)\". La respuesta correcta es la que menciona conjuntamente Clases Pasivas y Mutualismo Administrativo. Las demás opciones omiten uno de estos dos pilares o sustituyen Clases Pasivas por el Régimen General, algo que el art. 2 no hace.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En materia de cotización para funcionarios civiles del Estado, ¿qué diferencia básica establece el texto entre los nombrados antes y a partir del 1 de enero de 2011?",
+          "options": [
+            "Antes de 2011 solo cotizan a MUFACE y desde 2011 solo al Régimen General de la Seguridad Social",
+            "A los nombrados antes del 1 de enero de 2011 se les aplica deducción de cuota de derechos pasivos y de MUFACE; a los nombrados a partir de esa fecha, cotización al Régimen General de la Seguridad Social y deducción de la cuota de MUFACE",
+            "Antes de 2011 solo cotizan al Régimen General y después a Clases Pasivas",
+            "La fecha de 1 de enero de 2011 no tiene relevancia en materia de cotización según el texto"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Tras describir los mecanismos de cobertura, el texto precisa que, \"en cuanto a la cotización\", hay que distinguir dos grupos: para los nombrados antes del 1 de enero de 2011 se prevé \"deducción de la cuota de derechos pasivos\" y \"deducción de la cuota de MUFACE\"; para los nombrados a partir de esa fecha, \"cotización al Régimen General de la Seguridad Social\" y \"deducción de la cuota de MUFACE\". La respuesta correcta recoge esta doble configuración. Las otras opciones niegan la importancia de la fecha señalada o invierten el sentido de la integración en el Régimen General.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Respecto a la cuota de derechos pasivos de los funcionarios incluidos en el Régimen de Clases Pasivas del Estado, ¿qué cuantía y forma de pago se recogen en el texto?",
+          "options": [
+            "Un tipo porcentual del 3,86 % sobre el haber regulador correspondiente, abonado en catorce mensualidades, siendo doble en junio y diciembre",
+            "Un tipo fijo del 1,69 % sobre el sueldo base, abonado en doce mensualidades",
+            "Un porcentaje variable fijado anualmente por la Ley de Presupuestos sin referencia al haber regulador",
+            "Una cuota única anual sin desdoblamiento en pagas extraordinarias"
+          ],
+          "correctAnswer": "D",
+          "explanation": "Bajo el epígrafe \"Cuota de derechos pasivos\", el texto establece que la cuantía se determina aplicando \"el tipo porcentual de 3,86 por 100 al haber regulador que corresponda al Cuerpo, Escala, plaza, empleo o categoría a que figure adscrito el funcionario\" y que las cuotas \"se abonan en catorce mensualidades, siendo doble en junio y diciembre\". La respuesta correcta reproduce estos dos elementos esenciales. El resto de opciones alteran bien el porcentaje, bien la base (sueldo base en vez de haber regulador), o niegan el desdoblamiento en pagas extras.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En relación con la gestión de las prestaciones de Clases Pasivas, ¿qué atribución se hace al Instituto Nacional de la Seguridad Social (INSS) a partir del 6 de octubre de 2020 según el texto?",
+          "options": [
+            "Asume únicamente el pago material de las pensiones de Clases Pasivas",
+            "Asume el reconocimiento de los derechos pasivos, la concesión de las prestaciones, las obligaciones y las propuestas de pago de todas las prestaciones de Clases Pasivas causadas",
+            "Asume solo la gestión de las pensiones extraordinarias de Clases Pasivas",
+            "No asume ninguna función nueva respecto a Clases Pasivas a partir de esa fecha"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El texto complementario indica que, \"a partir del 6 de octubre de 2020\", el reconocimiento de los derechos pasivos, la concesión de las prestaciones, las obligaciones y las propuestas de los pagos de todas las prestaciones de Clases Pasivas \"corresponde al Instituto Nacional de la Seguridad Social\", mientras que \"la ordenación del pago de las prestaciones de Clases Pasivas y el pago material de las mismas corresponde a la Tesorería General de la Seguridad Social\". La respuesta correcta es la que atribuye al INSS esas funciones de reconocimiento y concesión, no solo el pago. Las demás opciones atribuyen al INSS funciones distintas o niegan la modificación citada.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según se recoge en el apartado \"Cuota de MUFACE\", ¿qué porcentaje de cotización se aplica a los funcionarios en activo integrados en esta mutualidad y cómo se abona?",
+          "options": [
+            "Un 1,69 % sobre los haberes reguladores vigentes, abonado en catorce mensualidades, siendo doble en junio y diciembre",
+            "Un 3,86 % sobre el haber regulador, abonado en doce mensualidades ordinarias",
+            "Un 1 % sobre el sueldo base, sin pagas extraordinarias",
+            "Un 1,69 % sobre el salario mínimo interprofesional, abonado en doce mensualidades"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El texto establece que \"el porcentaje de cotización de los funcionarios en activo y asimilados integrados en MUFACE, se fija en el 1,69 por ciento sobre los haberes reguladores vigentes, abonándose en catorce mensualidades, siendo doble en junio y diciembre\". La respuesta correcta reproduce esta redacción. Las demás opciones confunden este porcentaje con el de derechos pasivos (3,86 %), cambian la base de cálculo o alteran la estructura de pagas.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Dentro de la acción protectora de MUFACE, ¿qué combinación de prestaciones sanitarias se menciona expresamente en el texto?",
+          "options": [
+            "Solo asistencia sanitaria en territorio nacional, sin referencia a prestaciones complementarias ni farmacéuticas",
+            "Asistencia sanitaria en territorio nacional y en el extranjero, prestaciones sanitarias complementarias (oculares, dentarias, material ortoprotésico y otras), prestación farmacéutica, programa antitabaco, ayudas al copago y reintegro de gastos de asistencia sanitaria, así como vacunación",
+            "Únicamente prestaciones farmacéuticas para medicamentos hospitalarios",
+            "Solo un programa antitabaco, sin cobertura sanitaria general"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El apartado A) de la acción protectora de MUFACE enumera como \"Prestaciones Sanitarias\" la \"Asistencia Sanitaria en territorio nacional\", la \"Asistencia Sanitaria en el extranjero\", las \"Prestaciones Sanitarias Complementarias (Oculares, dentarias, material ortoprotésico y otras)\", la \"Farmacéutica\", el \"Programa Antitabaco de MUFACE\", las \"Ayudas al copago farmacéutico\", el \"Reintegro de gastos de asistencia sanitaria\" y la \"Vacunación\". La respuesta correcta es la que sintetiza este listado amplio. Las restantes reducen indebidamente el alcance a una sola prestación o niegan elementos claramente citados.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según el texto, ¿qué tipo de prestaciones sociales se incluyen dentro de la acción protectora de MUFACE, además de las sanitarias?",
+          "options": [
+            "Solo prestaciones por jubilación y viudedad",
+            "Prestaciones por incapacidad (subsidio por incapacidad temporal, derechos derivados de accidente en acto de servicio, lesiones permanentes no invalidantes, gran invalidez), subsidios por riesgo durante el embarazo y la lactancia, prestaciones familiares, ayudas de protección sociosanitaria, otras ayudas sociales, becas y prestaciones del Fondo Especial",
+            "Únicamente ayudas al copago farmacéutico",
+            "Solo prestaciones de sepelio y defunción"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El texto detalla dentro de las \"Prestaciones Sociales\" de MUFACE un conjunto muy amplio: prestaciones por incapacidad (subsidio por incapacidad temporal, reconocimiento médico tras denegación de licencia por enfermedad, derechos derivados de accidente en acto de servicio o enfermedad profesional, lesiones permanentes no invalidantes, gran invalidez), subsidios por riesgo durante el embarazo y riesgo durante la lactancia natural, prestaciones familiares diversas, ayudas de protección sociosanitaria para distintos colectivos, otras ayudas sociales (subsidios de jubilación, defunción, sepelio, ayudas asistenciales) y becas de estudio, además de prestaciones del Fondo Especial. La respuesta correcta recoge esta amplitud. Las otras opciones reducen indebidamente el contenido a uno o dos conceptos.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la jubilación forzosa en Clases Pasivas descrita en el texto, ¿qué edad y qué período mínimo de servicios efectivos al Estado se exigen, y cuándo se alcanza el 100 % del haber regulador?",
+          "options": [
+            "Edad de 60 años, 30 años de servicios, y 100 % con 30 años",
+            "Edad de 65 años con posibilidad de prolongar hasta los 70, período mínimo de 15 años de servicios efectivos y 100 % del haber regulador con 35 o más años de servicio",
+            "Edad de 67 años, 20 años de servicios, y 100 % con 25 años",
+            "Edad de 65 años, sin posibilidad de prolongación y sin referencia a años de servicio para el porcentaje"
+          ],
+          "correctAnswer": "B",
+          "explanation": "En el apartado de \"Jubilación Forzosa, al cumplir la edad legalmente establecida\", se indica que la edad es de \"65 años, aunque existe la posibilidad de prolongar el servicio activo hasta los 70\"; que el período de carencia mínimo exigido es de \"15 años de servicios efectivos al Estado\" y que el porcentaje de la pensión, calculado como \"Haber regulador x porcentaje\", llega al \"100% con 35 o más años de servicio\". La respuesta correcta integra estos tres datos. Las demás opciones modifican la edad, los años de servicio exigidos o el porcentaje máximo.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la jubilación voluntaria en Clases Pasivas, ¿qué requisitos de edad y años de servicio al Estado se señalan en el texto para poder acceder a ella y para alcanzar el 100 % del haber regulador?",
+          "options": [
+            "Poder jubilarse a los 60 años con 30 años de servicios, necesitando 35 años de servicio para jubilarse con el 100 %, exigiéndose que los últimos 5 años estén cubiertos en el Régimen de Clases Pasivas del Estado",
+            "Poder jubilarse a los 65 años con 15 años de servicios, alcanzando el 100 % automáticamente",
+            "Poder jubilarse a los 70 años con 35 años de servicios, sin posibilidad de cómputo recíproco",
+            "Poder jubilarse a los 60 años sin mínimos de años de servicio ni requisitos de régimen en los últimos años"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El texto indica que en la \"Jubilación Voluntaria, a solicitud del funcionario\" se puede acceder \"cuando cumplan 60 años de edad siempre que tengan reconocido al menos 30 años de servicio al Estado\" y añade que, aunque con 30 años se puede jubilar a los 60, \"necesita 35 años de servicio para jubilarse con el 100%\". También señala que se puede realizar cómputo recíproco entre regímenes, pero \"se exige que los últimos 5 años estén cubiertos en el Régimen de Clases Pasivas del Estado\". La respuesta correcta recoge todos estos requisitos. Las demás los ignoran o los modifican.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la pensión de viudedad del Régimen de Clases Pasivas recogida en el texto, ¿qué porcentajes básicos de la base reguladora se aplican con carácter general y cuando el causante era beneficiario de una pensión extraordinaria, antes de posibles incrementos posteriores?",
+          "options": [
+            "40 % en general y 20 % si el causante tenía pensión extraordinaria",
+            "50 % en general y 25 % si el causante tenía pensión extraordinaria",
+            "58 % en general y 29 % si el causante tenía pensión extraordinaria",
+            "25 % en general y 50 % si el causante tenía pensión extraordinaria"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El epígrafe \"Viudedad\" indica que el cálculo de la pensión es \"el 50% de la base reguladora o el 25% en el supuesto de que el causante fuera beneficiario de una pensión extraordinaria\". Posteriormente se mencionan aumentos hasta el 58 % o el 29 % en determinadas condiciones, pero los porcentajes básicos son 50 % y 25 %. La respuesta correcta reproduce estos porcentajes iniciales. Las demás opciones confunden los porcentajes de incremento máximo con los básicos o proponen valores no contemplados.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la pensión de orfandad de Clases Pasivas, según el texto, ¿hasta qué edad pueden ser beneficiarios los huérfanos y en qué condiciones respecto al trabajo y a los ingresos para el tramo de edad ampliado?",
+          "options": [
+            "Solo hasta los 18 años, con independencia de si trabajan",
+            "Hasta los 21 años o incapacitados antes de esa edad, y también menores de 25 años que no trabajen o que, trabajando, obtengan ingresos anuales inferiores al salario mínimo interprofesional en cómputo anual",
+            "Hasta los 25 años siempre, sin atender a ingresos ni situación laboral",
+            "Hasta los 30 años si están estudiando, con independencia de sus ingresos"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El apartado de \"Orfandad\" señala que la edad es para \"menores de 21 años o incapacitados para todo trabajo antes del cumplimiento de dicha edad o de la fecha de fallecimiento del causante\" y añade que \"podrán ser beneficiarios también, los menores de 25 años que no trabajen o que trabajando los ingresos anuales que obtenga sean inferiores al SMI también en cómputo anual\". La respuesta correcta recoge esta doble regla. Las demás opciones modifican los límites de edad o ignoran la condición relativa al trabajo y a los ingresos.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la pensión \"en favor de padres\" de Clases Pasivas, ¿qué dos condiciones básicas se exigen a los progenitores y qué porcentaje de la base reguladora se aplica con carácter general según el texto?",
+          "options": [
+            "Que no dependan económicamente del causante y que exista cónyuge con derecho a pensión; porcentaje del 25 %",
+            "Que dependan económicamente del causante y que no exista cónyuge, excónyuge o hijos con derecho a pensión; porcentaje del 15 % de la base reguladora",
+            "Que tengan otra pensión contributiva reconocida y que exista cónyuge con derecho a pensión; porcentaje del 7,5 %",
+            "Que convivan con el causante pero sin exigencia de dependencia económica; porcentaje del 10 %"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El texto establece en el epígrafe \"En favor de padres\" que \"los padres deben de depender económicamente del causante y que no exista cónyuge, excónyuge o hijos con derecho a pensión\". En cuanto al cálculo, se fija \"el 15% de la base reguladora o el 7,5% en el supuesto de que el causante fuera beneficiario de una pensión extraordinaria\". La respuesta correcta es la que recoge las dos condiciones (dependencia económica y ausencia de otros beneficiarios preferentes) y el porcentaje general del 15 %. Las demás opciones contradicen estas condiciones o confunden el porcentaje reducido del 7,5 % con el general.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Respecto a las pensiones extraordinarias de Clases Pasivas, ¿qué indica el texto sobre su cálculo en relación con el haber regulador?",
+          "options": [
+            "Que se calculan aplicando el 150 % del haber regulador",
+            "Que se calculan aplicando el 200 % del haber regulador",
+            "Que se calculan siempre al 100 % del haber regulador, sin incrementos",
+            "Que su cuantía se fija discrecionalmente en cada caso sin referencia al haber regulador"
+          ],
+          "correctAnswer": "D",
+          "explanation": "En el epígrafe \"Extraordinaria\" se señala expresamente: \"Cálculo: el 200% del haber regulador\". Esto significa que las pensiones extraordinarias (jubilación, retiro por incapacidad/inutilidad permanente y en favor de familiares producidas como consecuencia de actos de servicio) se calculan sobre el doble del haber regulador. La respuesta correcta es la que menciona este 200 %. Las demás opciones proponen porcentajes distintos o niegan la referencia al haber regulador.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según el texto, ¿qué complemento se aplica a las pensiones causadas entre el 1 de enero de 2016 y el 3 de febrero de 2021 y qué matiz importante se indica sobre su integración en la pensión de jubilación o retiro a efectos de pensiones en favor de familiares?",
+          "options": [
+            "El complemento para la reducción de la brecha de género, que siempre forma parte de la base reguladora para pensiones en favor de familiares",
+            "El complemento por maternidad, que en ningún caso formará parte de la pensión de jubilación o retiro a efectos de la determinación de la base reguladora en el reconocimiento de pensiones en favor de los familiares",
+            "El complemento por maternidad, que se integra siempre en la base reguladora para pensiones en favor de familiares",
+            "El complemento para la reducción de la brecha de género, aplicable solo a pensiones causadas antes de 2016"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El texto explica que se recoge \"el complemento por maternidad para las pensiones causadas entre el 01 de enero de 2016 y el 03 de febrero de 2021\" y el complemento para la reducción de la brecha de género para las pensiones causadas a partir del 4 de febrero de 2021. Añade que \"el complemento por maternidad, en ningún caso formará parte de la pensión de jubilación o retiro a efectos de la determinación de la base reguladora en el reconocimiento de pensiones en favor de los familiares\". La respuesta correcta es la que menciona este complemento por maternidad y su no integración en la base reguladora para pensiones en favor de familiares. Las demás opciones atribuyen ese efecto al complemento equivocado o afirman lo contrario de lo que dice el texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el Régimen especial de las Fuerzas Armadas, ¿qué norma aprueba el texto refundido de la Ley sobre Seguridad Social de las Fuerzas Armadas y en qué fecha, según el texto?",
+          "options": [
+            "El Real Decreto Legislativo 4/2000, de 23 de junio",
+            "El Real Decreto Legislativo 1/2000, de 9 de junio",
+            "El Real Decreto Legislativo 3/2000, de 23 de junio",
+            "El Real Decreto Legislativo 670/1987, de 30 de abril"
+          ],
+          "correctAnswer": "B",
+          "explanation": "En el epígrafe \"RÉGIMEN ESPECIAL DE LAS FUERZAS ARMADAS\" se indica que se regula en el \"Real Decreto Legislativo 1/2000, de 9 de junio, por el que se aprueba el texto refundido de la Ley sobre Seguridad Social de las Fuerzas Armadas\". La respuesta correcta identifica esta norma. El RDL 4/2000 corresponde a los funcionarios civiles del Estado, el 3/2000 al personal de Justicia y el 670/1987 a la Ley de Clases Pasivas.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el campo de aplicación del Régimen especial de las Fuerzas Armadas, ¿qué colectivo se incluye expresamente en la letra a) del texto?",
+          "options": [
+            "Los militares de carrera de las Fuerzas Armadas",
+            "El personal laboral civil del Ministerio de Defensa",
+            "Los funcionarios de la Administración de Justicia destinados en juzgados militares",
+            "Los militares retirados de cualquier ejército, con independencia de su relación de servicios"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El texto establece en el \"Campo de aplicación\" que quedan obligatoriamente incluidos, entre otros, \"los militares de carrera de las Fuerzas Armadas\" (letra a)). La respuesta correcta es la que menciona a estos militares de carrera. Las demás opciones se refieren a personal laboral civil, a funcionarios de Justicia o a militares retirados en general, que no son el colectivo recogido en la letra a)." ,
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Además de los militares de carrera, ¿qué otro colectivo vinculado a la Guardia Civil incluye expresamente el campo de aplicación del Régimen especial de las Fuerzas Armadas según la letra e)?",
+          "options": [
+            "Solo los guardias civiles en situación de reserva",
+            "Los militares de carrera de la Guardia Civil y los alumnos de los centros docentes de formación de dicho Cuerpo",
+            "Los funcionarios civiles destinados en la Dirección General de la Guardia Civil",
+            "El personal laboral de la Guardia Civil que realice funciones administrativas"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La letra e) del campo de aplicación del Régimen especial de las Fuerzas Armadas menciona expresamente a \"los militares de carrera de la Guardia Civil y los alumnos de los centros docentes de formación de dicho Cuerpo\". La respuesta correcta recoge literalmente este colectivo. Las demás opciones introducen categorías (reservistas, funcionarios civiles o personal laboral) que no aparecen en la enumeración a) a g) del texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según el número 1 del campo de aplicación del Régimen especial de las Fuerzas Armadas, ¿qué regla general se establece sobre la obligatoriedad de su afiliación en relación con la situación administrativa del personal incluido?",
+          "options": [
+            "Que la afiliación se mantiene solo en situación de servicio activo, perdiéndose en cualquier otra",
+            "Que la obligatoriedad se mantiene cualquiera que sea la situación administrativa, salvo en determinados supuestos de excedencia sin cómputo a efectos de derechos pasivos, con excepción del personal que pasa a excedencia por prestar servicios en el sector público",
+            "Que solo se mantiene en situaciones de servicio activo y reserva activa, pero no en excedencia",
+            "Que cesa automáticamente al pasar a retiro o jubilación"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El número 1 del \"Campo de aplicación\" indica que la obligatoriedad de inclusión en el régimen se mantiene \"cualquiera que sea la situación administrativa en que se encuentre el personal enumerado, salvo en los casos de excedencia en que el tiempo de permanencia no sea computable a efectos de derechos pasivos, excepto el personal que pase a esa situación por prestar servicios en el sector público que mantendrá su afiliación obligatoria\". La respuesta correcta resume esta regla general y su excepción. Las demás opciones limitan indebidamente la obligatoriedad o la hacen cesar en supuestos (retiro, jubilación) que en realidad se recogen como incluidos en el número 2.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el número 2 del campo de aplicación del Régimen especial de las Fuerzas Armadas, ¿qué regla se establece para el personal que pasa a retiro o jubilación y para quienes tienen reconocida una pensión de inutilidad para el servicio?",
+          "options": [
+            "Quedan automáticamente excluidos del Régimen especial y pasan al Régimen General de la Seguridad Social",
+            "Quedan obligatoriamente incluidos en el campo de aplicación de este régimen especial, siempre que no estén obligatoriamente incluidos en otro Régimen de Seguridad Social por una actividad por cuenta propia o ajena",
+            "Pueden optar libremente entre permanecer en el Régimen especial o integrarse en el Régimen General",
+            "Solo permanecen incluidos si siguen prestando servicios en las Fuerzas Armadas en situación de servicio activo"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El número 2 del campo de aplicación señala que también queda obligatoriamente incluido \"el personal comprendido en alguno de los apartados del número anterior que pase a retiro o jubilación\" y \"el personal que tenga reconocida alguna de las pensiones de inutilidad para el servicio [...] siempre que no esté obligatoriamente incluido en el campo de aplicación de otro Régimen de Seguridad Social, con ocasión del desempeño de alguna actividad por cuenta propia o ajena\". La respuesta correcta es la que recoge esta obligatoriedad condicionada. Las demás opciones o bien afirman la exclusión automática o plantean una opción libre no prevista.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En cuanto a los mecanismos de cobertura del Régimen especial de las Fuerzas Armadas, ¿qué combinación recoge expresamente el texto?",
+          "options": [
+            "Solo el Régimen General de la Seguridad Social",
+            "El Régimen de Clases Pasivas del Estado y el regulado en la Ley como ISFAS",
+            "Exclusivamente el Instituto Social de las Fuerzas Armadas (ISFAS), que asume también las pensiones",
+            "El Régimen de Clases Pasivas del Estado y MUFACE"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El epígrafe \"Mecanismos de cobertura\" del Régimen especial de las Fuerzas Armadas señala que el régimen queda integrado por \"el Régimen de Clases Pasivas del Estado, de acuerdo con sus normas específicas\" y \"el regulado en la presente Ley (ISFAS)\". La respuesta correcta menciona esta combinación de Clases Pasivas e ISFAS. Las otras opciones sustituyen ISFAS por MUFACE, eliminan Clases Pasivas o remiten solo al Régimen General, lo que no se ajusta al texto del Real Decreto Legislativo 1/2000.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según la \"Cuota de ISFAS\" descrita en el texto, ¿qué porcentaje se aplica sobre qué base a la cotización del personal militar en activo y asimilado integrado en ISFAS?",
+          "options": [
+            "Un 1,69 % sobre los haberes reguladores vigentes a efectos de cotización de Derechos Pasivos",
+            "Un 3,86 % sobre el haber regulador como en derechos pasivos",
+            "Un 1,69 % sobre el salario mínimo interprofesional",
+            "Un porcentaje variable fijado anualmente por la Ley de Presupuestos"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La \"Cuota de ISFAS\" se define en el texto indicando que \"el porcentaje de cotización y de aportación del personal militar en activo y asimilado integrado en ISFAS, se fija en el 1,69 por ciento sobre los haberes reguladores vigentes a efectos de cotización de Derechos Pasivos\". La respuesta correcta reproduce esta fórmula. Las demás opciones alteran el porcentaje o la base de cálculo o dejan la determinación a una norma presupuestaria de forma genérica.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Dentro de la acción protectora de ISFAS, ¿qué tipo de prestaciones se enumeran en el texto como cubiertas por la mutualidad?",
+          "options": [
+            "Exclusivamente pensiones de jubilación y viudedad",
+            "Prestaciones de asistencia sanitaria, dentarias, oculares, ortoprotésicas, transporte sanitario, atención a enfermos crónicos, ayudas por fallecimiento, ayudas para pacientes celíacos, prestación farmacéutica, ayudas por parto múltiple, ayudas a personas mayores, estancias temporales en centros asistenciales, ayudas para la autonomía personal, ayudas a drogodependientes, indemnización por lesiones permanentes no invalidantes, pensión por inutilidad para el servicio, subsidio por incapacidad temporal de funcionarios civiles, gastos por asistencia de facultativo ajeno, hospitalización psiquiátrica, tratamiento de psicoterapia y ayudas para pacientes diabéticos",
+            "Solo ayudas económicas para vivienda",
+            "Únicamente prestaciones de sepelio"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El listado de 23 prestaciones de ISFAS incluye, entre otras, asistencia sanitaria, prestaciones dentarias y oculares, ayudas técnicas, prestación ortoprotésica, transporte sanitario, atención a enfermos crónicos, ayuda por fallecimiento, ayuda para pacientes celíacos, prestación farmacéutica, prestaciones por parto múltiple, ayudas por discapacidad, ayudas a personas mayores, estancias temporales en centros asistenciales, ayudas para la autonomía personal, ayudas a drogodependientes, indemnización por lesiones permanentes no invalidantes, pensión por inutilidad para el servicio, subsidio por incapacidad temporal de funcionarios civiles, gastos de asistencia por facultativo ajeno, hospitalización psiquiátrica, tratamiento de psicoterapia y ayudas para pacientes diabéticos. La respuesta correcta sintetiza esta enumeración amplia. Las demás opciones reducen el contenido a un subconjunto mínimo que no refleja el texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En relación con las pensiones del personal de las Fuerzas Armadas incluidas en el Régimen especial, ¿qué particularidades señala el texto sobre el órgano competente para su reconocimiento, la posibilidad de retiro voluntario y ciertos colectivos con pensiones extraordinarias?",
+          "options": [
+            "Que las pensiones se reconocen por MUFACE, no existe retiro voluntario y no hay pensiones extraordinarias",
+            "Que las pensiones se reconocen por la Dirección General de Personal del Ministerio de Defensa, cabe el retiro voluntario a partir de 20 años de servicio y existen pensiones extraordinarias para personal militar de plaza no escalafonada, mutilados de guerra y ex combatientes de la Guerra Civil",
+            "Que se reconocen por el INSS, sin intervención del Ministerio de Defensa",
+            "Que solo existen pensiones ordinarias sin regímenes especiales para mutilados o ex combatientes"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El texto indica que, respecto a las pensiones y otras prestaciones, \"se reconocen y conceden las pensiones por la Dirección General de Personal del Ministerio de Defensa\"; que \"cabe el retiro voluntario a partir de los 20 años de servicio\" y que hay pensiones extraordinarias para \"personal militar de plaza no escalafonada\", \"mutilados de guerra\" y \"ex-combatientes de la Guerra Civil\". La respuesta correcta recoge estas tres particularidades. Las demás opciones niegan la existencia de retiro voluntario o de pensiones extraordinarias o atribuyen la competencia a órganos distintos de los citados.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el Régimen especial de la Administración de Justicia, ¿qué norma aprueba el texto refundido de las disposiciones legales vigentes sobre este régimen especial y en qué fecha, según el texto?",
+          "options": [
+            "El Real Decreto Legislativo 3/2000, de 23 de junio",
+            "El Real Decreto Legislativo 4/2000, de 23 de junio",
+            "El Real Decreto Legislativo 1/2000, de 9 de junio",
+            "El Real Decreto Legislativo 8/2015, de 30 de octubre"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El apartado \"RÉGIMEN ESPECIAL DE LA ADMINISTRACIÓN DE JUSTICIA\" señala que se regula en el \"Real Decreto Legislativo 3/2000, de 23 de junio, por el que se aprueba el texto refundido de las disposiciones legales vigentes sobre el Régimen especial de Seguridad Social del personal al servicio de la Administración de Justicia\". La respuesta correcta reproduce esta referencia. El RDL 4/2000 corresponde a los funcionarios civiles del Estado, el 1/2000 a las Fuerzas Armadas y el 8/2015 al texto refundido de la Ley General de la Seguridad Social.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el campo de aplicación del Régimen especial de la Administración de Justicia, ¿qué colectivo se incluye en la letra a) según el texto?",
+          "options": [
+            "El personal al servicio de la Administración de Justicia comprendido en la Ley Orgánica 6/1985, de 1 de julio, del Poder Judicial",
+            "Exclusivamente los jueces y magistrados de carrera",
+            "Solo el personal laboral de juzgados y tribunales",
+            "Los funcionarios de la Administración Civil del Estado destinados en órganos judiciales"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El texto indica que quedan obligatoriamente incluidos en este Régimen especial, en la letra a), \"el personal al servicio de la Administración de Justicia comprendido en la Ley Orgánica 6/1985, de 1 de julio, del Poder Judicial\". La respuesta correcta es la que reproduce esta fórmula amplia. Las demás opciones restringen indebidamente el ámbito solo a jueces y magistrados, a personal laboral o a funcionarios civiles destinados en Justicia, que no es lo que dice la letra a).",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según los mecanismos de cobertura del Régimen especial de la Administración de Justicia, ¿qué combinación de regímenes integra este régimen especial de acuerdo con el art. 2 del Real Decreto Legislativo 3/2000?",
+          "options": [
+            "El Régimen General de la Seguridad Social y MUFACE",
+            "El Régimen de Clases Pasivas del Estado y el Mutualismo Judicial (MUGEJU)",
+            "Exclusivamente el Mutualismo Judicial (MUGEJU)",
+            "El Régimen de Clases Pasivas del Estado y ISFAS"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El epígrafe \"Mecanismos de cobertura\" del régimen especial de Justicia indica que el régimen queda integrado por \"el Régimen de Clases Pasivas del Estado, de acuerdo con sus normas específicas\" y \"el Mutualismo Judicial, que se regula en la presente Ley (MUGEJU)\". La respuesta correcta es la que menciona esta combinación de Clases Pasivas y MUGEJU. Las otras opciones la sustituyen por MUFACE o ISFAS o eliminan Clases Pasivas, lo que no concuerda con el texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Para el personal al servicio de la Administración de Justicia comprendido en el campo de aplicación de la Ley que haya ingresado a partir del 1 de enero de 2011, ¿qué indica el texto sobre su encuadramiento en el Régimen General de la Seguridad Social y su condición de mutualista de MUGEJU?",
+          "options": [
+            "Se integra en el Régimen General para todas las prestaciones y pierde la condición de mutualista de MUGEJU",
+            "Queda integrado en el Régimen General de la Seguridad Social a los exclusivos efectos de pensiones, manteniendo su condición de mutualista de la Mutualidad General Judicial y el acceso a todas las prestaciones reguladas en la Ley",
+            "Permanece íntegramente en Clases Pasivas para pensiones, sin relación con el Régimen General",
+            "Pasa a un régimen especial nuevo en el que desaparece MUGEJU"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El texto, remitiéndose a la disposición adicional tercera del Real Decreto Legislativo 8/2015, establece que este personal que haya ingresado a partir del 1 de enero de 2011 \"quedará integrado en el Régimen General de la Seguridad Social a los exclusivos efectos de pensiones, manteniendo su condición de mutualistas de la Mutualidad General Judicial y teniendo acceso a todas las prestaciones reguladas en la presente Ley y gestionadas por la Mutualidad General Judicial\". La respuesta correcta reproduce esta configuración mixta. Las otras opciones niegan la integración limitada a pensiones o la permanencia en MUGEJU.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la \"Cuota de derechos pasivos\" del régimen de la Administración de Justicia, ¿qué porcentaje y base se señalan para determinar su cuantía en 2021 y cómo se abona?",
+          "options": [
+            "Un 3,86 % sobre el haber regulador correspondiente, abonado en catorce mensualidades, siendo doble en junio y diciembre",
+            "Un 1,69 % sobre el sueldo base, abonado en doce mensualidades",
+            "Un 3,86 % sobre el salario mínimo interprofesional, abonado en doce mensualidades",
+            "Una cuota fija anual sin frecuencia mensualizada"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El texto reproduce para la Administración de Justicia la misma estructura de la cuota de derechos pasivos, indicando que \"la cuantía en 2021, se determina aplicando el tipo porcentual de 3,86 por 100 al haber regulador que corresponda al Cuerpo, Escala, plaza, empleo o categoría a que figure adscrito el funcionario\" y que dichas cuotas \"se abonan en catorce mensualidades, siendo doble en junio y diciembre\". La respuesta correcta refleja estos dos elementos. Las otras opciones modifican el porcentaje, la base o la forma de pago.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la \"Cuota de MUGEJU\", ¿qué porcentaje de cotización se fija para el personal de la Administración de Justicia en activo y sobre qué base, según el texto?",
+          "options": [
+            "El 1,69 % sobre los haberes reguladores vigentes a efectos de cotización de Derechos Pasivos",
+            "El 3,86 % sobre el haber regulador",
+            "El 1 % sobre el sueldo base",
+            "Un porcentaje variable fijado anualmente por la Ley de Presupuestos"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El epígrafe \"Cuota de MUGEJU\" establece que \"el porcentaje de cotización del personal de la Administración de Justicia en activo y asimilado, integrado en MUGEJU, se fija en el 1,69 por ciento sobre los haberes reguladores vigentes a efectos de cotización de Derechos Pasivos\". La respuesta correcta recoge literalmente este dato. Las demás opciones alteran el porcentaje o la base o dejan la determinación a una norma distinta de la señalada en el texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la acción protectora del Mutualismo Judicial (MUGEJU), ¿qué estructura general de prestaciones se describe en el texto?",
+          "options": [
+            "Solo prestaciones sanitarias básicas",
+            "Prestaciones sanitarias (asistencia sanitaria nacional y en el extranjero, reclamaciones, hormona de crecimiento, prestación farmacéutica, prestaciones complementarias y socio-sanitarias), otras prestaciones (incapacidad permanente, gran invalidez, lesiones permanentes no invalidantes, incapacidad temporal, prestaciones familiares, fallecimiento, auxilios económicos al pensionista, programa de atención socio-sanitaria, fondo de asistencia social) y un fondo especial con pensiones de jubilación, viudedad, orfandad, auxilio por defunción y becas para huérfanos",
+            "Exclusivamente un fondo especial de jubilación",
+            "Solo prestaciones económicas de sepelio"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El texto indica que el mutualismo judicial, gestionado por MUGEJU, reconoce \"Prestaciones Sanitarias\" muy amplias, \"Otras prestaciones\" que incluyen incapacidad, familiares, fallecimiento, auxilios económicos y programas socio-sanitarios, y un \"Fondo especial\" que contempla pensiones de jubilación, viudedad y orfandad, auxilio por defunción y becas de estudios para huérfanos. La respuesta correcta resume esta triple estructura. Las otras opciones reducen indebidamente la acción protectora a una parte del esquema o la limitan a una sola prestación.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según el texto, ¿qué precepto del TRLGSS prevé el Régimen Especial del Seguro Escolar y qué norma se cita como básica para su regulación?",
+          "options": [
+            "El art. 10.2 d) del TRLGSS y la Ley de 17 de julio de 1953 sobre el establecimiento del Seguro Escolar en España",
+            "El art. 2.1 del TRLGSS y la Ley General de la Seguridad Social de 2015",
+            "El art. 60 del TRLGSS y la Ley de Clases Pasivas de 1987",
+            "El art. 10.2 d) del TRLGSS y el Real Decreto 2064/1995 como norma básica del Seguro Escolar"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El epígrafe \"EL SEGURO ESCOLAR\" indica que este Régimen Especial está previsto en el \"artículo 10.2 d) del TRLGSS\" y que \"se rige básicamente por la Ley de 17 de julio de 1953, sobre el establecimiento del Seguro Escolar en España\". La respuesta correcta recoge ambas referencias. El Real Decreto 2064/1995 se cita solo para regular la obligación de cotizar (art. 60), no como norma básica del seguro.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el campo de aplicación del Seguro Escolar, ¿qué requisitos generales se exigen a los estudiantes españoles para quedar incluidos según el texto?",
+          "options": [
+            "Ser menores de 18 años y cursar cualquier estudio en España",
+            "Ser menores de 28 años, residir legalmente en España, tener nacionalidad española, estar matriculados oficialmente en determinados estudios, haber abonado la cuota del seguro y acreditar un periodo mínimo de carencia de un año (salvo excepciones)",
+            "Ser menores de 30 años y estar desempleados",
+            "Solo estar matriculados en estudios universitarios, sin requisitos de edad o carencia"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El texto indica que están obligatoriamente incluidos \"los estudiantes con nacionalidad española que residan legalmente en España menores de 28 años (queda cubierto todo el año escolar en el que el estudiante cumple dicha edad), que se encuentren matriculados oficialmente en unos determinados estudios... y que en el momento de formalizar la matrícula oficial hayan abonado la cuota del seguro, y acrediten un periodo mínimo de carencia de un año\". La respuesta correcta reproduce estos requisitos. Las demás opciones modifican la edad, ignoran la carencia o generalizan a cualquier estudio sin matices.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Respecto a los estudiantes extranjeros, ¿qué criterio establece el texto para su inclusión o exclusión del campo de aplicación del Seguro Escolar?",
+          "options": [
+            "Se incluyen todos los extranjeros con independencia de su nacionalidad y situación administrativa",
+            "Se incluyen los estudiantes nacionales de Estados miembros de la UE, del Espacio Económico Europeo y Suiza, así como los estudiantes extranjeros en las mismas condiciones que los españoles, siempre que cursen estudios en España y hasta los 28 años, pero se excluye a los estudiantes extranjeros en situación irregular en España",
+            "Solo se incluyen los estudiantes extranjeros extracomunitarios",
+            "Se excluye siempre a los estudiantes extranjeros, cualquiera que sea su situación"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El texto precisa que \"quedan igualmente incluidos dentro del campo de aplicación del seguro escolar, los estudiantes nacionales de los Estados miembros de la Unión Europea, del Espacio Económico Europeo y Suiza [...] así como los estudiantes extranjeros en las mismas condiciones que los españoles, siempre y cuando cursen los estudios en España y hasta la edad máxima de 28 años\" y añade que \"los estudiantes extranjeros en situación irregular en España se encuentran excluidos del Seguro Escolar\". La respuesta correcta resume este doble criterio de inclusión y la exclusión de los irregulares. Las demás opciones generalizan o excluyen sin matices.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Entre los estudios incluidos en el Seguro Escolar, ¿cuál de las siguientes enseñanzas se indica expresamente como excluida en el texto?",
+          "options": [
+            "Tercero y cuarto de ESO",
+            "Bachillerato",
+            "Formación Profesional de grado medio, superior y especial",
+            "Las enseñanzas de idiomas"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El apartado relativo a los estudios destaca como incluidos, entre otros, Tercero y Cuarto de ESO, Bachillerato, Formación Profesional, estudios universitarios y grado superior en Conservatorio de Música y Danza. A continuación se señala expresamente que \"no están incluidas las enseñanzas de idiomas\". La respuesta correcta identifica esta exclusión. Las demás opciones corresponden a estudios que el texto considera dentro del campo de aplicación del Seguro Escolar.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según el epígrafe \"ALTA EN EL SEGURO\", ¿cómo se produce el alta en el Seguro Escolar para el estudiante?",
+          "options": [
+            "Mediante solicitud expresa del estudiante ante la entidad gestora",
+            "Automáticamente en el momento de realizar la matrícula",
+            "Tras un reconocimiento médico previo obligatorio",
+            "Por resolución del Ministerio de Educación y Formación Profesional"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El texto indica de forma clara que el alta en el Seguro Escolar \"es automática en el momento de realizar la matrícula\". La respuesta correcta reproduce esta automática vinculación entre matrícula y alta. Las demás opciones introducen requisitos adicionales (solicitud, reconocimiento médico, resolución administrativa) que no se mencionan en el epígrafe.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "De acuerdo con el art. 60 del Real Decreto 2064/1995, citado en la parte de cotización del Seguro Escolar, ¿quiénes son sujetos de la obligación de cotizar y qué dos aportaciones conforman el objeto de dicha obligación?",
+          "options": [
+            "Solo el Ministerio de Educación y Ciencia, que asume el 100 % de la cuota",
+            "Solo los estudiantes asegurados, que asumen el 100 % de la cuota",
+            "Los estudiantes que reúnan las condiciones para ser incluidos en el campo de aplicación y el Ministerio de Educación y Ciencia; el objeto de la obligación comprende una aportación de los estudiantes asegurados y otra del Ministerio",
+            "Las universidades públicas y privadas, que asumen la cuota íntegramente"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El art. 60 del Real Decreto 2064/1995, transcrito en el texto, establece en su apartado 1 que \"en el Seguro Escolar son sujetos de la obligación de cotizar los estudiantes que reúnan las condiciones para ser incluidos en el campo de aplicación del mismo, y el Ministerio de Educación y Ciencia\". En el apartado 2 añade que la obligación de cotizar comprende dos aportaciones: \"de los estudiantes asegurados\" y \"del Ministerio de Educación y Ciencia\". La respuesta correcta recoge ambos sujetos y las dos aportaciones. Las demás opciones atribuyen la obligación a un solo sujeto o a las universidades, que no se mencionan como tales sujetos obligados.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "¿Qué indica el texto sobre el nacimiento y unicidad de la obligación de cotizar al Seguro Escolar en relación con la matrícula y los centros docentes?",
+          "options": [
+            "Que la obligación nace al finalizar el curso y puede repetirse por cada matrícula en distintos centros",
+            "Que la obligación de cotizar nace por el hecho de matricularse el estudiante en centro docente y es única por estudiante y curso académico, de modo que si se matricula en diversos centros solo abonará su cuota en uno de ellos",
+            "Que la obligación nace solo cuando el estudiante cumple 18 años",
+            "Que la obligación se genera únicamente si el estudiante repite curso"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El art. 60.4 del Real Decreto 2064/1995, según el texto, dispone que \"la obligación de cotizar nace por el hecho de matricularse el estudiante en centro docente, y es única por estudiante y curso académico\" y añade que \"el estudiante que en el mismo curso académico se matricule en diversos centros, únicamente abonará su cuota en uno de ellos\". La respuesta correcta reproduce estas dos ideas. Las demás opciones cambian el momento de nacimiento de la obligación o contravienen la unicidad por curso académico.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "Según el texto, ¿cuál es la cuantía actual de la cuota del Seguro Escolar fijada por el Real Decreto 1633/1985 y cómo se reparte entre estudiante y Ministerio?",
+          "options": [
+            "2,24 euros por curso, de los que 1,12 los abona el alumno y 1,12 el Ministerio de Educación y Formación Profesional",
+            "2,24 euros por curso, a cargo íntegro del Ministerio",
+            "2,24 euros por curso, abonando el alumno 2,00 euros y el Ministerio 0,24 euros",
+            "Una cuota variable fijada cada año sin cuantía actual concreta"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El texto indica que para conocer la cuantía de la cuota debe acudirse al Real Decreto 1633/1985 y añade que \"actualmente la cuota está fijada en 2,24 euros (de los que 1,12 debe abonar el alumno y otros 1,12 el Ministerio de Educación y Formación Profesional)\". La respuesta correcta es la que reproduce tanto la cuantía total como el reparto al 50 %. Las demás opciones alteran el reparto o niegan la cuantía concreta citada.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la acción protectora del Seguro Escolar, ¿qué cuatro grandes riesgos cubiertos se enumeran expresamente en el texto?",
+          "options": [
+            "Accidente escolar; accidente no escolar y/o enfermedad; infortunio familiar; sepelio",
+            "Accidente laboral; desempleo; maternidad; jubilación",
+            "Invalidez permanente; viudedad; orfandad; desempleo",
+            "Solo infortunio familiar y sepelio"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El epígrafe \"ACCIÓN PROTECTORA\" indica que \"existen una serie de riesgos cubiertos que enumeramos a continuación (son cuatro): Accidente Escolar; Accidente no escolar y/o enfermedad; Infortunio familiar; Sepelio\". La respuesta correcta reproduce estos cuatro riesgos. Las demás opciones introducen prestaciones propias de otros regímenes de Seguridad Social o solo una parte de los riesgos enumerados.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la definición de \"Accidente Escolar\", ¿qué situaciones se consideran actividades relacionadas con la condición de estudiante según el texto, incluyendo los supuestos \"in itinere\"?",
+          "options": [
+            "Solo las actividades estrictamente realizadas dentro del aula",
+            "Las actividades deportivas, viajes de estudios, prácticas en empresas, riñas entre estudiantes durante el horario habitual de clase o en los descansos, incluyendo accidentes escolares \"in itinere\"",
+            "Exclusivamente los accidentes laborales del padre del estudiante",
+            "Los accidentes domésticos ocurridos en la vivienda familiar sin relación con los estudios"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El texto define Accidente Escolar como \"toda lesión corporal que sufra el asegurado con ocasión de actividades relacionadas directa o indirectamente con su condición de estudiante\" y precisa que se entienden como tales \"las deportivas, viajes de estudios, prácticas en empresas, riñas entre estudiantes que ocurran durante el horario habitual de clase o en los descansos\" e incluso los accidentes escolares \"in itinere\". La respuesta correcta resume estas actividades. Las demás opciones excluyen actividades claramente incluidas o se refieren a situaciones ajenas al ámbito escolar del asegurado.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la cobertura del Seguro Escolar para \"Accidente Escolar\", ¿qué se indica sobre la asistencia sanitaria y la prestación farmacéutica cuando el estudiante elige un centro privado?",
+          "options": [
+            "Que nunca se reintegran los gastos si se acude a un centro privado",
+            "Que puede elegir libremente un centro privado y se le reintegrarán los gastos con el máximo establecido en las tarifas del Seguro Escolar, abonándose la totalidad de los gastos en casos de asistencia urgente por accidente en un centro privado; además, la prestación farmacéutica reintegra el 100 % del coste, excluidos los medicamentos no financiados por la Seguridad Social",
+            "Que solo se cubre la mitad de los gastos médicos en centros privados",
+            "Que la prestación farmacéutica nunca se cubre en accidentes escolares"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El texto indica que, en accidente escolar, el estudiante puede acudir a centros públicos o concertados sin gasto alguno, o elegir un centro privado, en cuyo caso se le reintegrarán los gastos \"con el máximo establecido según las tarifas vigentes del Seguro Escolar\", y que en casos de asistencia sanitaria urgente en centro privado \"se le abonarán al estudiante la totalidad de los gastos ocasionados\". Añade que la prestación farmacéutica reintegra \"el 100% de su coste\", excluyendo \"las prestaciones farmacéuticas excluidas de financiación de la Seguridad Social\". La respuesta correcta recoge estas condiciones. Las demás opciones contradicen el alcance de la cobertura.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el riesgo de \"Infortunio familiar\" del Seguro Escolar, ¿qué circunstancias se consideran causa de dicha situación y qué cuantía anual se fija para familias no numerosas según el texto?",
+          "options": [
+            "Solo el desempleo del estudiante, con 150,25 euros anuales",
+            "El fallecimiento del cabeza de familia (padre o madre que aporten ingresos) o la ruina o quiebra familiar que determine la imposibilidad absoluta de continuar los estudios, con una cuantía de 86,55 euros anuales para familias no numerosas",
+            "Cualquier disminución leve de ingresos con 200 euros anuales",
+            "La mera condición de familia numerosa con 129,82 euros anuales"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El apartado de \"Infortunio familiar\" indica que persigue asegurar la continuidad de los estudios cuando se producen circunstancias que ocasionan la imposibilidad de continuarlos por la situación económica sobrevenida en el hogar. Se consideran tales el \"fallecimiento del cabeza de familia\" y la \"ruina o quiebra familiar\" que determine la absoluta imposibilidad de continuar los estudios. En cuanto a las cuantías, fija para \"familias no numerosas: 86,55 euros anuales\". La respuesta correcta recoge ambas circunstancias y esta cuantía. Las demás opciones alteran el tipo de circunstancia o la cuantía establecida en el texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En la prestación de \"Sepelio\" del Seguro Escolar, ¿qué cuantía básica se reconoce y en qué supuesto puede elevarse hasta un máximo superior según el texto?",
+          "options": [
+            "Una cuantía única de 30,05 euros sin posibilidad de incremento",
+            "Una cuantía de 30,05 euros, que puede elevarse hasta un máximo de 120,20 euros si el fallecimiento por accidente se produce en lugar distinto al de la residencia familiar y los gastos son superiores a 30,05 euros",
+            "Una cuantía fija de 120,20 euros en todo caso",
+            "Una cuantía variable fijada por cada centro docente"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El texto señala que la prestación de sepelio \"consiste en una indemnización por fallecimiento del estudiante\" y que la indemnización consiste en un pago único de \"30,05 euros\" para los familiares, \"salvo que sea debido a accidente y se produjese en lugar distinto al de la residencia familiar y los gastos fueran superiores a 30,05 euros, que se abonará un pago único hasta un máximo de 120,20 euros\". La respuesta correcta recoge esta estructura básica y el supuesto de incremento. Las demás opciones niegan la posibilidad de aumento o fijan siempre el máximo sin atender al supuesto específico.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el apartado \"GESTIÓN\" del Seguro Escolar, ¿a qué entidades se encomienda la gestión de este régimen especial según el texto?",
+          "options": [
+            "A las Mutuas Colaboradoras con la Seguridad Social",
+            "A las Entidades Gestoras del Sistema de Seguridad Social",
+            "Exclusivamente al Ministerio de Educación y Formación Profesional",
+            "A las Comunidades Autónomas con competencias educativas"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El texto indica escuetamente, en el epígrafe \"GESTIÓN\", que \"la gestión está encomendada a las Entidades Gestoras del Sistema de Seguridad Social\". La respuesta correcta es la que menciona a las Entidades Gestoras. Las demás opciones atribuyen la gestión a mutuas, al Ministerio de Educación o a las Comunidades Autónomas, lo que no se corresponde con el pasaje citado.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        },
+        {
+          "text": "En el epígrafe \"INCOMPATIBILIDADES\" del Seguro Escolar, ¿qué regla general se establece respecto a otras prestaciones de contenido idéntico y cuál es la excepción respecto de seguros privados?",
+          "options": [
+            "Que las prestaciones del Seguro Escolar son siempre compatibles con cualquier otra prestación pública o privada",
+            "Que son incompatibles con cualesquiera otras de idéntico contenido y derivadas de análogo riesgo de otros regímenes de la Seguridad Social, recibiéndose en tal caso la prestación del régimen correspondiente y abonando el Seguro Escolar la diferencia en más si la hubiere; no obstante, se declara la compatibilidad con beneficios semejantes contratados en compañías de seguro o empresas particulares",
+            "Que son incompatibles con cualquier otra prestación, incluso de seguros privados",
+            "Que solo son compatibles con prestaciones de MUFACE, ISFAS o MUGEJU"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El epígrafe \"INCOMPATIBILIDADES\" establece que las prestaciones del Seguro Escolar son \"incompatibles con cualesquiera otras de idéntico contenido y derivadas de análogo riesgo\" de otros regímenes de la Seguridad Social, indicando que en tales casos se recibirán las prestaciones del régimen correspondiente y el Seguro Escolar abonará la diferencia en más si la hubiere. A continuación se señala que \"no obstante, se declara la compatibilidad con aquellos beneficios de índole semejante que puedan contratarse en compañías de seguro o empresas particulares\". La respuesta correcta recoge esta regla general de incompatibilidad con prestaciones públicas análogas y la excepción de compatibilidad con seguros privados. Las demás opciones niegan o amplían indebidamente estas reglas.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Funcionarios civiles y militares, Administración de Justicia y Seguro Escolar"
+        }
+      ]
+    }
+  ]
+}

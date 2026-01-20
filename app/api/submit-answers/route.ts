@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       const userId = session.user.id
 
       stage = 'parseBody'
-      const { questionnaireId, answers } = await request.json()
+      const { questionnaireId, answers, timeSpent } = await request.json()
 
       if (!questionnaireId || !answers || !Array.isArray(answers)) {
         return NextResponse.json({ error: 'Datos inválidos', stage }, { status: 400 })
@@ -143,6 +143,19 @@ export async function POST(request: NextRequest) {
 
       const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0
 
+      // Create questionnaire attempt to feed advanced analytics dashboard.
+      stage = 'insertAttempt'
+      let attemptId: string | null = null
+      try {
+        const attemptRes = await pool.query(
+          'insert into "QuestionnaireAttempt" ("userId", "questionnaireId", score, "correctAnswers", "totalQuestions", "timeSpent", "completedAt") values ($1,$2,$3,$4,$5,$6,$7) returning id',
+          [userId, questionnaireId, score, correctAnswers, totalQuestions, timeSpent ?? null, new Date()]
+        )
+        attemptId = String(attemptRes.rows?.[0]?.id ?? '') || null
+      } catch {
+        attemptId = null
+      }
+
       // Persist answers in a DB-compatible way.
       // Some environments use `selectedAnswer` instead of `answer`, and may not have `attemptId`.
       stage = 'detectAnswerColumn'
@@ -160,7 +173,7 @@ export async function POST(request: NextRequest) {
 
         for (const a of normalizedAnswers) {
           const rowValues = [session.user.id, a.questionId, questionnaireId]
-          if (hasAttemptId) rowValues.push(null)
+          if (hasAttemptId) rowValues.push(attemptId)
           rowValues.push(a.answer, a.isCorrect, now)
           values.push(...rowValues)
 
@@ -175,7 +188,15 @@ export async function POST(request: NextRequest) {
       }
 
       stage = 'respond'
-      return NextResponse.json({ success: true, score, correctAnswers, totalQuestions, savedAnswers: normalizedAnswers.length })
+      return NextResponse.json({
+        success: true,
+        score,
+        correctAnswers,
+        totalQuestions,
+        savedAnswers: normalizedAnswers.length,
+        attemptId,
+        timeSpent: timeSpent ?? null
+      })
     } catch (error: any) {
       // Check if it's a retryable error
       if ((error?.code === 'SELF_SIGNED_CERT_IN_CHAIN' || error?.code === 'ENOTFOUND' || error?.code === 'ECONNREFUSED') && retryCount < maxRetries) {

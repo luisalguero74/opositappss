@@ -31,8 +31,9 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
-      return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+    // Permitimos cualquier usuario autenticado (como en otras rutas de estadísticas/analítica)
+    if (!session || !session.user?.id) {
+      return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
     }
 
     const { searchParams } = new URL(req.url)
@@ -73,9 +74,25 @@ export async function GET(req: NextRequest) {
     let totalInvalidas = 0
 
     for (const pregunta of preguntas) {
-      const opciones = typeof pregunta.options === 'string' 
-        ? JSON.parse(pregunta.options) 
-        : pregunta.options
+      let opciones: string[] = []
+
+      try {
+        if (typeof pregunta.options === 'string') {
+          const parsed = JSON.parse(pregunta.options)
+          opciones = Array.isArray(parsed) ? parsed : []
+        } else if (Array.isArray(pregunta.options)) {
+          opciones = pregunta.options
+        } else {
+          opciones = []
+        }
+      } catch (e) {
+        console.error('⚠️ Opciones mal formadas en pregunta para análisis de calidad:', {
+          id: pregunta.id,
+          raw: pregunta.options,
+          error: (e as any)?.message
+        })
+        opciones = []
+      }
 
       const correctAnswerIndex = ['A', 'B', 'C', 'D'].indexOf(pregunta.correctAnswer)
 
@@ -169,8 +186,9 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
-      return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+    // Igual que en GET: solo exigimos usuario autenticado
+    if (!session || !session.user?.id) {
+      return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
     }
 
     const body = await req.json()
@@ -230,9 +248,27 @@ export async function POST(req: NextRequest) {
           }
 
           // Regenerar explicación usando IA
+          let opcionesPregunta: string[] = []
+
+          try {
+            if (typeof pregunta.options === 'string') {
+              const parsed = JSON.parse(pregunta.options)
+              opcionesPregunta = Array.isArray(parsed) ? parsed : []
+            } else if (Array.isArray(pregunta.options)) {
+              opcionesPregunta = pregunta.options
+            }
+          } catch (e) {
+            console.error('⚠️ Opciones mal formadas al regenerar explicación:', {
+              id: pregunta.id,
+              raw: pregunta.options,
+              error: (e as any)?.message
+            })
+            opcionesPregunta = []
+          }
+
           const nuevaExplicacion = await regenerarExplicacion(
             pregunta.text,
-            typeof pregunta.options === 'string' ? JSON.parse(pregunta.options) : pregunta.options,
+            opcionesPregunta,
             ['A', 'B', 'C', 'D'].indexOf(pregunta.correctAnswer),
             pregunta.temaCodigo || 'GENERAL',
             pregunta.temaNumero || 0,

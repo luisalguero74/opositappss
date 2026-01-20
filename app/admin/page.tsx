@@ -86,10 +86,24 @@ export default function Admin() {
               <div className="text-white text-5xl">📄</div>
             </div>
             <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-3">Crear Formulario Temario desde PDF</h2>
-              <p className="text-gray-600 mb-4 text-sm">Carga un PDF con preguntas y genera automáticamente cuestionarios interactivos.</p>
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Formularios HTML Interactivos</h2>
+              <p className="text-gray-600 mb-4 text-sm">Genera formularios HTML completos a partir del banco de preguntas (IA + manual) para usarlos dentro o fuera de la plataforma.</p>
               <Link href="/admin/create-formulario" className="inline-block bg-gradient-to-r from-teal-500 to-emerald-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-teal-600 hover:to-emerald-700 transition text-sm">
-                Subir PDF →
+                Crear Formulario HTML →
+              </Link>
+            </div>
+          </div>
+
+          {/* Importar preguntas desde JSON (uso avanzado) */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-sky-500 to-blue-700 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">📥</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Importar Preguntas</h2>
+              <p className="text-gray-600 mb-4 text-sm">Sube un archivo JSON con preguntas ya preparadas para añadirlas al banco de la plataforma.</p>
+              <Link href="/admin/import-questions" className="inline-block bg-gradient-to-r from-sky-500 to-blue-700 text-white font-semibold px-5 py-2 rounded-lg hover:from-sky-600 hover:to-blue-800 transition text-sm">
+                Ir a Importar →
               </Link>
             </div>
           </div>
@@ -401,6 +415,19 @@ export default function Admin() {
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-purple-600 to-indigo-700 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🧭🤖</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Asistente de Prompts IA</h2>
+              <p className="text-gray-600 mb-4 text-sm">Crea prompts estructurados para generar o revisar preguntas basadas en texto legal oficial sin errores.</p>
+              <Link href="/admin/ai-prompt-helper" className="inline-block bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold px-5 py-2 rounded-lg hover:from-purple-700 hover:to-indigo-800 transition text-sm">
+                Abrir Asistente →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
             <div className="bg-gradient-to-r from-blue-500 to-cyan-600 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">📋✏️</div>
             </div>
@@ -426,6 +453,19 @@ export default function Admin() {
                   </Link>
                 </div>
               )}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-emerald-500 to-teal-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">➕📚</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Crear Pregunta Manualmente</h2>
+              <p className="text-gray-600 mb-4 text-sm">Da de alta una nueva pregunta en el banco oficial sin usar IA ni ficheros JSON.</p>
+              <Link href="/admin/questions-create" className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition text-sm">
+                Ir a Alta Manual →
+              </Link>
             </div>
           </div>
 

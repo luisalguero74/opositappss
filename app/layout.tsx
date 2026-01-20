@@ -31,6 +31,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-3330699408382004"
+        />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3330699408382004"
@@ -44,6 +48,11 @@ export default function RootLayout({
         <footer className="bg-gray-900 text-gray-400 text-center py-4 text-xs border-t border-gray-800">
           <p>© {new Date().getFullYear()} Luis Enrique Algueró Martín. Todos los derechos reservados.</p>
           <p className="mt-1">opositAPPSS - Plataforma de preparación para oposiciones de la Seguridad Social</p>
+          <p className="mt-2 space-x-4">
+            <a href="/aviso-legal" className="hover:text-gray-200 underline-offset-2 hover:underline">Aviso legal</a>
+            <a href="/privacidad" className="hover:text-gray-200 underline-offset-2 hover:underline">Política de privacidad</a>
+            <a href="/cookies" className="hover:text-gray-200 underline-offset-2 hover:underline">Política de cookies</a>
+          </p>
         </footer>
       </body>
     </html>

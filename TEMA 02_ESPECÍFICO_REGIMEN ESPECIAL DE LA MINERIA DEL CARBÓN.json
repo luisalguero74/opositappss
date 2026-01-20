@@ -1,0 +1,479 @@
+{
+  "data": [
+    {
+      "questionnaireId": "tema02-especifico-mineria-carbon-ver1",
+      "questionCount": 30,
+      "temaCodigo": "T02",
+      "temaNumero": 2,
+      "temaParte": "ESPECÍFICO",
+      "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón",
+      "difficulty": "hard",
+      "questions": [
+        {
+          "text": "Según el artículo primero del Decreto 298/1973, ¿cómo se determina el marco normativo aplicable al Régimen Especial de la Seguridad Social para la Minería del Carbón?",
+          "options": [
+            "Por el propio Decreto 298/1973 y, en lo no previsto en él ni en sus normas de aplicación y desarrollo, por las disposiciones del Régimen General, sin perjuicio de las normas de general observancia en el sistema de la Seguridad Social",
+            "Exclusivamente por el Decreto 298/1973, sin aplicación supletoria del Régimen General",
+            "Solo por la Ley de la Seguridad Social de 21 de abril de 1966, que desplaza al Decreto 298/1973",
+            "Por las Ordenanzas Laborales relativas a la minería del carbón, con carácter preferente sobre cualquier otra norma"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El artículo primero del Decreto 298/1973 establece que el Régimen Especial de la Seguridad Social para la Minería del Carbón \"se regirá por el presente Decreto y, en todo lo no previsto en él y en las normas para su aplicación y desarrollo, por las disposiciones del Régimen General, sin perjuicio de lo establecido en las normas de general observancia en el sistema de la Seguridad Social\". La respuesta correcta es la que recoge esta combinación jerárquica. Las otras opciones eliminan la aplicación supletoria del Régimen General, sustituyen el Decreto por la Ley de 1966 o atribuyen primacía a las Ordenanzas Laborales, extremos que el precepto no contempla.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "De acuerdo con el artículo 1 de la Orden de 3 de abril de 1973, ¿qué relación establece esta Orden con el Decreto 298/1973 en la regulación del Régimen Especial de la Minería del Carbón?",
+          "options": [
+            "La Orden deroga íntegramente el Decreto 298/1973 y pasa a regular de forma exclusiva el Régimen Especial",
+            "La Orden desarrolla el Decreto 298/1973 y, junto con él y otras que puedan dictarse, regula el Régimen Especial, aplicándose supletoriamente el Régimen General en lo no previsto",
+            "La Orden se limita a regular únicamente las bases de cotización, sin conexión con el Decreto 298/1973",
+            "La Orden solo se aplica a las prestaciones económicas, quedando el resto en manos del Régimen General"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El artículo 1 de la Orden de 3 de abril de 1973 dispone que, \"de conformidad con lo establecido en el artículo 1.º del Decreto 298/1973\", el Régimen Especial se regirá \"por el expresado Decreto, por la presente Orden y por las demás que puedan dictarse para su aplicación y desarrollo, y en lo no previsto en tales normas, por las disposiciones del Régimen General\". La respuesta correcta refleja esta función de desarrollo y complementariedad. Las demás opciones hablan de derogación, de regulación parcial o de ausencia de relación con el Decreto, contrarias al tenor literal del precepto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el artículo segundo, número uno, del Decreto 298/1973 y el artículo 2.1 de la Orden de 3 de abril de 1973, ¿qué trabajadores están obligatoriamente comprendidos en el campo de aplicación del Régimen Especial de la Minería del Carbón?",
+          "options": [
+            "Todos los trabajadores por cuenta propia que ejerzan actividades extractivas",
+            "Los trabajadores por cuenta ajena que, reuniendo las condiciones del artículo 7 de la Ley de la Seguridad Social de 1966, estén incluidos en las Reglamentaciones de Trabajo u Ordenanzas Laborales relativas a la Minería del Carbón",
+            "Únicamente los trabajadores por cuenta ajena de minas subterráneas, con independencia de las Reglamentaciones de Trabajo",
+            "Solo los cargos directivos de las empresas mineras, con exclusión del resto de trabajadores"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El artículo segundo, uno, del Decreto 298/1973 y el artículo 2.1 de la Orden de 3 de abril de 1973 señalan que estarán comprendidos \"los trabajadores por cuenta ajena que, reuniendo las condiciones señaladas para los mismos en el artículo 7.º de la Ley de la Seguridad Social, de 21 de abril de 1966, estén incluidos en las Reglamentaciones de Trabajo u Ordenanzas Laborales relativas a la Minería del Carbón\". La respuesta correcta recoge estos requisitos acumulativos. Las demás opciones incluyen a trabajadores por cuenta propia, restringen a minas subterráneas sin referencia a Reglamentaciones u omiten el carácter general de los trabajadores por cuenta ajena.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el número dos del artículo segundo del Decreto 298/1973 y el artículo 2.2 de la Orden de 3 de abril de 1973, ¿qué regla se aplica a los cargos directivos de las empresas afectadas?",
+          "options": [
+            "Quedan excluidos en todo caso del campo de aplicación del Régimen Especial",
+            "Quedan comprendidos quienes trabajen por cuenta ajena en cargos directivos de las empresas afectadas, excluidos de la Ley de Contrato de Trabajo, salvo quienes ostenten pura y simplemente cargos de Consejeros",
+            "Solo se incluyen los consejeros de sociedades mineras, cualquiera que sea su vinculación laboral",
+            "Quedan incluidos todos los cargos directivos, con independencia de que estén o no sometidos a la Ley de Contrato de Trabajo"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El artículo 2.2 del Decreto 298/1973 y el artículo 2.2 de la Orden señalan que \"quedarán comprendidos en el campo de aplicación de este Régimen Especial quienes trabajen por cuenta ajena en los cargos directivos de las Empresas [...] excluidos de la Ley de Contrato de Trabajo\" y precisan que \"no estarán comprendidos en esta asimilación quienes ostenten, pura y simplemente, cargos de Consejeros en las Empresas que adopten forma jurídica de sociedad\". La respuesta correcta recoge tanto la inclusión condicionada como la exclusión de los consejeros puros. Las demás opciones generalizan la exclusión o inclusión o incluyen solo a los consejeros, en contra del texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "De acuerdo con la relación de actividades incluida tras el artículo 2 de la Orden de 3 de abril de 1973, ¿cuál de las siguientes se considera actividad incluida en el Régimen Especial de la Minería del Carbón?",
+          "options": [
+            "Explotación de canteras de granito",
+            "Extracción de carbón en minas subterráneas",
+            "Producción eléctrica en centrales térmicas de carbón",
+            "Fabricación de acero en la industria siderometalúrgica"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El texto enumera entre las actividades incluidas: \"Extracción de carbón en minas subterráneas\", \"Explotación de carbón a cielo abierto\", \"Fabricación de aglomerados de carbón mineral\", hornos de producción de cok (con una salvedad), transporte fluvial de carbón, investigación y aprovechamiento de carbones y aguas residuales carbonosas, y actividades complementarias. La respuesta correcta menciona una de las actividades expresamente listadas. Las demás opciones se refieren a sectores (granito, producción eléctrica, siderometalurgia) que el texto no incluye dentro de este Régimen Especial.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "En relación con los hornos de producción de cok, ¿qué precisión introduce el texto sobre su inclusión en el Régimen Especial de la Minería del Carbón?",
+          "options": [
+            "Se incluyen todos los hornos de producción de cok sin excepción",
+            "Se incluyen los hornos de producción de cok, salvo los pertenecientes a la industria siderometalúrgica",
+            "Quedan excluidos todos los hornos de producción de cok",
+            "Solo se incluyen los hornos de producción de cok instalados en minas subterráneas"
+          ],
+          "correctAnswer": "A",
+          "explanation": "En la enumeración de actividades, se citan expresamente los \"Hornos de producción de cok (salvo los pertenecientes a la industria siderometalúrgica)\". La respuesta correcta es la que recoge esa inclusión con la salvedad específica respecto de los hornos pertenecientes a la industria siderometalúrgica. Las demás opciones omiten la salvedad, excluyen por completo los hornos o introducen una condición de ubicación (minas subterráneas) no prevista.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según la relación de actividades del texto, ¿qué trabajadores relacionados con la minería quedan expresamente excluidos del Régimen Especial de la Minería del Carbón?",
+          "options": [
+            "Trabajadores de los demás sectores mineros, incluidos en el Régimen General de la Seguridad Social",
+            "Trabajadores de minas de carbón a cielo abierto",
+            "Trabajadores de hornos de cok no siderometalúrgicos",
+            "Trabajadores dedicados al transporte fluvial de carbón"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Tras enumerar las actividades incluidas, el texto añade como excluidos a los \"Trabajadores de los demás sectores mineros, incluidos en el Régimen General de la Seguridad Social\". La respuesta correcta reproduce esta exclusión expresa. Las demás opciones corresponden a actividades que figuran en el listado de incluidas (explotación a cielo abierto, hornos de cok no siderometalúrgicos, transporte fluvial de carbón).",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el artículo 3 de la Orden de 3 de abril de 1973, ¿qué normas se aplican en materia de inscripción de empresas, afiliación, altas y bajas de trabajadores en este Régimen Especial?",
+          "options": [
+            "Unas normas completamente distintas a las del Régimen General, dictadas solo para la minería del carbón",
+            "Las normas del Régimen General de la Seguridad Social, con las peculiaridades que se establecen en el propio capítulo",
+            "Exclusivamente las normas de las Ordenanzas Laborales para la Minería del Carbón",
+            "Las normas de recaudación del Régimen General, pero no las de afiliación"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El artículo 3 establece que \"en materia de inscripción de Empresas, afiliación y altas y bajas de trabajadores serán de aplicación las normas del Régimen General de la Seguridad Social, con las peculiaridades que se establecen en este capítulo\". La respuesta correcta recoge esta remisión general con matices. Las demás opciones o bien afirman la existencia de una normativa completamente distinta, o reducen las normas aplicables a las Ordenanzas laborales, o limitan la aplicación del Régimen General a la recaudación.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el artículo 4.1 de la Orden de 3 de abril de 1973, además de solicitar las altas y bajas en los mismos términos que el Régimen General, ¿qué obligación adicional tienen los empresarios respecto a partes especiales?",
+          "options": [
+            "Remitir un parte anual único a la Tesorería General sobre toda la plantilla",
+            "Remitir a la Mutualidad Laboral, dentro de los quince días siguientes a la terminación de cada mes natural, por duplicado y según modelo oficial, partes mensuales de determinados hechos",
+            "Comunicar solo las bajas por accidente de trabajo una vez al trimestre",
+            "Comunicar únicamente los cambios salariales, sin referencia a categorías profesionales"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El artículo 4.1 establece que los empresarios, además de cumplir la obligación general de solicitar altas y bajas, deberán remitir a la Mutualidad Laboral \"dentro de los quince días siguientes a la terminación de cada mes natural, por duplicado y según modelo oficial, los partes mensuales\" relativos a ingresos, ceses, cambios de categoría y faltas. La respuesta correcta recoge el envío mensual, el plazo y la forma. Las demás opciones mencionan partes anuales, comunicaciones solo de accidentes o de salarios, que no se ajustan al precepto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Entre los partes mensuales a que se refiere el artículo 4.1 de la Orden de 3 de abril de 1973, ¿qué hechos deben declararse expresamente?",
+          "options": [
+            "Solo las variaciones salariales de los trabajadores",
+            "Los trabajadores que hayan ingresado y cesado en la empresa, así como los que hayan cambiado de categoría o especialidad profesional o que, conservándola, pasen a un puesto diferente",
+            "Únicamente las faltas de asistencia injustificadas",
+            "Solo los cambios en el domicilio social de la empresa"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El artículo 4.1 enumera como contenido de los partes: a) los trabajadores que hayan ingresado y cesado; b) los que hayan cambiado de categoría o especialidad profesional o que las conserven a pesar de pasar a otro puesto; y c) los que hayan faltado al trabajo por determinadas causas. La respuesta correcta recoge esta obligación de informar de ingresos, ceses y cambios de categoría o especialidad. Las demás opciones reducen indebidamente el contenido a salarios, faltas injustificadas o cambios de domicilio social.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el artículo 4.2 de la Orden de 3 de abril de 1973, ¿qué deben hacer las empresas con los partes mensuales cuando en un mes natural no se hayan producido los hechos a que se refieren?",
+          "options": [
+            "No remitir ningún parte en ese mes",
+            "Remitir igualmente los partes, haciendo constar que no se han producido los hechos a que se refieren",
+            "Remitir un escrito libre al margen del modelo oficial",
+            "Comunicar solo a requerimiento expreso de la Mutualidad Laboral"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El artículo 4.2 indica que los partes \"se cursarán aunque durante algún mes natural no se hubieran producido los hechos a que tales partes se refieren, circunstancia que se hará constar en los mismos\". La respuesta correcta refleja la obligación de seguir remitiendo los partes con la mención de la inexistencia de hechos. Las demás opciones eximen del envío, sustituyen el modelo oficial o lo condicionan a requerimiento, contraviniendo el precepto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el artículo 4.4 de la Orden de 3 de abril de 1973, ¿qué tipo de información debe comunicar la Mutualidad Laboral del Carbón a cada trabajador?",
+          "options": [
+            "Solo la cuantía estimada de su futura pensión de jubilación",
+            "Las variaciones de categoría o especialidad profesional que afecten a la base normalizada y al coeficiente reductor de edad, así como las faltas de asistencia al trabajo reflejadas en el parte correspondiente",
+            "Exclusivamente su número de afiliación a la Seguridad Social",
+            "Únicamente las sanciones disciplinarias impuestas por la empresa"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El artículo 4.4 dispone que las Mutualidades Laborales comunicarán al trabajador \"las variaciones que le afecten, por haber cambiado de categoría o de especialidad profesional, en cuanto a la base normalizada de cotización o al coeficiente reductor de edad a efectos de la pensión de jubilación, así como sus faltas de asistencia al trabajo que se hayan reflejado en el parte correspondiente\". La respuesta correcta recoge estos dos bloques de información. Las demás opciones se refieren a datos (pensión futura, número de afiliación, sanciones) que el precepto no menciona.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el artículo 50 del Real Decreto 84/1996, ¿qué datos específicos deben constar en los documentos para solicitar el alta de trabajadores en el Régimen Especial de la Minería del Carbón?",
+          "options": [
+            "Solo el salario mensual y el domicilio del trabajador",
+            "La categoría profesional y el coeficiente reductor de la edad de jubilación aplicable",
+            "Únicamente la fecha de ingreso en la empresa",
+            "El grupo de cotización del Régimen General y la antigüedad en la empresa"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El artículo 50 del Real Decreto 84/1996 establece que los empresarios, en los documentos para solicitar el alta de sus trabajadores en este Régimen Especial, deberán hacer constar \"la categoría profesional y el coeficiente reductor de la edad de jubilación aplicable a ellos\". La respuesta correcta reproduce literalmente estos dos datos obligatorios. Las demás opciones incluyen datos que no se exigen específicamente en este precepto (salario, domicilio, fecha de ingreso o antigüedad).",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "En el mismo artículo 50 del Real Decreto 84/1996, ¿qué obligación adicional se impone a los empresarios respecto de las variaciones de datos de los trabajadores?",
+          "options": [
+            "Comunicar únicamente los cambios de salario anual",
+            "Comunicar a la Tesorería General de la Seguridad Social, en el plazo establecido, las variaciones de la categoría profesional, del coeficiente reductor de edad y los días de faltas al trabajo por determinadas causas",
+            "Comunicar solo las variaciones del coeficiente reductor de edad",
+            "No existe obligación de comunicar variaciones a la Tesorería General"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El artículo 50 añade que los empresarios deberán comunicar a la Tesorería General \"las variaciones de tales datos\" (categoría y coeficiente reductor), \"así como los días en que los trabajadores hayan faltado al trabajo por causas\" no asimiladas a baja médica ni a faltas retribuidas, en el plazo previsto en el Reglamento. La respuesta correcta resume esta triple obligación. Las demás opciones reducen indebidamente el contenido de la comunicación o niegan la obligación de informar a la Tesorería.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el artículo 5.1 de la Orden de 3 de abril de 1973, ¿qué constituyen las bases de cotización para todas las contingencias y situaciones amparadas por la acción protectora de este Régimen Especial?",
+          "options": [
+            "Únicamente el salario base mensual sin complementos",
+            "Las remuneraciones totales, cualquiera que sea su forma o denominación, que tengan derecho a percibir los trabajadores o las que efectivamente perciban, de ser éstas superiores, por razón del trabajo por cuenta ajena",
+            "Solo las pagas extraordinarias de julio y Navidad",
+            "Las remuneraciones fijas, excluyendo cualquier concepto variable"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El artículo 5.1 dispone que las bases de cotización \"estarán constituidas por las remuneraciones totales, cualquiera que sea su forma o denominación que tengan derecho a percibir los trabajadores o las que efectivamente perciban, de ser éstas superiores, por razón del trabajo que realicen por cuenta ajena\". La respuesta correcta reproduce esta definición amplia. Las demás opciones reducen la base al salario base, a las pagas extraordinarias o excluyen remuneraciones variables, en contra del tenor literal.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "¿Cuál de los siguientes conceptos NO se computa en las bases de cotización según la lista del artículo 5.1 de la Orden de 3 de abril de 1973?",
+          "options": [
+            "Las dietas de viaje, gastos de locomoción, plus de distancia y plus de transportes urbanos",
+            "Las retribuciones ordinarias por trabajo efectivo",
+            "Las pagas extraordinarias de 18 de julio y Navidad",
+            "Las horas extraordinarias"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El artículo 5.1 enumera los conceptos no computables, entre ellos \"las dietas de viaje, gastos de locomoción, plus de distancia y plus de transportes urbanos\", así como determinadas indemnizaciones, quebranto de moneda, productos en especie voluntarios, percepciones por matrimonio y prestaciones de la Seguridad Social y sus mejoras. La respuesta correcta recoge uno de los conceptos expresamente excluidos. Las demás opciones (retribuciones ordinarias, pagas extraordinarias u horas extraordinarias) no figuran en el listado de exclusiones y, por tanto, se computan en la base salvo matización posterior.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el número 2 del artículo 5 de la Orden de 3 de abril de 1973, ¿qué efecto tiene cualquier pacto que altere las bases de cotización fijadas en el número anterior?",
+          "options": [
+            "Es válido siempre que beneficie económicamente al trabajador",
+            "Debe ser homologado por la autoridad laboral competente",
+            "Será nulo en todo caso",
+            "Solo será eficaz si se recoge en convenio colectivo"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El artículo 5.2 declara de forma tajante que \"será nulo todo pacto que altere las bases de cotización fijadas en el número anterior del presente artículo\". La respuesta correcta es la que recoge esta nulidad absoluta. Las demás opciones introducen condiciones de validez (beneficio para el trabajador, homologación, convenio) que el precepto no contempla.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según el artículo 6.1 de la Orden de 3 de abril de 1973, ¿qué órgano es competente para normalizar anualmente las bases de cotización (excluidas las de accidente de trabajo y enfermedad profesional) y a propuesta de quién?",
+          "options": [
+            "La Tesorería General de la Seguridad Social, a propuesta de las empresas del sector",
+            "La Dirección General de Personal, Gestión y Financiación, a propuesta de la Mutualidad Laboral del Carbón",
+            "El Ministerio de Trabajo de forma directa, sin propuesta previa",
+            "Las Comunidades Autónomas competentes en materia de minas, sin intervención estatal"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El artículo 6.1 indica que las bases de cotización para contingencias amparadas por la acción protectora, excluidas las de accidente de trabajo y enfermedad profesional, \"serán normalizadas anualmente por la Dirección General de Personal, Gestión y Financiación, a propuesta de la Mutualidad Laboral del Carbón\". La respuesta correcta reproduce literalmente estos dos sujetos. Las demás opciones atribuyen la competencia a otros órganos o eliminan la propuesta de la Mutualidad.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según la regla primera del artículo 6.1 de la Orden de 3 de abril de 1973, ¿cómo se estructura territorialmente la normalización de las bases de cotización?",
+          "options": [
+            "Se efectúa mediante una única base nacional para todas las categorías",
+            "Se realiza por zonas (Asturiana, Noroeste, Sur y Centro-Levante), determinando la base aplicable a cada categoría y especialidad profesional dentro del ámbito territorial de cada zona",
+            "Se realiza exclusivamente por provincias, sin agrupación por zonas",
+            "Se fija una base distinta para cada empresa, sin referencia territorial"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La regla primera del artículo 6.1 señala que la normalización \"se referirá a años naturales y determinará la base de cotización aplicable a cada categoría y especialidad profesional, dentro del ámbito territorial de cada una de las zonas que se expresan a continuación\", y a continuación enumera la Zona Asturiana, la Zona Noroeste, la Zona Sur y la Zona Centro-Levante con las provincias incluidas. La respuesta correcta refleja esta estructura zonal. Las otras opciones hablan de una única base nacional, de desglose solo provincial o de bases por empresa, fórmulas no previstas en el texto.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Según la regla segunda del artículo 6.1 de la Orden de 3 de abril de 1973, ¿sobre qué bases se calcula la media para obtener las bases normalizadas en cada zona, categoría y especialidad profesional?",
+          "options": [
+            "Sobre las bases de cotización por contingencias comunes del año natural anterior",
+            "Sobre las bases de cotización por accidentes de trabajo y enfermedades profesionales del periodo comprendido entre el 1 de octubre y el 30 de septiembre anteriores, sin aplicación del tope máximo de cotización",
+            "Sobre las bases correspondientes al salario mínimo interprofesional de cada año",
+            "Sobre las bases de cotización de los dos últimos años naturales completos"
+          ],
+          "correctAnswer": "D",
+          "explanation": "La regla segunda del artículo 6.1 establece que, para la normalización, \"se totalizarán, agrupándolas por categorías y especialidades profesionales, las bases de cotización por accidente de trabajo y enfermedades profesionales que hubieran correspondido [...] dentro del ámbito de cada una de las Zonas, en el periodo inmediato precedente, comprendido entre el 1 de octubre y el 30 de septiembre\", \"sin aplicación del tope máximo\", y se dividirá por los días correspondientes. La respuesta correcta recoge estos elementos esenciales. Las demás opciones usan bases de contingencias comunes, el salario mínimo o periodos temporales distintos de los fijados.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "En la explicación doctrinal incluida tras el artículo 6, ¿qué se indica que significa \"normalizar\" las bases de cotización para este Régimen Especial en relación con las contingencias comunes?",
+          "options": [
+            "Reducir automáticamente las bases a la base mínima de cotización del régimen general",
+            "Calcular una media de las bases de contingencias profesionales por zonas y por categorías y especialidades profesionales, tomando como referencia las retribuciones de un periodo determinado",
+            "Permitir que cada trabajador elija libremente su base de cotización anual",
+            "Equiparar las bases de cotización de la minería del carbón a las de cualquier otro régimen especial sin ajustes"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Doctrinalmente se explica que \"normalizar\" las bases de cotización en este Régimen Especial supone obtener, para las contingencias comunes, una base media a partir de las bases de contingencias profesionales, agrupadas por zonas territoriales y por categorías y especialidades profesionales, tomando como referencia un periodo previo concreto. La idea clave es la media técnica por zonas y categorías, no la libre elección del trabajador ni la equiparación automática con otros regímenes.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "En el Régimen Especial de la Minería del Carbón, ¿qué relación básica existe entre la base normalizada por contingencias comunes y las remuneraciones reales del trabajador?",
+          "options": [
+            "La base normalizada siempre sustituye a las remuneraciones reales, incluso aunque estas sean superiores",
+            "La base normalizada actúa como referencia para contingencias comunes, pero las remuneraciones reales siguen siendo determinantes para contingencias profesionales",
+            "Las remuneraciones reales solo se tienen en cuenta si son inferiores a la base mínima del Régimen General",
+            "La normativa impone que la base normalizada y las remuneraciones reales coincidan exactamente en todos los casos"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La normalización se diseña pensando en contingencias comunes, mientras que para las contingencias profesionales se siguen utilizando, con carácter general, las bases derivadas de las remuneraciones efectivas. Por eso, la base normalizada no anula la relevancia del salario real, sino que convive con él en función del tipo de contingencia protegida.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Desde la perspectiva de la acción protectora, ¿cuál es la finalidad principal de los coeficientes reductores de la edad de jubilación en la Minería del Carbón?",
+          "options": [
+            "Compensar la dureza y penosidad de los trabajos mineros permitiendo adelantar la edad efectiva de jubilación",
+            "Incrementar la cuantía de todas las prestaciones económicas, con independencia de la edad de acceso",
+            "Reducir el tipo de cotización aplicado a las empresas del sector",
+            "Sustituir el requisito de carencia genérica y específica de cotización para acceder a la pensión"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Los coeficientes reductores se justifican por la singular penosidad, peligrosidad y desgaste físico de la actividad minera, de modo que una misma vida laboral da derecho a una jubilación efectiva más temprana que en el Régimen General. No están pensados como un mecanismo para rebajar cotizaciones empresariales ni para suprimir los requisitos de carencia.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "En términos generales, ¿cómo se materializa el efecto de los coeficientes reductores de edad sobre el acceso a la pensión de jubilación en este Régimen Especial?",
+          "options": [
+            "Disminuyendo la edad ordinaria de jubilación que se exige al trabajador, sin incrementar los años efectivamente cotizados",
+            "Aumentando el porcentaje aplicable a la base reguladora, pero manteniendo intacta la edad ordinaria",
+            "Duplicando el número de años de cotización acreditados respecto del tiempo real trabajado",
+            "Eliminando cualquier límite mínimo de edad para jubilarse"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La técnica de los coeficientes reductores consiste, de forma simplificada, en traducir los años trabajados en minería en una rebaja de la edad ordinaria de acceso a la jubilación, dentro de ciertos límites. No se trata de duplicar ficticiamente la cotización ni de suprimir la edad mínima, sino de permitir que la jubilación llegue antes con base en el mismo historial de cotización.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "En relación con la gestión administrativa del Régimen Especial, ¿qué consecuencia típica puede derivarse para la empresa de no remitir en plazo los partes mensuales exigidos por la Orden de 3 de abril de 1973?",
+          "options": [
+            "La automática nulidad de todas las altas y bajas tramitadas ese mes",
+            "La posible exigencia de responsabilidades por infracción de obligaciones de colaboración con la Seguridad Social",
+            "La extinción inmediata de la empresa en el registro de la Seguridad Social",
+            "Ninguna, porque el envío de partes tiene carácter voluntario"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Los empresarios están sometidos a deberes formales de colaboración con la Administración de la Seguridad Social. La falta de envío o el retraso reiterado en remitir los partes mensuales puede ser calificado como infracción en materia de Seguridad Social, con las consiguientes responsabilidades administrativas, sin que ello implique de por sí la nulidad automática de las altas o la desaparición de la empresa.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "A efectos probatorios, ¿por qué son relevantes para el trabajador los partes mensuales en los que constan cambios de categoría y faltas de asistencia en la Minería del Carbón?",
+          "options": [
+            "Porque sustituyen por completo al informe de vida laboral expedido por la Tesorería General",
+            "Porque pueden servir para acreditar la categoría profesional y el número de días computables a efectos de coeficiente reductor y de bases de cotización",
+            "Porque determinan directamente la cuantía de las prestaciones sanitarias",
+            "Porque permiten al trabajador modificar unilateralmente su base de cotización"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Los partes mensuales reflejan, entre otros extremos, los cambios de categoría o especialidad profesional y determinadas faltas de asistencia. Esa información resulta clave para, en su caso, acreditar la categoría efectivamente desempeñada y los días que deben computarse para aplicar el coeficiente reductor de edad y para fijar correctamente las bases de cotización que influirán en futuras prestaciones.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "En el contexto de este Régimen Especial, ¿cuál de las siguientes afirmaciones describe mejor la posición de la Tesorería General de la Seguridad Social respecto a las altas y variaciones de datos de los trabajadores mineros?",
+          "options": [
+            "Es un mero receptor pasivo de la información, sin capacidad de comprobación ni de exigir rectificaciones",
+            "Puede comprobar los datos comunicados por las empresas y exigir correcciones o actuaciones de oficio cuando detecte inconsistencias relevantes",
+            "Solo interviene en el momento del reconocimiento de la pensión, pero no en la fase de afiliación y cotización",
+            "Su intervención se limita a inscribir a las empresas, sin relación con los trabajadores"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Aunque las empresas son las obligadas a comunicar altas, bajas y variaciones, la Tesorería General conserva facultades de comprobación y depuración de datos. En un régimen con tanta especialidad técnica como el de la Minería del Carbón, esa capacidad de contraste es esencial para que los coeficientes reductores y las bases normalizadas se apliquen con rigor y no queden al arbitrio exclusivo del empresario.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "Desde el punto de vista sistemático, ¿qué rasgo distingue al Régimen Especial de la Minería del Carbón frente al Régimen General en materia de estructura de bases de cotización?",
+          "options": [
+            "La inexistencia total de topes máximos y mínimos de cotización",
+            "La utilización de bases normalizadas por zonas, categorías y especialidades profesionales específicamente diseñadas para esta actividad",
+            "La prohibición absoluta de incluir conceptos variables en la base de cotización",
+            "La fijación de una única base mensual igual para todos los trabajadores, con independencia de su categoría"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Una de las notas características de este Régimen Especial es la existencia de bases normalizadas construidas en función de la zona geográfica y de la categoría o especialidad profesional, a partir de las retribuciones realmente percibidas. Este diseño se aparta del esquema más homogéneo del Régimen General y busca adaptarse a las peculiaridades productivas de la minería del carbón.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        },
+        {
+          "text": "De manera general, ¿qué consecuencia tiene para el trabajador minero que una parte de su vida laboral se haya desarrollado fuera de las actividades incluidas en el Régimen Especial de la Minería del Carbón?",
+          "options": [
+            "Esos periodos carecen por completo de efectos a efectos de jubilación",
+            "Esos periodos se computan para acreditar carencia y porcentaje en la pensión, pero solo el tiempo efectivamente trabajado en actividades mineras puede beneficiarse de los coeficientes reductores específicos",
+            "Esos periodos se transforman automáticamente en tiempo trabajado en minería a efectos de coeficiente reductor",
+            "Impiden en todo caso el acceso a la pensión de jubilación dentro de este Régimen Especial"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Cuando la carrera profesional combina periodos en minería y fuera de ella, toda la cotización válida se tiene en cuenta para acreditar los requisitos generales de acceso a la pensión (carencia y porcentaje). Sin embargo, solo el tiempo integrado en actividades que dan derecho a coeficiente reductor se utiliza para adelantar la edad de jubilación, sin que el tiempo de otros sectores se transforme automáticamente en tiempo minero.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Tema 02 - Régimen especial de la Minería del Carbón"
+        }
+      ]
+    }
+  ]
+}

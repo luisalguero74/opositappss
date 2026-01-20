@@ -1,0 +1,392 @@
+{
+  "totalQuestions": 30,
+  "totalQuestionnaires": 1,
+  "data": [
+    {
+      "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+      "questionCount": 30,
+      "questions": [
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 41 de la Constitución Española, \"Los poderes públicos ...\":",
+          "options": "[\"...mantendrán un régimen público de Seguridad Social para todos los ciudadanos.\",\"...deberán mantener un sistema público de Seguridad Social para todos los ciudadanos.\",\"...deberán mantener un régimen público de Seguridad Social para todos los españoles.\",\"...establecerán un sistema público de Seguridad Social para todos los españoles.\"]",
+          "correctAnswer": "...mantendrán un régimen público de Seguridad Social para todos los ciudadanos.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 41 de la Constitución Española, la asistencia y prestaciones complementarias:",
+          "options": "[\"Serán accesorias.\",\"Serán obligatorias.\",\"Estarán limitadas.\",\"Serán libres.\"]",
+          "correctAnswer": "Serán libres.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 25 de la Constitución Española, el condenado a penas de prisión, en todo caso, tendrá:",
+          "options": "[\"Derecho a un trabajo remunerado y a las prestaciones correspondientes de la Seguridad Social.\",\"Derecho a un trabajo remunerado y a los beneficios correspondientes de la Seguridad Social.\",\"Derecho a un trabajo retribuido y a las prestaciones correspondientes de la Seguridad Social.\",\"Derecho a un trabajo retribuido y a los beneficios correspondientes de la Seguridad Social.\"]",
+          "correctAnswer": "Derecho a un trabajo remunerado y a los beneficios correspondientes de la Seguridad Social.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 41 de la Constitución Española, se garantizará:",
+          "options": "[\"Los servicios y prestaciones económicas suficientes ante situaciones de necesidad, especialmente en caso de desempleo.\",\"La asistencia y prestaciones sociales suficientes ante situaciones de necesidad, especialmente en caso de desempleo.\",\"Los servicios y prestaciones sociales suficientes ante situaciones de necesidad, especialmente en caso de desempleo.\",\"Los servicios y prestaciones suficientes ante situaciones de necesidad, especialmente en caso de desempleo.\"]",
+          "correctAnswer": "La asistencia y prestaciones sociales suficientes ante situaciones de necesidad, especialmente en caso de desempleo.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 42 de la Constitución Española, el Estado velará especialmente por:",
+          "options": "[\"La salvaguardia de los derechos económicos y sociales de los trabajadores españoles en el extranjero y orientará su política hacia su retorno.\",\"La salvaguarda de los derechos económicos y sociales de los emigrantes españoles en el extranjero y orientará su política hacia su retorno.\",\"La salvaguardia de los derechos económicos y sociales de los emigrantes españoles en el extranjero y orientará su política hacia su retorno.\",\"La salvaguardia de los derechos económicos y sociales de los trabajadores en el extranjero y orientará su política hacia su retorno.\"]",
+          "correctAnswer": "La salvaguardia de los derechos económicos y sociales de los trabajadores españoles en el extranjero y orientará su política hacia su retorno.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 49 de la Constitución Española, ¿quién impulsará las políticas que garanticen la plena autonomía personal y la inclusión social de las personas con discapacidad, en entornos universalmente accesibles?",
+          "options": "[\"El Estado.\",\"Los poderes públicos.\",\"El Gobierno.\",\"La Seguridad Social.\"]",
+          "correctAnswer": "Los poderes públicos.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 50 de la Constitución Española:",
+          "options": "[\"Se garantizará, mediante prestaciones adecuadas y periódicamente actualizadas, la suficiencia económica a los ciudadanos durante la tercera edad.\",\"Se garantizará, mediante pensiones adecuadas y anualmente actualizadas, la suficiencia económica durante la tercera edad.\",\"Se garantizará, mediante pensiones adecuadas y periódicamente actualizadas, la suficiencia económica a los ciudadanos durante la tercera edad.\",\"Se garantizará, mediante prestaciones adecuadas y periódicamente actualizadas, la suficiencia económica durante la tercera edad.\"]",
+          "correctAnswer": "Se garantizará, mediante pensiones adecuadas y periódicamente actualizadas, la suficiencia económica a los ciudadanos durante la tercera edad.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "El artículo 41 de la Constitución Española se encuentra comprendido dentro de:",
+          "options": "[\"Título I; Capítulo Tercero: Derechos y libertades; Sección 2.ª De los derechos fundamentales y de las libertades públicas.\",\"Título I; Capítulo Segundo: Derechos y libertades; Sección 2.ª De los derechos y deberes de los ciudadanos.\",\"Título I; Capítulo Segundo: Derechos y libertades; Sección 1.ª De los derechos fundamentales y de las libertades públicas.\",\"Título I; Capítulo Tercero: De los principios rectores de la política social y económica.\"]",
+          "correctAnswer": "Título I; Capítulo Tercero: De los principios rectores de la política social y económica.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Según lo establecido en el artículo 129, ¿mediante qué norma se establecerán las formas de participación de los interesados en la Seguridad Social?",
+          "options": "[\"Mediante Ley.\",\"Mediante Real Decreto.\",\"Mediante Orden Ministerial.\",\"Mediante Resolución.\"]",
+          "correctAnswer": "Mediante Ley.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Según lo establecido en el artículo 148 de la Constitución Española, las Comunidades Autónomas podrán asumir competencias en las siguientes materias:",
+          "options": "[\"Asistencia Social, sanidad e higiene.\",\"Servicios Sociales, sanidad e higiene.\",\"Asistencia Social, sanidad y salud en el trabajo.\",\"Servicios sociales, sanidad y salud en el trabajo.\"]",
+          "correctAnswer": "Asistencia Social, sanidad e higiene.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 149 de la Constitución Española, el Estado tiene competencia exclusiva sobre las siguientes materias:",
+          "options": "[\"Legislación principal y régimen económico de la Seguridad Social, sin perjuicio de la ejecución de sus servicios por las Comunidades Autónomas.\",\"Sanidad exterior. Principios y coordinación general de la sanidad. Legislación sobre productos farmacéuticos.\",\"Legislación laboral; sin perjuicio de su ejecución por los órganos de las Comunidades Autónomas.\",\"Las respuestas a) y b) son correctas.\"]",
+          "correctAnswer": "Legislación laboral; sin perjuicio de su ejecución por los órganos de las Comunidades Autónomas.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Según establece el artículo 109 del texto refundido de la Ley General de la Seguridad Social, señale, de las siguientes prestaciones, cuál tiene naturaleza contributiva:",
+          "options": "[\"El subsidio por nacimiento y cuidado de menor.\",\"Las prestaciones derivadas de enfermedad profesional.\",\"El complemento por mínimos de las pensiones de Seguridad Social.\",\"Las prestaciones familiares reguladas en el capítulo I del Título VI.\"]",
+          "correctAnswer": "Las prestaciones derivadas de enfermedad profesional.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Según recoge el artículo 238 del texto refundido de la Ley General de la Seguridad Social, las mejoras voluntarias de la acción protectora del Régimen General podrán efectuarse a través de:",
+          "options": "[\"Mejora directa de las pensiones.\",\"Establecimiento de tipos de cotización adicionales.\",\"No se contemplan mejoras voluntarias de la acción protectora del Régimen General.\",\"La a) y la b) son correctas.\"]",
+          "correctAnswer": "Establecimiento de tipos de cotización adicionales.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "¿Cuántos artículos contiene el Real Decreto Legislativo 8/2015, de 30 de octubre, por el que se aprueba el texto refundido de la Ley General de la Seguridad Social?",
+          "options": "[\"373\",\"353\",\"363\",\"1\"]",
+          "correctAnswer": "1",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "¿En qué fecha entró en vigor el Real Decreto Legislativo 8/2015, de 30 de octubre, por el que se aprueba el texto refundido de la Ley General de la Seguridad Social?",
+          "options": "[\"El 1 de enero de 2016. No obstante, su disposición final única estableció que el complemento de maternidad regulado en el artículo 60 comenzaba a aplicarse a partir del 2 de enero de 2016 y el factor de sostenibilidad regulado en el artículo 211 comenzaría a aplicarse a las pensiones causadas a partir del 1 de enero de 2019.\",\"El 31 de octubre de 2015. No obstante, su disposición final única estableció que el complemento de maternidad regulado en el artículo 60 comenzaba a aplicarse a partir del 1 de enero de 2016 y el factor de sostenibilidad regulado en el artículo 211 comenzaría a aplicarse a las pensiones causadas a partir del 1 de enero de 2019.\",\"El 2 de enero de 2016. No obstante, su disposición final única estableció que el complemento de maternidad regulado en el artículo 60 comenzaba a aplicarse a partir del 1 de enero de 2016 y el factor de sostenibilidad regulado en el artículo 211 comenzaría a aplicarse a las pensiones causadas a partir del 1 de enero de 2019.\",\"El 31 de octubre de 2015. No obstante, su disposición final única estableció que el complemento de maternidad regulado en el artículo 60 comenzaba a aplicarse a partir del 2 de enero de 2016 y el factor de sostenibilidad regulado en el artículo 211 comenzaría a aplicarse a las pensiones causadas a partir del 1 de enero de 2019.\"]",
+          "correctAnswer": "El 2 de enero de 2016. No obstante, su disposición final única estableció que el complemento de maternidad regulado en el artículo 60 comenzaba a aplicarse a partir del 1 de enero de 2016 y el factor de sostenibilidad regulado en el artículo 211 comenzaría a aplicarse a las pensiones causadas a partir del 1 de enero de 2019.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Señale, de las siguientes respuestas, cuál se ajusta fielmente a lo establecido en el artículo 1 del texto refundido de la Ley General de la Seguridad Social.",
+          "options": "[\"El derecho de los ciudadanos a la Seguridad Social, establecido en el artículo 41 de la Constitución, se ajustará a lo dispuesto en la presente ley.\",\"El derecho de los españoles a la Seguridad Social, establecido en el artículo 41 de la Constitución, se ajustará a lo dispuesto en la presente ley.\",\"El derecho a la Seguridad Social, establecido en el artículo 41 de la Constitución, se ajustará a lo dispuesto en la presente ley.\",\"El derecho al sistema de la Seguridad Social, establecido en el artículo 41 de la Constitución, se ajustará a lo dispuesto en la presente ley.\"]",
+          "correctAnswer": "El derecho de los españoles a la Seguridad Social, establecido en el artículo 41 de la Constitución, se ajustará a lo dispuesto en la presente ley.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 2 del texto refundido de la Ley General de la Seguridad Social, el sistema de la Seguridad Social, configurado por la acción protectora en sus modalidades contributiva y no contributiva, se fundamenta en los principios de:",
+          "options": "[\"Universalidad, pluralidad, solidaridad e igualdad.\",\"Universalidad, unidad, solidaridad e igualdad.\",\"Universalidad, pluralidad, libertad e igualdad.\",\"Universalidad, unidad, libertad e igualdad.\"]",
+          "correctAnswer": "Universalidad, unidad, solidaridad e igualdad.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con lo establecido en el artículo 2 del texto refundido de la Ley General de la Seguridad Social, ¿a quiénes garantiza la Seguridad Social, por cumplir los requisitos exigidos en las modalidades contributiva y no contributiva, la protección adecuada frente a las contingencias y situaciones contempladas en la ley?",
+          "options": "[\"A las personas comprendidas en su campo de aplicación, así como a sus familiares o asimilados que tuvieran a su cargo.\",\"A las personas comprendidas en su campo de aplicación, así como a los familiares que tuvieran a su cargo.\",\"A las personas comprendidas dentro del sistema, así como a sus familiares o asimilados que tuvieran a su cargo.\",\"A las personas comprendidas dentro del sistema, así como a los familiares que tuvieran a su cargo.\"]",
+          "correctAnswer": "A las personas comprendidas en su campo de aplicación, así como a sus familiares o asimilados que tuvieran a su cargo.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Señala la respuesta correcta en relación con la irrenunciabilidad de derechos de la Seguridad Social, establecida en el artículo 3 del texto refundido de la Ley General de la Seguridad Social.",
+          "options": "[\"Será anulable todo pacto, individual o colectivo, por el cual el trabajador renuncie a los derechos que le confiere la presente ley.\",\"Será nulo todo pacto, individual o colectivo, por el cual el trabajador renuncie a los derechos que le confiere la presente ley.\",\"Será nulo todo pacto individual, por el cual el trabajador renuncie a los derechos que le confiere la presente ley.\",\"Será nulo todo pacto colectivo, por el cual los trabajadores renuncien a los derechos que le confiere la presente ley.\"]",
+          "correctAnswer": "Será nulo todo pacto, individual o colectivo, por el cual el trabajador renuncie a los derechos que le confiere la presente ley.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "En relación con el artículo 4 del texto refundido de la Ley General de la Seguridad Social:",
+          "options": "[\"Corresponde al Estado la ordenación e inspección de la Seguridad Social.\",\"Corresponde al Estado la ordenación, recaudación e inspección de la Seguridad Social.\",\"Corresponde al Estado la ordenación, el control y la inspección de la Seguridad Social.\",\"Corresponde al Estado la ordenación, jurisdicción e inspección de la Seguridad Social.\"]",
+          "correctAnswer": "Corresponde al Estado la ordenación, jurisdicción e inspección de la Seguridad Social.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con el artículo 5 del texto refundido de la Ley General de la Seguridad Social, señale cuál de las siguientes facultades del Ministerio de Inclusión, Seguridad Social y Migraciones en relación con las materias reguladas en dicha Ley es incorrecta:",
+          "options": "[\"Proponer al Gobierno los reglamentos generales para su aplicación.\",\"El ejercicio de la potestad reglamentaria no comprendida en la letra a).\",\"Establecer los supuestos y condiciones en que los sujetos responsables en el ámbito de la Seguridad Social quedan obligados a recibir las notificaciones por medios electrónicos\" ,\"La dirección y tutela de las entidades gestoras y servicios comunes de la Seguridad Social, salvo de las entidades que colaboren en la gestión de la misma.\"]",
+          "correctAnswer": "La dirección y tutela de las entidades gestoras y servicios comunes de la Seguridad Social, salvo de las entidades que colaboren en la gestión de la misma.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "¿Cuántos títulos tiene el texto refundido de la Ley General de la Seguridad Social?",
+          "options": "[\"Seis\",\"Siete\",\"Cinco\",\"Cuatro\"]",
+          "correctAnswer": "Seis",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Señale, de los siguientes Títulos del texto refundido de la Ley General de la Seguridad Social, en cuál se regula el Régimen General de la Seguridad Social.",
+          "options": "[\"Título I\",\"Título II\",\"Título III\",\"Título IV\"]",
+          "correctAnswer": "Título II",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Señale, de los siguientes Títulos del texto refundido de la Ley General de la Seguridad Social, en cuál se regula el Régimen Especial de los Trabajadores por Cuenta Propia o Autónomos.",
+          "options": "[\"Título II\",\"Título III\",\"Título IV\",\"Título V\"]",
+          "correctAnswer": "Título IV",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Señale, de los siguientes títulos del texto refundido de la Ley General de la Seguridad Social, en cuál se regulan las prestaciones no contributivas.",
+          "options": "[\"Título III\",\"Título IV\",\"Título V\",\"Título VI\"]",
+          "correctAnswer": "Título VI",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "¿En qué título del texto refundido de la Ley General de la Seguridad Social se regula la protección por cese de actividad?",
+          "options": "[\"Título IV\",\"Título VI\",\"Título III\",\"Título V\"]",
+          "correctAnswer": "Título V",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Señale, de los siguientes capítulos del texto refundido de la Ley General de la Seguridad Social, cuál no se encuentra incluido dentro del Título II.",
+          "options": "[\"Inscripción de empresas y normas sobre afiliación, cotización y recaudación.\",\"Incapacidad temporal.\",\"Sistemas Especiales para Empleados de Hogar y para Trabajadores por Cuenta Ajena Agrarios.\",\"Colaboración en la gestión de la Seguridad Social.\"]",
+          "correctAnswer": "Colaboración en la gestión de la Seguridad Social.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Señale, de los siguientes capítulos del texto refundido de la Ley General de la Seguridad Social, cuál no se encuentra incluido dentro del Título IV.",
+          "options": "[\"Campo de aplicación.\",\"Afiliación, cotización y recaudación.\",\"Situación legal de cese de actividad en supuestos especiales.\",\"Sistema Especial para Trabajadores por Cuenta Propia Agrarios.\"]",
+          "correctAnswer": "Situación legal de cese de actividad en supuestos especiales.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Señale, de los siguientes capítulos del texto refundido de la Ley General de la Seguridad Social, cuál no se encuentra incluido dentro del título que regula las prestaciones no contributivas.",
+          "options": "[\"Prestaciones familiares en su modalidad no contributiva.\",\"Pensiones no contributivas.\",\"Ingreso Mínimo Vital.\",\"Disposiciones comunes a las prestaciones no contributivas.\"]",
+          "correctAnswer": "Ingreso Mínimo Vital.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        },
+
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Según la estructura del texto refundido de la Ley General de la Seguridad Social, la protección por desempleo se encuentra regulada en:",
+          "options": "[\"Un capítulo del Título II.\",\"Una sección del Título II.\",\"Una subsección del Título IV.\",\"Un título completo.\"]",
+          "correctAnswer": "Un título completo.",
+          "explanation": "",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 01 - Seguridad Social (Constitución y LGSS)",
+          "difficulty": "media"
+        }
+      ]
+    }
+  ]
+}

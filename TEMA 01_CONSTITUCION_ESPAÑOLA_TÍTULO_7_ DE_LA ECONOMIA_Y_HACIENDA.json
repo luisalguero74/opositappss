@@ -1,0 +1,180 @@
+{
+  "totalQuestions": 15,
+  "totalQuestionnaires": 1,
+  "data": [
+    {
+      "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+      "questionCount": 15,
+      "questions": [
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "Según el fragmento del artículo relativo al Tribunal de Cuentas, ¿con qué periodicidad debe remitir informe a las Cortes Generales?",
+          "options": "[\"Cada seis meses\",\"Anualmente\",\"Cada cuatro años coincidiendo con el mandato de las Cortes Generales\",\"Solo cuando las Cortes lo soliciten expresamente\"]",
+          "correctAnswer": "Anualmente",
+          "explanation": "El precepto establece que el Tribunal de Cuentas remitirá a las Cortes Generales un informe anual. No se habla de informes semestrales, cuatrienales ni condicionados a petición expresa de las Cortes.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "En el informe anual del Tribunal de Cuentas a las Cortes Generales, ¿qué tipo de contenido adicional puede incluirse \"cuando proceda\"?",
+          "options": "[\"Propuestas de reforma constitucional vinculantes para las Cortes Generales\",\"Informes reservados dirigidos exclusivamente al Gobierno, sin conocimiento de las Cortes Generales\",\"La comunicación de las infracciones o responsabilidades en que, a su juicio, se hubiere incurrido\",\"Únicamente recomendaciones de mejora de la gestión económica sin referencia a responsabilidades\"]",
+          "correctAnswer": "La comunicación de las infracciones o responsabilidades en que, a su juicio, se hubiere incurrido",
+          "explanation": "El texto indica que el Tribunal de Cuentas comunicará en su informe anual las infracciones o responsabilidades en que, a su juicio, se hubiere incurrido, cuando proceda. No se habla de propuestas de reforma constitucional ni de informes reservados solo para el Gobierno.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "La expresión \"sin perjuicio de su propia jurisdicción\" aplicada al Tribunal de Cuentas en relación con el informe anual implica que:",
+          "options": "[\"El Tribunal de Cuentas carece de cualquier función jurisdiccional y solo puede informar a las Cortes Generales\",\"La emisión del informe anual supone la suspensión automática de los procedimientos de su jurisdicción propia\",\"Las decisiones del Tribunal de Cuentas necesitan siempre la ratificación de las Cortes Generales para producir efectos\",\"La remisión del informe a las Cortes Generales no limita ni sustituye las funciones jurisdiccionales propias del Tribunal de Cuentas\"]",
+          "correctAnswer": "La remisión del informe a las Cortes Generales no limita ni sustituye las funciones jurisdiccionales propias del Tribunal de Cuentas",
+          "explanation": "La cláusula \"sin perjuicio de su propia jurisdicción\" preserva las competencias jurisdiccionales del Tribunal de Cuentas frente a la función de remitir informes a las Cortes Generales. No significa que carezca de jurisdicción ni que sus decisiones dependan de una ratificación parlamentaria.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "¿Ante qué órgano constitucional se presenta el informe anual del Tribunal de Cuentas?",
+          "options": "[\"Ante el Tribunal Constitucional\",\"Ante el Gobierno\",\"Ante el Consejo General del Poder Judicial\",\"Ante las Cortes Generales\"]",
+          "correctAnswer": "Ante las Cortes Generales",
+          "explanation": "El fragmento señala expresamente que el Tribunal de Cuentas remitirá un informe anual a las Cortes Generales, sin mencionar al Gobierno, al Tribunal Constitucional ni al Consejo General del Poder Judicial como destinatarios de ese informe.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "En relación con el informe anual del Tribunal de Cuentas, ¿qué matiz introduce la expresión \"a su juicio\" respecto a las infracciones o responsabilidades que se comuniquen?",
+          "options": "[\"Que cualquier ciudadano puede obligar al Tribunal de Cuentas a calificar como infracción aquello que considere irregular\",\"Que las infracciones o responsabilidades solo pueden ser apreciadas por las Cortes Generales y no por el Tribunal de Cuentas\",\"Que la apreciación de infracciones o responsabilidades responde a la valoración propia del Tribunal de Cuentas en el ejercicio de sus funciones de control\",\"Que las infracciones se determinan exclusivamente por el Tribunal Constitucional, sin intervención del Tribunal de Cuentas\"]",
+          "correctAnswer": "Que la apreciación de infracciones o responsabilidades responde a la valoración propia del Tribunal de Cuentas en el ejercicio de sus funciones de control",
+          "explanation": "El precepto alude a las infracciones o responsabilidades en que, a su juicio, se hubiere incurrido, lo que remite a la valoración técnica y jurídica que realiza el propio Tribunal de Cuentas en su función de control, sin atribuir tal apreciación a otros órganos en ese momento.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "¿Qué estatuto personal reconoce la Constitución a los miembros del Tribunal de Cuentas en cuanto a independencia e inamovilidad?",
+          "options": "[\"Su estatuto se equipara al de los Diputados y Senadores, sin mención a independencia o inamovilidad\",\"Gozarán de una independencia meramente funcional, pero podrán ser libremente removidos por el Gobierno\",\"Solo se les garantiza independencia, pero no inamovilidad\",\"Gozarán de la misma independencia e inamovilidad que los Jueces\"]",
+          "correctAnswer": "Gozarán de la misma independencia e inamovilidad que los Jueces",
+          "explanation": "El fragmento indica de forma literal que los miembros del Tribunal de Cuentas gozarán de la misma independencia e inamovilidad que los Jueces, equiparando su estatuto en estos aspectos al de la carrera judicial.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "Además de la independencia e inamovilidad, ¿a qué otro aspecto del estatuto de los Jueces se someten los miembros del Tribunal de Cuentas según la Constitución?",
+          "options": "[\"A los mismos requisitos de ingreso que los Jueces\",\"A las mismas retribuciones que los Jueces\",\"A las mismas incompatibilidades que los Jueces\",\"Al mismo sistema de elección que los miembros del Consejo General del Poder Judicial\"]",
+          "correctAnswer": "A las mismas incompatibilidades que los Jueces",
+          "explanation": "El precepto señala que los miembros del Tribunal de Cuentas estarán sometidos a las mismas incompatibilidades que los Jueces, sin mencionar equiparaciones en materia de retribuciones, requisitos de ingreso o sistema de elección.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "Desde la perspectiva de la garantía de independencia, la equiparación de los miembros del Tribunal de Cuentas a los Jueces en independencia, inamovilidad e incompatibilidades implica que:",
+          "options": "[\"Quedan sometidos jerárquicamente al Gobierno, que puede darles instrucciones en materia de fiscalización\",\"Pueden ejercer libremente actividades políticas de partido sin restricciones, al no ser jueces propiamente dichos\",\"Su nombramiento y cese dependen exclusivamente de las organizaciones empresariales y sindicales\",\"Se pretende blindar su actuación frente a presiones externas, especialmente políticas, en términos similares a la jurisdicción ordinaria\"]",
+          "correctAnswer": "Se pretende blindar su actuación frente a presiones externas, especialmente políticas, en términos similares a la jurisdicción ordinaria",
+          "explanation": "Al reconocer a los miembros del Tribunal de Cuentas la misma independencia, inamovilidad e incompatibilidades que a los Jueces, la Constitución busca asegurar que su función de control se ejerza con autonomía frente a otros poderes, siguiendo el modelo de garantías propio del Poder Judicial.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "¿Qué tipo de norma reserva la Constitución para regular la composición, organización y funciones del Tribunal de Cuentas?",
+          "options": "[\"Una ley orgánica\",\"Una ley de presupuestos\",\"Una ley ordinaria\",\"Un reglamento aprobado por el Gobierno\"]",
+          "correctAnswer": "Una ley orgánica",
+          "explanation": "El fragmento constitucional establece que una ley orgánica regulará la composición, organización y funciones del Tribunal de Cuentas, lo que supone una reserva de ley orgánica para esta materia.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "La reserva de ley orgánica para el Tribunal de Cuentas se extiende, según la Constitución, a:",
+          "options": "[\"Su composición, organización y funciones\",\"Solo a la regulación de su jurisdicción contable\",\"Exclusivamente a su régimen presupuestario\",\"Únicamente a la designación de su Presidente\"]",
+          "correctAnswer": "Su composición, organización y funciones",
+          "explanation": "La norma constitucional indica que una ley orgánica regulará la composición, organización y funciones del Tribunal de Cuentas, abarcando expresamente estos tres aspectos, sin limitarse a elementos parciales como el presupuesto o la designación de su Presidente.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "Desde la óptica del reparto de funciones entre Constitución y ley, ¿qué implica que sea una ley orgánica la que ordene la composición, organización y funciones del Tribunal de Cuentas?",
+          "options": "[\"Que la regulación puede hacerse mediante decreto-ley del Gobierno\",\"Que el contenido de esa ley no está sometido a control de constitucionalidad\",\"Que el legislador debe aprobar esa regulación por mayoría absoluta en una votación final sobre el conjunto del proyecto en el Congreso, dada la naturaleza orgánica de la ley\",\"Que basta con una mayoría simple en cualquier Cámara, al ser una ley ordinaria\"]",
+          "correctAnswer": "Que el legislador debe aprobar esa regulación por mayoría absoluta en una votación final sobre el conjunto del proyecto en el Congreso, dada la naturaleza orgánica de la ley",
+          "explanation": "Al exigir una ley orgánica, la Constitución impone un procedimiento y una mayoría cualificada específicos para su aprobación, que la diferencian de la ley ordinaria. No habilita al Gobierno para regularlo por decreto-ley ni excluye el control de constitucionalidad.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "Si se quisiera modificar por ley ordinaria una materia relativa a la organización interna del Tribunal de Cuentas, ¿qué problema constitucional se plantea a la luz del fragmento analizado?",
+          "options": "[\"Que el Tribunal de Cuentas está excluido de cualquier reserva de ley y puede regularse por reglamento del Gobierno\",\"Que se vulneraría la reserva de ley orgánica prevista para la composición, organización y funciones del Tribunal de Cuentas\",\"Que la Constitución obliga a regular todo lo relativo al Tribunal de Cuentas exclusivamente mediante reglamento parlamentario\",\"Que la organización del Tribunal de Cuentas carece de cobertura constitucional y es materia libre del legislador ordinario\"]",
+          "correctAnswer": "Que se vulneraría la reserva de ley orgánica prevista para la composición, organización y funciones del Tribunal de Cuentas",
+          "explanation": "Al haberse establecido constitucionalmente que una ley orgánica regulará la composición, organización y funciones del Tribunal de Cuentas, el uso de una ley ordinaria para alterar aspectos sustantivos de su organización podría entrar en conflicto con dicha reserva, siendo susceptible de control de constitucionalidad.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "Relacionando el deber de remitir informe anual con el estatuto de independencia de sus miembros, puede afirmarse que el Tribunal de Cuentas:",
+          "options": "[\"Depende jerárquicamente de las Cortes Generales para todas sus decisiones\",\"Pierde su independencia cada vez que remite un informe a las Cortes Generales\",\"Solo está obligado a informar al Gobierno, sin intervención de las Cortes Generales\",\"Combina una función de rendición de cuentas ante las Cortes Generales con un estatuto personal reforzado que busca garantizar la objetividad de sus apreciaciones\"]",
+          "correctAnswer": "Combina una función de rendición de cuentas ante las Cortes Generales con un estatuto personal reforzado que busca garantizar la objetividad de sus apreciaciones",
+          "explanation": "El Tribunal de Cuentas debe remitir anualmente un informe a las Cortes Generales, comunicando cuando proceda infracciones o responsabilidades, y sus miembros gozan de independencia, inamovilidad e incompatibilidades equiparables a las de los Jueces. Ambos elementos configuran un órgano de control sometido al Parlamento pero con fuerte garantía de autonomía técnica y jurídica.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-constitucion-titulo-vii-economia-hacienda",
+          "text": "Desde el punto de vista del control parlamentario, ¿qué relevancia tiene que el Tribunal de Cuentas comunique en su informe anual las \"infracciones o responsabilidades\" detectadas?",
+          "options": "[\"Supone que las Cortes Generales quedan automáticamente obligadas a imponer sanciones sin más trámite\",\"Facilita a las Cortes Generales información cualificada sobre posibles irregularidades o responsabilidades derivadas de la gestión económico-financiera, reforzando su función de control\",\"Carece de consecuencias prácticas, al tratarse de una mera cortesía institucional sin contenido material\",\"Implica que el Tribunal de Cuentas ejerce por sí mismo la potestad sancionadora parlamentaria\"]",
+          "correctAnswer": "Facilita a las Cortes Generales información cualificada sobre posibles irregularidades o responsabilidades derivadas de la gestión económico-financiera, reforzando su función de control",
+          "explanation": "La comunicación de infracciones o responsabilidades \"cuando proceda\" en el informe anual dota a las Cortes Generales de elementos objetivos para ejercer su función de control político sobre la gestión económico-financiera, sin que ello signifique que el Tribunal de Cuentas asuma competencias sancionadoras parlamentarias.",
+          "temaCodigo": "T01-TVII",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Constitución Española. Título VII: Economía y Hacienda (Tribunal de Cuentas)",
+          "difficulty": "alta"
+        }
+      ]
+    }
+  ]
+}

@@ -18,6 +18,7 @@ interface Questionnaire {
   title: string
   type: string
   published: boolean
+  archived?: boolean
   questions: Question[]
   createdAt: string
 }
@@ -29,6 +30,8 @@ export default function PreviewForms() {
   const [loading, setLoading] = useState(true)
   const [selectedQuiz, setSelectedQuiz] = useState<Questionnaire | null>(null)
   const [publishing, setPublishing] = useState<string | null>(null)
+  const [selectedIds, setSelectedIds] = useState<string[]>([])
+  const [bulkLoading, setBulkLoading] = useState(false)
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null)
   const [editForm, setEditForm] = useState({
     text: '',
@@ -54,6 +57,8 @@ export default function PreviewForms() {
       if (res.ok) {
         const data = await res.json()
         setQuestionnaires(data)
+        // limpiar selección si algunos ya no están
+        setSelectedIds(prev => prev.filter(id => data.some((q: Questionnaire) => q.id === id)))
       }
     } catch (error) {
       console.error('Error loading questionnaires:', error)
@@ -103,6 +108,85 @@ export default function PreviewForms() {
     }
   }
 
+  const handleRename = async (quiz: Questionnaire) => {
+    const current = (quiz.title || '').trim()
+    const nextTitle = prompt('Nuevo nombre del formulario/cuestionario:', current)
+    if (!nextTitle) return
+    const trimmed = nextTitle.trim()
+    if (!trimmed || trimmed === current) return
+
+    try {
+      const res = await fetch(`/api/admin/questionnaires/${quiz.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: trimmed })
+      })
+
+      if (!res.ok) {
+        alert('Error al renombrar el formulario')
+        return
+      }
+
+      await loadQuestionnaires()
+      const updated = questionnaires.find((q) => q.id === quiz.id)
+      if (updated) {
+        setSelectedQuiz(updated)
+      }
+    } catch (error) {
+      console.error('Error renaming questionnaire:', error)
+      alert('Error de conexión al renombrar el formulario')
+    }
+  }
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    )
+  }
+
+  const handleSelectAll = () => {
+    if (selectedIds.length === questionnaires.length) {
+      setSelectedIds([])
+    } else {
+      setSelectedIds(questionnaires.map(q => q.id))
+    }
+  }
+
+  const handleBulkAction = async (action: 'publish' | 'unpublish' | 'archive') => {
+    if (selectedIds.length === 0 || bulkLoading) return
+
+    if (action === 'archive') {
+      const ok = confirm('¿Seguro que quieres archivar los cuestionarios seleccionados? No se eliminarán, solo se ocultarán de la lista.')
+      if (!ok) return
+    }
+
+    setBulkLoading(true)
+    try {
+      const res = await fetch('/api/admin/questionnaires/bulk-actions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: selectedIds, action })
+      })
+
+      if (res.ok) {
+        await loadQuestionnaires()
+        // si el seleccionado actual fue archivado, limpiarlo
+        if (action === 'archive' && selectedQuiz && selectedIds.includes(selectedQuiz.id)) {
+          setSelectedQuiz(null)
+        }
+        setSelectedIds([])
+      } else {
+        console.error('Error en acción masiva:', await res.text())
+        alert('Error al aplicar la acción masiva')
+      }
+    } catch (error) {
+      console.error('Error en acción masiva:', error)
+      alert('Error de conexión en acción masiva')
+    } finally {
+      setBulkLoading(false)
+    }
+  }
+
   const handleEditQuestion = (question: Question) => {
     setEditingQuestion(question)
     setEditForm({
@@ -147,6 +231,25 @@ export default function PreviewForms() {
     }
   }
 
+  // Cálculo seguro del índice de la opción correcta a partir de texto o letra A/B/C/D
+  const getCurrentCorrectIndex = () => {
+    // Intentar casar por texto completo
+    const byText = editForm.options.findIndex(
+      (opt) => opt.trim() === String(editForm.correctAnswer || '').trim()
+    )
+    if (byText >= 0) return byText
+
+    // Si está guardado como letra (A, B, C o D), mapear a índice 0-3
+    const raw = String(editForm.correctAnswer || '').trim().toUpperCase()
+    if (['A', 'B', 'C', 'D'].includes(raw)) {
+      const idx = raw.charCodeAt(0) - 65
+      if (idx >= 0 && idx < editForm.options.length) return idx
+    }
+
+    // Fallback seguro
+    return 0
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -175,43 +278,104 @@ export default function PreviewForms() {
           {/* Lista de cuestionarios */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">Cuestionarios ({questionnaires.length})</h2>
+              <div className="flex items-center justify-between mb-4 gap-3">
+                <h2 className="text-xl font-bold text-gray-800">Cuestionarios ({questionnaires.length})</h2>
+                {questionnaires.length > 0 && (
+                  <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      className="rounded border-gray-300"
+                      onChange={handleSelectAll}
+                      checked={questionnaires.length > 0 && selectedIds.length === questionnaires.length}
+                    />
+                    <span>Seleccionar todos</span>
+                  </label>
+                )}
+              </div>
+
+              {/* Barra de acciones masivas */}
+              {selectedIds.length > 0 && (
+                <div className="mb-4 p-3 rounded-lg bg-blue-50 border border-blue-200 flex flex-col gap-2">
+                  <div className="text-sm text-gray-700 font-semibold">
+                    Seleccionados: {selectedIds.length}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() => handleBulkAction('publish')}
+                      disabled={bulkLoading}
+                      className="px-3 py-1.5 bg-green-600 text-white text-xs font-semibold rounded-lg hover:bg-green-700 disabled:opacity-50"
+                    >
+                      {bulkLoading ? 'Aplicando...' : 'Publicar seleccionados'}
+                    </button>
+                    <button
+                      onClick={() => handleBulkAction('unpublish')}
+                      disabled={bulkLoading}
+                      className="px-3 py-1.5 bg-yellow-500 text-white text-xs font-semibold rounded-lg hover:bg-yellow-600 disabled:opacity-50"
+                    >
+                      {bulkLoading ? 'Aplicando...' : 'Despublicar seleccionados'}
+                    </button>
+                    <button
+                      onClick={() => handleBulkAction('archive')}
+                      disabled={bulkLoading}
+                      className="px-3 py-1.5 bg-gray-700 text-white text-xs font-semibold rounded-lg hover:bg-gray-800 disabled:opacity-50"
+                    >
+                      {bulkLoading ? 'Aplicando...' : 'Archivar seleccionados'}
+                    </button>
+                  </div>
+                </div>
+              )}
               
               <div className="space-y-3">
-                {questionnaires.map((quiz) => (
-                  <div
-                    key={quiz.id}
-                    className={`p-4 rounded-lg border-2 cursor-pointer transition ${
-                      selectedQuiz?.id === quiz.id
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-blue-300'
-                    }`}
-                    onClick={() => setSelectedQuiz(quiz)}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-800">{quiz.title}</h3>
-                        <p className="text-sm text-gray-600 mt-1">
-                          {quiz.type === 'theory' ? '📘 Teoría' : '📗 Práctico'} · {quiz.questions.length} preguntas
-                        </p>
-                        <p className="text-xs text-gray-500 mt-1">
-                          {new Date(quiz.createdAt).toLocaleDateString('es-ES')}
-                        </p>
-                      </div>
-                      <div>
-                        {quiz.published ? (
-                          <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">
-                            Publicado
-                          </span>
-                        ) : (
-                          <span className="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded">
-                            Borrador
-                          </span>
-                        )}
+                {questionnaires.map((quiz) => {
+                  const isSelected = selectedIds.includes(quiz.id)
+
+                  return (
+                    <div
+                      key={quiz.id}
+                      className={`p-4 rounded-lg border-2 cursor-pointer transition ${
+                        selectedQuiz?.id === quiz.id
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 hover:border-blue-300'
+                      }`}
+                      onClick={() => setSelectedQuiz(quiz)}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-3 flex-1">
+                          <input
+                            type="checkbox"
+                            className="mt-1 rounded border-gray-300 flex-shrink-0"
+                            checked={isSelected}
+                            onChange={(e) => {
+                              e.stopPropagation()
+                              toggleSelect(quiz.id)
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-gray-800">{quiz.title}</h3>
+                            <p className="text-sm text-gray-600 mt-1">
+                              {quiz.type === 'theory' ? '📘 Teoría' : '📗 Práctico'} · {quiz.questions.length} preguntas
+                            </p>
+                            <p className="text-xs text-gray-500 mt-1">
+                              {new Date(quiz.createdAt).toLocaleDateString('es-ES')}
+                            </p>
+                          </div>
+                        </div>
+                        <div>
+                          {quiz.published ? (
+                            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">
+                              Publicado
+                            </span>
+                          ) : (
+                            <span className="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded">
+                              Borrador
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
 
                 {questionnaires.length === 0 && (
                   <p className="text-gray-500 text-center py-8">No hay cuestionarios creados</p>
@@ -225,11 +389,21 @@ export default function PreviewForms() {
             {selectedQuiz ? (
               <div className="bg-white rounded-xl shadow-lg p-6">
                 {/* Header del cuestionario */}
-                <div className="mb-6 pb-4 border-b">
-                  <h2 className="text-2xl font-bold text-gray-900">{selectedQuiz.title}</h2>
-                  <p className="text-gray-600 mt-1">
-                    {selectedQuiz.type === 'theory' ? '📘 Teoría' : '📗 Práctico'} · {selectedQuiz.questions.length} preguntas
-                  </p>
+                <div className="mb-6 pb-4 border-b flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900">{selectedQuiz.title}</h2>
+                    <p className="text-gray-600 mt-1">
+                      {selectedQuiz.type === 'theory' ? '📘 Teoría' : '📗 Práctico'} · {selectedQuiz.questions.length} preguntas
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-end gap-2">
+                    <button
+                      onClick={() => handleRename(selectedQuiz)}
+                      className="px-4 py-2 bg-blue-100 text-blue-800 text-sm font-semibold rounded-lg hover:bg-blue-200"
+                    >
+                      ✏️ Renombrar formulario
+                    </button>
+                  </div>
                 </div>
 
                 {/* Botones de acción */}
@@ -392,15 +566,26 @@ export default function PreviewForms() {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Respuesta Correcta
                 </label>
-                <input
-                  type="text"
-                  value={editForm.correctAnswer}
-                  onChange={(e) => setEditForm({ ...editForm, correctAnswer: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Texto completo de la respuesta correcta"
-                />
+                <select
+                  value={getCurrentCorrectIndex().toString()}
+                  onChange={(e) => {
+                    const idx = parseInt(e.target.value, 10)
+                    const option = editForm.options[idx] || ''
+                    setEditForm({
+                      ...editForm,
+                      correctAnswer: option
+                    })
+                  }}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                >
+                  {editForm.options.map((option, index) => (
+                    <option key={index} value={index.toString()}>
+                      {`Opción ${String.fromCharCode(65 + index)}${option ? `: ${option.substring(0, 80)}` : ''}`}
+                    </option>
+                  ))}
+                </select>
                 <p className="text-xs text-gray-500 mt-1">
-                  Debe coincidir exactamente con una de las opciones de arriba
+                  La opción seleccionada se guardará como respuesta correcta y será coherente con las opciones de arriba.
                 </p>
               </div>
 

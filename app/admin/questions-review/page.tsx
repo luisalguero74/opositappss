@@ -1,14 +1,14 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, Suspense } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 interface Question {
   id: string
   text: string
-  options: string
+  options: string | string[]
   correctAnswer: string
   explanation: string
   temaCodigo: string | null
@@ -16,25 +16,14 @@ interface Question {
   temaParte: string | null
   temaTitulo: string | null
   difficulty: string | null
-  questionnaireId: string
-  questionnaire: {
-    id: string
-    title: string
-    published: boolean
-  }
-}
-
-interface AIQuestion {
-  id: string
-  text: string
-  options: string
-  correctAnswer: string
-  explanation: string | null
-  difficulty: string | null
-  topic: string | null
   reviewed: boolean
   approved: boolean
   reviewedAt: string | null
+  questionnaireId: string
+  questionnaire?: {
+    id: string
+    title: string
+  } | null
   document?: {
     id: string
     title: string
@@ -48,9 +37,23 @@ interface AIQuestion {
   } | null
 }
 
-export default function QuestionsReview() {
+function normalizeParte(value: string | null | undefined): 'general' | 'especifico' | null {
+  if (!value) return null
+  const base = value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+
+  if (base === 'general') return 'general'
+  if (base === 'especifico') return 'especifico'
+  return null
+}
+
+function QuestionsReviewInner() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [questions, setQuestions] = useState<Question[]>([])
   const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -68,6 +71,7 @@ export default function QuestionsReview() {
   const [aiWorking, setAiWorking] = useState<'qa' | 'promote' | null>(null)
   const [aiReviewedFilter, setAiReviewedFilter] = useState<'all' | 'unreviewed' | 'reviewed'>('unreviewed')
   const [aiApprovedFilter, setAiApprovedFilter] = useState<'all' | 'approved' | 'unapproved'>('all')
+  const [autoFocusedFromQuality, setAutoFocusedFromQuality] = useState(false)
 
   useEffect(() => {
     if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
@@ -96,6 +100,18 @@ export default function QuestionsReview() {
     }
   }
 
+  // Si venimos desde /admin/questions-quality con ?questionId=, abrir directamente esa pregunta en modo edición
+  useEffect(() => {
+    const focusId = searchParams.get('questionId')
+    if (!focusId || autoFocusedFromQuality || questions.length === 0) return
+
+    const target = questions.find((q) => q.id === focusId)
+    if (target) {
+      handleEdit(target)
+      setAutoFocusedFromQuality(true)
+    }
+  }, [searchParams, questions, autoFocusedFromQuality])
+
   const loadAiQuestions = async () => {
     setAiLoading(true)
     try {
@@ -118,7 +134,16 @@ export default function QuestionsReview() {
     setEditingId(question.id)
     setEditData({
       text: question.text,
-      options: JSON.parse(question.options),
+      options:
+        typeof question.options === 'string'
+          ? (() => {
+              try {
+                return JSON.parse(question.options)
+              } catch {
+                return []
+              }
+            })()
+          : question.options,
       correctAnswer: question.correctAnswer,
       explanation: question.explanation,
       difficulty: question.difficulty
@@ -164,10 +189,67 @@ export default function QuestionsReview() {
     }
   }
 
-  const handlePublish = async (questionnaireId: string) => {
-    if (!confirm('¿Publicar este cuestionario? Los usuarios podrán verlo y aparecerá en sus estadísticas.')) return
+  const handlePublish = async (
+    questionnaireId: string,
+    questionnaireMeta: { title: string },
+    qsForThis: Question[]
+  ) => {
+    // Proponer título actual por defecto
+    const currentTitle = (questionnaireMeta.title || '').trim()
+    const title = prompt('Nombre del cuestionario/formulario:', currentTitle || 'Nuevo cuestionario')
+    if (!title) return
+    const trimmedTitle = title.trim()
+    if (!trimmedTitle) return
+
+    // Inferir por defecto si es general o específico a partir de las preguntas
+    let defaultParte: 'general' | 'especifico' = 'general'
+    const partes = new Set(
+      qsForThis
+        .map((q) => normalizeParte(q.temaParte))
+        .filter((v): v is 'general' | 'especifico' => v === 'general' || v === 'especifico')
+    )
+    if (partes.size === 1) {
+      const only = Array.from(partes)[0]
+      defaultParte = only === 'especifico' ? 'especifico' : 'general'
+    }
+
+    const parteInput = prompt(
+      'Tipo de temario para este cuestionario (general / especifico):',
+      defaultParte
+    )
+    if (!parteInput) return
+    const parteNorm = normalizeParte(parteInput)
+    if (!parteNorm) {
+      alert('Valor no válido. Escribe "general" o "especifico".')
+      return
+    }
+
+    const confirmar = confirm(
+      `¿Publicar este cuestionario con estos datos?\n\n` +
+      `Nombre: ${trimmedTitle}\n` +
+      `Temario: ${parteNorm === 'general' ? 'GENERAL' : 'ESPECÍFICO'}\n\n` +
+      `Los usuarios podrán verlo y aparecerá en sus estadísticas.`
+    )
+    if (!confirmar) return
 
     try {
+      // Actualizar título y parte del temario antes de publicar
+      const updateRes = await fetch(`/api/admin/questionnaires/${questionnaireId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: trimmedTitle,
+          temaParte: parteNorm
+        })
+      })
+
+      if (!updateRes.ok) {
+        const data = await updateRes.json().catch(() => ({}))
+        alert(`Error al actualizar el cuestionario: ${data.error || 'Error desconocido'}`)
+        return
+      }
+
+      // Publicar cuestionario
       const res = await fetch(`/api/admin/questionnaires/${questionnaireId}/publish`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -176,7 +258,14 @@ export default function QuestionsReview() {
 
       if (res.ok) {
         loadQuestions()
-        alert('✅ Cuestionario publicado correctamente.\n\nLos usuarios ahora pueden:\n• Realizarlo de forma interactiva\n• Ver soluciones y explicaciones\n• Obtener celebración al 100%\n• Registrar resultados en estadísticas')
+        alert(
+          '✅ Cuestionario publicado correctamente.\n\n' +
+          'Los usuarios ahora pueden:\n' +
+          '• Realizarlo de forma interactiva\n' +
+          '• Ver soluciones y explicaciones\n' +
+          '• Obtener celebración al 100%\n' +
+          '• Registrar resultados en estadísticas'
+        )
       } else {
         const data = await res.json()
         alert(`Error: ${data.error || 'No se pudo publicar'}`)
@@ -191,10 +280,19 @@ export default function QuestionsReview() {
   const availableTemas = useMemo(() => {
     const temas = new Map<number, string>()
     questions
-      .filter(q => filter === 'all' || q.temaParte?.toLowerCase() === filter)
+      .filter(q => {
+        if (filter === 'all') return true
+        const parte = normalizeParte(q.temaParte)
+        return parte === filter
+      })
       .forEach(q => {
-        if (q.temaNumero !== null && q.temaTitulo) {
-          temas.set(q.temaNumero, q.temaTitulo)
+        if (q.temaNumero !== null) {
+          const label = q.temaTitulo && q.temaTitulo.trim()
+            ? q.temaTitulo.trim()
+            : `Tema ${q.temaNumero}`
+          if (!temas.has(q.temaNumero)) {
+            temas.set(q.temaNumero, label)
+          }
         }
       })
     return Array.from(temas.entries())
@@ -203,7 +301,10 @@ export default function QuestionsReview() {
   }, [questions, filter])
 
   const filteredQuestions = questions.filter(q => {
-    if (filter !== 'all' && q.temaParte?.toLowerCase() !== filter) return false
+    if (filter !== 'all') {
+      const parte = normalizeParte(q.temaParte)
+      if (parte !== filter) return false
+    }
     if (difficultyFilter !== 'all' && q.difficulty !== difficultyFilter) return false
     if (selectedTemas.length > 0 && !selectedTemas.includes(q.temaNumero || -1)) return false
     return true
@@ -244,6 +345,38 @@ export default function QuestionsReview() {
         ? prev.filter(t => t !== temaNum)
         : [...prev, temaNum]
     )
+  }
+
+  const handleDeleteSelected = async () => {
+    if (selectedQuestions.size === 0) {
+      alert('Selecciona al menos una pregunta para eliminar')
+      return
+    }
+
+    if (!confirm(`¿Eliminar ${selectedQuestions.size} preguntas seleccionadas? Esta acción no se puede deshacer.`)) {
+      return
+    }
+
+    try {
+      const res = await fetch('/api/admin/questions-review', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: Array.from(selectedQuestions) })
+      })
+
+      const data = await res.json().catch(() => null)
+
+      if (!res.ok) {
+        alert((data && data.error) || 'Error al eliminar preguntas')
+        return
+      }
+
+      setSelectedQuestions(new Set())
+      loadQuestions()
+    } catch (error) {
+      console.error('Error eliminando preguntas en lote:', error)
+      alert('Error al eliminar preguntas seleccionadas')
+    }
   }
 
   const handleSelectAllTemas = () => {
@@ -497,13 +630,17 @@ export default function QuestionsReview() {
               {!aiLoading && aiQuestions.length > 0 && (
                 <div className="mt-4 space-y-3">
                   {aiQuestions.map(q => {
-                    const options = (() => {
-                      try {
-                        return JSON.parse(q.options) as string[]
-                      } catch {
-                        return []
-                      }
-                    })()
+                    const options: string[] = Array.isArray(q.options)
+                      ? q.options
+                      : (() => {
+                          if (typeof q.options !== 'string') return []
+                          try {
+                            const parsed = JSON.parse(q.options)
+                            return Array.isArray(parsed) ? parsed : []
+                          } catch {
+                            return []
+                          }
+                        })()
 
                     return (
                       <div key={q.id} className="bg-white border border-purple-100 rounded-lg p-4">
@@ -670,6 +807,13 @@ export default function QuestionsReview() {
               >
                 {creatingQuestionnaire ? '⏳ Creando...' : `📝 Crear Cuestionario (${selectedQuestions.size})`}
               </button>
+              <button
+                onClick={handleDeleteSelected}
+                disabled={selectedQuestions.size === 0}
+                className="px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-sm"
+              >
+                🗑️ Eliminar seleccionadas ({selectedQuestions.size})
+              </button>
             </div>
           )}
             </>
@@ -687,7 +831,7 @@ export default function QuestionsReview() {
               <div className="flex gap-3">
                 {!questionnaire.published && (
                   <button
-                    onClick={() => handlePublish(qId)}
+                    onClick={() => handlePublish(qId, questionnaire, questions)}
                     className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition font-semibold"
                   >
                     ✅ Publicar Cuestionario
@@ -814,7 +958,18 @@ export default function QuestionsReview() {
                               {index + 1}. {q.text}
                             </p>
                             <div className="space-y-2 mb-3">
-                              {JSON.parse(q.options).map((opt: string, i: number) => (
+                              {(Array.isArray(q.options)
+                                ? q.options
+                                : (() => {
+                                    if (typeof q.options !== 'string') return [] as string[]
+                                    try {
+                                      const parsed = JSON.parse(q.options)
+                                      return Array.isArray(parsed) ? parsed : []
+                                    } catch {
+                                      return [] as string[]
+                                    }
+                                  })()
+                              ).map((opt: string, i: number) => (
                                 <div 
                                   key={i}
                                   className={`px-3 py-2 rounded ${
@@ -870,5 +1025,19 @@ export default function QuestionsReview() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function QuestionsReview() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <p className="text-gray-600">Cargando revisión de preguntas...</p>
+        </div>
+      }
+    >
+      <QuestionsReviewInner />
+    </Suspense>
   )
 }

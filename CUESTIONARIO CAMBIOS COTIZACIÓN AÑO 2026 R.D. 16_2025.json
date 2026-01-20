@@ -1,0 +1,303 @@
+{
+  "data": [
+    {
+      "questionnaireId": "cambios-cotizacion-2026-rdl-16-2025-ver1",
+      "questionCount": 18,
+      "temaCodigo": "T02",
+      "temaNumero": 2,
+      "temaParte": "ESPECÍFICO",
+      "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)",
+      "difficulty": "hard",
+      "questions": [
+        {
+          "text": "Según el artículo 7 del Real Decreto-ley 16/2025, ¿cuál es el objetivo principal de las medidas de actualización de pensiones y prestaciones para el año 2026?",
+          "options": [
+            "Suprimir todos los complementos a mínimos para simplificar el sistema",
+            "Garantizar exclusivamente la sostenibilidad financiera del sistema, aun a costa de perder poder adquisitivo",
+            "Vincular la revalorización de las pensiones únicamente al crecimiento del PIB real",
+            "Asegurar el mantenimiento del poder adquisitivo y reforzar la suficiencia de pensiones y prestaciones en un contexto de elevada inflación"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El artículo 7 del R.D.-ley 16/2025 articula un conjunto de medidas excepcionales para 2026 orientadas a preservar el poder adquisitivo de las pensiones y reforzar la suficiencia de las prestaciones, en coherencia con los compromisos de sostenibilidad, pero no se limita solo al equilibrio financiero ni suprime los complementos a mínimos ni vincula la actualización exclusivamente al PIB.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "Con arreglo al artículo 7, ¿qué característica define la revalorización adicional prevista para determinadas pensiones en 2026?",
+          "options": [
+            "Es de carácter excepcional, aplicable solo al ejercicio 2026 y a los colectivos expresamente previstos",
+            "Queda condicionada a la aprobación de un reglamento de desarrollo antes del 31 de diciembre de 2025",
+            "Tiene carácter estructural y se incorpora de forma permanente al mecanismo general de revalorización",
+            "Se aplica con carácter retroactivo a los cinco ejercicios anteriores"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La mejora de revalorización contemplada en el artículo 7 tiene un carácter extraordinario y limitado temporalmente al ejercicio 2026, así como a los colectivos que el propio precepto identifica, sin configurarse como un elemento estructural del mecanismo general ni proyectarse retroactivamente a ejercicios anteriores.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "¿Cuál de las siguientes pensiones se menciona expresamente en el artículo 7 como beneficiaria de las medidas de mejora para 2026, en los términos allí establecidos?",
+          "options": [
+            "Únicamente las pensiones extraordinarias derivadas de actos de terrorismo",
+            "Todas las pensiones de Clases Pasivas sin excepción",
+            "Determinadas pensiones mínimas y complementadas a mínimos, en la forma y condiciones previstas en el precepto",
+            "Las pensiones de jubilación contributiva que superen el tope máximo legal"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El artículo 7 focaliza la mejora adicional en 2026 sobre colectivos especialmente vulnerables, con referencia expresa a pensiones mínimas y complementadas a mínimos en los términos y condiciones que detalla, sin extender la mejora a todas las pensiones que superan el tope máximo ni a la totalidad de Clases Pasivas o pensiones extraordinarias por terrorismo.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "De acuerdo con el artículo 7 del R.D.-ley 16/2025, ¿cómo se articula la compatibilidad entre la mejora extraordinaria de 2026 y los complementos a mínimos ya reconocidos?",
+          "options": [
+            "Se suprimen los complementos a mínimos en todos los casos para evitar solapamientos",
+            "La mejora extraordinaria se integra, en su caso, dentro del complemento a mínimos hasta el límite que fija el propio precepto",
+            "La mejora extraordinaria es siempre incompatible con cualquier complemento a mínimos",
+            "Los complementos a mínimos se transforman automáticamente en un nuevo tipo de pensión no contributiva"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El esquema del artículo 7 prevé que, cuando proceda, la mejora extraordinaria de 2026 se compute a efectos de complemento a mínimos, respetando los límites cuantitativos y de compatibilidad establecidos, sin suprimir de plano dichos complementos ni convertirlos en prestaciones distintas.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "Según el artículo 8 del Real Decreto-ley 16/2025, ¿qué elemento se utiliza como referencia básica para la actualización de las bases de cotización en 2026?",
+          "options": [
+            "La revalorización de las pensiones contributivas fijada para 2026, con los ajustes y coeficientes que el propio precepto determina",
+            "El crecimiento del producto interior bruto (PIB) nominal",
+            "Un porcentaje fijo del 2 % con independencia de la evolución macroeconómica",
+            "La variación interanual del índice de precios al consumo (IPC) armonizado de la zona euro"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El artículo 8 vincula la actualización de determinadas bases de cotización a los parámetros utilizados para la revalorización de pensiones, introduciendo, en su caso, coeficientes de ajuste específicos para 2026; no se remite genéricamente al PIB ni fija un porcentaje fijo ajeno a la lógica de revalorización de pensiones.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "En relación con las bases máximas de cotización, ¿qué previsión específica introduce el artículo 8 para el ejercicio 2026?",
+          "options": [
+            "Congela la base máxima para todo 2026 al nivel vigente en 2025",
+            "Reduce la base máxima para favorecer las cotizaciones de las rentas más bajas",
+            "Elimina la base máxima, de modo que todas las retribuciones cotizan sin tope",
+            "Prevé un incremento singular de la base máxima, vinculado a la evolución de las pensiones máximas y a los parámetros de sostenibilidad del sistema"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El artículo 8 contempla un tratamiento específico para la base máxima de cotización en 2026, previendo un incremento singular alineado con la evolución de las pensiones máximas y con los objetivos de suficiencia y sostenibilidad, sin mantenerla congelada ni reducirla o eliminar el tope de cotización.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "Conforme al artículo 8, ¿cómo se tratan en 2026 las bases mínimas de cotización vinculadas al salario mínimo interprofesional (SMI)?",
+          "options": [
+            "Se sustituyen por una base única para todos los regímenes sin distinción",
+            "Se actualizan tomando como referencia el SMI vigente y los criterios que determina el propio artículo para preservar la proporcionalidad",
+            "Se desvinculan completamente del SMI y pasan a fijarse por convenio colectivo",
+            "Se mantienen congeladas en la cuantía de 2025, con independencia de la evolución del SMI"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El artículo 8 prevé la actualización de las bases mínimas en coherencia con el SMI vigente y con los criterios de proporcionalidad propios de cada régimen, sin romper el vínculo estructural con el salario mínimo ni congelarlas o homogeneizarlas en una única base para todos los supuestos.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "Según el artículo 8 del R.D.-ley 16/2025, ¿qué tratamiento específico se contempla para las bases de cotización de las personas trabajadoras a tiempo parcial en 2026?",
+          "options": [
+            "Se prohíbe el trabajo a tiempo parcial en determinados regímenes especiales",
+            "Se establece una base mínima única, igual para tiempo completo y parcial",
+            "Se aplican reglas de proporcionalidad y equiparación con el trabajo a tiempo completo, en los términos que fija el propio artículo",
+            "Se fijan bases máximas diferenciadas por sexo para corregir brechas de género"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El artículo 8 recoge reglas específicas para la determinación de las bases de cotización de las personas trabajadoras a tiempo parcial, orientadas a garantizar la proporcionalidad y la adecuada equiparación con el trabajo a tiempo completo, sin introducir bases únicas indiferenciadas, prohibiciones generales del tiempo parcial ni diferencias por razón de sexo.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "En el marco del artículo 8, ¿qué mención se realiza respecto a la coordinación de las nuevas bases de cotización de 2026 con los regímenes especiales, como el de trabajadores autónomos o el del Mar?",
+          "options": [
+            "Se unifican de forma inmediata todos los regímenes en un único régimen general",
+            "Se excluye expresamente a los regímenes especiales de cualquier actualización en 2026",
+            "Se limita la actualización a las cotizaciones por contingencias profesionales",
+            "Se prevé la adaptación específica de las bases y tramos de cotización en dichos regímenes, respetando su normativa propia y las remisiones que el precepto establece"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El artículo 8 hace referencia a la necesaria adaptación de las bases y tramos de cotización en los distintos regímenes, incluidos los especiales, de forma coordinada con su normativa propia, sin excluirlos de la actualización ni imponer una unificación inmediata de regímenes.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "De acuerdo con el artículo 9 del Real Decreto-ley 16/2025, ¿qué finalidad tienen las disposiciones transitorias introducidas para el año 2026 en materia de cotización?",
+          "options": [
+            "Facilitar una transición ordenada hacia el nuevo marco de bases y tipos de cotización, evitando saltos bruscos en las cargas empresariales y de las personas trabajadoras",
+            "Posponer indefinidamente la aplicación de las reformas estructurales del sistema",
+            "Suprimir las cotizaciones por contingencias comunes durante 2026",
+            "Eliminar todos los coeficientes reductores y anticipar la edad de jubilación"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El artículo 9 introduce reglas transitorias con el objetivo de escalonar la aplicación de los cambios en cotización previstos para 2026, de forma que empresas y personas trabajadoras puedan adaptarse progresivamente, sin anular las reformas ni suprimir las cotizaciones por contingencias comunes.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "Según el artículo 9, ¿qué criterio se utiliza para determinar la aplicación gradual de los nuevos tipos de cotización en 2026?",
+          "options": [
+            "Un calendario lineal idéntico para todos los regímenes y colectivos",
+            "La situación económica individual de cada empresa, evaluada caso por caso",
+            "La distribución por tramos de retribución y la pertenencia a determinados regímenes, conforme a los intervalos temporales que fija el propio artículo",
+            "La nacionalidad de la persona trabajadora y su antigüedad en la empresa"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El artículo 9 estructura la aplicación gradual de los nuevos tipos de cotización en función de tramos de retribución y de la pertenencia a determinados regímenes y colectivos, conforme a un calendario objetivo fijado normativamente, sin basarse en decisiones caso por caso ni en criterios como la nacionalidad.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "En relación con las personas con bases de cotización muy próximas al nuevo tope máximo, ¿qué previsión introduce el artículo 9 para 2026?",
+          "options": [
+            "Se transforma la prestación en una ayuda asistencial sin cotización",
+            "Establece una exoneración total de cuotas sobre la parte que exceda de la base anterior",
+            "Permite a laempresa optar libremente por aplicar o no la nueva base máxima",
+            "Prevé una regla de transición que limita el incremento efectivo de la base en 2026 mediante coeficientes o topes intermedios"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El artículo 9 contempla mecanismos transitorios para quienes se sitúan próximos al nuevo tope máximo, de modo que el incremento de la base en 2026 quede acotado mediante coeficientes o límites intermedios, evitando un salto brusco, sin exonerar totalmente de cotización ni convertir la aplicación en una opción voluntaria.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "Conforme al artículo 9 del R.D.-ley 16/2025, ¿qué ocurre con los acuerdos o convenios colectivos que prevean bases o tipos de cotización distintos de los fijados legalmente para 2026?",
+          "options": [
+            "Deben adaptarse a las bases y tipos legales, sin que puedan fijar cotizaciones por debajo de los mínimos establecidos",
+            "Pueden fijar libremente bases inferiores, pero nunca superiores a las legales",
+            "Pueden prevalecer siempre que sean más beneficiosos para la persona trabajadora",
+            "Quedan automáticamente anulados y se consideran inexistentes"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El artículo 9 recuerda el carácter de derecho necesario de la regulación de bases y tipos de cotización, de modo que los acuerdos o convenios colectivos deben respetar los mínimos legales y adaptarse a los nuevos parámetros de 2026, sin posibilidad de establecer cotizaciones inferiores a las previstas en la norma.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "Según el artículo 7 del Real Decreto-ley 16/2025, ¿cómo se coordina la mejora de pensiones para 2026 con el complemento por brecha de género en las pensiones?",
+          "options": [
+            "La mejora extraordinaria sustituye al complemento por brecha de género",
+            "Ambas mejoras son incompatibles y la persona interesada debe optar por una de ellas",
+            "Se declara expresamente la compatibilidad, sin perjuicio de los límites cuantitativos y reglas de acumulación previstos legalmente",
+            "Se suprime el complemento por brecha de género durante el año 2026"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El artículo 7 contempla la mejora de determinadas pensiones en 2026 de forma compatible con el complemento por brecha de género, respetando los límites y reglas de acumulación fijados en la normativa general de pensiones, sin sustituir ni suprimir dicho complemento.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "En el contexto del artículo 8, ¿qué tratamiento se otorga en 2026 a las cotizaciones de las personas beneficiarias de prestaciones por desempleo en su nivel contributivo?",
+          "options": [
+            "Se transforma la prestación en una ayuda asistencial sin cotización",
+            "Se suspenden las cotizaciones por jubilación mientras se percibe la prestación",
+            "Se limita la cotización únicamente a contingencias profesionales",
+            "Se mantienen las reglas generales de asimilación a la situación de alta y de cotización a efectos de jubilación, con las adaptaciones de bases que el propio artículo determina"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El artículo 8 mantiene para 2026 el esquema general de asimilación al alta y cotización por la base correspondiente durante la percepción de la prestación por desempleo contributiva, introduciendo únicamente las adaptaciones de bases derivadas de la nueva regulación, sin suspender la cotización ni convertir la prestación en una ayuda puramente asistencial.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "Según el artículo 8 del R.D.-ley 16/2025, ¿qué regla específica se aplica a las cotizaciones de las personas trabajadoras que compatibilizan pensión de jubilación y trabajo en 2026?",
+          "options": [
+            "Se les exige la misma cotización íntegra que a quienes no son pensionistas",
+            "Se mantiene el esquema de cotización reducida previsto en la normativa general, con las adaptaciones que el propio artículo introduce para 2026",
+            "Quedan totalmente exentas de cotizar por contingencias comunes",
+            "Se aplica exclusivamente la cotización por contingencias profesionales, sin cotizar por jubilación"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El artículo 8 respeta el régimen general de compatibilidad entre pensión de jubilación y trabajo, conservando la lógica de cotización reducida y acotada para estos supuestos, si bien adaptando las bases afectadas a la nueva regulación de 2026, sin establecer ni exención total ni equiparación completa con la cotización ordinaria.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "De acuerdo con el artículo 7 del Real Decreto-ley 16/2025, ¿qué regla se establece respecto de las pensiones reconocidas en el extranjero pero abonadas por España al amparo de convenios internacionales en 2026?",
+          "options": [
+            "Se someten automáticamente al mismo régimen de mejora extraordinaria que las pensiones internas, sin matización alguna",
+            "Quedan excluidas de cualquier mejora o revalorización en 2026",
+            "Se transforman en prestaciones no contributivas de carácter asistencial",
+            "Su posible mejora o revalorización se condiciona a lo que dispongan los instrumentos internacionales aplicables y a la coordinación que el propio artículo establece"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El artículo 7 prevé la coordinación de las medidas de mejora para 2026 con las pensiones reconocidas en el marco de convenios y reglamentos internacionales, de forma que cualquier revalorización o complemento respete las reglas de distribución de cargas y los límites que tales instrumentos imponen, sin excluirlas de plano ni equipararlas de forma automática a las pensiones puramente internas.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        },
+        {
+          "text": "En relación con las pensiones no contributivas, ¿qué efecto tiene el artículo 7 del R.D.-ley 16/2025 para 2026?",
+          "options": [
+            "Introduce una mejora específica para determinados supuestos de especial vulnerabilidad, en los términos y condiciones que fija el propio precepto",
+            "Sustituye todas las pensiones no contributivas por una renta básica universal",
+            "Las excluye de cualquier revalorización o complemento",
+            "Las convierte en prestaciones contributivas si la persona beneficiaria acredita un mínimo de cotización"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El artículo 7 contempla para 2026 una atención singular a determinadas pensiones no contributivas en situaciones de especial vulnerabilidad, previendo incrementos o complementos específicos dentro de los límites que fija, sin suprimir la revalorización general ni transformar su naturaleza en contributiva o en renta básica universal.",
+          "difficulty": "hard",
+          "temaCodigo": "T02",
+          "temaNumero": 2,
+          "temaParte": "ESPECÍFICO",
+          "temaTitulo": "Cambios en cotización año 2026 (R.D.-ley 16/2025)"
+        }
+      ]
+    }
+  ]
+}

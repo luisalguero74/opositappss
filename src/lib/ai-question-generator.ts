@@ -35,7 +35,7 @@ export async function generateQuestionsFromContent(
     language = 'es'
   } = options
 
-  const prompt = `Eres un experto en oposiciones de la Administración General del Estado, especializado en crear preguntas tipo test para el Cuerpo General Auxiliar de la Administración del Estado (C2).
+  const prompt = `Eres un experto en oposiciones de la Administración de la Seguridad Social, especializado en crear preguntas tipo test para el Cuerpo Administrativo de la Seguridad Social (C1).
 
 CONTENIDO A ANALIZAR:
 ${content.substring(0, 8000)}
@@ -48,6 +48,7 @@ INSTRUCCIONES:
 5. Tema: ${topic}
 6. Las preguntas deben ser específicas y verificables con el contenido
 7. Incluye explicación detallada de por qué la respuesta es correcta
+ 8. DISTRIBUYE las respuestas correctas entre A, B, C y D (no pongas siempre la misma letra ni más de 2 preguntas seguidas con la misma posición correcta)
 
 FORMATO DE RESPUESTA (JSON):
 {
@@ -55,8 +56,8 @@ FORMATO DE RESPUESTA (JSON):
     {
       "question": "Texto de la pregunta",
       "options": ["Opción A", "Opción B", "Opción C", "Opción D"],
-      "correctAnswer": "A",
-      "explanation": "Explicación de por qué A es correcta y las demás incorrectas",
+      "correctAnswer": "A", // Puede ser "A", "B", "C" o "D"; varía la letra correcta entre preguntas
+      "explanation": "Explicación de por qué la opción correcta es correcta y las demás incorrectas, citando el texto proporcionado",
       "difficulty": "${difficulty}"
     }
   ]

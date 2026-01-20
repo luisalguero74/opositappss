@@ -1,0 +1,192 @@
+{
+  "totalQuestions": 15,
+  "totalQuestionnaires": 1,
+  "data": [
+    {
+      "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+      "questionCount": 15,
+      "questions": [
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Según el artículo 166, ¿cómo se determina la forma en que se ejerce la iniciativa de reforma constitucional?",
+          "options": "[\"Se establece que solo el Gobierno puede ejercer la iniciativa de reforma constitucional\",\"La Constitución fija de manera completa y directa todos los sujetos y formas de iniciativa en el propio artículo 166\",\"Se deja íntegramente a lo que dispongan las Cortes Generales en su Reglamento\",\"Se remite a los términos previstos en los apartados 1 y 2 del artículo 87\"]",
+          "correctAnswer": "Se remite a los términos previstos en los apartados 1 y 2 del artículo 87",
+          "explanation": "El art. 166 CE dispone literalmente que 'La iniciativa de reforma constitucional se ejercerá en los términos previstos en los apartados 1 y 2 del artículo 87'. Es decir, el precepto no enumera sujetos ni formas, sino que se remite expresamente a dichos apartados. La opción correcta recoge esta remisión. Las demás opciones atribuyen al art. 166 un contenido (regulación directa, remisión a Reglamentos o monopolio gubernamental) que no figura en el texto.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Conforme al artículo 167.1, ¿qué mayoría se exige en cada Cámara para aprobar un proyecto de reforma constitucional por el procedimiento ordinario?",
+          "options": "[\"Mayoría simple en ambas Cámaras, salvo que se trate de revisión total\",\"Mayoría absoluta de los miembros presentes en cada Cámara\",\"Mayoría de dos tercios en el Congreso y mayoría absoluta en el Senado\",\"Mayoría de tres quintos de cada una de las Cámaras\"]",
+          "correctAnswer": "Mayoría de tres quintos de cada una de las Cámaras",
+          "explanation": "El art. 167.1 CE establece que 'Los proyectos de reforma constitucional deberán ser aprobados por una mayoría de tres quintos de cada una de las Cámaras'. La opción correcta reproduce esta mayoría reforzada. Las demás opciones alteran esa regla: la mayoría absoluta o simple no aparece en el precepto, y la combinación de dos tercios en el Congreso y mayoría absoluta en el Senado es propia de otro supuesto del art. 167.2, no del apartado 1.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Según el artículo 167.1, si no hubiera acuerdo entre el Congreso y el Senado sobre un proyecto de reforma constitucional, ¿qué mecanismo prevé la Constitución para intentar alcanzarlo?",
+          "options": "[\"La disolución inmediata de las Cortes Generales y convocatoria de nuevas elecciones\",\"La remisión del texto al Tribunal Constitucional para que dicte un dictamen vinculante\",\"La creación de una Comisión de composición paritaria de Diputados y Senadores, que presentará un texto a votar por ambas Cámaras\",\"La convocatoria automática de un referéndum vinculante\"]",
+          "correctAnswer": "La creación de una Comisión de composición paritaria de Diputados y Senadores, que presentará un texto a votar por ambas Cámaras",
+          "explanation": "El art. 167.1 CE prevé que, si no hubiera acuerdo entre las Cámaras, se intentará obtenerlo 'mediante la creación de una Comisión de composición paritaria de Diputados y Senadores, que presentará un texto que será votado por el Congreso y el Senado'. La opción correcta refleja este mecanismo. No se contempla ni un referéndum automático, ni un dictamen vinculante del Tribunal Constitucional, ni una disolución inmediata en este procedimiento.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Conforme al artículo 167.2, si no se aprueba la reforma por el procedimiento del apartado 1, pero el texto ha obtenido el voto favorable de la mayoría absoluta del Senado, ¿cómo puede aún aprobarse la reforma?",
+          "options": "[\"Mediante mayoría de tres quintos en el Congreso y mayoría simple en el Senado\",\"Mediante mayoría simple del Congreso en una nueva votación\",\"Mediante aprobación del Congreso por mayoría de dos tercios\",\"Mediante decisión conjunta de una Comisión mixta sin nueva intervención de las Cámaras\"]",
+          "correctAnswer": "Mediante aprobación del Congreso por mayoría de dos tercios",
+          "explanation": "El art. 167.2 CE dispone que, de no lograrse la aprobación del apartado 1 y 'siempre que el texto hubiere obtenido el voto favorable de la mayoría absoluta del Senado, el Congreso, por mayoría de dos tercios, podrá aprobar la reforma'. La opción correcta recoge la exigencia de dos tercios del Congreso. Las otras alternativas rebajan la mayoría, combinan mayorías no previstas o sustituyen la decisión de la Cámara por la de una Comisión.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Según el artículo 167.3, ¿en qué plazo y por iniciativa de quién puede someterse a referéndum una reforma constitucional aprobada por las Cortes Generales conforme al artículo 167?",
+          "options": "[\"En los quince días siguientes, cuando lo solicite una décima parte de los miembros de cualquiera de las Cámaras\",\"En los treinta días siguientes, a solicitud de la mayoría de cada Cámara\",\"En los quince días siguientes, solo si lo solicita conjuntamente el Gobierno y el Presidente del Congreso\",\"En cualquier momento posterior, a iniciativa exclusiva del Gobierno\"]",
+          "correctAnswer": "En los quince días siguientes, cuando lo solicite una décima parte de los miembros de cualquiera de las Cámaras",
+          "explanation": "El art. 167.3 CE establece que la reforma 'será sometida a referéndum para su ratificación cuando así lo soliciten, dentro de los quince días siguientes a su aprobación, una décima parte de los miembros de cualquiera de las Cámaras'. La opción correcta incorpora el plazo de quince días y la iniciativa de una décima parte de los miembros de cualquiera de las Cámaras. Las demás opciones alteran el plazo, el porcentaje o los sujetos legitimados.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "De acuerdo con el artículo 168.1, ¿en qué supuestos se aplica el procedimiento de reforma agravado que incluye la disolución inmediata de las Cortes Generales?",
+          "options": "[\"Siempre que la reforma implique una modificación de más de dos artículos consecutivos\",\"Únicamente cuando se pretenda suprimir el Tribunal Constitucional\",\"Cuando se propusiere la revisión total de la Constitución o una parcial que afecte al Título preliminar, al Capítulo segundo, Sección primera del Título I, o al Título II\",\"Solo cuando se trate de cualquier reforma que afecte a los derechos del Título I\"]",
+          "correctAnswer": "Cuando se propusiere la revisión total de la Constitución o una parcial que afecte al Título preliminar, al Capítulo segundo, Sección primera del Título I, o al Título II",
+          "explanation": "El art. 168.1 CE señala que 'Cuando se propusiere la revisión total de la Constitución o una parcial que afecte al Título preliminar, al Capítulo segundo, Sección primera del Título I, o al Título II, se procederá a la aprobación del principio por mayoría de dos tercios de cada Cámara, y a la disolución inmediata de las Cortes'. La opción correcta reproduce literalmente los supuestos tasados. Las demás añaden criterios no previstos (cualquier derecho del Título I, número de artículos afectados o supresión del Tribunal Constitucional).",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Según el artículo 168.1, antes de la disolución inmediata de las Cortes en el procedimiento agravado, ¿qué debe aprobarse y con qué mayoría en cada Cámara?",
+          "options": "[\"Debe aprobarse un proyecto de ley orgánica por mayoría de tres quintos en sesión conjunta\",\"Debe aprobarse el principio de revisión por mayoría absoluta de cada Cámara\",\"Debe aprobarse el principio por mayoría de dos tercios de cada Cámara\",\"Debe aprobarse el texto íntegro de la nueva Constitución por mayoría simple en cada Cámara\"]",
+          "correctAnswer": "Debe aprobarse el principio por mayoría de dos tercios de cada Cámara",
+          "explanation": "El art. 168.1 CE exige que, en los casos en él previstos, 'se procederá a la aprobación del principio por mayoría de dos tercios de cada Cámara, y a la disolución inmediata de las Cortes'. La opción correcta refleja la aprobación del principio y la mayoría de dos tercios en cada Cámara. Las otras alternativas rebajan la mayoría, cambian el objeto de la votación o introducen una sesión conjunta no contemplada.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Conforme al artículo 168.2, una vez elegidas las nuevas Cámaras tras la disolución prevista en el procedimiento agravado, ¿qué pasos deben seguir respecto del nuevo texto constitucional?",
+          "options": "[\"Que el Senado apruebe el texto por mayoría simple y el Congreso lo ratifique por mayoría absoluta\",\"Someter directamente el texto a referéndum sin necesidad de aprobación parlamentaria previa\",\"Aprobar el texto por mayoría simple en el Congreso, sin intervención del Senado\",\"Ratificar la decisión anterior y aprobar el nuevo texto constitucional por mayoría de dos tercios de ambas Cámaras\"]",
+          "correctAnswer": "Ratificar la decisión anterior y aprobar el nuevo texto constitucional por mayoría de dos tercios de ambas Cámaras",
+          "explanation": "El art. 168.2 CE dispone que 'Las Cámaras elegidas deberán ratificar la decisión y proceder al estudio del nuevo texto constitucional, que deberá ser aprobado por mayoría de dos tercios de ambas Cámaras'. La opción correcta recoge la doble exigencia: ratificar la decisión y aprobar el nuevo texto por mayoría de dos tercios en ambas Cámaras. Las demás opciones eliminan la ratificación, excluyen al Senado o rebajan las mayorías requeridas.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Según el artículo 168.3, una vez aprobada la reforma constitucional por las Cortes Generales conforme al procedimiento agravado del Título X, ¿qué paso adicional es obligatorio?",
+          "options": "[\"Su sometimiento a referéndum para su ratificación\",\"La emisión de un informe previo del Tribunal Constitucional, con carácter vinculante\",\"La aprobación por mayoría simple de los Parlamentos autonómicos\",\"La sanción y promulgación directa por el Rey, sin más trámites\"]",
+          "correctAnswer": "Su sometimiento a referéndum para su ratificación",
+          "explanation": "El art. 168.3 CE establece que 'Aprobada la reforma por las Cortes Generales, será sometida a referéndum para su ratificación'. La opción correcta reproduce esta exigencia de referéndum obligatorio. Las demás opciones introducen requisitos (aprobación autonómica, informe vinculante del Tribunal Constitucional) o ignoran el referéndum, en contradicción con el tenor literal.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Comparando los artículos 167.3 y 168.3, ¿qué diferencia relevante existe en relación con el referéndum de ratificación de la reforma constitucional?",
+          "options": "[\"En el procedimiento del artículo 167 el referéndum es potestativo si lo solicita una décima parte de los miembros de cualquiera de las Cámaras, mientras que en el del 168 es obligatorio tras la aprobación por las Cortes Generales\",\"En ambos procedimientos el referéndum es opcional y queda a criterio exclusivo del Gobierno\",\"Solo en el procedimiento del artículo 167 se prevé expresamente la intervención del cuerpo electoral\",\"En el procedimiento del artículo 167 el referéndum es siempre obligatorio, mientras que en el del 168 nunca puede celebrarse\"]",
+          "correctAnswer": "En el procedimiento del artículo 167 el referéndum es potestativo si lo solicita una décima parte de los miembros de cualquiera de las Cámaras, mientras que en el del 168 es obligatorio tras la aprobación por las Cortes Generales",
+          "explanation": "El art. 167.3 CE prevé que la reforma será sometida a referéndum 'cuando así lo soliciten, dentro de los quince días siguientes a su aprobación, una décima parte de los miembros de cualquiera de las Cámaras', configurando un referéndum potestativo. El art. 168.3 CE, en cambio, dispone sin condicionantes que 'será sometida a referéndum para su ratificación', es decir, un referéndum obligatorio. La opción correcta describe esta diferencia. Las demás opciones niegan o confunden la obligatoriedad prevista en cada caso.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Según el artículo 169, ¿en qué situaciones no puede iniciarse la reforma constitucional?",
+          "options": "[\"Durante la vigencia del estado de alarma exclusivamente\",\"Cuando las Cortes Generales estén disueltas por cualquier motivo\",\"Durante el último año de mandato del Gobierno\",\"En tiempo de guerra o de vigencia de alguno de los estados previstos en el artículo 116\"]",
+          "correctAnswer": "En tiempo de guerra o de vigencia de alguno de los estados previstos en el artículo 116",
+          "explanation": "El art. 169 CE dispone que 'No podrá iniciarse la reforma constitucional en tiempo de guerra o de vigencia de alguno de los estados previstos en el artículo 116'. La opción correcta reproduce literalmente estos supuestos impeditivos. Las demás alternativas añaden restricciones que el texto no contempla (estado de alarma exclusivamente, disolución de las Cortes o último año de mandato del Gobierno).",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "En relación con el artículo 167.1, ¿qué papel tiene la Comisión de composición paritaria de Diputados y Senadores en el procedimiento de reforma constitucional ordinario?",
+          "options": "[\"Convocar directamente el referéndum de ratificación sin necesidad de aprobación parlamentaria\",\"Sustituir definitivamente a las Cámaras en la aprobación de la reforma\",\"Decidir por mayoría simple si se somete la reforma a referéndum sin intervención de las Cámaras\",\"Redactar un texto de compromiso que será votado posteriormente por el Congreso y el Senado\"]",
+          "correctAnswer": "Redactar un texto de compromiso que será votado posteriormente por el Congreso y el Senado",
+          "explanation": "El art. 167.1 CE indica que, para intentar el acuerdo, se creará una Comisión 'que presentará un texto que será votado por el Congreso y el Senado'. La opción correcta refleja que la Comisión no sustituye la decisión de las Cámaras, sino que elabora un texto de compromiso sometido a su votación. Las demás atribuyen a la Comisión funciones decisorias finales o de convocatoria de referéndum que el precepto no le confiere.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "Comparando los artículos 167.1 y 168.1, ¿qué afirmación describe correctamente una diferencia en las mayorías requeridas en las Cámaras para la aprobación parlamentaria inicial de la reforma?",
+          "options": "[\"El artículo 167.1 exige mayoría de tres quintos en cada Cámara, mientras que el artículo 168.1 exige mayoría de dos tercios de cada Cámara para aprobar el principio de revisión\",\"El artículo 167.1 exige mayoría absoluta en el Congreso y tres quintos en el Senado, mientras que el artículo 168.1 exige mayoría absoluta en ambas Cámaras\",\"Ambos artículos exigen exclusivamente mayoría simple de cada Cámara en todos los trámites\",\"El artículo 167.1 no fija ninguna mayoría concreta, a diferencia del artículo 168.1\"]",
+          "correctAnswer": "El artículo 167.1 exige mayoría de tres quintos en cada Cámara, mientras que el artículo 168.1 exige mayoría de dos tercios de cada Cámara para aprobar el principio de revisión",
+          "explanation": "El art. 167.1 CE exige 'una mayoría de tres quintos de cada una de las Cámaras', mientras que el art. 168.1 CE requiere 'la aprobación del principio por mayoría de dos tercios de cada Cámara'. La opción correcta refleja esta diferencia entre las mayorías reforzadas. Las demás respuestas niegan la existencia de tales mayorías o atribuyen combinaciones que no se corresponden con el texto constitucional.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "En el marco del artículo 168.1, ¿qué relación existe entre la aprobación del principio de revisión y la disolución de las Cortes Generales?",
+          "options": "[\"La disolución de las Cortes se produce antes de la aprobación del principio\",\"La Constitución no conecta la aprobación del principio con la disolución de las Cortes\",\"Aprobado el principio por mayoría de dos tercios de cada Cámara, se procede a la disolución inmediata de las Cortes\",\"La disolución de las Cortes es opcional y la decide el Gobierno\"]",
+          "correctAnswer": "Aprobado el principio por mayoría de dos tercios de cada Cámara, se procede a la disolución inmediata de las Cortes",
+          "explanation": "El art. 168.1 CE establece que, en los supuestos allí previstos, 'se procederá a la aprobación del principio por mayoría de dos tercios de cada Cámara, y a la disolución inmediata de las Cortes'. La opción correcta recoge que la disolución inmediata sigue a la aprobación del principio por esa mayoría. Las demás opciones invierten el orden, hacen opcional la disolución o niegan la conexión expresamente formulada en el precepto.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-02-aass-turno-libre-general-reforma-constitucional",
+          "text": "A la luz del artículo 169, ¿qué limitación temporal específica impone la Constitución al inicio de la reforma constitucional en relación con los estados previstos en el artículo 116?",
+          "options": "[\"Solo prohíbe iniciar la reforma durante el estado de alarma\",\"Permite iniciar la reforma, pero solo en el estado de excepción\",\"Prohíbe iniciar la reforma mientras esté vigente cualquiera de los estados regulados en el artículo 116\",\"Solo impide la reforma durante el estado de sitio, sin mención al tiempo de guerra\"]",
+          "correctAnswer": "Prohíbe iniciar la reforma mientras esté vigente cualquiera de los estados regulados en el artículo 116",
+          "explanation": "El art. 169 CE señala que 'No podrá iniciarse la reforma constitucional en tiempo de guerra o de vigencia de alguno de los estados previstos en el artículo 116'. La opción correcta interpreta que la prohibición alcanza a cualquiera de los estados regulados en el art. 116, sin distinguir entre ellos. Las demás restringen o modifican indebidamente el alcance de esta prohibición, mencionando solo uno de los estados o alterando la referencia al tiempo de guerra.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - Título X. La reforma constitucional",
+          "difficulty": "alta"
+        }
+      ]
+    }
+  ]
+}

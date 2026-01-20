@@ -1,6 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
+function normalizeTemaParte(value: unknown): string | null {
+  if (!value) return null
+
+  const raw = String(value).trim()
+  if (!raw) return null
+
+  const normalized = raw
+    .toUpperCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+
+  if (normalized.startsWith('GEN')) {
+    return 'GENERAL'
+  }
+  if (normalized.startsWith('ESP')) {
+    return 'ESPECÍFICO'
+  }
+
+  return raw
+}
+
 // Endpoint para importación masiva de preguntas
 // Solo accesible con clave secreta
 export async function POST(req: NextRequest) {
@@ -39,7 +60,7 @@ export async function POST(req: NextRequest) {
                 explanation: question.explanation || '',
                 temaCodigo: question.temaCodigo || null,
                 temaNumero: question.temaNumero || null,
-                temaParte: question.temaParte || null,
+                temaParte: normalizeTemaParte(question.temaParte),
                 temaTitulo: question.temaTitulo || null,
                 difficulty: question.difficulty || 'media',
                 legalBasis: question.legalBasis || null

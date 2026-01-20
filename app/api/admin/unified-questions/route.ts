@@ -117,19 +117,63 @@ export async function GET(req: NextRequest) {
       temasOficialesDb = []
     }
 
-    const temasOficiales = temasOficialesDb.length
-      ? temasOficialesDb
-      : (() => {
-          if (temarioSource === 'db') temarioSource = 'code'
-          return TEMARIO_OFICIAL
-          .map(t => ({ id: t.id, numero: t.numero, titulo: t.titulo, categoria: t.categoria }))
-          .sort((a, b) => {
-            const ca = a.categoria === 'general' ? 0 : 1
-            const cb = b.categoria === 'general' ? 0 : 1
-            if (ca !== cb) return ca - cb
-            return a.numero - b.numero
+    // Construir lista de temas oficiales priorizando el temario completo en código
+    // y complementando con lo que exista en BD. Así evitamos que una semilla
+    // incompleta en la BD o futuros temarios parciales oculten temas en la UI.
+    const temasFromCode = TEMARIO_OFICIAL
+      .map(t => ({ id: t.id, numero: t.numero, titulo: t.titulo, categoria: t.categoria }))
+	  .sort((a, b) => {
+	    const ca = a.categoria === 'general' ? 0 : 1
+	    const cb = b.categoria === 'general' ? 0 : 1
+	    if (ca !== cb) return ca - cb
+	    return a.numero - b.numero
+	  })
+
+    let temasOficiales: Array<{ id: string; numero: number; titulo: string; categoria: string }>
+
+    if (!temasOficialesDb.length) {
+      // Sin datos en BD: usar siempre el temario oficial en código
+      if (temarioSource === 'db') temarioSource = 'code'
+      temasOficiales = temasFromCode
+    } else {
+      // Con datos en BD: combinar ambos orígenes.
+      // - Partimos del temario en código (lista completa)
+      // - Sobrescribimos con registros de BD cuando coincida el id
+      // - Añadimos cualquier tema extra que pudiera existir solo en BD
+      temarioSource = temarioSource === 'db-error' ? 'db-error' : 'db+code'
+
+      const byId = new Map<string, { id: string; numero: number; titulo: string; categoria: string }>()
+
+      for (const t of temasFromCode) {
+        byId.set(t.id, { ...t })
+      }
+
+      for (const t of temasOficialesDb) {
+        const existing = byId.get(t.id)
+        if (existing) {
+          byId.set(t.id, {
+            ...existing,
+            numero: t.numero ?? existing.numero,
+            titulo: t.titulo ?? existing.titulo,
+            categoria: t.categoria || existing.categoria
           })
-        })()
+        } else {
+          byId.set(t.id, {
+            id: t.id,
+            numero: t.numero,
+            titulo: t.titulo,
+            categoria: t.categoria
+          })
+        }
+      }
+
+      temasOficiales = Array.from(byId.values()).sort((a, b) => {
+        const ca = a.categoria === 'general' ? 0 : 1
+        const cb = b.categoria === 'general' ? 0 : 1
+        if (ca !== cb) return ca - cb
+        return a.numero - b.numero
+      })
+    }
 
     const temasOficialById = new Map(temasOficiales.map(t => [t.id, t]))
 

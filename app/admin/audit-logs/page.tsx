@@ -14,7 +14,7 @@ interface AuditLogEntry {
   adminEmail: string
   changes?: string
   reason?: string
-  timestamp: string
+  createdAt: string
 }
 
 export default function AdminAuditLogs() {
@@ -163,7 +163,7 @@ export default function AdminAuditLogs() {
                     logs.map((log) => (
                       <tr key={log.id} className="hover:bg-gray-50 transition">
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(log.timestamp).toLocaleString('es-ES')}
+                          {log.createdAt ? new Date(log.createdAt).toLocaleString('es-ES') : '-'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${getActionColor(log.action)}`}>

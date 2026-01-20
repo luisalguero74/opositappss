@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { getCorrectAnswerLetter } from '@/lib/answer-normalization'
 
 interface PreguntaConProblemas {
   id: string
@@ -60,15 +62,39 @@ export default function QualityReviewPage() {
     }
   }, [status, session, router])
 
-  const analizarPreguntas = async () => {
+  const analizarPreguntas = async (overrideFilters?: Partial<typeof filters>) => {
+    const source = overrideFilters && Object.keys(overrideFilters).length > 0 ? overrideFilters : filters
+
+    const f: typeof filters = {
+      limit:
+        typeof (source as any).limit === 'number' && !Number.isNaN((source as any).limit)
+          ? (source as any).limit
+          : 100,
+      offset:
+        typeof (source as any).offset === 'number' && !Number.isNaN((source as any).offset)
+          ? (source as any).offset
+          : 0,
+      onlyProblems:
+        typeof (source as any).onlyProblems === 'boolean'
+          ? (source as any).onlyProblems
+          : true,
+      minScore:
+        typeof (source as any).minScore === 'number' && !Number.isNaN((source as any).minScore)
+          ? (source as any).minScore
+          : 0,
+      maxScore:
+        typeof (source as any).maxScore === 'number' && !Number.isNaN((source as any).maxScore)
+          ? (source as any).maxScore
+          : 100
+    }
     setAnalyzing(true)
     try {
       const params = new URLSearchParams({
-        limit: filters.limit.toString(),
-        offset: filters.offset.toString(),
-        onlyProblems: filters.onlyProblems.toString(),
-        minScore: filters.minScore.toString(),
-        maxScore: filters.maxScore.toString()
+        limit: f.limit.toString(),
+        offset: f.offset.toString(),
+        onlyProblems: f.onlyProblems.toString(),
+        minScore: f.minScore.toString(),
+        maxScore: f.maxScore.toString()
       })
 
       const response = await fetch(`/api/admin/review-questions?${params}`)
@@ -86,6 +112,22 @@ export default function QualityReviewPage() {
     } finally {
       setAnalyzing(false)
     }
+  }
+
+  const aplicarFiltroRapido = (tipo: 'todas' | 'validas' | 'problematicas') => {
+    const base = { ...filters }
+    let nuevos: typeof filters
+
+    if (tipo === 'todas') {
+      nuevos = { ...base, minScore: 0, maxScore: 100, onlyProblems: false, offset: 0 }
+    } else if (tipo === 'validas') {
+      nuevos = { ...base, minScore: 80, maxScore: 100, onlyProblems: false, offset: 0 }
+    } else {
+      nuevos = { ...base, minScore: 0, maxScore: 59, onlyProblems: true, offset: 0 }
+    }
+
+    setFilters(nuevos)
+    analizarPreguntas(nuevos)
   }
 
   const regenerarSeleccionadas = async () => {
@@ -240,6 +282,15 @@ export default function QualityReviewPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
+          <Link
+            href="/admin"
+            className="text-blue-600 hover:text-blue-700 font-semibold mb-3 inline-block"
+          >
+            
+            
+            
+            ← Volver al Panel Admin
+          </Link>
           <h1 className="text-3xl font-bold text-gray-900">Revisión de Calidad de Preguntas</h1>
           <p className="mt-2 text-gray-600">
             Analiza, valida y mejora las preguntas existentes en la base de datos
@@ -249,6 +300,29 @@ export default function QualityReviewPage() {
         {/* Filtros */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <h2 className="text-lg font-semibold mb-4">Filtros de Análisis</h2>
+          <div className="flex flex-wrap gap-3 mb-4">
+            <button
+              type="button"
+              onClick={() => aplicarFiltroRapido('todas')}
+              className="px-4 py-2 text-sm rounded-lg border border-gray-300 hover:bg-gray-50"
+            >
+              Todas
+            </button>
+            <button
+              type="button"
+              onClick={() => aplicarFiltroRapido('validas')}
+              className="px-4 py-2 text-sm rounded-lg border border-green-300 text-green-700 hover:bg-green-50"
+            >
+              Válidas (≥ 80)
+            </button>
+            <button
+              type="button"
+              onClick={() => aplicarFiltroRapido('problematicas')}
+              className="px-4 py-2 text-sm rounded-lg border border-red-300 text-red-700 hover:bg-red-50"
+            >
+              Problemáticas (&lt; 60)
+            </button>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -424,6 +498,14 @@ export default function QualityReviewPage() {
                         {pregunta.difficulty}
                       </span>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/admin/questions-review?questionId=${encodeURIComponent(pregunta.id)}`}
+                        className="text-sm px-3 py-1 rounded bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200"
+                      >
+                        ✏️ Editar
+                      </Link>
+                    </div>
                   </div>
 
                   {/* Pregunta */}
@@ -433,18 +515,24 @@ export default function QualityReviewPage() {
 
                   {/* Opciones */}
                   <div className="mb-3 space-y-1">
-                    {pregunta.options.map((opcion, idx) => (
-                      <div
-                        key={idx}
-                        className={`text-sm p-2 rounded ${
-                          ['A', 'B', 'C', 'D'][idx] === pregunta.correctAnswer
-                            ? 'bg-green-50 text-green-800'
-                            : 'bg-gray-50 text-gray-700'
-                        }`}
-                      >
-                        <strong>{['A', 'B', 'C', 'D'][idx]})</strong> {opcion}
-                      </div>
-                    ))}
+                    {(() => {
+                      const letter = getCorrectAnswerLetter(pregunta.correctAnswer, pregunta.options)
+                      const correctLetter = letter ? letter.toUpperCase() : null
+                      return pregunta.options.map((opcion, idx) => {
+                        const optionLetter = ['A', 'B', 'C', 'D'][idx]
+                        const isCorrect = correctLetter === optionLetter
+                        return (
+                          <div
+                            key={idx}
+                            className={`text-sm p-2 rounded ${
+                              isCorrect ? 'bg-green-50 text-green-800' : 'bg-gray-50 text-gray-700'
+                            }`}
+                          >
+                            <strong>{optionLetter})</strong> {opcion}
+                          </div>
+                        )
+                      })
+                    })()}
                   </div>
 
                   {/* Explicación */}

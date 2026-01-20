@@ -120,12 +120,31 @@ export default function Register() {
               required
             />
           </div>
-          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-xs text-gray-700">
-              🔒 Al registrarte, aceptas que tus datos personales serán tratados de acuerdo con el 
-              <strong> Reglamento General de Protección de Datos (RGPD) UE 2016/679</strong> y la 
-              <strong> Ley Orgánica 3/2018 de Protección de Datos Personales y Garantía de los Derechos Digitales</strong>. 
-              Tus datos se utilizarán únicamente para la gestión de tu cuenta y no se compartirán con terceros sin tu consentimiento.
+          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg space-y-2">
+            <label className="flex items-start gap-2 text-xs text-gray-700">
+              <input
+                type="checkbox"
+                required
+                className="mt-1 h-3 w-3"
+              />
+              <span>
+                Confirmo que he leído y acepto la{' '}
+                <a href="/privacidad" className="text-purple-600 underline-offset-2 hover:underline font-semibold">
+                  Política de privacidad
+                </a>{' '}
+                y el{' '}
+                <a href="/aviso-legal" className="text-purple-600 underline-offset-2 hover:underline font-semibold">
+                  Aviso legal
+                </a>
+                .
+              </span>
+            </label>
+            <p className="text-[11px] text-gray-600">
+              🔒 Tus datos personales serán tratados de acuerdo con el
+              <strong> Reglamento General de Protección de Datos (RGPD) UE 2016/679</strong> y la
+              <strong> Ley Orgánica 3/2018 de Protección de Datos Personales y Garantía de los Derechos Digitales</strong>,
+              utilizándose únicamente para la gestión de tu cuenta y la prestación del servicio, sin compartirse con terceros
+              salvo obligación legal o necesidad para la propia prestación.
             </p>
           </div>
           <button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition">

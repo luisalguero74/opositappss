@@ -162,7 +162,7 @@ export function enriquecerPromptConRAG(
 📚 DOCUMENTOS LEGALES DE REFERENCIA (Biblioteca Legal)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Usa EXCLUSIVAMENTE estos documentos oficiales como fuente de información legal:
+Usa EXCLUSIVAMENTE estos documentos oficiales como fuente de información jurídica (artículos, números, plazos, órganos, requisitos). Puedes usar tu conocimiento general solo para mejorar la redacción y la claridad, sin añadir datos jurídicos nuevos que no aparezcan en estos documentos:
 
 ${documentosRAG.map((doc, idx) => `
 ${idx + 1}. **${doc.documentTitle}** (Relevancia: ${Math.round(doc.relevanceScore)}%)

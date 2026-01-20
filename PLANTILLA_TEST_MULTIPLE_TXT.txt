@@ -1,0 +1,42 @@
+PLANTILLA TEST TIPO MULTIPLE (para scripts/convert-test-txt-to-json.mjs)
+=====================================================================
+
+INSTRUCCIONES RÁPIDAS
+---------------------
+- Sustituye los textos de EJEMPLO por tu propio cuestionario.
+- Respeta el formato de numeración de preguntas ("1.", "2.", ...).
+- Respeta el formato de las opciones ("A)", "B)", "C)", "D)").
+- Al final, rellena el bloque SOLUCIONES con el número de pregunta y la letra correcta.
+
+EJEMPLO DE FORMATO VÁLIDO
+--------------------------
+
+1. Texto de la primera pregunta de ejemplo.
+A) Primera opción de respuesta.
+B) Segunda opción de respuesta.
+C) Tercera opción de respuesta.
+D) Cuarta opción de respuesta.
+
+2. Texto de la segunda pregunta de ejemplo.
+A) Primera opción de respuesta.
+B) Segunda opción de respuesta.
+C) Tercera opción de respuesta.
+D) Cuarta opción de respuesta.
+
+3. Texto de la tercera pregunta de ejemplo.
+A) Primera opción de respuesta.
+B) Segunda opción de respuesta.
+C) Tercera opción de respuesta.
+D) Cuarta opción de respuesta.
+
+SOLUCIONES:
+1 A
+2 C
+3 D
+
+NOTAS IMPORTANTES
+-----------------
+- Debe haber siempre 4 opciones por pregunta (A, B, C y D).
+- Entre preguntas puedes dejar líneas en blanco (el script las ignora).
+- En el bloque SOLUCIONES basta con "número" + "letra" (por ejemplo: 10 B).
+- La letra puede ir en mayúscula o minúscula (A/a, B/b, ...).

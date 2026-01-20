@@ -1,0 +1,96 @@
+{
+  "totalQuestions": 65,
+  "totalQuestionnaires": 1,
+  "data": [
+    {
+      "questionnaireId": "tema05-cuestionario-01-aass-turno-libre-especifico",
+      "questionCount": 65,
+      "questions": [
+        {
+          "questionnaireId": "tema05-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con el artículo 1 del Reglamento General de Recaudación de la Seguridad Social, aprobado por Real Decreto 1415/2004, de 11 de junio, la gestión recaudatoria consiste en el ejercicio de la actividad administrativa conducente a la realización de los créditos y derechos de la Seguridad Social cuyo objeto esté constituido por una serie de recursos. Dichos recursos vienen enumerados en este artículo primero del Reglamento. A continuación, he enumerado cuatro de ellos, pero uno NO es correcto. Indica cuál.",
+          "options": "[\"Aportaciones que, por cualquier concepto, deban efectuarse a favor de la Seguridad Social en virtud de norma o concierto que tenga por objeto la dispensación de atenciones o servicios que constituyan prestaciones de la Seguridad Social.\",\"Capitales coste de pensiones o de renta cierta temporal y otras prestaciones que deban ingresar las entidades gestoras de la Seguridad Social y las empresas declaradas responsables de su pago por resolución administrativa.\",\"Cuotas de la Seguridad Social.\",\"Aportaciones para el sostenimiento de los servicios comunes de la Seguridad Social y de contribución a los demás gastos generales y a la satisfacción de las exigencias de la solidaridad nacional, a efectuar por las mutuas colaboradoras con la Seguridad Social y por las empresas que colaboren en la gestión de la Seguridad Social.\"]",
+          "correctAnswer": "Capitales coste de pensiones o de renta cierta temporal y otras prestaciones que deban ingresar las entidades gestoras de la Seguridad Social y las empresas declaradas responsables de su pago por resolución administrativa.",
+          "explanation": "",
+          "temaCodigo": "T05",
+          "temaNumero": 5,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 05 - La gestión recaudatoria: concepto, competencia y objeto. Responsables del pago. Requisitos para el pago. Medios de pago. Control de recaudación. Revisión de los actos de gestión recaudatoria. La recaudación en periodo voluntario. Efectos de la falta de cotización en período reglamentario. Recaudación de otros recursos. Aplazamientos. Devolución de ingresos indebidos. Capital coste de pensiones.",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema05-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Continuando con el artículo primero del Reglamento, señale, de nuevo, de los siguientes recursos, cuál NO es correcto.",
+          "options": "[\"Reintegros de los préstamos que tengan el carácter de inversión social.\",\"Aportaciones por reaseguro obligatorio y facultativo que efectuarán las mutuas colaboradoras con la Seguridad Social.\",\"El importe de los recargos sobre prestaciones por falta de medidas de seguridad y salud en el trabajo, declarados improcedentes por resolución administrativa.\",\"El importe de las sanciones por infracciones en materia de Seguridad Social.\"]",
+          "correctAnswer": "El importe de los recargos sobre prestaciones por falta de medidas de seguridad y salud en el trabajo, declarados improcedentes por resolución administrativa.",
+          "explanation": "",
+          "temaCodigo": "T05",
+          "temaNumero": 5,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 05 - La gestión recaudatoria: concepto, competencia y objeto. Responsables del pago. Requisitos para el pago. Medios de pago. Control de recaudación. Revisión de los actos de gestión recaudatoria. La recaudación en periodo voluntario. Efectos de la falta de cotización en período reglamentario. Recaudación de otros recursos. Aplazamientos. Devolución de ingresos indebidos. Capital coste de pensiones.",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema05-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Seguimos con el mismo artículo, que hay que sabérselo bien. Señala de nuevo cuál de los siguientes recursos, NO es correcto.",
+          "options": "[\"Premios de cobranza o de gestión que se deriven de la recaudación de cuotas u otros conceptos para organismos y entidades ajenos al sistema de la Seguridad Social.\",\"Aportaciones por ayudas equivalentes a jubilaciones anticipadas o por ayudas previas a las jubilaciones ordinarias.\",\"El importe de las contraprestaciones e indemnizaciones que procedan en los contratos administrativos celebrados por las entidades gestoras y la Tesorería General de la Seguridad Social.\",\"Aportaciones por integración de entidades de previsión social complementarias.\"]",
+          "correctAnswer": "Aportaciones por integración de entidades de previsión social complementarias.",
+          "explanation": "",
+          "temaCodigo": "T05",
+          "temaNumero": 5,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 05 - La gestión recaudatoria: concepto, competencia y objeto. Responsables del pago. Requisitos para el pago. Medios de pago. Control de recaudación. Revisión de los actos de gestión recaudatoria. La recaudación en periodo voluntario. Efectos de la falta de cotización en período reglamentario. Recaudación de otros recursos. Aplazamientos. Devolución de ingresos indebidos. Capital coste de pensiones.",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema05-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Y ya terminamos con el artículo. De verdad. Pero una más. ¿Cuál de los siguientes recursos NO es correcto?",
+          "options": "[\"Reintegro de prestaciones indebidamente compensadas y de deducciones indebidamente aplicadas.\",\"Cualesquiera otros ingresos de la Seguridad Social distintos de los especificados en este artículo primero del Reglamento, que tengan el carácter de ingresos de derecho privado y cuyo objeto no sean frutos, rentas o cualquier otro producto de sus bienes muebles o inmuebles, a los que se aplican las reglas del derecho público.\",\"Cuotas de desempleo, fondo de garantía salarial, formación profesional y cuantos otros conceptos se recauden, o se determine en el futuro que se recauden, por aquélla para entidades y organismos ajenos al sistema de la Seguridad Social, incluyendo, en su caso, los recargos e intereses que procedan sobre tales conceptos.\",\"Costas procesales impuestas a quienes hayan litigado contra las entidades gestoras y la Tesorería General de la Seguridad Social.\"]",
+          "correctAnswer": "Cualesquiera otros ingresos de la Seguridad Social distintos de los especificados en este artículo primero del Reglamento, que tengan el carácter de ingresos de derecho privado y cuyo objeto no sean frutos, rentas o cualquier otro producto de sus bienes muebles o inmuebles, a los que se aplican las reglas del derecho público.",
+          "explanation": "",
+          "temaCodigo": "T05",
+          "temaNumero": 5,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 05 - La gestión recaudatoria: concepto, competencia y objeto. Responsables del pago. Requisitos para el pago. Medios de pago. Control de recaudación. Revisión de los actos de gestión recaudatoria. La recaudación en periodo voluntario. Efectos de la falta de cotización en período reglamentario. Recaudación de otros recursos. Aplazamientos. Devolución de ingresos indebidos. Capital coste de pensiones.",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema05-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con el artículo 2 del Reglamento General de Recaudación de la Seguridad Social, el artículo 21 del texto refundido de la Ley General de la Seguridad Social, y el artículo 1 de la Orden TAS/1562/2005, de 25 de mayo, por la que se establecen normas para la aplicación y desarrollo del Reglamento General de Recaudación de la Seguridad Social, señale, de las siguientes respuestas, cuál NO es correcta.",
+          "options": "[\"La gestión de la recaudación de los recursos del sistema de la Seguridad Social objeto del Reglamento General de Recaudación de la Seguridad Social es de competencia exclusiva de la Tesorería General de la Seguridad Social.\",\"Corresponde al Director General de la Tesorería General de la Seguridad Social la celebración de conciertos sobre gestión recaudatoria de la Seguridad Social entre dicha Tesorería General y una Administración Pública o entre aquélla y las asociaciones profesionales, previa autorización del Ministro de Inclusión, Seguridad Social y Migraciones o autoridad en quien delegue, así como la celebración de cualquier tipo de concierto entre la Tesorería General y entidades particulares, en este último caso, previa autorización del Consejo de Ministros.\",\"Para realizar la función recaudatoria, la Tesorería General de la Seguridad Social podrá concertar los servicios que considere convenientes con las distintas administraciones públicas o con entidades particulares habilitadas al efecto.\",\"El ejercicio de la función recaudatoria se efectuará sin perjuicio de las competencias que tengan atribuidas sobre la materia la Inspección de Trabajo y Seguridad Social y, respecto a determinados recursos distintos a cuotas, otros organismos u órganos administrativos.\"]",
+          "correctAnswer": "La gestión de la recaudación de los recursos del sistema de la Seguridad Social objeto del Reglamento General de Recaudación de la Seguridad Social es de competencia exclusiva de la Tesorería General de la Seguridad Social.",
+          "explanation": "",
+          "temaCodigo": "T05",
+          "temaNumero": 5,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 05 - La gestión recaudatoria: concepto, competencia y objeto. Responsables del pago. Requisitos para el pago. Medios de pago. Control de recaudación. Revisión de los actos de gestión recaudatoria. La recaudación en periodo voluntario. Efectos de la falta de cotización en período reglamentario. Recaudación de otros recursos. Aplazamientos. Devolución de ingresos indebidos. Capital coste de pensiones.",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema05-cuestionario-01-aass-turno-libre-especifico",
+          "text": "De acuerdo con el artículo 3 del Reglamento General de Recaudación de la Seguridad Social, aprobado por Real Decreto 1415/2004, de 11 de junio, señale, de los siguientes, quiénes son colaboradores de los órganos de recaudación de la Tesorería General de la Seguridad Social.",
+          "options": "[\"Todas las respuestas anteriores son correctas.\",\"Cualesquiera otras entidades, órganos o agentes autorizados para actuar como oficinas recaudadoras.\",\"Los bancos, cajas de ahorro y cajas rurales cooperativas de crédito autorizadas para actuar como oficinas recaudadoras en el ámbito de la Seguridad Social.\",\"Las Administraciones públicas o entidades particulares a las que se atribuyan funciones recaudatorias en el ámbito de la Seguridad Social en virtud de concierto o por disposiciones especiales.\"]",
+          "correctAnswer": "Todas las respuestas anteriores son correctas.",
+          "explanation": "",
+          "temaCodigo": "T05",
+          "temaNumero": 5,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 05 - La gestión recaudatoria: concepto, competencia y objeto. Responsables del pago. Requisitos para el pago. Medios de pago. Control de recaudación. Revisión de los actos de gestión recaudatoria. La recaudación en periodo voluntario. Efectos de la falta de cotización en período reglamentario. Recaudación de otros recursos. Aplazamientos. Devolución de ingresos indebidos. Capital coste de pensiones.",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema05-cuestionario-01-aass-turno-libre-especifico",
+          "text": "Según el artículo 4 del Reglamento General de Recaudación de la Seguridad Social, aprobado por Real Decreto 1415/2004, de 11 de junio, señale, en relación con la autorización de colaboración cuál de las siguientes afirmaciones es CORRECTA.",
+          "options": "[\"La concesión o denegación de autorizaciones para actuar como colaboradores en la gestión recaudatoria de la Seguridad Social corresponderá, conforme a las normas establecidas al efecto por el Ministro de Trabajo e Inmigración, al Secretario de Estado de la Seguridad Social, quien deberá resolver las solicitudes formuladas a tal efecto en un plazo de tres meses a partir de la fecha en que la solicitud haya tenido entrada en su registro. Transcurrido dicho plazo sin que se hubiera dictado y notificado resolución expresa, la solicitud podrá entenderse desestimada.\",\"Los colaboradores autorizados como oficinas recaudadoras que deseen cesar en su colaboración deberán solicitarlo, con una antelación mínima de 30 días al previsto para el cese, al Secretario de Estado de la Seguridad Social, quien resolverá la solicitud en el plazo de seis meses, que se entenderá estimada en defecto de resolución expresa.\",\"Ninguna de las respuestas anteriores es correcta.\",\"La resolución del Secretario de Estado de la Seguridad Social que autorice la colaboración, restrinja, suspenda o revoque la autorización concedida o acuerde el cese en la colaboración, además de notificarse al colaborador correspondiente se publicará en el «Boletín Oficial del Estado», surtiendo efectos desde el día siguiente al de dicha publicación.\"]",
+          "correctAnswer": "Ninguna de las respuestas anteriores es correcta.",
+          "explanation": "",
+          "temaCodigo": "T05",
+          "temaNumero": 5,
+          "temaParte": "especifico",
+          "temaTitulo": "Tema 05 - La gestión recaudatoria: concepto, competencia y objeto. Responsables del pago. Requisitos para el pago. Medios de pago. Control de recaudación. Revisión de los actos de gestión recaudatoria. La recaudación en periodo voluntario. Efectos de la falta de cotización en período reglamentario. Recaudación de otros recursos. Aplazamientos. Devolución de ingresos indebidos. Capital coste de pensiones.",
+          "difficulty": "alta"
+        }
+      ]
+    }
+  ]
+}

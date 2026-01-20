@@ -18,7 +18,17 @@ export default function OCRModal({ temaId, temaTitulo, onClose, onSuccess }: OCR
   const [step, setStep] = useState<'upload' | 'preview' | 'confirm'>('upload')
 
   const renderPdfPageToPngBlob = async (page: any, scale: number): Promise<Blob> => {
-    const viewport = page.getViewport({ scale })
+    // Escalado adaptativo para evitar imágenes demasiado grandes
+    const baseViewport = page.getViewport({ scale })
+    const maxPixels = 1_000_000
+    let effectiveScale = scale
+
+    if (baseViewport.width * baseViewport.height > maxPixels) {
+      const factor = Math.sqrt(maxPixels / (baseViewport.width * baseViewport.height))
+      effectiveScale = scale * factor
+    }
+
+    const viewport = page.getViewport({ scale: effectiveScale })
     const canvas = document.createElement('canvas')
     const context = canvas.getContext('2d')
     if (!context) throw new Error('No se pudo crear contexto de canvas para OCR')
@@ -39,6 +49,15 @@ export default function OCRModal({ temaId, temaTitulo, onClose, onSuccess }: OCR
 
   const ocrPdfInBrowserThenServer = async (pdfFile: File, maxPages: number) => {
     const pdfjs = (await import('pdfjs-dist/legacy/build/pdf')) as any
+    try {
+      // Asegura que pdf.js tenga un worker válido en este bundle.
+      pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+        'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
+        import.meta.url
+      ).toString()
+    } catch {
+      // Best-effort: si falla, pdf.js intentará modo sin worker / fake worker.
+    }
     const data = new Uint8Array(await pdfFile.arrayBuffer())
     const loadingTask = pdfjs.getDocument({ data, disableWorker: true })
     const pdf = await loadingTask.promise

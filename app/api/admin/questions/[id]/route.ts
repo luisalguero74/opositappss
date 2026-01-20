@@ -18,17 +18,20 @@ export async function PUT(
     const body = await req.json()
     const { text, options, correctAnswer, explanation } = body
 
-    // Validaciones
+    // Validaciones básicas de formato
     if (!text || !Array.isArray(options) || options.length !== 4 || !correctAnswer || !explanation) {
       return NextResponse.json({ 
         error: 'Datos inválidos. Se requieren: text, options (array de 4), correctAnswer y explanation' 
       }, { status: 400 })
     }
 
-    // Verificar que la respuesta correcta esté en las opciones
-    if (!options.includes(correctAnswer)) {
+    // Aceptar tanto respuestas tipo texto completo como letras A/B/C/D
+    const rawCorrect = String(correctAnswer).trim()
+    const isLetterAnswer = ['A', 'B', 'C', 'D'].includes(rawCorrect.toUpperCase())
+
+    if (!isLetterAnswer && !options.includes(correctAnswer)) {
       return NextResponse.json({ 
-        error: 'La respuesta correcta debe estar entre las opciones proporcionadas' 
+        error: 'La respuesta correcta debe estar entre las opciones proporcionadas o ser A, B, C o D' 
       }, { status: 400 })
     }
 

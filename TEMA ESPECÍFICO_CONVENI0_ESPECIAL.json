@@ -1,0 +1,604 @@
+{
+  "questions": [
+    {
+      "question": "Según el art. 1.1 de la Orden TAS/2865/2003, ¿qué efecto general produce la suscripción de un convenio especial con la Seguridad Social?",
+      "options": [
+        "Determina la iniciación o continuación de la situación de alta o asimilada a la de alta en el Régimen de la Seguridad Social que corresponda",
+        "Solo reconoce el derecho a asistencia sanitaria, sin efectos sobre la situación de alta",
+        "Implica automáticamente el reconocimiento de una pensión de jubilación",
+        "Produce exclusivamente la conservación de la antigüedad en la empresa"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 1.1 indica que la suscripción del convenio especial \"determinará la iniciación o la continuación de la situación de alta o asimilada a la de alta en el Régimen de la Seguridad Social que corresponda\". No se limita a asistencia sanitaria (B), ni concede pensión de jubilación por sí sola (C), ni tiene relación con la antigüedad en la empresa (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 1.2, ¿cuál es el objeto principal del convenio especial?",
+      "options": [
+        "Cubrir exclusivamente las contingencias profesionales y el desempleo",
+        "La cotización al Régimen en cuyo ámbito se suscriba y la cobertura de las situaciones derivadas de contingencias comunes mediante las prestaciones correspondientes",
+        "Únicamente garantizar el acceso a formación profesional para el empleo",
+        "Asegurar la protección por Fondo de Garantía Salarial y desempleo"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 1.2 establece que el convenio tiene por objeto \"la cotización al Régimen de la misma en cuyo ámbito se suscriba el convenio y la cobertura de las situaciones derivadas de contingencias comunes mediante el otorgamiento de las prestaciones\". Además, excluye expresamente Desempleo, FOGASA y Formación Profesional, por lo que las opciones A, C y D no se ajustan al texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 1.2, ¿cuál de las siguientes contingencias o acciones queda, con carácter general, excluida del convenio especial salvo previsión específica en el Capítulo II?",
+      "options": [
+        "La jubilación",
+        "La incapacidad permanente",
+        "La incapacidad temporal y los subsidios correspondientes a la misma",
+        "La muerte y supervivencia"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 1.2 dispone que de la acción protectora del convenio especial quedan excluidas, salvo previsión distinta en el Capítulo II, \"las situaciones de incapacidad temporal, maternidad y riesgo durante el embarazo y los subsidios correspondientes a las mismas\". No se excluyen en general jubilación, incapacidad permanente ni muerte y supervivencia (A, B y D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 1.2, ¿qué regímenes de protección se excluyen siempre del convenio especial, sin necesidad de remisión al Capítulo II?",
+      "options": [
+        "Las prestaciones por jubilación anticipada y las mejoras voluntarias de empresa",
+        "La protección por desempleo, el Fondo de Garantía Salarial y la Formación Profesional",
+        "La asistencia sanitaria por accidente de trabajo y enfermedad profesional",
+        "Las prestaciones por maternidad y riesgo durante el embarazo"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 1.2 dispone, además de otras exclusiones condicionadas, que \"quedarán excluidas del convenio especial la cotización y la protección por Desempleo, Fondo de Garantía Salarial y Formación Profesional\". Sin embargo, la opción D recoge las prestaciones que están excluidas de la acción protectora salvo lo previsto en el Capítulo II, mientras que A y C no responden al listado del precepto. La opción B se refiere a regímenes excluidos, pero el enunciado pregunta por los \"regímenes de protección\" excluidos siempre: desempleo, FOGASA y Formación Profesional, que son precisamente los mencionados en el art. 1.2, frente a otras prestaciones concretas.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 2.1, ¿con qué órgano se suscribe el convenio especial en el Sistema de la Seguridad Social?",
+      "options": [
+        "Con las entidades gestoras de prestaciones económicas",
+        "Con el Ministerio de Trabajo y Economía Social directamente",
+        "Con la Tesorería General de la Seguridad Social, a través de los órganos competentes conforme a su distribución de competencias",
+        "Con las Mutuas Colaboradoras con la Seguridad Social"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 2.1 establece que \"el convenio especial con la Seguridad Social se suscribirá con la Tesorería General de la Seguridad Social a través de los órganos competentes al efecto\". No se suscribe con entidades gestoras (A), ni directamente con el Ministerio (B) ni con Mutuas (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 2.2.a), ¿qué requisito básico deben cumplir los trabajadores o asimilados para poder suscribir un convenio especial en el supuesto general recogido en dicha letra?",
+      "options": [
+        "Haber cesado voluntariamente en cualquier empleo en los últimos cinco años",
+        "Causar baja en el Régimen en que se hallen encuadrados y no estar comprendidos en el momento de la suscripción en el campo de aplicación de cualquier otro Régimen del Sistema",
+        "Estar incluidos simultáneamente en dos o más Regímenes del Sistema de la Seguridad Social",
+        "Ser pensionistas de jubilación con 70 años o más"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 2.2.a) señala que podrán suscribir el convenio especial \"los trabajadores o asimilados que causen baja en el Régimen de la Seguridad Social en que se hallen encuadrados y no estén comprendidos en el momento de la suscripción en el campo de aplicación de cualquier otro Régimen\". No se exige cese voluntario genérico (A), ni pluriinclusión (C) ni condición de pensionista de jubilación (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 2.2.b), ¿qué trabajadores por cuenta ajena o propia pueden suscribir convenio especial al quedar exentos de la obligación de cotizar a la Seguridad Social?",
+      "options": [
+        "Cualesquiera trabajadores mayores de 60 años, con independencia de su cotización previa",
+        "Solo los trabajadores por cuenta ajena con contrato temporal",
+        "Los trabajadores por cuenta ajena con contrato indefinido y los trabajadores por cuenta propia que continúen en alta, con 65 o más años y 35 o más años de cotización efectiva, cuando queden exentos de cotizar, salvo los que presten servicios en Administraciones Públicas u Organismos del Título III de la Ley 6/1997",
+        "Exclusivamente los funcionarios incluidos en regímenes especiales de funcionarios"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 2.2.b) se refiere a \"los trabajadores por cuenta ajena con contrato de trabajo de carácter indefinido, así como los trabajadores por cuenta propia incluidos en el Sistema de la Seguridad Social\" que sigan en alta, tengan 65 o más años, 35 o más años de cotización efectiva y queden exentos de la obligación de cotizar, salvo los que presten servicios en Administraciones Públicas u Organismos del Título III de la Ley 6/1997. No basta tener 60 años (A), ni se limita a temporales (B), ni abarca a los funcionarios de regímenes especiales (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 2.2.c), ¿en qué situaciones de cese pueden suscribir convenio especial los trabajadores o asimilados en pluriempleo o pluriactividad?",
+      "options": [
+        "Solo cuando cesen en todas sus actividades por cuenta ajena y propia",
+        "Cuando cesen en alguna de las actividades por cuenta ajena que determinan el pluriempleo o en la actividad o actividades por cuenta propia o en las prestaciones de servicios por cuenta ajena que constituyen su pluriactividad",
+        "Únicamente cuando pasen a una situación de desempleo total",
+        "Exclusivamente cuando cambien de empresa sin variación de la base de cotización"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 2.2.c) contempla a \"los trabajadores o asimilados en situación de pluriempleo o de pluriactividad que cesen en alguna de las actividades por cuenta ajena determinantes de la situación de pluriempleo o en la actividad o actividades por cuenta propia o en la prestación o prestaciones de servicios por cuenta ajena constitutivas de su situación de pluriactividad\". No exige cese en todas las actividades (A), ni se limita al desempleo total (C) ni al mero cambio de empresa (D enunciado, pero incorrecto según el texto).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 2.2.d), ¿qué circunstancia relativa a la nueva remuneración justifica el acceso al convenio especial tras un nuevo contrato?",
+      "options": [
+        "Que la nueva remuneración sea superior a la del contrato anterior",
+        "Que la nueva base de cotización sea inferior al promedio de las bases de cotización de los doce meses inmediatamente anteriores al cese en la actividad previa",
+        "Que el nuevo contrato sea necesariamente a tiempo parcial",
+        "Que el nuevo contrato sea con el mismo empresario y de duración indefinida"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 2.2.d) menciona a quienes cesan y son contratados con remuneraciones \"que den lugar a una base de cotización inferior al promedio de las bases de cotización correspondientes a los días cotizados en los doce meses inmediatamente anteriores a dicho cese\". No exige remuneración superior (A), ni impone contrato a tiempo parcial (C) ni necesariamente con el mismo empresario e indefinido (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 2.2.f), ¿qué personas pueden suscribir convenio especial en relación con la finalización de prestaciones por desempleo?",
+      "options": [
+        "Solo quienes hayan agotado la prestación contributiva por desempleo",
+        "Los que se encuentren percibiendo prestaciones económicas del nivel contributivo por desempleo cuando se les extinga el derecho a las mismas, así como quienes pasen a percibir el subsidio por desempleo o cesen en la percepción de este último",
+        "Únicamente los perceptores de subsidio asistencial sin cotización alguna",
+        "Cualquier trabajador desempleado con independencia de que haya percibido prestaciones"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 2.2.f) se refiere a \"los trabajadores que se encuentren percibiendo prestaciones económicas del nivel contributivo por desempleo y se les extinga el derecho a las mismas o pasen a percibir el subsidio por desempleo, así como los que cesen en la percepción de este último\". No se limita a la prestación contributiva agotada (A enunciado incorrecto), ni a subsidios sin cotización (C) ni a cualquier desempleado sin más requisitos (D). La opción B recoge literalmente el supuesto legal.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 3.1, con carácter general, ¿cuál es el plazo para solicitar la suscripción del convenio especial y ante qué órgano debe presentarse la solicitud?",
+      "options": [
+        "Seis meses desde la baja, ante el Instituto Nacional de la Seguridad Social",
+        "Un año desde la baja, exclusivamente ante la Inspección de Trabajo y Seguridad Social",
+        "Un año, ante la Dirección Provincial de la Tesorería General de la Seguridad Social o Administración correspondiente al domicilio del solicitante",
+        "Noventa días naturales desde la baja, ante cualquier entidad gestora de prestaciones"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 3.1 exige \"solicitar su suscripción ante la dirección provincial de la Tesorería General de la Seguridad Social o administración de la Seguridad Social correspondiente al domicilio del solicitante en el plazo de un año\". No habla de seis meses ni del INSS (A), ni de presentarlo ante la Inspección (B), ni de un plazo general de noventa días (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En los supuestos del art. 2.2.a), c) y e), ¿desde cuándo se computa el plazo de un año para solicitar el convenio especial según el art. 3.1.a)?",
+      "options": [
+        "Desde la fecha de la resolución que reconozca una prestación",
+        "Desde el día siguiente al de la fecha de efectos de la baja en el Régimen de Seguridad Social en que se estuviera encuadrado",
+        "Desde el primer día del mes natural siguiente al cese en la actividad",
+        "Desde la fecha en que el interesado toma conocimiento de la baja"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 3.1.a) establece que, en los supuestos de los apartados 2.a), 2.c) y 2.e) del art. 2, el plazo se computa \"a partir del día siguiente a la fecha de efectos de la baja en el régimen de Seguridad Social en que se estuviera encuadrado\". No se remite a la fecha de resolución (A), ni al primer día del mes siguiente (C) ni al conocimiento subjetivo del interesado (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 3.3, ¿en qué casos no es exigible el período mínimo de cotización de 1.080 días en los doce años anteriores a la baja para suscribir el convenio especial?",
+      "options": [
+        "Nunca, el período mínimo de cotización es siempre obligatorio",
+        "Solo cuando se trate de trabajadores con 65 o más años",
+        "En los convenios especiales a que se refieren los arts. 11 a 22 de la Orden y, en general, cuando reglamentariamente se prevea la suscripción de convenio especial para la inclusión en el Sistema",
+        "Únicamente cuando el solicitante sea pensionista de jubilación cuyo derecho se haya extinguido"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 3.3 dispone que \"no será exigible el período mínimo de cotización en los convenios especiales a que se refieren los artículos 11 a 22 de esta Orden, ni, en general, cuando reglamentariamente se prevea la suscripción de convenio especial para la inclusión en el Sistema de Seguridad Social\". No hay una exigencia absoluta (A), ni se vincula solo a la edad (B) ni exclusivamente a pensionistas de jubilación (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 3.2, ¿en qué modelo y por qué medios puede presentarse la solicitud de convenio especial?",
+      "options": [
+        "En cualquier escrito libre, únicamente en papel y presencialmente",
+        "En el modelo oficial establecido por la Tesorería General, pudiendo presentarse en los lugares del art. 38.4 de la Ley 30/1992 o mediante el procedimiento electrónico que establezca dicho servicio común",
+        "Solo mediante comparecencia personal ante la Dirección Provincial de la Tesorería",
+        "Exclusivamente a través de la sede electrónica, sin admitir registros físicos"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 3.2 indica que la solicitud \"deberá formularse en el modelo oficial establecido al efecto por la Tesorería General de la Seguridad Social\" y que podrá presentarse en los lugares del art. 38.4 de la Ley 30/1992 \"así como también mediante el procedimiento electrónico que establezca el citado servicio común\". No se admite cualquier escrito (A), ni se limita a comparecencia personal (C) ni solo a vía electrónica (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 4.1, ¿cuál es el plazo máximo para que la Tesorería General notifique la procedencia de celebrar el convenio especial solicitado?",
+      "options": [
+        "Un mes desde la fecha de entrada de la solicitud",
+        "Tres meses siguientes a la fecha en que la solicitud haya tenido entrada en el registro de la Dirección Provincial o Administración competente",
+        "Seis meses desde la fecha de la baja en el Régimen correspondiente",
+        "No existe plazo expreso, al tratarse de un procedimiento a instancia de parte"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 4.1 establece que la notificación sobre la procedencia de celebrar el convenio \"deberá producirse dentro de los tres meses siguientes a la fecha en que la solicitud haya tenido entrada en el registro de la Dirección Provincial o Administración competente\". No se fija un mes (A enunciado incorrecto), ni seis meses (C), ni se omite el plazo (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 4.1, ¿qué efecto tiene la falta de resolución expresa en el plazo de tres meses sobre la solicitud de convenio especial?",
+      "options": [
+        "La desestimación por silencio administrativo negativo",
+        "La caducidad automática del procedimiento",
+        "La estimación de la respectiva solicitud por silencio administrativo positivo",
+        "La necesidad de reiterar la solicitud para que surta efectos"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 4.1, remitiéndose a la disposición adicional vigésima quinta de la LGSS, establece que \"la falta de resolución expresa en el plazo previsto... tendrá como efecto la estimación de la respectiva solicitud por silencio administrativo\". No se trata de silencio negativo (A), ni de caducidad (B enunciado incorrecto), ni obliga a reiterar la solicitud (D). La opción C recoge el sentido de estimación por silencio positivo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 5.1, ¿qué situación se reconoce respecto de quienes suscriben el convenio especial desde la fecha de efectos del mismo?",
+      "options": [
+        "Situación de desempleo protegido a todos los efectos",
+        "Situación de no alta ni asimilada, pero con derecho a prestaciones de jubilación",
+        "Situación de alta o asimilada a la de alta en el Régimen o Regímenes en que se haya suscrito, respecto de las contingencias y condiciones establecidas",
+        "Únicamente una situación de beneficiario de asistencia sanitaria"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 5.1 dispone que las personas que suscriban el convenio se considerarán \"en situación de alta o asimilada a la de alta en el Régimen o, en su caso, en los Regímenes... en que se haya suscrito\" desde la fecha de efectos del mismo. No se habla de desempleo protegido (A), ni de no alta (B), ni solo de asistencia sanitaria (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En los supuestos del art. 5.2.1 (solicitud dentro de los 90 días naturales siguientes al cese o situación equivalente), ¿desde cuándo surten efectos, con carácter general, los convenios especiales?",
+      "options": [
+        "Desde la fecha de presentación de la solicitud, en todo caso",
+        "Desde el primer día del mes siguiente al de la baja",
+        "Desde el día siguiente a aquel en que haya producido efectos la baja, la cesación de la actividad, la extinción o denegación del derecho a prestaciones, según proceda",
+        "Desde la fecha de la resolución notificando la procedencia del convenio"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 5.2.1 señala que, si la solicitud se presenta dentro de los 90 días naturales desde el cese o situación asimilada, el convenio \"surtirá efectos desde el día siguiente a aquel en que haya producido efectos la baja en el Régimen correspondiente, la cesación de la actividad... la extinción o la denegación del derecho a las prestaciones respectivas\". No se fija la fecha de solicitud en todo caso (A), ni el primer día del mes siguiente (B), ni la fecha de resolución (D enunciado incorrecto).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 5.2.3, cuando la solicitud se presenta dentro de los 90 días, ¿qué opción tiene el suscriptor respecto a la fecha de efectos del convenio especial?",
+      "options": [
+        "Puede optar entre la fecha de resolución y la fecha de baja",
+        "No puede optar, siempre será la fecha de la baja",
+        "Puede optar entre la fecha resultante del art. 5.2.1 (día siguiente a la baja o situación equivalente) y la fecha de presentación de la solicitud",
+        "Solo puede elegir una fecha posterior fijada discrecionalmente por la Tesorería"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 5.2.3 establece que en la solicitud presentada en el plazo de 90 días \"el suscriptor podrá optar entre las fechas de efectos indicadas en el apartado 2.1 precedente o la correspondiente a la presentación de la solicitud\". Si no ejerce la opción, rige la del 5.2.1. No se menciona la resolución (A enunciado incorrecto), ni se excluye la opción (B), ni se prevé una fecha discrecional (D). La opción C recoge literalmente la alternativa.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 6.1, ¿desde cuándo es obligatoria la cotización a la Seguridad Social en la situación de convenio especial?",
+      "options": [
+        "Desde la fecha de notificación de la resolución estimatoria, con independencia de la fecha de efectos del convenio",
+        "Desde el primer día del mes siguiente a la presentación de la solicitud",
+        "Desde la fecha de efectos del convenio y mientras se mantenga su vigencia",
+        "Únicamente desde que el interesado comienza a pagar, aunque sea posterior a la fecha de efectos"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 6.1 indica que \"en la situación de convenio especial, la cotización a la Seguridad Social será obligatoria desde la fecha de efectos del convenio y mientras se mantenga la vigencia del mismo\". No se fija la notificación como dies a quo (A), ni el primer día del mes siguiente (B enunciado incorrecto), ni depende del momento en que empiece a pagar (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 6.2 y 6.2.1, ¿qué carácter tiene la base de cotización en el convenio especial y qué posibilidad se reconoce en el momento de suscribirlo?",
+      "options": [
+        "Es anual y se fija siempre en la misma cuantía para todos los suscriptores, sin opción",
+        "Es mensual, pudiendo elegir el interesado entre diversas bases mensuales de cotización previstas en el art. 6.2.1",
+        "Es diaria, debiendo recalcularse cada mes según los días efectivamente cotizados",
+        "Es trimestral, pero solo para trabajadores por cuenta ajena"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 6.2 establece que \"la base de cotización por convenio especial tendrá carácter mensual\" y el art. 6.2.1 añade que \"en el momento de suscribir el convenio especial el interesado podrá elegir cualquiera de las siguientes bases mensuales de cotización\". No es anual uniforme (A), ni diaria como regla (C enunciado incorrecto), ni trimestral (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Entre las bases que el interesado puede elegir al suscribir el convenio, según el art. 6.2.1, ¿cuál de las siguientes se describe correctamente?",
+      "options": [
+        "Una base inferior a la mínima del tramo 1 de la tabla general, si así lo pacta con la Tesorería",
+        "Una base mensual igual a la suma de las bases de los últimos 24 meses, sin prorrateo",
+        "La base máxima de cotización por contingencias comunes del grupo de cotización correspondiente, siempre que se haya cotizado por ella al menos 24 meses en los últimos cinco años",
+        "Cualquier base que no supere el doble de la base mínima, sin más requisitos"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 6.2.1.a) permite elegir \"la base máxima de cotización por contingencias comunes del grupo de cotización correspondiente... siempre que haya cotizado por ella al menos durante veinticuatro meses, consecutivos o no, en los últimos cinco años\". No se admite base inferior a la mínima del tramo 1 (A), ni se define como suma sin prorrateo (B), ni se limita al doble de la base mínima (D enunciado incorrecto). La opción C recoge la posibilidad descrita por el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 6.2.4 y 6.2.6, ¿qué límites se establecen respecto a la base de cotización en el convenio especial?",
+      "options": [
+        "No existen límites máximos ni mínimos, siempre que el interesado asuma la cuota",
+        "La base no podrá ser superior al tope máximo de cotización vigente ni inferior a la base mínima del tramo 1 de la tabla general aplicable en el Régimen Especial de Autónomos",
+        "Solo se establece un límite máximo equivalente al triple de la base mínima",
+        "La base se limita exclusivamente por el salario real del último empleo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Los apartados 6.2.4 y 6.2.6 disponen, respectivamente, que \"en ningún caso la base de cotización resultante podrá ser superior al tope máximo de cotización vigente\" y que \"en ningún caso el importe de la base de cotización por convenio especial podrá ser inferior al de la base mínima a que se refiere el apartado 2.1.c)\" (base mínima del tramo 1). Por tanto, sí hay límites máximo y mínimo (opción B correcta), mientras que las opciones A, C y D contradicen estos topes legales.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 7.1 y 7.2, ¿cómo se determina la cuota a ingresar por convenio especial?",
+      "options": [
+        "Aplicando un tipo específico distinto del Régimen General y sin coeficientes reductores",
+        "Aplicando a la base el tipo vigente en cada momento en el Régimen General, obteniendo la cuota íntegra, y multiplicando después por el coeficiente o coeficientes reductores fijados anualmente, resultando la cuota líquida",
+        "Aplicando siempre un tipo único del 28,3 % sin posibilidad de modificación",
+        "Dividiendo la base mensual entre 30 y aplicando un tipo reducido del 10 %"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 7.1 dispone que \"el tipo de cotización por convenio especial será único y estará constituido por el vigente en cada momento en el Régimen General\" y el art. 7.2.b) añade que a la cuota íntegra resultante se aplicarán \"el coeficiente o coeficientes reductores aplicables\". Las opciones A, C y D no reflejan este mecanismo legal ni los coeficientes fijados anualmente.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 8.1, ¿quién es el sujeto responsable del cumplimiento de la obligación de cotizar en la situación de convenio especial?",
+      "options": [
+        "Siempre y exclusivamente el último empresario para el que trabajó el interesado",
+        "La entidad gestora que reconozca las prestaciones derivadas del convenio",
+        "El comprometido en el convenio a abonar el importe de la cuota y, en su caso, quien asuma voluntariamente esta obligación con autorización expresa y consentimiento de la Tesorería",
+        "La Inspección de Trabajo y Seguridad Social, como órgano de control"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 8.1 señala que es sujeto responsable \"el comprometido en el convenio a abonar a su cargo el importe de la cuota correspondiente\" y admite que puedan actuar sustitutos \"que asuman voluntariamente esta obligación con autorización expresa\". No se impone esta responsabilidad al último empresario (A), ni a la entidad gestora (B) ni a la Inspección (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 9.1, ¿qué prestaciones quedan excluidas de la acción protectora del convenio especial, sin perjuicio de especialidades del Capítulo II?",
+      "options": [
+        "Las derivadas de contingencias profesionales y las de jubilación",
+        "Las derivadas de contingencias comunes, salvo incapacidad temporal",
+        "Los subsidios por incapacidad temporal, maternidad y riesgo durante el embarazo, así como la protección por Desempleo, Fondo de Garantía Salarial y Formación Profesional",
+        "Todas las prestaciones económicas, manteniéndose solo la asistencia sanitaria"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 9.1 establece que se otorgarán las prestaciones derivadas de contingencias comunes, \"a excepción de los subsidios por incapacidad temporal, maternidad y riesgo durante el embarazo, quedando asimismo excluidas la protección por Desempleo, Fondo de Garantía Salarial y Formación Profesional\". No se excluyen todas las prestaciones económicas (D), ni las comunes en general (B), ni las de jubilación sin más (A).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 10.1, ¿en qué casos se suspende el convenio especial respecto de la obligación de cotizar y la protección correspondiente?",
+      "options": [
+        "Cuando el suscriptor traslada su residencia al extranjero por más de 90 días, en todo caso",
+        "Siempre que el trabajador esté en situación de desempleo",
+        "Durante los períodos de actividad que determinen su encuadramiento en el campo de aplicación de algún Régimen de la Seguridad Social, cuando la base de cotización a éste sea inferior a la base aplicada en el convenio y el interesado no opte por la extinción o por la continuidad",
+        "En cualquier supuesto en que el suscriptor deje de pagar una sola mensualidad"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 10.1 indica que el convenio quedará suspendido \"durante los períodos de actividad... cuando los mismos determinen su encuadramiento en el campo de aplicación de alguno de los Regímenes de la Seguridad Social, siempre que la base de cotización a éste sea inferior a la base de cotización aplicada en el convenio especial, salvo que el suscriptor manifieste expresamente su voluntad de que el convenio se extinga o que el mismo siga vigente\". No se suspende por simple traslado al extranjero (A), ni por desempleo (B), ni por una sola mensualidad impagada (D enunciado incorrecto). La opción C recoge el supuesto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 10.2.c), ¿qué consecuencia tiene, con carácter general, la falta de abono de las cuotas de convenio especial?",
+      "options": [
+        "La suspensión automática del convenio hasta regularizar el pago de una sola mensualidad",
+        "La extinción del convenio por falta de abono de tres mensualidades consecutivas o cinco alternativas, salvo causa justificada de fuerza mayor debidamente acreditada",
+        "La extinción inmediata del convenio por el impago de la primera cuota",
+        "Solo la exigencia de recargos, sin efectos sobre la vigencia del convenio"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 10.2.c) dispone que el convenio se extinguirá \"por falta de abono de las cuotas correspondientes a tres mensualidades consecutivas o a cinco alternativas, salvo causa justificada de fuerza mayor debidamente acreditada\". No basta una sola mensualidad (A y C), ni se limita a recargos sin efectos en la vigencia (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 11.3, ¿qué situación se reconoce a los Diputados y Senadores acogidos al convenio especial de dicho artículo?",
+      "options": [
+        "Situación de desempleo con derecho a subsidio especial parlamentario",
+        "Situación de alta en el Régimen Especial de Autónomos",
+        "Situación asimilada a la de alta en el Régimen General de la Seguridad Social desde la fecha de constitución de la legislatura o desde la adquisición de la condición de parlamentario",
+        "Situación de mero beneficiario de asistencia sanitaria, sin alta ni asimilada"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 11.3 señala que la suscripción de este convenio especial determina \"para los beneficiarios la consideración de situación asimilada a la de alta en el Régimen General de la Seguridad Social\" desde la fecha de constitución de la legislatura o de adquisición de la condición. No se trata de desempleo (A), ni de alta en RETA (B), ni de simple beneficiario de asistencia sanitaria (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 13, ¿qué limitación específica se establece para los incluidos en el Sistema español que pasan a prestar servicios en la Administración de la Unión Europea y suscriben o mantienen el convenio especial?",
+      "options": [
+        "Quedan excluidos de toda obligación de cotizar a la Seguridad Social española",
+        "Quedan excluidos de la obligación de cotizar por las contingencias de jubilación y muerte y supervivencia y, consiguientemente, de la acción protectora cubierta por el convenio en relación con esas contingencias",
+        "Deben cotizar doblemente por todas las contingencias en España y en la UE",
+        "Solo se les reconoce asistencia sanitaria sin necesidad de convenio"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 13 establece que estos trabajadores podrán continuar en situación asimilada a la de alta si continúan acogidos al convenio, pero \"en todo caso, quedarán excluidos de la obligación de cotizar por el convenio especial respecto de las contingencias de jubilación y muerte y supervivencia y, consiguientemente, de la acción protectora cubierta por el mismo en relación con esas contingencias\". No quedan exentos de toda cotización (A enunciado incorrecto), ni se establece doble cotización (C), ni asistencia sanitaria automática sin convenio (D). La opción B es fiel al texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 15.3, respecto al convenio especial de emigrantes y sus hijos, ¿desde cuándo surte efectos esta modalidad de convenio?",
+      "options": [
+        "Desde la fecha de la resolución de aprobación del convenio",
+        "Desde el día primero del mes siguiente al de la fecha de presentación de la solicitud",
+        "Desde la fecha de retorno al territorio español, en todos los casos",
+        "Desde la fecha de salida al extranjero que conste en el permiso de trabajo"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 15.3 establece que la suscripción de esta modalidad de convenio \"surtirá efectos en todo caso desde el día primero del mes siguiente al de la fecha de presentación de la solicitud\". No se vincula a la resolución (A), ni siempre al retorno (C), ni a la fecha de salida (D). La opción B recoge literalmente el momento de efectos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 18.1, ¿cuál es el objeto del convenio especial durante la situación de alta especial por huelga legal o cierre patronal?",
+      "options": [
+        "Cubrir exclusivamente el desempleo derivado de la huelga o cierre",
+        "Completar las bases de cotización correspondientes a las contingencias de incapacidad permanente y muerte y supervivencia derivadas de enfermedad común y accidente no laboral, jubilación y servicios sociales durante el período de huelga legal o cierre patronal",
+        "Garantizar una pensión extraordinaria a los participantes en la huelga",
+        "Sustituir al empresario en todas sus obligaciones de cotización"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 18.1 indica que el convenio tendrá por objeto \"completar las bases de cotización correspondientes a las contingencias de incapacidad permanente y muerte y supervivencia... jubilación y servicios sociales durante el período de huelga legal o cierre patronal legal\". No se refiere al desempleo (A), ni a pensiones extraordinarias (C), ni a una sustitución total del empresario (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 20.1, en los convenios especiales vinculados a despidos colectivos con trabajadores de 55 o más años, ¿quién debe solicitar esta modalidad durante la tramitación del procedimiento?",
+      "options": [
+        "Exclusivamente los trabajadores afectados, de forma individual",
+        "El representante legal de los trabajadores, sin intervención empresarial",
+        "El empresario, durante la tramitación del procedimiento de despido colectivo y, en todo caso, hasta la fecha de notificación individual del despido",
+        "Siempre el Servicio Público de Empleo Estatal, de oficio"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 20.1 establece que \"la solicitud de esta modalidad de Convenio especial deberá formularse por el empresario durante la tramitación del procedimiento de despido colectivo y, en todo caso, hasta la fecha en que el empresario notifique individualmente el despido\". No se atribuye esta solicitud exclusivamente al trabajador (A), ni al representante (B), ni al SEPE de oficio (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 21.1, ¿qué finalidad tiene el convenio especial para los trabajadores que reducen su jornada con disminución proporcional del salario?",
+      "options": [
+        "Permitirles extinguir la obligación de cotizar durante la reducción",
+        "Mantener las bases de cotización en las cuantías por las que venían cotizando con anterioridad a la reducción de la jornada",
+        "Acceder a prestaciones por desempleo parciales sin cotizar",
+        "Sustituir la cotización del empresario por la del trabajador"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 21.1 indica que estos trabajadores podrán suscribir convenio especial \"a fin de mantener las bases de cotización en las cuantías por las que venían cotizando con anterioridad a la reducción de la jornada\". No extingue la obligación de cotizar (A), ni se refiere al desempleo parcial (C), ni a la sustitución de la cotización empresarial (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1, ¿qué trabajadores pueden suscribir convenio especial para completar la cotización derivada de un contrato a tiempo parcial?",
+      "options": [
+        "Cualquier trabajador a tiempo parcial, esté o no percibiendo prestaciones de desempleo",
+        "Solo los trabajadores a tiempo parcial que perciban prestaciones de desempleo contributivas",
+        "Los trabajadores contratados a tiempo parcial que no estén percibiendo prestaciones de desempleo, para completar la cotización hasta determinadas bases",
+        "Exclusivamente los trabajadores a tiempo parcial incluidos en regímenes especiales agrarios"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 22.1 establece que \"los trabajadores contratados a tiempo parcial que no estén percibiendo prestaciones de desempleo podrán suscribir convenio especial para completar la cotización derivada del contrato a tiempo parcial\". No se incluye a perceptores de desempleo (B), ni a cualquier trabajador a tiempo parcial sin esa limitación (A), ni se restringe a regímenes agrarios (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 23.1.1, ¿qué período específico de cotización previa se exige para suscribir el convenio especial por cese en prestaciones de servicios en pluriempleo o pluriactividad?",
+      "options": [
+        "Al menos 360 días en los últimos cinco años",
+        "Al menos 730 días en los últimos cinco años",
+        "Al menos 1.080 días en la respectiva situación de pluriempleo o pluriactividad",
+        "No se exige período específico de cotización previa"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 23.1.1 exige \"acreditar un período específico de cotización previa de, al menos, 1.080 días en la respectiva situación de pluriempleo o de pluriactividad\". No habla de 360 ni 730 días (A y B) ni prescinde de período previo (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 24.1, ¿qué colectivo concreto puede suscribir la modalidad de convenio especial regulada en dicho precepto?",
+      "options": [
+        "Cualquier perceptor de prestaciones asistenciales, con independencia de la edad",
+        "Trabajadores perceptores del subsidio de desempleo, con derecho a cotización por jubilación, mayores de 52 años",
+        "Solo desempleados que hayan agotado toda prestación y subsidio",
+        "Trabajadores fijos discontinuos, sea cual sea su edad, aunque no coticen por jubilación"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 24.1 dispone que \"los trabajadores perceptores del subsidio de desempleo, con derecho a cotización por la contingencia de jubilación, mayores de 52 años, podrán suscribir convenio especial\". No se refiere a cualquier asistencial (A), ni a quienes han agotado todo (C), ni a todos los fijos discontinuos sin matices (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme a la Disposición adicional primera, ¿a qué regímenes NO se aplica la Orden TAS/2865/2003?",
+      "options": [
+        "Al Régimen General de la Seguridad Social",
+        "A los Regímenes Especiales de los Funcionarios Civiles del Estado, de las Fuerzas Armadas y del Personal al Servicio de la Administración de Justicia",
+        "Al Régimen Especial de Trabajadores por Cuenta Propia o Autónomos",
+        "Al Régimen Especial de Trabajadores del Mar"
+      ],
+      "correctAnswer": "B",
+      "explanation": "La Disposición adicional primera señala que \"la presente Orden no será de aplicación a los Regímenes Especiales de los Funcionarios Civiles del Estado, de las Fuerzas Armadas y del Personal al Servicio de la Administración de Justicia\". Por tanto, la Orden no se aplica a los regímenes enumerados en la opción B, mientras que el Régimen General (A) sí queda dentro de su ámbito; las opciones C y D no figuran como excluidas en dicha disposición.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según la Disposición transitoria primera, ¿qué ocurre con los convenios especiales suscritos con anterioridad a la entrada en vigor de la Orden TAS/2865/2003?",
+      "options": [
+        "Quedan automáticamente extinguidos el día de entrada en vigor de la Orden",
+        "Se transforman de oficio en convenios regulados por la nueva Orden",
+        "Siguen rigiéndose por la normativa anterior, sin perjuicio de que sus suscriptores puedan optar por sustituirlos por alguno de los regulados en esta Orden",
+        "Se suspenden hasta que los suscriptores confirmen expresamente su continuidad"
+      ],
+      "correctAnswer": "C",
+      "explanation": "La Disposición transitoria primera establece que \"los convenios especiales suscritos con anterioridad... seguirán rigiéndose por la normativa anterior\", aunque \"los suscriptores podrán optar por sustituirlos por alguno de los regulados en esta Orden\". No se extinguen automáticamente (A), ni se transforman de oficio (B), ni se suspenden (D). La opción C recoge el régimen transitorio.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 25.1, ¿qué requisito de tiempo de trabajo de temporada se exige para suscribir convenio especial en períodos de inactividad entre campañas?",
+      "options": [
+        "Haber trabajado al menos un año continuo como trabajador de temporada",
+        "Haber trabajado en dos campañas completas en los últimos cinco años",
+        "Haber trabajado como trabajador de temporada, con ingreso de cuotas, al menos durante tres años dentro de los siete inmediatamente anteriores al cese",
+        "No se exige período mínimo de trabajo de temporada"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 26.1 (citado en el contexto de los convenios de temporada) exige haber trabajado \"al menos, durante tres años dentro de los siete inmediatamente anteriores a la fecha del cese\" como trabajador de temporada, lo que recoge la opción C. No basta un año continuo (A), ni dos campañas (B), ni se prescinde de requisito temporal (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 27.1, ¿qué trabajadores pueden solicitar el convenio especial previsto para deportistas de alto nivel?",
+      "options": [
+        "Cualquier deportista federado, con independencia de su edad y de su inclusión en la Seguridad Social",
+        "Deportistas de alto nivel mayores de 18 años que, en razón de su actividad deportiva o de cualquier otra actividad que realicen, no estén ya incluidos en cualquiera de los Regímenes del Sistema",
+        "Solo los deportistas de alto nivel incluidos en el Régimen General",
+        "Únicamente los deportistas profesionales con contrato laboral de duración indefinida"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 27.1 dispone que \"los deportistas de alto nivel, mayores de dieciocho años que, en razón de su actividad deportiva o de cualquier otra actividad profesional que realicen no estén ya incluidos en cualquiera de los Regímenes del Sistema de la Seguridad Social, podrán solicitar su inclusión... mediante la suscripción de un convenio especial\". No se extiende a cualquier federado (A), ni se limita al Régimen General (C), ni exige contrato indefinido (D). La opción B refleja el tenor literal.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 28.1, ¿desde cuándo surte efectos el convenio especial de cuidadores no profesionales de personas en situación de dependencia?",
+      "options": [
+        "Desde la fecha de la resolución que reconozca la situación de dependencia, cualquiera que sea la fecha de la prestación",
+        "Desde el mismo día que la prestación económica para cuidados familiares concedida a la persona en situación de dependencia, según la resolución que la reconozca",
+        "Desde el primer día del mes siguiente a la solicitud del convenio",
+        "Desde la fecha de alta del cuidador en el padrón municipal"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 28.1 establece que el convenio especial de cuidadores no profesionales \"surtirá efectos desde el mismo día que la prestación económica para cuidados familiares concedida a la persona en situación de dependencia, de acuerdo con la resolución que la haya reconocido\". No se remite al mes siguiente (C), ni al padrón (D), ni a la sola declaración de dependencia desligada de la prestación (A). La opción B reproduce el criterio de simultaneidad con la prestación.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según la Disposición derogatoria, ¿qué consecuencia general produce la Orden TAS/2865/2003 sobre las disposiciones anteriores en materia de convenios especiales?",
+      "options": [
+        "Mantiene en vigor todas las disposiciones anteriores, salvo las de rango superior",
+        "Solo deroga las órdenes relativas a emigrantes, manteniendo el resto",
+        "Deroga una lista detallada de órdenes ministeriales anteriores y, en general, cuantas disposiciones de igual o inferior rango se opongan a lo establecido en la Orden",
+        "Deroga exclusivamente el Reglamento General de Recaudación"
+      ],
+      "correctAnswer": "C",
+      "explanation": "La Disposición derogatoria enumera una serie de órdenes ministeriales que quedan derogadas y añade que \"quedan derogadas cuantas disposiciones de igual o inferior rango se opongan a lo establecido en la presente Orden\". No mantiene en vigor todas (A), ni se limita a las relativas a emigrantes (B), ni deroga el Reglamento General de Recaudación en bloque (D). La opción C sintetiza el efecto derogatorio general.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme a la Disposición final segunda, ¿cuándo entra en vigor, con carácter general, la Orden TAS/2865/2003?",
+      "options": [
+        "El mismo día de su publicación en el Boletín Oficial del Estado",
+        "El día 1 del sexto mes siguiente al de su publicación en el Boletín Oficial del Estado, salvo lo dispuesto en el art. 20",
+        "Un año después de su publicación en el Boletín Oficial del Estado",
+        "El primer día del año natural siguiente a su publicación"
+      ],
+      "correctAnswer": "B",
+      "explanation": "La Disposición final segunda señala que la Orden \"entrará en vigor el día 1 del sexto mes siguiente al de su publicación en el Boletín Oficial del Estado, salvo lo dispuesto en el artículo 20 que entrará en vigor el día siguiente al de dicha publicación\". No es el mismo día (A), ni un año después (C), ni el primer día del año siguiente (D). La opción B recoge literalmente la regla general y la excepción del art. 20.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 6.2.2, cuando se incrementa la base mínima de cotización del tramo 1 aplicable en el Régimen Especial de Autónomos, ¿qué sucede con la base de cotización del convenio especial?",
+      "options": [
+        "Debe incrementarse, como mínimo, en el mismo porcentaje que haya experimentado aquella base mínima, salvo que el interesado opte por un porcentaje superior hasta el límite previsto",
+        "Permanece inalterada, ya que los cambios en la base mínima no afectan a los convenios especiales en vigor",
+        "Solo se incrementa si así lo acuerda expresamente la Tesorería en cada caso",
+        "Se reduce automáticamente si la nueva base mínima es inferior a la anterior"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 6.2.2 establece que cada vez que la base mínima de cotización del tramo 1 aplicable en el Régimen Especial de Autónomos sea modificada, \"la base de cotización correspondiente al convenio será incrementada, como mínimo, en el mismo porcentaje que haya experimentado aquella base mínima o, en su caso, en el porcentaje superior que tenga derecho a elegir el interesado\". No permanece fija (B), ni depende de un acuerdo ad hoc de la Tesorería (C), ni contempla reducciones automáticas (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 6.2.7, ¿en qué plazo deben ejercitarse las opciones para modificar la base de cotización del convenio especial, y desde cuándo surten efectos?",
+      "options": [
+        "Pueden ejercitarse en cualquier momento y surten efectos desde el mes siguiente",
+        "Solo pueden ejercitarse en enero y surten efectos desde el 1 de febrero",
+        "Deben ejercitarse antes del 30 de junio y tienen efectos desde el 1 de julio",
+        "Deben ejercitarse antes del primero de octubre de cada año y tienen efectos desde el 1 de enero del año siguiente a la fecha de solicitud"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 6.2.7 dispone que las opciones de base que se ejerciten con posterioridad a la suscripción del convenio \"deberán efectuarse antes del primero de octubre de cada año y tendrán efectos desde el día 1 de enero del año siguiente a la fecha de solicitud\". Las restantes opciones plantean plazos y efectos distintos a los fijados reglamentariamente.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 7.2.c), cuando los efectos iniciales o finales del convenio especial no coinciden con el primero o el último día del mes, ¿cómo se calcula la cuota a ingresar?",
+      "options": [
+        "Se ingresa siempre la cuota mensual completa, con independencia de los días de vigencia",
+        "Se calcula una cuota diaria dividiendo la base entre 30 y aplicando un tipo reducido",
+        "Se divide la cuota mensual entre 30 y el cociente se multiplica por los días del mes en que el convenio haya tenido efectos",
+        "Se prorratea en función del salario real del interesado, sin atender a días naturales"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 7.2.c) establece que \"cuando los efectos iniciales o finales del convenio especial no sean coincidentes con el primero o el último día del mes, la cuota mensual se dividirá por 30 y el cociente se multiplicará por los días del mes que tenga o haya tenido efectos el convenio\". No se ingresa siempre la cuota completa (A), ni se habla de tipo reducido (B), ni se remite al salario real sin días naturales (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 8.2, ¿qué norma determina el plazo reglamentario de ingreso de las cuotas del convenio especial?",
+      "options": [
+        "El apartado 3.1 del artículo 66 de la Orden de 26 de mayo de 1999, por la que se desarrolla el Reglamento General de Recaudación de los Recursos del Sistema de la Seguridad Social",
+        "El artículo 38.4 de la Ley 30/1992, de Régimen Jurídico de las Administraciones Públicas y del Procedimiento Administrativo Común",
+        "El Reglamento (CE) n.º 883/2004 sobre coordinación de sistemas de seguridad social",
+        "La Ley General Presupuestaria, con carácter supletorio"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 8.2 indica que \"el plazo reglamentario de ingreso de las cuotas correspondientes será el establecido en el apartado 3.1 del artículo 66 de la Orden Ministerial de 26 de mayo de 1999, por la que se desarrolla el Reglamento General de Recaudación\". No remite al art. 38.4 de la Ley 30/1992 (B), ni a normativa europea de coordinación (C), ni a la Ley General Presupuestaria (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 10.2.b), ¿qué efecto tiene la adquisición de la condición de pensionista de jubilación o de incapacidad permanente sobre el convenio especial?",
+      "options": [
+        "Produce la suspensión del convenio hasta que el pensionista renuncie a la pensión",
+        "No tiene ningún efecto, pudiendo mantenerse el convenio indefinidamente",
+        "Obliga a modificar la base de cotización pero no afecta a la vigencia del convenio",
+        "Determina la extinción del convenio especial cuando el interesado adquiere la condición de pensionista por jubilación o incapacidad permanente en cualquiera de los Regímenes del Sistema"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 10.2.b) establece como causa de extinción del convenio especial \"adquirir el interesado la condición de pensionista por jubilación o de incapacidad permanente en cualquiera de los Regímenes del Sistema de Seguridad Social\". No se trata de una mera suspensión (A), ni de una situación sin efectos (B), ni solo de un ajuste de bases (C).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 10.2.e), cuando el convenio se extingue por decisión del interesado, ¿desde cuándo produce efectos dicha extinción?",
+      "options": [
+        "Desde la fecha de presentación de la comunicación, cualquiera que sea el día del mes",
+        "Desde la fecha en que la Tesorería General dicte la resolución de aceptación",
+        "A partir del día primero del mes siguiente a la fecha de la comunicación de la decisión del interesado",
+        "Desde el último día del año natural en que se comunique la decisión"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 10.2.e) dispone que, cuando el convenio se extinga \"por decisión del interesado, comunicada por escrito o por medios técnicos\", \"la extinción del convenio especial tendrá lugar a partir del día primero del mes siguiente a la fecha de la comunicación\". No se fija la fecha de comunicación misma (A), ni se supedita a una resolución expresa (B), ni se difiere al final del año natural (D).",
+      "difficulty": "hard"
+    }
+  ]
+}

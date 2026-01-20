@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { rebalanceQuestionsABCD } from '@/lib/answer-alternation'
 import path from 'path'
 import { pathToFileURL } from 'url'
 
@@ -256,17 +257,27 @@ export async function POST(req: NextRequest) {
 
     console.log(`[Upload] Creando cuestionario con ${questions.length} preguntas`)
 
+    // Reequilibrar distribución de respuestas correctas (máx 2 iguales seguidas)
+    const rebalanced = rebalanceQuestionsABCD(
+      questions.map((q, idx) => ({
+        id: idx,
+        options: q.options,
+        correctAnswer: q.correctAnswer
+      })),
+      2
+    )
+
     // Crear cuestionario en la base de datos
     const questionnaire = await prisma.questionnaire.create({
       data: {
         title,
         type: type || 'theory',
         questions: {
-          create: questions.map(q => ({
-            text: q.text,
+          create: rebalanced.map((q, idx) => ({
+            text: questions[idx].text,
             options: JSON.stringify(q.options),
             correctAnswer: q.correctAnswer,
-            explanation: q.explanation
+            explanation: questions[idx].explanation
           }))
         }
       }

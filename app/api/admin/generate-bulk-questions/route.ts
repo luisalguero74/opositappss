@@ -525,7 +525,7 @@ async function generarPreguntasLGSS(
       [
         {
           role: 'system',
-          content: 'Eres un experto jurídico en Seguridad Social. DEBES usar EXCLUSIVAMENTE la información de los documentos legales proporcionados. Cita textualmente los artículos. Respondes siempre en formato JSON válido y bien formado.'
+          content: 'Eres un experto jurídico en Seguridad Social, especializado en la preparación de oposiciones del Cuerpo Administrativo de la Seguridad Social (C1). La base jurídica (artículos, números, plazos, órganos, requisitos) debe salir EXCLUSIVAMENTE de la información contenida en los documentos legales proporcionados como contexto. Puedes usar tu conocimiento general solo para mejorar la redacción y la claridad de las preguntas y explicaciones, sin añadir datos jurídicos nuevos que no aparezcan en esos documentos. Cita de forma muy fiel (preferentemente de manera textual) los artículos relevantes. Respondes siempre en formato JSON válido y bien formado.'
         },
         {
           role: 'user',
@@ -683,7 +683,7 @@ Genera preguntas COMPLETAMENTE NUEVAS sobre aspectos diferentes del tema.
       [
         {
           role: 'system',
-          content: 'Eres un experto jurídico en oposiciones. DEBES usar EXCLUSIVAMENTE información de los documentos legales oficiales proporcionados (BOE, Aranzadi, Universidad de Deusto). Cita textualmente artículos. Responde en JSON válido.'
+          content: 'Eres un experto jurídico en oposiciones del Cuerpo Administrativo de la Seguridad Social (C1). La base jurídica (artículos, números, plazos, órganos, requisitos) debe salir EXCLUSIVAMENTE de la información contenida en los documentos legales oficiales proporcionados (BOE, textos consolidados, Aranzadi, Universidad de Deusto, etc.). Puedes usar tu conocimiento general solo para mejorar la redacción y la claridad de las preguntas y explicaciones, sin añadir datos jurídicos nuevos que no aparezcan en esos documentos. Cita de forma muy fiel (preferentemente de manera textual) los artículos relevantes. Responde siempre en JSON válido.'
         },
         {
           role: 'user',

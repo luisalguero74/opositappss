@@ -27,12 +27,13 @@ export default function ImportQuestions() {
 
     try {
       const text = await file.text()
-      const json = JSON.parse(text)
 
       const res = await fetch('/api/admin/questions/import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: json.data })
+        // Enviamos el JSON tal cual está en el fichero;
+        // el backend se encarga de normalizar los distintos formatos.
+        body: text
       })
 
       const data = await res.json()

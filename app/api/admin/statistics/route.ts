@@ -2,16 +2,18 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { getPgPool, getUserAnswerColumnInfo } from '@/lib/pg'
 
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user?.email || session.user.role !== 'admin') {
+    if (!session?.user?.id || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const { searchParams } = new URL(request.url)
     const userId = searchParams.get('userId')
+    const pool = getPgPool()
 
     // Si se solicita un usuario específico
     if (userId) {
@@ -24,23 +26,30 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 })
       }
 
-      const userAnswers = await prisma.userAnswer.findMany({
-        where: { userId },
-        include: {
-          question: {
-            include: {
-              questionnaire: {
-                select: {
-                  title: true,
-                  type: true
-                }
-              }
-            }
-          }
-        },
-        orderBy: { createdAt: 'desc' }
-      })
+      const { answerColumn } = await getUserAnswerColumnInfo(pool)
 
+      const answersRes = await pool.query(
+        `
+        select
+          ua."questionId"        as "questionId",
+          ua."isCorrect"         as "isCorrect",
+          ua."createdAt"         as "createdAt",
+          ua."${answerColumn}"  as "userAnswer",
+          q.text                  as "questionText",
+          q."correctAnswer"     as "correctAnswer",
+          q.explanation           as "explanation",
+          qq.title                as "questionnaireTitle",
+          qq.type                 as "questionnaireType"
+        from "UserAnswer" ua
+        join "Question" q on q.id = ua."questionId"
+        join "Questionnaire" qq on qq.id = ua."questionnaireId"
+        where ua."userId" = $1
+        order by ua."createdAt" desc
+        `,
+        [userId]
+      )
+
+      const userAnswers = answersRes.rows ?? []
       const totalQuestions = userAnswers.length
       const correctAnswers = userAnswers.filter(a => a.isCorrect).length
       const incorrectAnswers = totalQuestions - correctAnswers
@@ -48,42 +57,43 @@ export async function GET(request: NextRequest) {
 
       // Errores por pregunta
       const errorsByQuestion = new Map<string, any>()
-      userAnswers.forEach(answer => {
-        if (!errorsByQuestion.has(answer.questionId)) {
-          errorsByQuestion.set(answer.questionId, {
-            questionId: answer.questionId,
-            questionText: answer.question.text,
-            questionnaireTitle: answer.question.questionnaire.title,
-            questionnaireType: answer.question.questionnaire.type,
+      for (const answer of userAnswers) {
+        const qId = String(answer.questionId)
+        if (!errorsByQuestion.has(qId)) {
+          errorsByQuestion.set(qId, {
+            questionId: qId,
+            questionText: answer.questionText || 'Pregunta sin texto',
+            questionnaireTitle: answer.questionnaireTitle || 'Sin cuestionario',
+            questionnaireType: answer.questionnaireType || 'unknown',
             attempts: 0,
             errors: 0,
-            correctAnswer: answer.question.correctAnswer,
-            explanation: answer.question.explanation
+            correctAnswer: answer.correctAnswer || '',
+            explanation: answer.explanation || ''
           })
         }
-        const questionStats = errorsByQuestion.get(answer.questionId)!
+        const questionStats = errorsByQuestion.get(qId)!
         questionStats.attempts++
         if (!answer.isCorrect) questionStats.errors++
-      })
+      }
 
       const repeatedErrors = Array.from(errorsByQuestion.values())
-        .filter(q => q.errors > 0)
-        .sort((a, b) => b.errors - a.errors)
+        .filter((q: any) => q.errors > 0)
+        .sort((a: any, b: any) => b.errors - a.errors)
 
       const statsByType = {
         theory: { total: 0, correct: 0, incorrect: 0 },
         practical: { total: 0, correct: 0, incorrect: 0 }
       }
 
-      userAnswers.forEach(answer => {
-        const type = answer.question.questionnaire.type as 'theory' | 'practical'
+      for (const answer of userAnswers) {
+        const type = (answer.questionnaireType === 'practical' ? 'practical' : 'theory') as 'theory' | 'practical'
         statsByType[type].total++
         if (answer.isCorrect) {
           statsByType[type].correct++
         } else {
           statsByType[type].incorrect++
         }
-      })
+      }
 
       return NextResponse.json({
         user: {
@@ -100,15 +110,17 @@ export async function GET(request: NextRequest) {
         byType: {
           theory: {
             ...statsByType.theory,
-            successRate: statsByType.theory.total > 0 
-              ? Math.round((statsByType.theory.correct / statsByType.theory.total) * 10000) / 100
-              : 0
+            successRate:
+              statsByType.theory.total > 0
+                ? Math.round((statsByType.theory.correct / statsByType.theory.total) * 10000) / 100
+                : 0
           },
           practical: {
             ...statsByType.practical,
-            successRate: statsByType.practical.total > 0
-              ? Math.round((statsByType.practical.correct / statsByType.practical.total) * 10000) / 100
-              : 0
+            successRate:
+              statsByType.practical.total > 0
+                ? Math.round((statsByType.practical.correct / statsByType.practical.total) * 10000) / 100
+                : 0
           }
         },
         repeatedErrors,
@@ -116,13 +128,13 @@ export async function GET(request: NextRequest) {
           .filter(a => !a.isCorrect)
           .slice(0, 20)
           .map(a => ({
-            questionId: a.questionId,
-            questionText: a.question.text,
-            questionnaireTitle: a.question.questionnaire.title,
-            questionnaireType: a.question.questionnaire.type,
-            userAnswer: a.answer,
-            correctAnswer: a.question.correctAnswer,
-            explanation: a.question.explanation,
+            questionId: String(a.questionId),
+            questionText: a.questionText || 'Pregunta sin texto',
+            questionnaireTitle: a.questionnaireTitle || 'Sin cuestionario',
+            questionnaireType: a.questionnaireType || 'unknown',
+            userAnswer: String(a.userAnswer ?? ''),
+            correctAnswer: a.correctAnswer || '',
+            explanation: a.explanation || '',
             date: a.createdAt
           }))
       })
@@ -134,52 +146,115 @@ export async function GET(request: NextRequest) {
       select: { id: true, email: true, createdAt: true }
     })
 
-    const allAnswers = await prisma.userAnswer.findMany({
-      include: {
-        user: { select: { email: true } },
-        question: {
-          include: {
-            questionnaire: { select: { type: true } }
-          }
-        }
-      }
-    })
+    // Global general
+    const globalRes = await pool.query(
+      `
+      select
+        count(*)::int as total,
+        sum(case when "isCorrect" then 1 else 0 end)::int as correct
+      from "UserAnswer"
+      `
+    )
 
-    // Estadísticas globales
-    const globalTotal = allAnswers.length
-    const globalCorrect = allAnswers.filter(a => a.isCorrect).length
+    const globalTotal = Number(globalRes.rows?.[0]?.total ?? 0)
+    const globalCorrect = Number(globalRes.rows?.[0]?.correct ?? 0)
     const globalIncorrect = globalTotal - globalCorrect
     const globalSuccessRate = globalTotal > 0 ? (globalCorrect / globalTotal) * 100 : 0
 
     // Por tipo global
+    const typeRes = await pool.query(
+      `
+      select
+        qq.type as type,
+        count(*)::int as total,
+        sum(case when ua."isCorrect" then 1 else 0 end)::int as correct
+      from "UserAnswer" ua
+      join "Questionnaire" qq on qq.id = ua."questionnaireId"
+      group by qq.type
+      `
+    )
+
     const globalByType = {
       theory: { total: 0, correct: 0 },
       practical: { total: 0, correct: 0 }
     }
 
-    allAnswers.forEach(a => {
-      const type = a.question.questionnaire.type as 'theory' | 'practical'
-      globalByType[type].total++
-      if (a.isCorrect) globalByType[type].correct++
-    })
+    for (const row of typeRes.rows ?? []) {
+      const t = (row.type === 'practical' ? 'practical' : 'theory') as 'theory' | 'practical'
+      globalByType[t].total = Number(row.total ?? 0)
+      globalByType[t].correct = Number(row.correct ?? 0)
+    }
 
-    // Estadísticas por usuario
-    const userStats = allUsers.map(user => {
-      const userAnswers = allAnswers.filter(a => a.userId === user.id)
-      const total = userAnswers.length
-      const correct = userAnswers.filter(a => a.isCorrect).length
-      const successRate = total > 0 ? (correct / total) * 100 : 0
+    // Estadísticas agregadas por usuario
+    const perUserGeneralRes = await pool.query(
+      `
+      select
+        "userId",
+        count(*)::int as total,
+        sum(case when "isCorrect" then 1 else 0 end)::int as correct
+      from "UserAnswer"
+      group by "userId"
+      `
+    )
 
-      const byType = {
-        theory: { total: 0, correct: 0 },
-        practical: { total: 0, correct: 0 }
+    const perUserTypeRes = await pool.query(
+      `
+      select
+        ua."userId" as "userId",
+        qq.type        as type,
+        count(*)::int  as total,
+        sum(case when ua."isCorrect" then 1 else 0 end)::int as correct
+      from "UserAnswer" ua
+      join "Questionnaire" qq on qq.id = ua."questionnaireId"
+      group by ua."userId", qq.type
+      `
+    )
+
+    const generalByUser = new Map<string, { total: number; correct: number }>()
+    for (const row of perUserGeneralRes.rows ?? []) {
+      const uid = String(row.userId)
+      generalByUser.set(uid, {
+        total: Number(row.total ?? 0),
+        correct: Number(row.correct ?? 0)
+      })
+    }
+
+    const typeByUser = new Map<
+      string,
+      {
+        theory: { total: number; correct: number }
+        practical: { total: number; correct: number }
+      }
+    >()
+
+    for (const row of perUserTypeRes.rows ?? []) {
+      const uid = String(row.userId)
+      let entry = typeByUser.get(uid)
+      if (!entry) {
+        entry = {
+          theory: { total: 0, correct: 0 },
+          practical: { total: 0, correct: 0 }
+        }
+        typeByUser.set(uid, entry)
       }
 
-      userAnswers.forEach(a => {
-        const type = a.question.questionnaire.type as 'theory' | 'practical'
-        byType[type].total++
-        if (a.isCorrect) byType[type].correct++
-      })
+      const t = (row.type === 'practical' ? 'practical' : 'theory') as 'theory' | 'practical'
+      entry[t].total = Number(row.total ?? 0)
+      entry[t].correct = Number(row.correct ?? 0)
+    }
+
+    // Construir estadísticas por usuario solo para usuarios existentes
+    const userStats = allUsers.map(user => {
+      const general = generalByUser.get(user.id) || { total: 0, correct: 0 }
+      const types =
+        typeByUser.get(user.id) || {
+          theory: { total: 0, correct: 0 },
+          practical: { total: 0, correct: 0 }
+        }
+
+      const total = general.total
+      const correct = general.correct
+      const successRate = total > 0 ? (correct / total) * 100 : 0
 
       return {
         userId: user.id,
@@ -189,10 +264,10 @@ export async function GET(request: NextRequest) {
         correctAnswers: correct,
         incorrectAnswers: total - correct,
         successRate: Math.round(successRate * 100) / 100,
-        theoryTotal: byType.theory.total,
-        theoryCorrect: byType.theory.correct,
-        practicalTotal: byType.practical.total,
-        practicalCorrect: byType.practical.correct
+        theoryTotal: types.theory.total,
+        theoryCorrect: types.theory.correct,
+        practicalTotal: types.practical.total,
+        practicalCorrect: types.practical.correct
       }
     })
 
@@ -210,16 +285,18 @@ export async function GET(request: NextRequest) {
           theory: {
             total: globalByType.theory.total,
             correct: globalByType.theory.correct,
-            successRate: globalByType.theory.total > 0
-              ? Math.round((globalByType.theory.correct / globalByType.theory.total) * 10000) / 100
-              : 0
+            successRate:
+              globalByType.theory.total > 0
+                ? Math.round((globalByType.theory.correct / globalByType.theory.total) * 10000) / 100
+                : 0
           },
           practical: {
             total: globalByType.practical.total,
             correct: globalByType.practical.correct,
-            successRate: globalByType.practical.total > 0
-              ? Math.round((globalByType.practical.correct / globalByType.practical.total) * 10000) / 100
-              : 0
+            successRate:
+              globalByType.practical.total > 0
+                ? Math.round((globalByType.practical.correct / globalByType.practical.total) * 10000) / 100
+                : 0
           }
         }
       },

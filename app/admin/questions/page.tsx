@@ -158,11 +158,21 @@ export default function QuestionsDatabase() {
   }
 
   const filteredQuestions = questions.filter(q => {
-    const matchesSearch = q.text.toLowerCase().includes(filter.toLowerCase()) ||
-                         q.questionnaireName.toLowerCase().includes(filter.toLowerCase())
-    const matchesType = typeFilter === 'all' || 
-                       (typeFilter === 'theory' && q.questionnaireName.toLowerCase().includes('tema')) ||
-                       (typeFilter === 'practical' && q.questionnaireName.toLowerCase().includes('práctico'))
+    const matchesSearch =
+      q.text.toLowerCase().includes(filter.toLowerCase()) ||
+      q.questionnaireName.toLowerCase().includes(filter.toLowerCase())
+
+    const name = q.questionnaireName.toLowerCase()
+    const isTheoryByName = name.includes('tema')
+    const isPracticalByName = name.includes('práctico') || name.includes('practico')
+
+    const isTheoryByTemaMeta = !!(q.temaCodigo || q.temaNumero)
+
+    const matchesType =
+      typeFilter === 'all' ||
+      (typeFilter === 'theory' && (isTheoryByName || isTheoryByTemaMeta)) ||
+      (typeFilter === 'practical' && isPracticalByName)
+
     return matchesSearch && matchesType
   })
 
@@ -420,6 +430,27 @@ export default function QuestionsDatabase() {
               • {selectedQuestions.size} seleccionadas
             </span>
           )}
+        </div>
+
+        {/* Crear manualmente */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border border-emerald-200">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                <span>➕</span>
+                <span>Crear Pregunta Manualmente</span>
+              </h2>
+              <p className="text-gray-600 text-sm mt-1">
+                Añade una pregunta individual al banco oficial sin usar JSON ni generadores masivos.
+              </p>
+            </div>
+            <Link
+              href="/admin/questions-create"
+              className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-sm font-semibold hover:from-emerald-600 hover:to-teal-700 shadow"
+            >
+              Ir a alta manual →
+            </Link>
+          </div>
         </div>
       </div>
     </div>

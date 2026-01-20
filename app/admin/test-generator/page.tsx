@@ -123,6 +123,28 @@ export default function AdminTestGenerator() {
       return
     }
 
+    const parteRaw = prompt(
+      '¿En qué bloque del temario quieres publicar este cuestionario? Escribe "general" o "especifico".',
+      'general'
+    )
+
+    if (parteRaw === null) {
+      // Usuario ha cancelado el prompt
+      return
+    }
+
+    const parteNormalizedInput = parteRaw.trim().toLowerCase()
+
+    let temaParte: 'GENERAL' | 'ESPECÍFICO'
+    if (parteNormalizedInput.startsWith('e')) {
+      temaParte = 'ESPECÍFICO'
+    } else if (parteNormalizedInput.startsWith('g')) {
+      temaParte = 'GENERAL'
+    } else {
+      alert('Debes escribir "general" o "especifico" para continuar.')
+      return
+    }
+
     setPublishing(true)
     try {
       const res = await fetch('/api/admin/questionnaires/publish', {
@@ -131,6 +153,7 @@ export default function AdminTestGenerator() {
         body: JSON.stringify({
           title: `Test Personalizado - ${new Date().toLocaleDateString('es-ES')}`,
           type: 'theory',
+          temaParte,
           questions: testQuestions.map(q => ({
             text: q.text,
             options: q.options,

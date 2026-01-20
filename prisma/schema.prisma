@@ -85,6 +85,7 @@ model Questionnaire {
   statement   String?  @db.Text // Enunciado del supuesto práctico (solo para type="practical")
   category    String?  // "supuesto" o "caso" para type="practical"
   published   Boolean  @default(false) // false = draft, true = published
+  archived    Boolean  @default(false) // true = oculto en listados de admin, sin borrar
   questions   Question[]
   solutions   Solution[]
   userAnswers UserAnswer[]

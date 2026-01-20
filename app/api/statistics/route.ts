@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { prisma } from '@/lib/prisma'
+import { getPgPool, getUserAnswerColumnInfo } from '@/lib/pg'
 
 // Función mejorada para extraer fundamento legal
 function extractLegalArticle(
@@ -67,101 +67,33 @@ function generateRecommendation(errorCount: number, totalQuestions: number, them
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session?.user?.email) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email }
-    })
+    const userId = session.user.id
+    const pool = getPgPool()
 
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
-    }
+    // 1) Estadísticas generales
+    const generalRes = await pool.query(
+      `
+      select
+        count(*)::int as total,
+        sum(case when "isCorrect" then 1 else 0 end)::int as correct
+      from "UserAnswer"
+      where "userId" = $1
+      `,
+      [userId]
+    )
 
-    // ============================================================================
-    // IMPORTANTE: Query de UserAnswers sin campo 'answer'
-    // ============================================================================
-    // PROBLEMA HISTÓRICO (13 Ene 2026):
-    // - Incluir 'answer: true' en select causaba: "Field 'answer' not found"
-    // - Esto rompía toda la ruta de estadísticas
-    // - Las respuestas se guardaban pero no se mostraban
-    //
-    // SOLUCIÓN:
-    // 1. NO incluir 'answer' en el select (no es crítico)
-    // 2. Usar 'isCorrect' que es lo importante
-    // 3. Fallback con a.selectedAnswer si existe
-    //
-    // VER: SOLUCION_PERMANENTE_ESTADISTICAS.md para más detalles
-    // ============================================================================
-    
-    // Obtener todas las respuestas del usuario de forma simple y rápida
-    let userAnswers: any[] = []
-    try {
-      userAnswers = await prisma.userAnswer.findMany({
-        where: { userId: user.id },
-        select: {
-          id: true,
-          questionId: true,
-          questionnaireId: true,
-          // ❌ IMPORTANTE: NO incluir 'answer' aquí (causa error en Prisma)
-          // Usar en su lugar: a.answer || a.selectedAnswer || ''
-          isCorrect: true,  // ✅ Esto es lo que importa
-          createdAt: true,
-          question: {
-            select: {
-              id: true,
-              text: true,
-              correctAnswer: true,
-              explanation: true,
-              temaCodigo: true,
-              questionnaire: {
-                select: {
-                  id: true,
-                  title: true,
-                  type: true
-                }
-              }
-            }
-          }
-        },
-        orderBy: { createdAt: 'desc' }
-      })
-    } catch (queryError: any) {
-      console.error('[Statistics] Query error:', {
-        message: queryError?.message,
-        code: queryError?.code
-      })
-      // Fallback: try sin select específico (podría ser 'selectedAnswer' u otro campo)
-      try {
-        userAnswers = await prisma.userAnswer.findMany({
-          where: { userId: user.id },
-          orderBy: { createdAt: 'desc' }
-        })
-      } catch (fallbackError: any) {
-        console.error('[Statistics] Fallback query failed:', fallbackError)
-        return NextResponse.json(
-          { 
-            error: 'Failed to fetch statistics',
-            details: queryError?.message || 'Query error',
-            fallback: fallbackError?.message
-          },
-          { status: 500 }
-        )
-      }
-    }
-
-    // Calcular estadísticas generales - filtrando respuestas sin pregunta
-    const validAnswers = userAnswers.filter((a: any) => a.question) as any[]
-    const totalQuestions = validAnswers.length
-    const correctAnswers = validAnswers.filter((a: any) => a.isCorrect).length
+    const totalQuestions = Number(generalRes.rows?.[0]?.total ?? 0)
+    const correctAnswers = Number(generalRes.rows?.[0]?.correct ?? 0)
     const incorrectAnswers = totalQuestions - correctAnswers
     const successRate = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0
 
-    console.log(`[Statistics] User: ${user.email} | Total answers: ${userAnswers.length} | Valid: ${validAnswers.length}`)
-
     if (totalQuestions === 0) {
-      // Si no hay respuestas válidas, retornar estructura vacía
+      // Sin respuestas todavía: devolver estructura vacía
       return NextResponse.json({
         general: {
           totalQuestions: 0,
@@ -192,146 +124,181 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    // Agrupar errores por pregunta para detectar errores repetidos
-    const errorsByQuestion = new Map<string, {
-      questionId: string
-      questionText: string
-      questionnaireTitle: string
-      questionnaireType: string
-      attempts: number
-      errors: number
-      correctAnswer: string
-      explanation: string
-    }>()
+    // 2) Estadísticas por tipo de cuestionario (teoría / práctico)
+    const typeRes = await pool.query(
+      `
+      select
+        qq.type as type,
+        count(*)::int as total,
+        sum(case when ua."isCorrect" then 1 else 0 end)::int as correct
+      from "UserAnswer" ua
+      join "Questionnaire" qq on qq.id = ua."questionnaireId"
+      where ua."userId" = $1
+      group by qq.type
+      `,
+      [userId]
+    )
 
-    validAnswers.forEach((answer: any) => {
-      if (!errorsByQuestion.has(answer.questionId)) {
-        errorsByQuestion.set(answer.questionId, {
-          questionId: answer.questionId,
-          questionText: answer.question.text || 'Pregunta sin texto',
-          questionnaireTitle: answer.question.questionnaire?.title || 'Sin cuestionario',
-          questionnaireType: answer.question.questionnaire?.type || 'unknown',
-          attempts: 0,
-          errors: 0,
-          correctAnswer: answer.question.correctAnswer || '',
-          explanation: answer.question.explanation || ''
-        })
-      }
+    const statsByType = {
+      theory: { total: 0, correct: 0, incorrect: 0 },
+      practical: { total: 0, correct: 0, incorrect: 0 }
+    }
 
-      const questionStats = errorsByQuestion.get(answer.questionId)!
-      questionStats.attempts++
-      if (!answer.isCorrect) {
-        questionStats.errors++
-      }
-    })
+    for (const row of typeRes.rows ?? []) {
+      const t = (row.type === 'practical' ? 'practical' : 'theory') as 'theory' | 'practical'
+      const total = Number(row.total ?? 0)
+      const correct = Number(row.correct ?? 0)
+      statsByType[t].total = total
+      statsByType[t].correct = correct
+      statsByType[t].incorrect = total - correct
+    }
 
-    // Convertir a array y ordenar por número de errores
-    const repeatedErrors = Array.from(errorsByQuestion.values())
-      .filter(q => q.errors > 0)
-      .sort((a, b) => b.errors - a.errors)
+    // 3) Agregado por pregunta para errores repetidos y recomendaciones
+    const aggRes = await pool.query(
+      `
+      select
+        ua."questionId"        as "questionId",
+        count(*)::int           as "attempts",
+        sum(case when ua."isCorrect" = false then 1 else 0 end)::int as "errors",
+        q.text                  as "questionText",
+        q."correctAnswer"      as "correctAnswer",
+        q.explanation           as "explanation",
+        q."temaCodigo"         as "temaCodigo",
+        q."temaNumero"         as "temaNumero",
+        q."temaTitulo"         as "temaTitulo",
+        qq.title                as "questionnaireTitle",
+        qq.type                 as "questionnaireType"
+      from "UserAnswer" ua
+      join "Question" q on q.id = ua."questionId"
+      join "Questionnaire" qq on qq.id = ua."questionnaireId"
+      where ua."userId" = $1
+      group by ua."questionId", q.text, q."correctAnswer", q.explanation,
+               q."temaCodigo", q."temaNumero", q."temaTitulo", qq.title, qq.type
+      `,
+      [userId]
+    )
 
-    // NUEVAS RECOMENDACIONES DE ESTUDIO
-    // 1. Extraer preguntas falladas con artículos legales (búsqueda mejorada)
-    const failedQuestionsData = Array.from(errorsByQuestion.values())
-      .filter(q => q.errors > 0)
-      .sort((a, b) => b.errors - a.errors)
-      .slice(0, 15) // Top 15 preguntas con más errores
+    const perQuestion = aggRes.rows ?? []
 
-    // Procesar cada pregunta fallada para obtener su fundamento legal
-    const failedQuestions = failedQuestionsData.map((q) => {
+    // 3a) Errores repetidos
+    const repeatedErrors = perQuestion
+      .filter((r: any) => Number(r.errors ?? 0) > 0)
+      .sort((a: any, b: any) => Number(b.errors ?? 0) - Number(a.errors ?? 0))
+      .map((r: any) => ({
+        questionId: String(r.questionId),
+        questionText: r.questionText || 'Pregunta sin texto',
+        questionnaireTitle: r.questionnaireTitle || 'Sin cuestionario',
+        questionnaireType: r.questionnaireType || 'unknown',
+        attempts: Number(r.attempts ?? 0),
+        errors: Number(r.errors ?? 0),
+        correctAnswer: r.correctAnswer || '',
+        explanation: r.explanation || ''
+      })) as any[]
+
+    // 3b) Preguntas falladas para recomendaciones (top 15)
+    const failedQuestionsData = perQuestion
+      .filter((r: any) => Number(r.errors ?? 0) > 0)
+      .sort((a: any, b: any) => Number(b.errors ?? 0) - Number(a.errors ?? 0))
+      .slice(0, 15)
+
+    const failedQuestions = failedQuestionsData.map((r: any) => {
       let legalArticle = 'No especificado'
-      
+
       try {
-        // Extraer directamente del texto ya cargado
-        const extractedArticle = extractLegalArticle(
-          q.explanation || '', 
-          q.correctAnswer || '',
-          q.questionText || '',
-          null // Ya no necesitamos temaCodigo para esta extracción simple
+        const extracted = extractLegalArticle(
+          r.explanation || '',
+          r.correctAnswer || '',
+          r.questionText || '',
+          r.temaCodigo
         )
-        
-        if (extractedArticle) {
-          legalArticle = extractedArticle
+        if (extracted) {
+          legalArticle = extracted
         }
       } catch (error) {
-        console.warn(`[Statistics] Error extracting legal article for question ${q.questionId}:`, error)
-        // Fall back to simple extraction from explanation
-        if (q.explanation) {
-          const matches = q.explanation.match(/art[íi]culo\s+\d+(\.\d+)?/i)
+        console.warn(`[Statistics] Error extracting legal article for question ${r.questionId}:`, error)
+        if (r.explanation) {
+          const matches = String(r.explanation).match(/art[íi]culo\s+\d+(\.\d+)?/i)
           if (matches) {
             legalArticle = matches[0]
           }
         }
       }
-      
+
       return {
-        questionText: q.questionText,
-        questionnaireTitle: q.questionnaireTitle,
-        correctAnswer: q.correctAnswer,
-        legalArticle: legalArticle,
-        errors: q.errors
+        questionText: r.questionText || 'Pregunta sin texto',
+        questionnaireTitle: r.questionnaireTitle || 'Sin cuestionario',
+        correctAnswer: r.correctAnswer || '',
+        legalArticle,
+        errors: Number(r.errors ?? 0)
       }
     })
 
-    // 2. Agrupar errores por tema y generar recomendaciones
+    // 3c) Temas a revisar (agrupado por título de cuestionario)
     const errorsByTheme = new Map<string, { errorCount: number; totalQuestions: number }>()
-    
-    validAnswers.forEach((answer: any) => {
-      if (!answer.question.questionnaire) {
-        return
-      }
-      
-      const themeName = answer.question.questionnaire.title || 'Sin tema'
+
+    for (const r of perQuestion) {
+      const attempts = Number((r as any).attempts ?? 0)
+      const errors = Number((r as any).errors ?? 0)
+      const themeName = (r as any).questionnaireTitle || 'Sin tema'
+
       if (!errorsByTheme.has(themeName)) {
         errorsByTheme.set(themeName, { errorCount: 0, totalQuestions: 0 })
       }
-      const themeStats = errorsByTheme.get(themeName)!
-      themeStats.totalQuestions++
-      if (!answer.isCorrect) {
-        themeStats.errorCount++
-      }
-    })
-
-    // Filtrar temas con tasa de error > 30% y al menos 3 errores
-    const themesToReview = Array.from(errorsByTheme.entries())
-      .map(([themeName, stats]) => ({
-        themeName,
-        errorCount: stats.errorCount,
-        totalQuestions: stats.totalQuestions,
-        errorRate: Math.round((stats.errorCount / stats.totalQuestions) * 100),
-        recommendation: generateRecommendation(stats.errorCount, stats.totalQuestions, themeName)
-      }))
-      .filter(theme => theme.errorRate > 30 && theme.errorCount >= 3)
-      .sort((a, b) => b.errorRate - a.errorRate)
-      .slice(0, 5) // Top 5 temas con peor rendimiento
-
-    // Estadísticas por tipo de cuestionario
-    const statsByType = {
-      theory: {
-        total: 0,
-        correct: 0,
-        incorrect: 0
-      },
-      practical: {
-        total: 0,
-        correct: 0,
-        incorrect: 0
-      }
+      const stats = errorsByTheme.get(themeName)!
+      stats.totalQuestions += attempts
+      stats.errorCount += errors
     }
 
-    validAnswers.forEach((answer: any) => {
-      if (!answer.question.questionnaire) {
-        return
-      }
-      
-      const type = (answer.question.questionnaire.type || 'theory') as 'theory' | 'practical'
-      statsByType[type].total++
-      if (answer.isCorrect) {
-        statsByType[type].correct++
-      } else {
-        statsByType[type].incorrect++
-      }
-    })
+    const themesToReview = Array.from(errorsByTheme.entries())
+      .map(([themeName, stats]) => {
+        const errorRate = stats.totalQuestions > 0
+          ? Math.round((stats.errorCount / stats.totalQuestions) * 100)
+          : 0
+        return {
+          themeName,
+          errorCount: stats.errorCount,
+          totalQuestions: stats.totalQuestions,
+          errorRate,
+          recommendation: generateRecommendation(stats.errorCount, stats.totalQuestions || 1, themeName)
+        }
+      })
+      .filter(theme => theme.errorRate > 30 && theme.errorCount >= 3)
+      .sort((a, b) => b.errorRate - a.errorRate)
+      .slice(0, 5)
+
+    // 4) Fallos recientes (últimas 20 respuestas incorrectas)
+    const { answerColumn } = await getUserAnswerColumnInfo(pool)
+
+    const recentSql = `
+      select
+        ua."questionId"        as "questionId",
+        ua."createdAt"        as "createdAt",
+        ua."${answerColumn}"  as "userAnswer",
+        q.text                  as "questionText",
+        q."correctAnswer"      as "correctAnswer",
+        q.explanation           as "explanation",
+        qq.title                as "questionnaireTitle",
+        qq.type                 as "questionnaireType"
+      from "UserAnswer" ua
+      join "Question" q on q.id = ua."questionId"
+      join "Questionnaire" qq on qq.id = ua."questionnaireId"
+      where ua."userId" = $1 and ua."isCorrect" = false
+      order by ua."createdAt" desc
+      limit 20
+    `
+
+    const recentRes = await pool.query(recentSql, [userId])
+
+    const recentErrors = (recentRes.rows ?? []).map((r: any) => ({
+      questionId: String(r.questionId),
+      questionText: r.questionText || 'Pregunta sin texto',
+      questionnaireTitle: r.questionnaireTitle || 'Sin cuestionario',
+      questionnaireType: r.questionnaireType || 'unknown',
+      userAnswer: String(r.userAnswer ?? ''),
+      correctAnswer: r.correctAnswer || '',
+      explanation: r.explanation || '',
+      date: r.createdAt
+    }))
 
     return NextResponse.json({
       general: {
@@ -343,7 +310,7 @@ export async function GET(request: NextRequest) {
       byType: {
         theory: {
           ...statsByType.theory,
-          successRate: statsByType.theory.total > 0 
+          successRate: statsByType.theory.total > 0
             ? Math.round((statsByType.theory.correct / statsByType.theory.total) * 10000) / 100
             : 0
         },
@@ -355,19 +322,7 @@ export async function GET(request: NextRequest) {
         }
       },
       repeatedErrors,
-      recentErrors: validAnswers
-        .filter((a: any) => !a.isCorrect && a.question && a.question.questionnaire)
-        .slice(0, 20)
-        .map((a: any) => ({
-          questionId: a.questionId,
-          questionText: a.question.text || 'Pregunta sin texto',
-          questionnaireTitle: a.question.questionnaire?.title || 'Sin cuestionario',
-          questionnaireType: a.question.questionnaire?.type || 'unknown',
-          userAnswer: a.answer || a.selectedAnswer || '',
-          correctAnswer: a.question.correctAnswer || '',
-          explanation: a.question.explanation || '',
-          date: a.createdAt
-        })),
+      recentErrors,
       studyRecommendations: {
         failedQuestions,
         themesToReview
@@ -381,11 +336,11 @@ export async function GET(request: NextRequest) {
       stack: error?.stack
     })
     return NextResponse.json(
-      { 
-        error: 'Failed to fetch statistics',
+      {
+        error: 'Error al obtener estadísticas',
         details: error?.message || 'Unknown error',
         code: error?.code
-      }, 
+      },
       { status: 500 }
     )
   }

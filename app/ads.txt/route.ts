@@ -5,11 +5,7 @@ export async function GET(): Promise<NextResponse> {
 
   const body = (envValue && envValue.trim().length > 0
     ? envValue
-    : [
-        "# ADS.TXT",
-        "# Pega aquí exactamente el contenido que te da Google AdSense en: AdSense → Sites → ads.txt",
-        "# Luego configura la variable de entorno ADSENSE_ADS_TXT en Vercel (Production) y vuelve a desplegar.",
-      ].join("\n")) + "\n";
+    : "google.com, pub-3330699408382004, DIRECT, f08c47fec0942fa0") + "\n";
 
   return new NextResponse(body, {
     status: 200,

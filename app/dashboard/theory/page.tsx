@@ -10,6 +10,8 @@ interface Question {
   options: string[]
   correctAnswer: string
   explanation: string
+  // Puede venir marcado desde el panel admin como "GENERAL" o "ESPECÍFICO"
+  temaParte?: string | null
 }
 
 interface Questionnaire {
@@ -40,24 +42,98 @@ export default function Theory() {
             <p className="text-gray-600 text-lg">No hay cuestionarios disponibles en este momento.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {questionnaires.map(q => (
-              <div key={q.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
-                <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-24 flex items-center justify-center">
-                  <div className="text-white text-4xl">📖</div>
-                </div>
-                <div className="p-6">
-                  <h2 className="text-xl font-bold text-gray-800 mb-2">{q.title}</h2>
-                  <p className="text-gray-600 mb-4">Total de {q.questions.length} pregunta{q.questions.length !== 1 ? 's' : ''}</p>
-                  <Link href={`/quiz/${q.id}`} className="inline-block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-4 py-3 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition">
-                    Comenzar Cuestionario
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TheoryBlocks questionnaires={questionnaires} />
         )}
       </div>
+    </div>
+  )
+}
+
+function TheoryBlocks({ questionnaires }: { questionnaires: Questionnaire[] }) {
+  const classifyParte = (q: Questionnaire): 'GENERAL' | 'ESPECÍFICO' => {
+    const partes = (q.questions || [])
+      .map(qq => (qq as any).temaParte as string | undefined | null)
+      .filter(Boolean)
+      .map(p => String(p).trim().toUpperCase())
+
+    if (partes.length === 0) {
+      // Por compatibilidad hacia atrás, si no hay marca lo tratamos como general
+      return 'GENERAL'
+    }
+
+    const allGeneral = partes.every(p => p === 'GENERAL')
+    const allEspecifico = partes.every(p => p === 'ESPECÍFICO' || p === 'ESPECIFICO')
+
+    if (allEspecifico) return 'ESPECÍFICO'
+    if (allGeneral) return 'GENERAL'
+
+    // Si hay mezcla de marcas, lo mostramos en general por defecto
+    return 'GENERAL'
+  }
+
+  const generalQuestionnaires = questionnaires.filter(q => classifyParte(q) === 'GENERAL')
+  const specificQuestionnaires = questionnaires.filter(q => classifyParte(q) === 'ESPECÍFICO')
+
+  const renderGrid = (items: Questionnaire[], variant: 'general' | 'specific') => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {items.map(q => (
+        <div
+          key={q.id}
+          className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105"
+        >
+          <div
+            className={
+              variant === 'general'
+                ? 'bg-gradient-to-r from-emerald-500 to-teal-600 h-24 flex items-center justify-center'
+                : 'bg-gradient-to-r from-blue-500 to-indigo-600 h-24 flex items-center justify-center'
+            }
+          >
+            <div className="text-white text-4xl">📖</div>
+          </div>
+          <div className="p-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-2">{q.title}</h2>
+            <p className="text-gray-600 mb-4">
+              Total de {q.questions.length} pregunta{q.questions.length !== 1 ? 's' : ''}
+            </p>
+            <Link
+              href={`/quiz/${q.id}`}
+              className={
+                variant === 'general'
+                  ? 'inline-block w-full text-center bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold px-4 py-3 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition'
+                  : 'inline-block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-4 py-3 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition'
+              }
+            >
+              Comenzar Cuestionario
+            </Link>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+
+  return (
+    <div className="space-y-10">
+      <section>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Temario General</h2>
+        {generalQuestionnaires.length === 0 ? (
+          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+            <p className="text-gray-600">No hay cuestionarios de temario general disponibles.</p>
+          </div>
+        ) : (
+          renderGrid(generalQuestionnaires, 'general')
+        )}
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Temario Específico</h2>
+        {specificQuestionnaires.length === 0 ? (
+          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+            <p className="text-gray-600">No hay cuestionarios de temario específico disponibles.</p>
+          </div>
+        ) : (
+          renderGrid(specificQuestionnaires, 'specific')
+        )}
+      </section>
     </div>
   )
 }

@@ -1,0 +1,724 @@
+{
+  "questions": [
+    {
+      "question": "Según el artículo 11 del TRLGSS, ¿en qué materias podrán establecerse sistemas especiales en los regímenes de la Seguridad Social en que resulte necesario?",
+      "options": [
+        "Exclusivamente en encuadramiento, afiliación, forma de cotización o recaudación",
+        "En encuadramiento, afiliación, acción protectora y pensiones",
+        "En afiliación, recaudación, gestión de prestaciones y régimen sancionador",
+        "En encuadramiento, acción protectora, compatibilidades e incompatibilidades"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 11 TRLGSS establece que podrán establecerse sistemas especiales \"exclusivamente en alguna o algunas de las siguientes materias: encuadramiento, afiliación, forma de cotización o recaudación\". Las demás opciones introducen materias (acción protectora, pensiones, sanciones, compatibilidades) ajenas a la lista cerrada del precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 11 TRLGSS, ¿quién debe informar en la regulación de los sistemas especiales que se establezcan?",
+      "options": [
+        "Siempre el Ministerio de Hacienda, por la vertiente recaudatoria",
+        "El ministerio competente por razón de la actividad o condición de las personas incluidas",
+        "Exclusivamente el Ministerio de Inclusión, Seguridad Social y Migraciones",
+        "El Ministerio de Trabajo y Economía Social, con carácter preceptivo en todo caso"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 11 TRLGSS dispone que \"En la regulación de tales sistemas informará el ministerio competente por razón de la actividad o condición de las personas en ellos incluidos\". No se atribuye esta función de forma exclusiva a Hacienda, Inclusión o Trabajo, por lo que las opciones A, C y D no se ajustan al tenor literal.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el texto, ¿en qué régimen se crearon inicialmente los sistemas especiales y cuál es, con carácter general, su régimen normativo?",
+      "options": [
+        "En el Régimen General, rigiéndose por sus normas comunes salvo particularidades específicas",
+        "En el Régimen Especial Agrario, con plena autonomía normativa",
+        "En el RETA, rigiéndose por normas totalmente desvinculadas del Régimen General",
+        "Se crearon simultáneamente en todos los regímenes, con una ley independiente"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El texto señala que \"Estos Sistemas Especiales se crearon en un primer momento en el Régimen General y, por ello, se rigen por las normas comunes de dicho régimen, a excepción de las particularidades específicamente previstas en cada uno de ellos\". La opción A recoge exactamente este origen y sujeción normativa. Las opciones B, C y D sitúan el origen o el régimen en marcos (Régimen Especial Agrario, RETA, ley autónoma) que el propio texto no menciona.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué sistema especial se ha incluido posteriormente en el Régimen Especial de Trabajadores por Cuenta Propia o Autónomos (RETA), según el texto?",
+      "options": [
+        "El sistema especial agrario por cuenta propia",
+        "El sistema especial para empleados de hogar",
+        "El sistema especial de la industria resinera",
+        "El sistema especial de servicios extraordinarios de hostelería"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El texto indica que \"Posteriormente se ha incluido en el RETA el sistema especial agrario por cuenta propia\". La opción A recoge de forma literal este sistema; las demás opciones citan otros sistemas especiales (empleados de hogar, industria resinera, hostelería) que no se mencionan como integrados en el RETA.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial de trabajadores fijos discontinuos de empresas de estudios de mercado y opinión pública, ¿ante qué órgano se presentan las solicitudes de alta y baja por inicio o cese definitivo de la relación laboral?",
+      "options": [
+        "Ante la Dirección Provincial de la Tesorería General de la Seguridad Social donde la empresa haya formulado su inscripción",
+        "Ante la Dirección Provincial de la Tesorería General de cada provincia donde se presten servicios",
+        "Ante la Inspección de Trabajo y Seguridad Social de la provincia del centro de trabajo",
+        "Ante la Dirección Provincial del Instituto Nacional de la Seguridad Social del domicilio social"
+      ],
+      "correctAnswer": "C",
+      "explanation": "La Orden de 6 de noviembre de 1989, según el texto, establece que las solicitudes \"serán presentadas por el empresario [...] en la Dirección Provincial de la Tesorería General de la Seguridad Social de la provincia en la que haya formulado su inscripción, sea cual fuere la provincia o provincias en la que preste sus servicios\". La opción A refleja esta regla. Las opciones B, C y D desplazan la competencia a otras Direcciones, a la Inspección o al INSS, lo que contradice el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En ese mismo Sistema Especial de estudios de mercado y opinión pública, ¿qué obligación mensual adicional tienen los empresarios respecto de sus trabajadores fijos discontinuos?",
+      "options": [
+        "Presentar dentro de los diez primeros días de cada mes una relación nominal con los días trabajados el mes anterior",
+        "Presentar trimestralmente un resumen de salarios pagados",
+        "Comunicar solo las altas y bajas definitivas, sin detalle mensual de días trabajados",
+        "Comunicar mensualmente solo el número total de trabajadores, sin desglosar días"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El texto indica que, además de las obligaciones generales, \"los empresarios presentarán, dentro de los diez primeros días de cada mes, una relación nominal de sus trabajadores fijos discontinuos, con indicación de los días en que han prestado servicios durante el mes anterior y el total de los días trabajados en el mismo\". La opción A reproduce esta obligación. Las opciones B, C y D o bien cambian la periodicidad (trimestral) o suprimen el detalle de días trabajado, lo que no se ajusta a la orden.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial aplicable a cines, salas de baile, de fiesta y discotecas, ¿qué debe contener el parte de alta presentado en los cinco primeros días naturales de cada mes?",
+      "options": [
+        "La relación nominal de los trabajadores afectados y los días fijos de trabajo previstos a la semana",
+        "Solo el número total de trabajadores y la facturación del mes anterior",
+        "Las bases de cotización de todos los trabajadores y sus categorías profesionales",
+        "Únicamente las altas nuevas respecto del mes anterior, sin relación nominal completa"
+      ],
+      "correctAnswer": "B",
+      "explanation": "La Orden de 17 de junio de 1980 indica que las empresas presentarán un parte de alta que contendrá \"la relación nominal de los trabajadores [...] y los días fijos de trabajo previstos a la semana durante dicho período\". La opción A es la que recoge esos dos elementos. Las opciones B, C y D sustituyen o reducen el contenido exigido, añadiendo datos distintos (facturación, bases) o eliminando la relación nominal completa.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial de manipulado y empaquetado de tomate fresco en la península, ¿cuál es la duración de la campaña oficial para el tomate de verano?",
+      "options": [
+        "Del 1 de mayo al 30 de septiembre",
+        "Del 1 de junio al 30 de septiembre",
+        "Del 1 de mayo al 31 de agosto",
+        "Del 1 de abril al 30 de septiembre"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El texto señala que, en la península, \"Para el tomate de verano: Desde el 1 de mayo al 30 de septiembre\". La opción A coincide literalmente con este periodo. Las opciones B, C y D modifican las fechas de inicio o fin de campaña, por lo que no son conformes a la Orden de 24 de julio de 1976.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial de manipulado y empaquetado de tomate fresco en las Islas Canarias, ¿qué periodo se fija como campaña oficial según el texto?",
+      "options": [
+        "Del 1 de octubre al 31 de mayo",
+        "Del 1 de septiembre al 31 de mayo",
+        "Del 1 de noviembre al 30 de abril",
+        "Del 1 de octubre al 30 de junio"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El texto indica que en las Islas Canarias la campaña será \"Desde el 1 de octubre al 31 de mayo\". La opción A recoge con precisión este período. Las otras opciones alteran la fecha de inicio o fin sin respaldo en la norma transcrita.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A partir del 1 de enero de 2025, ¿qué beneficios en la cotización se reconocen a los empresarios del Sistema Especial de manipulado y empaquetado de tomate fresco con destino a la exportación?",
+      "options": [
+        "Reducción del 50% y bonificación del 7,50% en la aportación empresarial a la cotización por contingencias comunes",
+        "Bonificación del 50% sobre la cuota total de la Seguridad Social",
+        "Reducción del 7,50% y bonificación del 50% en la aportación empresarial por contingencias profesionales",
+        "Exención total de la aportación empresarial por contingencias comunes"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El texto recoge que \"Desde el 1 de enero de 2025 los empresarios encuadrados en el Sistema Especial [...] tendrán derecho a una reducción del 50 por ciento y una bonificación del 7,50 por ciento en la aportación empresarial a la cotización por contingencias comunes\". La opción A es prácticamente literal. Las opciones B, C y D cambian el porcentaje o el concepto sobre el que se aplican (cuota total, profesionales, exención), por lo que no se ajustan al precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial de servicios extraordinarios de hostelería para Madrid y Barcelona, ¿cuándo se entiende que concurre la habitualidad?",
+      "options": [
+        "Cuando el trabajador realiza al menos 30 servicios extraordinarios dentro del trimestre natural anterior, salvo que sea el primero del año, en el que se exigen 15",
+        "Cuando realiza 15 servicios extraordinarios cada mes, con independencia del trimestre",
+        "Cuando realiza 30 servicios extraordinarios en todo el año natural",
+        "Cuando realiza cualquier número de servicios extraordinarios en festivos"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Según la Orden de 10 de septiembre de 1973, el texto indica que \"Se entiende que concurre la habitualidad cuando el trabajador realice al menos 30 servicios extraordinarios dentro del trimestre natural anterior, salvo que éste sea el primero de cada año en que sólo se exigirán 15\". La opción A refleja fielmente este criterio. Las opciones B, C y D modifican el período de referencia (mes, año) o el tipo de días (festivos), y no responden a lo recogido en la norma.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial de la industria resinera, ¿cuál es la duración de la campaña para los resineros, según el texto?",
+      "options": [
+        "Del primero de marzo al quince de noviembre",
+        "Del primero de abril al quince de noviembre",
+        "Del primero de marzo al treinta y uno de octubre",
+        "Del primero de mayo al quince de noviembre"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El texto indica que, para los resineros, las campañas tendrán lugar \"Del primero de marzo al quince de noviembre\". La opción A coincide literalmente. Las otras opciones cambian la fecha de inicio o fin, por lo que no respetan la Orden de 3 de septiembre de 1973.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Para los remasadores incluidos en el Sistema Especial de la industria resinera, ¿qué duración de campaña fija el texto?",
+      "options": [
+        "Del primero de junio al treinta y uno de octubre",
+        "Del primero de mayo al treinta y uno de octubre",
+        "Del primero de junio al quince de noviembre",
+        "Del primero de abril al treinta y uno de octubre"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El texto establece que, para los remasadores, las campañas serán \"Del primero de junio al treinta y uno de octubre\". La opción A es la única que reproduce este período. Las demás modifican inicio o fin sin base en la norma.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿De qué depende la permanencia en alta de los resineros y remasadores en el Sistema Especial de la industria resinera?",
+      "options": [
+        "Del número de pinos en resinación asignados y de la 'mata' media normal señalada en cada provincia",
+        "Del número de jornadas reales comunicadas trimestralmente",
+        "Del volumen de miera obtenido en la campaña, en litros",
+        "De la antigüedad del trabajador en campañas anteriores"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El texto señala que \"La permanencia en alta de los trabajadores resineros y remasadores se determinará en función del número de pinos en resinación asignados a los mismos y los que constituyen la 'mata' media normal señalada en cada provincia\". La opción A es la que coincide con este criterio. Las opciones B, C y D introducen factores (jornadas, litros de miera, antigüedad) no recogidos en la regulación específica.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial de frutas, hortalizas e industria de conservas vegetales, ¿cuál es la duración general de las campañas, según la Orden de 30 de mayo de 1991?",
+      "options": [
+        "Se inician el 1 de enero y finalizan el 31 de diciembre de cada año",
+        "Se inician el 1 de septiembre y finalizan el 30 de junio del año siguiente",
+        "Se limitan a seis meses dentro del año natural",
+        "Dependen exclusivamente de lo pactado en convenio colectivo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "La Orden de 30 de mayo de 1991 dispone que las campañas \"se iniciarán el primero de enero, finalizando el treinta y uno de diciembre de cada año\". Por tanto, la opción correcta es la que recoge este periodo anual completo; las demás opciones alteran las fechas o subordinan las campañas solo al convenio colectivo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 252.1 TRLGSS, ¿qué actividades permiten la inclusión en el Sistema Especial para Trabajadores por Cuenta Ajena Agrarios?",
+      "options": [
+        "Labores agrarias propiamente agrícolas, forestales o pecuarias, o complementarias o auxiliares de las mismas, en explotaciones agrarias",
+        "Únicamente labores agrícolas de recolección en explotaciones agrarias",
+        "Cualquier trabajo realizado en la industria de transformación de productos agrarios",
+        "Exclusivamente labores de manipulado, empaquetado y comercialización del plátano"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 252.1 TRLGSS indica que quedarán comprendidos quienes realicen \"labores agrarias, sean propiamente agrícolas, forestales o pecuarias o sean complementarias o auxiliares de las mismas, en explotaciones agrarias\". La opción A reproduce esta fórmula amplia; las opciones B, C y D restringen o desvían el ámbito (solo recolección, industria transformadora o plátano) frente al texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el artículo 252.1 TRLGSS, ¿qué operaciones relacionadas con el plátano NO tienen la consideración de labores agrarias a efectos de este sistema especial?",
+      "options": [
+        "Las de manipulado, empaquetado, envasado y comercialización del plátano a que se refiere el artículo 136.2.g)",
+        "Las de obtención directa, almacenamiento y transporte del plátano desde la finca",
+        "Las de riego y abonado de las plantaciones de plátano",
+        "Las de recolección del plátano en la propia explotación agraria"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 252.1 TRLGSS precisa que \"no tendrán la consideración de labores agrarias las operaciones de manipulado, empaquetado, envasado y comercialización del plátano, a que se refiere el artículo 136.2.g)\". Por tanto, la opción A es correcta; las demás describen labores agrarias propiamente dichas (obtención directa, riego, recolección), que el precepto no excluye.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 253.1 TRLGSS, ¿cómo se produce la inclusión en el Sistema Especial para Trabajadores por Cuenta Ajena Agrarios establecido en el Régimen General?",
+      "options": [
+        "Como consecuencia y de forma simultánea al alta en el Régimen General, determinando la obligación de cotizar en períodos de actividad e inactividad",
+        "Mediante una solicitud independiente de alta en el sistema especial, sin relación con el alta en el Régimen General",
+        "Únicamente durante los períodos de actividad, sin obligación de cotizar en inactividad",
+        "Solo cuando el trabajador haya superado un mínimo de tres años de trabajo agrario continuo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 253.1 TRLGSS establece que la inclusión en el sistema especial \"se producirá como consecuencia y de forma simultánea al alta en dicho régimen\" y \"determinará la obligación de cotizar, tanto durante los períodos de actividad [...] como durante los períodos de inactividad\". Las otras opciones desligan la inclusión del alta en el Régimen General o niegan la cotización en inactividad, contra el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 253.1 TRLGSS, ¿cuándo se entiende que existen períodos de inactividad dentro de un mes natural en este sistema especial?",
+      "options": [
+        "Cuando el número de jornadas reales en el mes sea inferior al 76,67% de los días naturales en que el trabajador figure incluido",
+        "Cuando el número de jornadas reales en el mes sea inferior al 50% de los días naturales del mes",
+        "Siempre que haya al menos un día sin jornada real en el mes",
+        "Solo cuando en el mes no se haya realizado ninguna jornada real"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 253.1 TRLGSS dispone que \"se entenderá que existen períodos de inactividad dentro de un mes natural cuando el número de jornadas reales en él realizadas sea inferior al 76,67 por ciento de los días naturales en que el trabajador figure incluido en el sistema especial en dicho mes\". Las demás opciones proponen umbrales (50%, un día, cero jornadas) no contemplados en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 253.2 TRLGSS, ¿qué requisitos son necesarios para quedar incluido en el sistema especial durante los períodos de inactividad?",
+      "options": [
+        "Haber realizado un mínimo de 30 jornadas reales en un período continuado de 365 días y solicitar la inclusión dentro de los tres meses naturales siguientes a la última jornada",
+        "Haber realizado 55 jornadas reales en el año natural y solicitar la inclusión antes de finalizar dicho año",
+        "Haber trabajado al menos seis meses continuados en labores agrarias y solicitar la inclusión en cualquier momento",
+        "Haber realizado 30 jornadas reales en los dos últimos años, sin necesidad de solicitud expresa"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 253.2 TRLGSS exige que el trabajador haya realizado \"un mínimo de 30 jornadas reales en un período continuado de trescientos sesenta y cinco días\" y que solicite expresamente la inclusión \"dentro de los tres meses naturales siguientes al de la realización de la última de dichas jornadas\". Las demás opciones modifican número de jornadas, periodo o suprimen la solicitud, contraviniendo el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el artículo 253.3 TRLGSS, ¿qué jornadas se computan a efectos de los requisitos de inclusión y mantenimiento en el sistema especial agrario por cuenta ajena?",
+      "options": [
+        "Todas las jornadas reales efectuadas en el período indicado, incluidas las prestadas para distintos empresarios en un mismo día",
+        "Solo las jornadas realizadas para el mismo empresario durante todo el período",
+        "Únicamente las jornadas realizadas a tiempo completo, excluyéndose las parciales",
+        "Solo las jornadas comunicadas por el empresario principal, aunque existan otros"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 253.3 TRLGSS dispone que \"se computarán todas las jornadas reales efectuadas por el trabajador en el período indicado, incluidas las prestadas en un mismo día para distintos empresarios\". Por tanto, la opción correcta es la A; las otras opciones restringen injustificadamente el cómputo a un solo empresario o tipo de jornada.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 253.3 TRLGSS, ¿qué situaciones se asimilan a jornadas reales a efectos del cumplimiento del requisito de 30 jornadas para la inclusión en períodos de inactividad?",
+      "options": [
+        "Incapacidad temporal por contingencias profesionales, maternidad, paternidad, riesgo durante el embarazo o lactancia natural, prestaciones por desempleo contributivo en este sistema especial y alta por programas de fomento de empleo agrario",
+        "Exclusivamente las vacaciones anuales retribuidas y los festivos",
+        "Cualquier día de baja por enfermedad común, aunque no proceda de actividad agraria",
+        "Solo los días de formación subvencionada que no impliquen alta en Seguridad Social"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 253.3, segundo párrafo, TRLGSS indica que se asimilan a jornadas reales, entre otros, los días en que los trabajadores se encuentren en situaciones de incapacidad temporal derivada de contingencias profesionales, maternidad, paternidad, riesgo durante el embarazo y lactancia natural procedentes de período de actividad en este sistema, los períodos de percepción de prestaciones por desempleo contributivo en este sistema y los días de alta por programas de fomento de empleo agrario. La opción A resume estas situaciones; las otras respuestas no aparecen en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el artículo 253.4 TRLGSS, ¿cuál de las siguientes es una causa de exclusión de oficio del sistema especial durante los períodos de inactividad?",
+      "options": [
+        "No realizar un mínimo de 30 jornadas de labores agrarias en un período continuado de 365 días",
+        "No alcanzar 15 jornadas reales en un trimestre natural",
+        "No comunicar la primera jornada real en el plazo de 3 meses",
+        "Superar el 76,67% de jornadas reales en un mes natural"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 253.4.b).1.º TRLGSS contempla como causa de exclusión de oficio \"cuando el trabajador no realice un mínimo de 30 jornadas de labores agrarias en un período continuado de trescientos sesenta y cinco días\". La opción A recoge esta causa. Las opciones B, C y D no figuran como tales en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 253.4.b).2.º TRLGSS, ¿desde cuándo producen efectos la exclusión de oficio por falta de abono de las cuotas correspondientes a períodos de inactividad durante dos mensualidades consecutivas?",
+      "options": [
+        "Desde el día primero del mes siguiente a la segunda mensualidad no ingresada, salvo determinadas situaciones protegidas",
+        "Desde el día primero del mes en que se dejó de pagar la primera cuota",
+        "Desde el último día del año natural en que se produjeron los impagos",
+        "Desde el día primero del mes siguiente a la tercera mensualidad no ingresada"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 253.4.b).2.º TRLGSS establece que, en caso de falta de abono de las cuotas de inactividad durante dos mensualidades consecutivas, \"los efectos de la exclusión [...] tendrán lugar desde el día primero del mes siguiente a la segunda mensualidad no ingresada\", con matices cuando existe incapacidad temporal, maternidad, etc. La opción A reproduce este régimen; las demás opciones alteran el momento de efectos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 255.2.a) TRLGSS, ¿quién es el sujeto responsable del cumplimiento de la obligación de cotizar durante los períodos de actividad en el Sistema Especial para Trabajadores por Cuenta Ajena Agrarios?",
+      "options": [
+        "El empresario, en los términos del artículo 142 TRLGSS",
+        "El propio trabajador agrario",
+        "La Tesorería General de la Seguridad Social",
+        "El Servicio Público de Empleo Estatal"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 255.2.a) TRLGSS dispone que \"El empresario será el sujeto responsable del cumplimiento de la obligación de cotizar en los términos del artículo 142\". Por tanto, la opción A es correcta; las otras atribuyen la responsabilidad a sujetos (trabajador, TGSS, SEPE) que no son los designados por la norma.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 255.2.b) TRLGSS, ¿qué modalidades de cotización pueden aplicarse, a opción del empresario, durante los períodos de actividad en este sistema especial?",
+      "options": [
+        "Por bases diarias en función de las jornadas reales realizadas o por bases mensuales",
+        "Solo por bases mensuales, sin opción",
+        "Por bases anuales calculadas a final de ejercicio",
+        "Por bases trimestrales en función de las campañas agrarias"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 255.2.b) TRLGSS indica que \"La cotización podrá efectuarse, a opción del empresario, por bases diarias, en función de las jornadas reales realizadas, o por bases mensuales\". Las otras opciones suprimen la alternativa o introducen bases anuales o trimestrales no previstas.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En virtud del artículo 255.2.b) TRLGSS, ¿para qué colectivo resulta obligatoria la modalidad de cotización por bases mensuales?",
+      "options": [
+        "Para los trabajadores agrarios por cuenta ajena con contrato indefinido",
+        "Para todos los trabajadores agrarios con independencia del tipo de contrato",
+        "Solo para los trabajadores fijos discontinuos",
+        "Exclusivamente para los trabajadores con contrato temporal"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 255.2.b) TRLGSS establece que \"La modalidad de cotización por bases mensuales resultará obligatoria para los trabajadores agrarios por cuenta ajena con contrato indefinido, sin incluir entre ellos a los que presten servicios con carácter fijo discontinuo\". La opción A respeta esta precisión; las demás generalizan u orientan la obligatoriedad a otros colectivos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 255.3 TRLGSS, ¿quién es el sujeto responsable del cumplimiento de la obligación de cotizar durante los períodos de inactividad en las labores agrarias?",
+      "options": [
+        "El propio trabajador",
+        "El empresario para el que se prestó el último servicio",
+        "La Tesorería General de la Seguridad Social",
+        "La entidad gestora de las prestaciones por desempleo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 255.3.a) TRLGSS dispone que, durante los períodos de inactividad, \"El propio trabajador será el sujeto responsable del cumplimiento de la obligación de cotizar y del ingreso de las cuotas correspondientes\". Las demás opciones desplazan indebidamente esta responsabilidad a empresario, TGSS o SEPE.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el artículo 255.3 TRLGSS, ¿cuál es la base de cotización aplicable durante los períodos de inactividad en este sistema especial?",
+      "options": [
+        "La base mínima vigente por contingencias comunes correspondiente al grupo 7 de la escala de grupos de cotización del Régimen General",
+        "La base máxima de cotización vigente en el Régimen General",
+        "La media de las bases de cotización de los últimos doce meses",
+        "Una base fija establecida por convenio colectivo agrario"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 255.3.c) TRLGSS señala que la base de cotización aplicable será \"la base mínima vigente en cada momento, por contingencias comunes, correspondiente al grupo 7 de la escala de grupos de cotización del Régimen General\". Las demás opciones no se ajustan al criterio legal.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 255.3.d) TRLGSS, ¿qué tipo de cotización se aplica durante los períodos de inactividad en las labores agrarias?",
+      "options": [
+        "El 11,50 por ciento",
+        "El 28,30 por ciento",
+        "El 0,80 por ciento",
+        "El 26,50 por ciento"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 255.3.d) TRLGSS establece expresamente que \"El tipo de cotización aplicable será el 11,50 por ciento\". Los demás porcentajes (28,30 %, 26,50 %, 0,80 %) corresponden a otros conceptos o regímenes y no al tipo previsto en este apartado.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 256.2 TRLGSS, ¿qué requisito general deben cumplir los trabajadores para el reconocimiento de las prestaciones económicas en este sistema especial?",
+      "options": [
+        "Hallarse al corriente en el pago de las cotizaciones correspondientes a los períodos de inactividad, de cuyo ingreso son responsables",
+        "Haber realizado al menos 55 jornadas reales en el año anterior",
+        "No haber sido excluidos nunca del sistema especial en los últimos diez años",
+        "Tener un contrato indefinido con el mismo empresario durante al menos dos años"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 256.2 TRLGSS dispone que para el reconocimiento de las prestaciones \"será necesario que los trabajadores se hallen al corriente en el pago de las cotizaciones correspondientes a los períodos de inactividad, de cuyo ingreso son responsables\". Las otras opciones introducen requisitos no mencionados en este precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 256.3 TRLGSS, durante los períodos de inactividad en las labores agrarias, ¿qué prestaciones económicas comprende la acción protectora del sistema especial?",
+      "options": [
+        "Prestaciones económicas por maternidad, paternidad, incapacidad permanente y muerte y supervivencia derivadas de contingencias comunes, así como jubilación",
+        "Exclusivamente la prestación por desempleo agrario",
+        "Solo la pensión de jubilación y la incapacidad permanente",
+        "Todas las prestaciones del Régimen General sin excepción"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 256.3 TRLGSS indica que, durante los períodos de inactividad, la acción protectora comprende \"las prestaciones económicas por maternidad, paternidad, incapacidad permanente y muerte y supervivencia derivadas de contingencias comunes, así como jubilación\". Las otras opciones reducen o amplían en exceso el contenido de la protección descrita.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 250 TRLGSS, dentro del Sistema Especial para Empleados de Hogar, ¿qué tipo de trabajos determinan la inclusión en su campo de aplicación?",
+      "options": [
+        "Los servicios o actividades prestados para uno o varios cabezas de familia dentro del hogar familiar o en su ámbito, con carácter exclusivo o principal",
+        "Cualquier trabajo realizado por cuenta ajena en domicilios particulares, aunque esté vinculado a una empresa de limpieza",
+        "Solo los servicios de limpieza y cocina, excluyendo cuidado de personas",
+        "Trabajos realizados en comunidades de propietarios con carácter profesional mercantil"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 250 TRLGSS define el campo de aplicación del sistema especial para empleados de hogar por referencia a los servicios o actividades prestados para uno o varios cabezas de familia, generalmente dentro del hogar familiar o en su entorno, con carácter exclusivo o principal. Se excluyen las relaciones de naturaleza mercantil o empresarial, como las propias de empresas de limpieza o de comunidades de propietarios.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial para Empleados de Hogar regulado por el artículo 250 TRLGSS y el RD 1620/2011, ¿cuál de las siguientes situaciones queda, con carácter general, excluida de su ámbito?",
+      "options": [
+        "Los servicios prestados por empresas que desplazan trabajadores a los domicilios para limpieza o asistencia",
+        "El cuidado de menores en el hogar familiar contratado directamente por el cabeza de familia",
+        "Las tareas de cocina realizadas en la vivienda habitual del empleador",
+        "Las labores de planchado y mantenimiento doméstico a tiempo parcial"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Tanto el art. 250 TRLGSS como el RD 1620/2011 distinguen la relación laboral de carácter especial del servicio del hogar familiar de otras relaciones en las que interviene una empresa que contrata a los trabajadores y los desplaza a domicilios, en cuyo caso no se aplica el sistema especial sino el régimen general ordinario. El cuidado de menores y las tareas domésticas contratadas directamente por el cabeza de familia sí quedan comprendidas.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Tras la integración del antiguo Régimen Especial de Empleados de Hogar en el Régimen General, ¿cómo se configura jurídicamente la protección de estos trabajadores según el TRLGSS?",
+      "options": [
+        "Como un sistema especial integrado en el Régimen General, con particularidades en materia de cotización y acción protectora",
+        "Como un régimen especial completamente separado del Régimen General",
+        "Como un régimen autonómico gestionado por las comunidades autónomas",
+        "Como una mera relación civil sin encuadramiento en la Seguridad Social"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El TRLGSS, en línea con las reformas de integración, configura la protección de los empleados de hogar como un sistema especial dentro del Régimen General, manteniendo particularidades en cotización y prestaciones. No se trata ya de un régimen especial separado, ni de una relación civil ajena a la Seguridad Social.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 251 TRLGSS, ¿qué aspecto se regula de forma específica para los empleados de hogar dentro del sistema especial?",
+      "options": [
+        "Las reglas de cotización y la acción protectora aplicable, con especial referencia a las contingencias cubiertas",
+        "Únicamente el salario mínimo a percibir por los trabajadores",
+        "Exclusivamente la duración máxima de la jornada laboral",
+        "Solo las causas de extinción del contrato por desistimiento del empleador"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 251 TRLGSS desarrolla las particularidades de la cotización y de la acción protectora en el sistema especial de empleados de hogar, precisando el alcance de la protección por contingencias comunes y profesionales, así como las referencias a la normativa laboral específica. Los aspectos salariales y de jornada se regulan fundamentalmente en el RD 1620/2011 y en la normativa laboral común.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Tras el Real Decreto-ley 16/2022, de mejora de las condiciones de trabajo y Seguridad Social de las personas trabajadoras al servicio del hogar, ¿qué contingencias pasan a estar plenamente cubiertas para este colectivo?",
+      "options": [
+        "La protección por desempleo y la cobertura del Fondo de Garantía Salarial (FOGASA)",
+        "Solo la incapacidad temporal por contingencias profesionales",
+        "Exclusivamente la jubilación anticipada",
+        "Únicamente las prestaciones familiares por hijo a cargo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El RDL 16/2022 introduce una equiparación progresiva de los empleados de hogar con el resto de trabajadores por cuenta ajena, incorporando la protección por desempleo y el acceso a las garantías del FOGASA. Antes de la reforma, estos dos ámbitos presentaban carencias en la acción protectora de este colectivo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial para Empleados de Hogar, ¿quién es, con carácter general, el sujeto responsable del cumplimiento de la obligación de cotizar y del ingreso de las cuotas?",
+      "options": [
+        "El empleador del hogar familiar, salvo supuestos de responsabilidad compartida previstos legalmente",
+        "El propio trabajador en todos los casos",
+        "La Tesorería General de la Seguridad Social",
+        "Las agencias de colocación que intermedien en el contrato"
+      ],
+      "correctAnswer": "A",
+      "explanation": "En coherencia con el art. 141 y las reglas específicas del sistema especial de empleados de hogar, el empleador es el sujeto responsable del ingreso de las cuotas, sin perjuicio de los supuestos de responsabilidad compartida o subsidiaria. No se desplaza con carácter general esta obligación al trabajador ni a las agencias de colocación.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según la normativa específica del servicio del hogar familiar (RD 1620/2011), ¿qué elemento caracteriza la ajenidad en la relación laboral que justifica el encuadramiento en el sistema especial de la Seguridad Social?",
+      "options": [
+        "La prestación de servicios dependientes y retribuidos para el titular del hogar familiar, bajo su organización y dirección",
+        "La existencia de una relación de amistad o parentesco, sin contraprestación económica",
+        "La mera utilización ocasional de servicios de limpieza por parte del titular del hogar",
+        "La prestación de servicios como trabajador autónomo con facturación periódica al hogar"
+      ],
+      "correctAnswer": "A",
+      "explanation": "La relación laboral especial del servicio del hogar familiar se configura, de acuerdo con el RD 1620/2011, como una prestación de servicios dependientes y retribuidos para el titular del hogar, lo que determina la ajenidad y la inclusión en la Seguridad Social. La amistad o el parentesco sin retribución no generan relación laboral, y la prestación como autónomo supone un distinto encuadramiento (RETA).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial de Empleados de Hogar, ¿cuál de las siguientes afirmaciones sobre la acción protectora es correcta tras las últimas reformas?",
+      "options": [
+        "Tiende a equipararse progresivamente a la del Régimen General, incluyendo contingencias comunes, profesionales, desempleo y FOGASA, con determinadas particularidades",
+        "Se limita a las prestaciones por jubilación e incapacidad permanente",
+        "Solo cubre la asistencia sanitaria y la incapacidad temporal por accidente de trabajo",
+        "Excluye expresamente cualquier protección por desempleo en todos los casos"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Las reformas recientes, en particular el RDL 16/2022, persiguen la equiparación de la acción protectora de las personas trabajadoras al servicio del hogar con la del resto de trabajadores por cuenta ajena, extendiendo la cobertura a desempleo y FOGASA, además de las contingencias comunes y profesionales ya existentes, aunque manteniendo ciertas peculiaridades en la gestión y cotización.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 323 TRLGSS, ¿qué trabajadores pueden quedar incluidos en el Sistema Especial para Trabajadores por Cuenta Propia Agrarios dentro del Régimen Especial de Trabajadores Autónomos (RETA)?",
+      "options": [
+        "Los titulares de explotaciones agrarias que reúnan determinados requisitos de extensión, tiempo de trabajo y proporción de rentas agrarias sobre las totales",
+        "Cualquier trabajador autónomo que preste servicios en el medio rural, con independencia de su fuente principal de ingresos",
+        "Solo los agricultores que contraten a más de diez trabajadores por cuenta ajena",
+        "Los profesionales liberales que ejerzan en municipios de menos de 10.000 habitantes"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 323 TRLGSS delimita el campo de aplicación del sistema especial agrario por cuenta propia atendiendo a la condición de titular de explotación agraria y a requisitos como la extensión, la dedicación personal al trabajo y la proporción de rentas agrarias sobre las totales. No incluye genéricamente a todo autónomo rural ni a profesionales liberales ajenos a la actividad agraria.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial para Trabajadores por Cuenta Propia Agrarios regulado en los artículos 323 a 326 TRLGSS, ¿qué criterio es relevante para determinar la inclusión en función de las rentas del interesado?",
+      "options": [
+        "Que las rentas procedentes de la actividad agraria representen un porcentaje mínimo sobre el total de sus ingresos",
+        "Que las rentas agrarias sean inferiores al salario mínimo interprofesional",
+        "Que las rentas procedentes de actividades no agrarias superen siempre a las agrarias",
+        "Que todas las rentas provengan exclusivamente de subvenciones públicas agrarias"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Los arts. 323 y ss. TRLGSS toman en consideración, para la inclusión en el sistema especial agrario por cuenta propia, la proporción que representan las rentas procedentes de la actividad agraria respecto del total de ingresos del interesado, exigiendo que la actividad agraria constituya su fuente principal de renta. No se exige que las rentas agrarias sean inferiores al SMI ni que procedan solo de subvenciones.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 324 TRLGSS, ¿qué órgano es competente para reconocer la inclusión en el Sistema Especial para Trabajadores por Cuenta Propia Agrarios y tramitar las correspondientes altas y bajas?",
+      "options": [
+        "La Tesorería General de la Seguridad Social, a través de sus Direcciones Provinciales",
+        "El Servicio Público de Empleo Estatal",
+        "El Ministerio de Agricultura, Pesca y Alimentación",
+        "Las Oficinas de Registro de la Propiedad"
+      ],
+      "correctAnswer": "A",
+      "explanation": "De acuerdo con la sistemática del TRLGSS, el reconocimiento de la inclusión y la gestión de las altas y bajas en el sistema especial agrario por cuenta propia corresponde a la Tesorería General de la Seguridad Social, normalmente a través de sus Direcciones Provinciales, sin perjuicio de los informes que puedan emitir otros organismos sectoriales.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 325 TRLGSS, ¿qué peculiaridad presenta la cotización de los trabajadores incluidos en el Sistema Especial para Trabajadores por Cuenta Propia Agrarios respecto del RETA en general?",
+      "options": [
+        "La posibilidad de aplicar bases de cotización reducidas y tipos específicos en función de la dimensión de la explotación y otros parámetros agrarios",
+        "La exoneración total de la obligación de cotizar por contingencias comunes",
+        "La obligación de cotizar exclusivamente por contingencias profesionales",
+        "La fijación de una base única de cotización idéntica para todos los incluidos"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 325 TRLGSS remite a una regulación específica de la cotización en el sistema especial agrario por cuenta propia, en la que se contemplan bases reducidas y tipos diferenciados respecto del RETA común, atendiendo a características de la explotación y del propio trabajador. No se prevé exoneración total de contingencias comunes ni una base única invariable.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 326 TRLGSS, ¿cómo se configura la acción protectora en el Sistema Especial para Trabajadores por Cuenta Propia Agrarios?",
+      "options": [
+        "En términos análogos al RETA, con inclusión de las contingencias comunes y profesionales y de la jubilación, con especialidades derivadas de la actividad agraria",
+        "Solo cubre la jubilación, excluyendo toda incapacidad permanente",
+        "Únicamente protege frente a accidentes de trabajo, sin cobertura de enfermedad común",
+        "Se limita a prestaciones por cese de actividad agraria"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 326 TRLGSS configura la acción protectora del sistema especial agrario por cuenta propia en términos semejantes al RETA, incluyendo prestaciones por contingencias comunes, profesionales, incapacidad y jubilación, aunque con determinadas particularidades derivadas de la naturaleza de la actividad agraria. No se restringe a un solo tipo de prestación.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según la Orden anual de cotización a la Seguridad Social citada en el texto (Orden de cotización 2025), ¿qué finalidad principal tienen los coeficientes reductores aplicables a la cotización de determinados colectivos en los sistemas especiales agrarios?",
+      "options": [
+        "Ajustar la carga contributiva a la capacidad económica y estacionalidad de la actividad agraria, favoreciendo el mantenimiento del empleo",
+        "Incrementar la recaudación en las campañas agrarias de mayor rendimiento",
+        "Homogeneizar las bases de cotización con los regímenes de funcionarios públicos",
+        "Excluir de cotización los períodos de inactividad en todos los casos"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Las Órdenes anuales de cotización suelen prever coeficientes reductores y bonificaciones en los sistemas especiales agrarios con el objetivo de adaptar la cotización a la realidad económica del sector, marcada por la estacionalidad y menor capacidad contributiva media, y promover el empleo estable. No persiguen incrementar la recaudación ni homogeneizar con regímenes ajenos como el de funcionarios.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En relación con el Sistema Especial para Trabajadores por Cuenta Ajena Agrarios, ¿qué efecto tiene el cumplimiento del requisito de 30 jornadas reales en 365 días y la solicitud en plazo sobre la protección del trabajador en períodos de inactividad?",
+      "options": [
+        "Permite mantener la inclusión en el sistema durante la inactividad y acceder a la acción protectora prevista para esos períodos",
+        "Extingue automáticamente la relación laboral con el empresario",
+        "Impide la cotización por contingencias profesionales durante la actividad",
+        "Supone el traslado del trabajador al RETA"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 253.2 TRLGSS vincula la posibilidad de permanecer incluido en el sistema especial durante la inactividad al cumplimiento de un mínimo de 30 jornadas reales en 365 días y a la solicitud en plazo, lo que permite al trabajador continuar cotizando y acceder a la acción protectora prevista en los períodos sin trabajo efectivo. No afecta a la existencia del contrato ni implica traslado de régimen.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial para Trabajadores por Cuenta Ajena Agrarios, cuando el empresario opta por la modalidad de cotización por bases diarias, ¿qué parámetro determina la base a aplicar según el artículo 255.2.b) TRLGSS?",
+      "options": [
+        "El número de jornadas reales efectivamente realizadas por el trabajador",
+        "El salario medio anual percibido por el trabajador",
+        "La facturación total de la explotación agraria",
+        "El salario mínimo interprofesional anual multiplicado por un coeficiente fijo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 255.2.b) TRLGSS indica que, en la modalidad de bases diarias, la cotización se efectúa por bases diarias, en función de las jornadas reales realizadas, por lo que el número de jornadas efectivas es el parámetro clave. No se toma directamente la facturación de la explotación ni un múltiplo fijo del SMI anual.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el contexto del Sistema Especial para Empleados de Hogar, ¿qué relevancia tiene la Ley 40/2003, de Protección a las Familias Numerosas, mencionada en el texto legal de referencia?",
+      "options": [
+        "Introduce beneficios específicos en la cotización a la Seguridad Social para las familias numerosas que contratan empleados de hogar",
+        "Excluye de la obligación de alta en la Seguridad Social a las familias numerosas",
+        "Establece un régimen especial de Seguridad Social propio para las familias numerosas trabajadoras",
+        "Suprime cualquier ventaja contributiva ligada a la condición de familia numerosa"
+      ],
+      "correctAnswer": "A",
+      "explanation": "La Ley 40/2003 prevé determinados beneficios en la cotización a la Seguridad Social para las familias numerosas, que se han ido integrando y adaptando en la normativa de empleados de hogar, a fin de favorecer la conciliación y el cuidado en el hogar. No excluye la obligación de alta ni crea un régimen propio de Seguridad Social para estas familias.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el régimen transitorio reseñado en el texto, ¿qué consecuencia tuvo la supresión de antiguos sistemas especiales como el de hostelería, industria resinera o tomate fresco sobre los trabajadores que se encontraban incluidos en ellos?",
+      "options": [
+        "Su integración en el Régimen General o en otros sistemas especiales vigentes, respetando, en su caso, determinados derechos adquiridos",
+        "La pérdida automática de toda protección de Seguridad Social",
+        "Su traslado obligatorio al Régimen Especial de Trabajadores Autónomos",
+        "La creación de un régimen cerrado sin nuevas altas ni posibilidad de mantener cotizaciones"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Las reformas que suprimieron antiguos sistemas especiales (hostelería, resinera, tomate fresco, frutas y conservas) articularon, con carácter general, la integración de sus colectivos en el Régimen General o en otros sistemas especiales, previendo reglas transitorias para evitar la pérdida de derechos, especialmente en materia de pensiones y cotizaciones ya efectuadas.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 11.1 TRLGSS, ¿qué finalidad principal persiguen los sistemas especiales integrados en el Régimen General?",
+      "options": [
+        "Adaptar las normas del Régimen General a las peculiares condiciones de determinados sectores o actividades, sin romper la unidad del sistema",
+        "Crear regímenes totalmente autónomos y desconectados del Régimen General",
+        "Establecer un nivel de protección siempre inferior al del Régimen General",
+        "Eximir de cotización a los colectivos incluidos en ellos"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 11.1 TRLGSS describe los sistemas especiales como instrumentos para adaptar la regulación del Régimen General a las particularidades de ciertos colectivos, manteniendo su integración en dicho régimen. No se conciben como regímenes autónomos ni como vías para rebajar sistemáticamente la protección o eximir de cotizar.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 11 TRLGSS, ¿qué elementos pueden ser objeto de regulación diferenciada en los sistemas especiales dentro del Régimen General?",
+      "options": [
+        "La cotización, la acción protectora, la afiliación y la forma de recaudar las cuotas",
+        "Exclusivamente la edad de jubilación",
+        "Solo la cuantía de las pensiones",
+        "Únicamente la duración de la prestación por desempleo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 11 TRLGSS prevé que los sistemas especiales puedan introducir particularidades en materias como cotización, afiliación, altas y bajas, acción protectora o gestión recaudatoria. No limita su objeto solo a la edad de jubilación, la cuantía de pensiones o la duración del desempleo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el marco del Sistema Especial Agrario por Cuenta Ajena, ¿qué relación existe entre la comunicación de las jornadas reales y la correcta inclusión y cotización en el sistema?",
+      "options": [
+        "La comunicación fiel de las jornadas reales por el empresario es imprescindible para determinar períodos de actividad e inactividad y calcular las bases de cotización y los requisitos de inclusión",
+        "Las jornadas reales no tienen incidencia en la inclusión ni en la cotización",
+        "Solo se comunican las jornadas a efectos estadísticos, sin trascendencia jurídica",
+        "La comunicación de jornadas es facultativa para el empresario"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Los artículos 252 y 253 TRLGSS vinculan directamente la inclusión en el sistema, la existencia de períodos de inactividad y el cumplimiento de requisitos (como las 30 jornadas en 365 días) al número de jornadas reales realizadas, que deben ser comunicadas y reflejadas correctamente, pues de ello dependen la cotización y el acceso a la acción protectora.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial para Empleados de Hogar, ¿qué relevancia tiene la determinación de la base de cotización en función de los tramos de retribución establecidos en la Orden anual de cotización?",
+      "options": [
+        "Permite ajustar la base de cotización a la retribución efectiva del empleado de hogar, asegurando proporcionalidad en la carga contributiva",
+        "Implica que todos los empleados de hogar coticen por la base máxima con independencia de su salario",
+        "Supone la inexistencia de un salario mínimo de referencia",
+        "Solo tiene efectos a efectos estadísticos, sin incidencia en la recaudación"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Las Órdenes anuales de cotización configuran para los empleados de hogar un sistema de tramos retributivos con bases asociadas, de manera que la cotización guarda relación con el salario percibido. Este mecanismo busca una distribución más equitativa de la carga contributiva, frente a opciones que homogeneizarían en exceso las bases.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial Agrario por Cuenta Propia, ¿por qué resulta relevante, a efectos de encuadramiento, la dedicación personal y directa del titular a las labores de la explotación?",
+      "options": [
+        "Porque es un criterio que diferencia al verdadero agricultor autónomo del mero titular capitalista o arrendador, justificando su inclusión en este sistema especial y no en otros regímenes",
+        "Porque permite excluir automáticamente a todo titular que contrate trabajadores por cuenta ajena",
+        "Porque sustituye completamente al criterio de las rentas agrarias",
+        "Porque determina la exoneración total de cotización en los años de baja producción"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 323 TRLGSS, al definir el campo de aplicación del sistema especial agrario por cuenta propia, toma en consideración la dedicación personal y directa del titular a la explotación, para diferenciar a quien trabaja efectivamente en la actividad agraria de quien solo ostenta la titularidad patrimonial. Ello justifica su encuadramiento en este sistema y no en otros.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué impacto general tiene la creación del Sistema Especial Agrario por Cuenta Propia sobre la protección social de los pequeños y medianos agricultores según la filosofía del TRLGSS?",
+      "options": [
+        "Permite adaptar cotización y prestaciones a su realidad económica y productiva, mejorando su cobertura sin imponerles las mismas cargas que a otros autónomos urbanos",
+        "Reduce su protección al mínimo asistencial, sin posibilidad de pensiones contributivas",
+        "Los excluye del acceso a prestaciones por incapacidad permanente y jubilación",
+        "Traslada su protección íntegramente a los sistemas de ayudas agrarias de la PAC"
+      ],
+      "correctAnswer": "A",
+      "explanation": "La configuración del sistema especial agrario por cuenta propia en los arts. 323 a 326 TRLGSS responde a la idea de ofrecer una cobertura contributiva adaptada a la estructura económica del campo, con bases y tipos específicos, sin privar por ello a los agricultores de las prestaciones propias de la Seguridad Social, como jubilación o incapacidad.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Desde la perspectiva de la técnica legislativa, ¿qué ventaja ofrece la utilización de sistemas especiales frente a la proliferación de regímenes especiales completamente separados?",
+      "options": [
+        "Permite mantener la unidad de normas básicas del Régimen General introduciendo solo las adaptaciones necesarias para determinados colectivos",
+        "Facilita que cada colectivo tenga una normativa totalmente distinta sin puntos de conexión",
+        "Impide cualquier coordinación entre las distintas formas de protección social",
+        "Obliga a duplicar todas las estructuras de gestión para cada sistema"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 11 TRLGSS refleja la preferencia por sistemas especiales integrados en el Régimen General, frente a la multiplicación de regímenes especiales autónomos, lo que favorece la coherencia normativa y la gestión unitaria, introduciendo solo las particularidades imprescindibles para ciertos sectores.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el Sistema Especial de Empleados de Hogar, ¿qué justificación tiene la existencia de bonificaciones o reducciones de cuotas para determinados empleadores, como las familias numerosas, según la normativa citada?",
+      "options": [
+        "Favorecer la formalización de las relaciones laborales en el hogar y la conciliación de la vida familiar y laboral, sin menoscabar los derechos de protección social de las personas empleadas",
+        "Reducir de forma permanente las prestaciones futuras de los empleados de hogar",
+        "Eximir a los empleadores de cualquier responsabilidad en materia de Seguridad Social",
+        "Sustituir completamente la financiación pública de las pensiones de este colectivo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Las referencias a la Ley 40/2003 y a la normativa de cotización evidencian que las bonificaciones o reducciones buscan incentivar el alta y la regularización de las relaciones laborales en el hogar, particularmente en familias con mayores cargas de cuidado, manteniendo al mismo tiempo la cobertura plena de Seguridad Social de las personas trabajadoras.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A la luz del conjunto de preceptos analizados (arts. 11, 250 a 256 y 323 a 326 TRLGSS), ¿qué rasgo común comparten los sistemas especiales de empleados de hogar y agrarios?",
+      "options": [
+        "Ambos buscan conciliar la adecuación de cotizaciones y prestaciones a las peculiaridades del sector con el mantenimiento de la integración en el Régimen General o RETA",
+        "Ambos suprimen la obligación de cotizar en períodos de actividad",
+        "Ambos excluyen al trabajador del acceso a la jubilación contributiva",
+        "Ambos se configuran como ayudas asistenciales no contributivas"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Tanto el sistema especial de empleados de hogar (arts. 250 y 251 TRLGSS) como los sistemas agrarios por cuenta ajena y propia (arts. 252 a 256 y 323 a 326) se conciben como adaptaciones dentro del Régimen General o del RETA, que modulan cotización y protección sin cuestionar su naturaleza contributiva ni la integración en el sistema general de Seguridad Social.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Desde el punto de vista del legislador, ¿qué justifica que determinados colectivos como los empleados de hogar o los trabajadores agrarios dispongan de sistemas especiales en lugar de quedar sometidos sin más al régimen general o al RETA común?",
+      "options": [
+        "Las singulares condiciones de prestación del trabajo y de organización económica de estos sectores, que requieren ajustes específicos en cotización y acción protectora",
+        "La voluntad de reducir permanentemente su nivel de protección social respecto del resto de trabajadores",
+        "La intención de excluirlos del ámbito de la Seguridad Social y remitirlos a sistemas asistenciales",
+        "La necesidad de crear regímenes cerrados y no coordinados con el resto del sistema"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El conjunto de preceptos sobre sistemas especiales (art. 11 TRLGSS y artículos específicos de empleados de hogar y agrarios) pone de relieve que su razón de ser está en adaptar la normativa de Seguridad Social a realidades laborales y económicas particulares, sin romper la unidad del sistema ni degradar su carácter contributivo.",
+      "difficulty": "hard"
+    }
+  ]
+}

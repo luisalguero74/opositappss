@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { rebalanceQuestionsABCD } from '@/lib/answer-alternation'
 
 export async function POST(req: NextRequest) {
   try {
@@ -54,15 +55,50 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    // Copiar las preguntas al nuevo cuestionario
+    // Reequilibrar distribución de respuestas correctas (máx 2 iguales seguidas)
+    // Pasamos options tal cual (string o array) y dejamos que la utilidad haga el parseo seguro
+    const rebalanced = rebalanceQuestionsABCD(
+      existingQuestions.map(q => ({
+        id: q.id,
+        options: q.options,
+        correctAnswer: q.correctAnswer
+      })),
+      2
+    )
+    const rebalanceById = new Map(
+      rebalanced.map((x: any) => [x.id, x])
+    )
+
+    // Copiar las preguntas al nuevo cuestionario aplicando el rebalanceo
     const newQuestions = await Promise.all(
-      existingQuestions.map(q => 
-        prisma.question.create({
+      existingQuestions.map(q => {
+        const rb = rebalanceById.get(q.id)
+
+        let newOptions: any = rb?.options
+
+        if (!Array.isArray(newOptions)) {
+          if (typeof q.options === 'string') {
+            try {
+              const parsed = JSON.parse(q.options as any)
+              newOptions = Array.isArray(parsed) ? parsed : []
+            } catch {
+              newOptions = []
+            }
+          } else if (Array.isArray(q.options)) {
+            newOptions = q.options
+          } else {
+            newOptions = []
+          }
+        }
+
+        const newCorrectAnswer = rb?.correctAnswer || q.correctAnswer
+
+        return prisma.question.create({
           data: {
             questionnaireId: questionnaire.id,
             text: q.text,
-            options: q.options,
-            correctAnswer: q.correctAnswer,
+            options: JSON.stringify(newOptions),
+            correctAnswer: newCorrectAnswer,
             explanation: q.explanation,
             temaCodigo: q.temaCodigo,
             temaNumero: q.temaNumero,
@@ -71,7 +107,7 @@ export async function POST(req: NextRequest) {
             difficulty: q.difficulty
           }
         })
-      )
+      })
     )
 
     return NextResponse.json({

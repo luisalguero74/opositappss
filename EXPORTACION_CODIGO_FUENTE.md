@@ -267,7 +267,7 @@ KOFI_VERIFICATION_TOKEN=...
 - Rate limiting
 - CORS configurado
 - CSRF tokens
-- Headers de seguridad
+- Headers de seguridad 
 
 ✅ **Infraestructura:**
 - Serverless (Vercel)

@@ -10,7 +10,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "db:backup": "bash scripts/backup-db.sh",
     "db:seed": "tsx prisma/seed.ts",
+    "db:normalize-correct-answer": "tsx scripts/normalize-correct-answer.ts",
     "postinstall": "prisma generate",
     "deploy": "npm run lint && npx tsc --noEmit && npm run build && npx vercel --prod"
   },

@@ -1,0 +1,124 @@
+{
+  "questions": [
+    {
+      "question": "¿Qué norma regula específicamente el Régimen Especial de la Seguridad Social de los Trabajadores del Mar?",
+      "options": [
+        "La Ley 47/2015 y sus disposiciones de desarrollo, junto con las normas generales del sistema de Seguridad Social",
+        "Exclusivamente el texto refundido de la Ley General de la Seguridad Social",
+        "Únicamente el Real Decreto Legislativo 1/1994, de 20 de junio",
+        "Una combinación de convenios colectivos sectoriales sin rango legal"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Según el art. 1 de la Ley 47/2015, el Régimen Especial de la Seguridad Social de los Trabajadores del Mar se regula por «la presente ley y por sus disposiciones de desarrollo, así como por las normas de general aplicación en el sistema de la Seguridad Social». No se limita solo al texto refundido de la LGSS (opción B) ni solo al antiguo RDL 1/1994 (opción C), ni se basa primordialmente en convenios colectivos (opción D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según la Ley 47/2015, ¿qué función tiene la normativa específica del Régimen Especial de los Trabajadores del Mar respecto a la protección social del sector marítimo-pesquero?",
+      "options": [
+        "Complementar la protección social con disposiciones adicionales propias de este régimen",
+        "Sustituir completamente al Régimen General de la Seguridad Social",
+        "Limitar la protección social únicamente a los accidentes de trabajo en el mar",
+        "Regular solo la prevención de riesgos laborales en buques mercantes"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 1 de la Ley 47/2015 indica que «la protección social de las personas trabajadoras del sector marítimo-pesquero se complementa con las demás disposiciones contenidas en esta ley». No sustituye al Régimen General (opción B incorrecta), ni se restringe solo a accidentes (C) ni solo a prevención en buques mercantes (D), sino que añade una protección específica (opción A).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Cuál es uno de los requisitos esenciales para quedar encuadrado en el Régimen Especial de los Trabajadores del Mar según el art. 2 de la Ley 47/2015?",
+      "options": [
+        "Ejercer la actividad en territorio nacional, con las salvedades del art. 6 de la propia ley",
+        "Tener nacionalidad española y residir en el extranjero",
+        "Ser trabajador del mar con cualquier tipo de actividad, aunque no esté incluida en los supuestos del capítulo",
+        "Estar afiliado obligatoriamente al Régimen Especial de Trabajadores Autónomos"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 2 de la Ley 47/2015 exige que las personas trabajadoras «ejerzan su actividad en territorio nacional, con las salvedades contempladas en el artículo 6» y estén incluidas en alguno de los supuestos del capítulo. No se exige nacionalidad española en el extranjero (B), ni basta con cualquier actividad marítima sin estar en los supuestos (C incorrecta), ni pertenencia obligatoria al RETA (D). La opción correcta es la que menciona el ejercicio en territorio nacional con salvedades (A).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En relación con el art. 2 de la Ley 47/2015, ¿qué referencia normativa general se utiliza para determinar si las personas trabajadoras pueden estar comprendidas en el sistema de la Seguridad Social?",
+      "options": [
+        "El artículo 7 del texto refundido de la Ley General de la Seguridad Social",
+        "El artículo 10 del Estatuto de los Trabajadores",
+        "El artículo 146 de la Ley 8/2015",
+        "El artículo 38 de la Ley 47/2015"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 2 de la Ley 47/2015 señala que deben cumplirse «los requisitos para estar comprendidas en el sistema de la Seguridad Social recogidos en el artículo 7 del texto refundido de la Ley General de la Seguridad Social». No se cita el Estatuto de los Trabajadores (B), ni el art. 146 de la Ley 8/2015 (C), ni el art. 38 como referencia general de inclusión (D incorrecta). La referencia correcta es el art. 7 de la LGSS (A).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 3 de la Ley 47/2015, ¿qué característica común define a las personas trabajadoras por cuenta ajena incluidas en el Régimen Especial de los Trabajadores del Mar a bordo de determinadas embarcaciones?",
+      "options": [
+        "Figurar en el Rol de la embarcación como técnicos o tripulantes",
+        "Tener contrato temporal de duración inferior a seis meses",
+        "Ser exclusivamente personal administrativo embarcado",
+        "Estar sujeto a un convenio colectivo internacional marítimo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 3.a) de la Ley 47/2015 incluye a las personas trabajadoras que ejercen su actividad marítimo-pesquera a bordo de determinadas embarcaciones «figurando en el Rol de los mismos como técnicos o tripulantes». No se limita por tipo de contrato (B), ni a personal administrativo (C), ni condiciona su inclusión a un convenio internacional (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué tipos de embarcaciones se mencionan expresamente en el art. 3.a) de la Ley 47/2015 para trabajadores por cuenta ajena?",
+      "options": [
+        "Marina mercante, pesca marítima, tráfico interior de puertos, deportivas y de recreo, y plataformas fijas o artefactos",
+        "Solo buques de guerra y embarcaciones de recreo",
+        "Únicamente pesqueros de altura y buques de pasaje",
+        "Cualquier embarcación fluvial sin excepción"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 3.a) relaciona «embarcaciones, buques o plataformas» de marina mercante, pesca marítima, tráfico interior de puertos, deportivas y de recreo y determinadas plataformas fijas o artefactos. No se mencionan buques de guerra (B), ni se limita a pesqueros de altura y pasaje (C), ni abarca genéricamente toda embarcación fluvial (D). La opción correcta es la que reproduce la lista del precepto (A).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el art. 3.a) de la Ley 47/2015, ¿qué instalaciones NO tienen la consideración de plataformas o artefactos a efectos de inclusión en el Régimen Especial?",
+      "options": [
+        "Oleoductos, gasoductos, cables submarinos, emisarios submarinos y otras tuberías o instalaciones industriales o de saneamiento",
+        "Plataformas fijas ancladas para explotación de recursos marinos",
+        "Artefactos apoyados en el lecho del mar para exploración",
+        "Instalaciones que realizan operaciones de explotación de recursos marinos sobre el lecho del mar"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El párrafo segundo del art. 3.a) aclara que «no tendrán la consideración de tales instalaciones los oleoductos, gasoductos, cables submarinos, emisarios submarinos y cualquier otro tipo de tuberías o instalaciones de carácter industrial o de saneamiento». Por tanto, la exclusión recae sobre esos elementos (A). Las plataformas fijas o artefactos de exploración o explotación (B, C, D) sí forman parte de las instalaciones citadas en el apartado anterior, por lo que no son las excluidas.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 3.b) de la Ley 47/2015, ¿qué colectivo específico se incluye en el Régimen Especial cuando ejerce su actividad a bordo de embarcaciones de marina mercante o pesca marítima?",
+      "options": [
+        "Personal de investigación, observadores de pesca y personal de seguridad enrolado a bordo",
+        "Únicamente los mandos de la marina mercante",
+        "Solo los capitanes de buques pesqueros",
+        "Personal sanitario contratado por la naviera en tierra"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 3.b) incluye expresamente a las «personas trabajadoras que ejerzan su actividad a bordo de embarcaciones o buques de marina mercante o pesca marítima, enroladas como personal de investigación, observadores de pesca y personal de seguridad». No restringe la inclusión solo a mandos (B) o capitanes (C), ni se refiere a personal sanitario en tierra (D). La opción correcta es la que recoge literalmente esos colectivos (A).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué actividad se menciona en el art. 3.c) de la Ley 47/2015 como incluida en el Régimen Especial de los Trabajadores del Mar por cuenta ajena?",
+      "options": [
+        "La extracción de productos del mar",
+        "La explotación de recursos mineros submarinos",
+        "La estiba de mercancías en puertos fluviales",
+        "La reparación naval en astilleros terrestres"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 3.c) menciona expresamente a las «personas trabajadoras dedicadas a la extracción de productos del mar». No se refiere a minería submarina (B), ni a estiba en puertos fluviales (C), ni a reparación naval en tierra (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Cuál es el ámbito geográfico exigido para la acuicultura incluida en el Régimen Especial según el art. 3.d) de la Ley 47/2015?",
+      "options": [
+        "Zona marítima y marítimo-terrestre, incluyendo acuicultura en arena y en lámina de agua",
+        "Exclusivamente zona terrestre interior",
+        "Solo instalaciones en agua dulce y embalses",
+        "Únicamente zonas portuarias urbanas"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 3.d) incluye la «acuicultura desarrollada en la zona marítima y marítimo-terrestre, incluyendo la acuicultura en arena y en lámina de agua». Se excluye expresamente la acuicultura en zona terrestre (B incorrecta como actividad incluida) y la acuicultura en agua dulce (C). Las zonas portuarias urbanas (D) no son el criterio definitorio. La opción correcta es la que reproduce el ámbito marítimo y marítimo-terrestre (A).",
+      "difficulty": "hard"
+    }
+  ]
+}

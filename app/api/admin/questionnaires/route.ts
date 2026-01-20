@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Admin ve todos los cuestionarios (publicados y borradores)
+    // Admin ve todos los cuestionarios (incluidos archivados) para poder gestionarlos
     const questionnaires = await prisma.questionnaire.findMany({
       include: { 
         questions: {
@@ -23,16 +23,29 @@ export async function GET(request: NextRequest) {
           }
         }
       },
-      orderBy: { createdAt: 'desc' }
+      // Ordenar por la fecha de última actualización para que los temas
+      // recientemente modificados (por ejemplo, al añadir preguntas) aparezcan primero
+      orderBy: {
+        updatedAt: 'desc'
+      }
     })
 
-    // Parsear las opciones de JSON
+    // Parsear las opciones de JSON de forma robusta
     const parsedQuestionnaires = questionnaires.map(q => ({
       ...q,
-      questions: q.questions.map(question => ({
-        ...question,
-        options: JSON.parse(question.options)
-      }))
+      questions: q.questions.map(question => {
+        let options: string[] = []
+        try {
+          const parsed = JSON.parse(question.options)
+          options = Array.isArray(parsed) ? parsed : []
+        } catch {
+          options = []
+        }
+        return {
+          ...question,
+          options
+        }
+      })
     }))
 
     return NextResponse.json(parsedQuestionnaires)

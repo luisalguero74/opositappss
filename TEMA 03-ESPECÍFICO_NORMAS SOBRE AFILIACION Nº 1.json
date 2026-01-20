@@ -1,0 +1,604 @@
+{
+  "questions": [
+    {
+      "question": "¿Qué efecto produce el acto administrativo de afiliación según el Reglamento?",
+      "options": [
+        "Reconoce la condición de incluida en el sistema de la Seguridad Social a la persona que por vez primera realiza una actividad determinante de su inclusión",
+        "Reconoce únicamente el derecho a percibir prestaciones sanitarias, pero no económicas",
+        "Reconoce solo la inclusión en el Régimen General, excluyendo los Regímenes Especiales",
+        "Reconoce la condición de desempleado inscrito en la oficina de empleo"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 6.1 del Reglamento establece que mediante el acto administrativo de afiliación, la Tesorería General de la Seguridad Social 'reconoce la condición de incluida en el sistema de la Seguridad Social' a la persona que por vez primera realiza una actividad determinante de su inclusión. No se limita a prestaciones sanitarias (B), no se restringe al Régimen General (C) ni tiene relación con la inscripción como desempleado (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En relación con la modalidad contributiva, ¿qué carácter tiene la afiliación al sistema de la Seguridad Social?",
+      "options": [
+        "Voluntario, salvo para los trabajadores por cuenta ajena",
+        "Obligatorio para todas las personas comprendidas en el campo de aplicación del sistema",
+        "Voluntario para los trabajadores por cuenta propia y obligatorio para los demás",
+        "Solo obligatorio para los empresarios que coticen por sus trabajadores"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 6.1.º indica que 'la afiliación al sistema de la Seguridad Social, a efectos de los derechos y obligaciones en su modalidad contributiva, es obligatoria para todas las personas comprendidas en el campo de aplicación del mismo'. No distingue entre trabajadores por cuenta ajena o propia (A y C) ni limita la obligación a los empresarios (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué característica tiene la afiliación respecto a los distintos Regímenes que componen el sistema de la Seguridad Social?",
+      "options": [
+        "Es distinta y específica para cada Régimen",
+        "Es única y general para todos los Regímenes que componen el sistema",
+        "Solo es única dentro del Régimen General",
+        "Depende de que la actividad sea por cuenta ajena o propia"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 6.2.º señala que 'la afiliación es única y general para todos los Regímenes que componen el sistema aunque las personas incluidas, por razón de su actividad, cambien de uno a otro Régimen'. Por tanto, no se expiden afiliaciones separadas por Régimen (A y C) ni se condiciona al tipo de actividad (D). La opción correcta es que es única y general (opción B).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Durante qué periodo se extiende la afiliación para las personas comprendidas en el campo de aplicación del sistema de la Seguridad Social?",
+      "options": [
+        "Solo mientras dure la primera relación laboral del interesado",
+        "Hasta la jubilación del trabajador",
+        "Únicamente durante los periodos en alta",
+        "A toda la vida de las personas comprendidas en el campo de aplicación del sistema"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 6.3.º establece que 'la afiliación se extiende a toda la vida de las personas comprendidas en el campo de aplicación del sistema'. No se limita a la primera relación laboral (A), ni hasta la jubilación (B), ni solo a los periodos en alta (C).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué implica el carácter exclusivo de la afiliación al sistema de la Seguridad Social?",
+      "options": [
+        "Que una persona no puede estar incluida en más de un Régimen del sistema",
+        "Que por la misma actividad ejercida en igualdad de condiciones no puede existir inclusión obligatoria en otros Regímenes obligatorios de previsión",
+        "Que el trabajador no puede cambiar de Régimen a lo largo de su vida laboral",
+        "Que la afiliación impide la contratación a tiempo parcial"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 6.4.º dispone que la afiliación es 'exclusiva, sin que por la misma actividad ejercida en igualdad de condiciones pueda estarse obligatoriamente incluido en otro u otros Regímenes obligatorios de previsión'. No prohíbe estar en varios Regímenes por actividades distintas (A), pero la exclusividad se refiere a la misma actividad, que es lo que recoge la opción B. C y D no se recogen en el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 6.2, ¿qué papel tiene la afiliación respecto a los derechos y obligaciones en el sistema de la Seguridad Social?",
+      "options": [
+        "Es un mero dato estadístico sin efectos jurídicos",
+        "Constituye título jurídico para la adquisición de derechos y nacimiento de obligaciones, por sí sola o con otros requisitos",
+        "Solo sirve para acreditar la identidad del trabajador ante la empresa",
+        "Es únicamente un requisito formal para el alta en el Régimen General"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 6.2 indica que la afiliación 'por sí sola o en unión de otros requisitos o presupuestos, constituirá título jurídico para la adquisición de derechos y el nacimiento de obligaciones'. No se limita a funciones estadísticas (A), ni meramente identificativas (C), ni se refiere solo al Régimen General (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué reconoce el acto administrativo de alta según el art. 7.1 del Reglamento?",
+      "options": [
+        "La condición de desempleado inscrito a efectos de prestaciones por desempleo",
+        "Únicamente la obligación de cotizar, sin reconocer derechos",
+        "La condición de comprendida en el campo de aplicación del Régimen que proceda, en función de la actividad o situación",
+        "Exclusivamente el derecho a asistencia sanitaria"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 7.1 establece que mediante el acto administrativo de alta, la Tesorería General de la Seguridad Social 'reconoce a la persona... su condición de comprendida en el campo de aplicación del Régimen de la Seguridad Social que proceda... con los derechos y obligaciones correspondientes'. No se refiere al desempleo (A), no se limita solo a la cotización (ahora opción B) ni a la asistencia sanitaria (D). La formulación correcta es la de la opción C.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Para quién es obligatoria el alta en alguno de los Regímenes de la Seguridad Social, según el art. 7.2?",
+      "options": [
+        "Solo para los trabajadores por cuenta ajena",
+        "Solo para los trabajadores por cuenta propia",
+        "Para las personas comprendidas en el sistema de Seguridad Social en su modalidad no contributiva",
+        "Para las personas comprendidas en el sistema de Seguridad Social en su modalidad contributiva"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 7.2 indica que 'el alta en alguno de los Regímenes de la Seguridad Social es obligatoria para las personas comprendidas en el sistema de Seguridad Social en su modalidad contributiva'. No se limita a un tipo de trabajador (A o B) ni se refiere a la modalidad no contributiva (C).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Cuál es la consecuencia cuando una persona ejerce simultáneamente distintas actividades que dan lugar a su inclusión en diferentes Regímenes o en el mismo Régimen por cuenta de más de una persona?",
+      "options": [
+        "Que debe optar por un solo Régimen y una sola empresa",
+        "Que se considera en situación de baja en todos los Regímenes salvo uno",
+        "Que su encuadramiento será múltiple, constituyendo pluriactividad o pluriempleo",
+        "Que no podrá causar derecho a prestaciones en ningún Régimen"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 7.4 establece que en estos casos 'su encuadramiento será múltiple, constituyendo las situaciones de pluriactividad y de pluriempleo respectivamente'. No se impone una opción forzosa (A), ni baja en Regímenes (B), ni se niega la protección (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Cómo se define la pluriactividad a efectos del Reglamento, según el art. 7.4.1.º?",
+      "options": [
+        "Situación del trabajador por cuenta ajena que presta servicios en dos o más empresas del mismo Régimen",
+        "Situación del trabajador por cuenta propia y/o ajena cuyas actividades dan lugar a su alta obligatoria en dos o más Regímenes distintos",
+        "Situación del trabajador autónomo que ejerce dos actividades económicas dentro del mismo Régimen",
+        "Situación de cualquier trabajador que tenga dos empleos, aunque no den lugar a alta en la Seguridad Social"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 7.4.1.º señala que se considerará pluriactividad 'la situación del trabajador por cuenta propia y/o ajena cuyas actividades den lugar a su alta obligatoria en dos o más Regímenes distintos del sistema de la Seguridad Social'. Esto excluye el pluriempleo dentro de un mismo Régimen (opción A), actividades dentro de un solo Régimen (C) o trabajos sin alta (D). La opción correcta es la B.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué se entiende por pluriempleo según el art. 7.4.2.º del Reglamento?",
+      "options": [
+        "La situación del trabajador por cuenta ajena que presta servicios a dos o más empresas distintas en actividades que dan lugar a su alta en un mismo Régimen",
+        "La situación del trabajador que está dado de alta en dos o más Regímenes distintos",
+        "La situación del trabajador autónomo que tiene más de un establecimiento",
+        "La situación del desempleado que realiza trabajos esporádicos sin alta"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 7.4.2.º define pluriempleo como 'la situación del trabajador por cuenta ajena que preste sus servicios profesionales a dos o más empresas distintas y en actividades que den lugar a su alta en un mismo Régimen de la Seguridad Social'. No se refiere a varios Regímenes (B), ni a autónomos (C) ni a trabajos sin alta (D). La opción correcta es la A.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 7.5, ¿en qué casos puede optarse entre diversos Regímenes del sistema para el alta?",
+      "options": [
+        "Siempre que el trabajador tenga más de una actividad",
+        "Únicamente cuando así se reconozca expresamente la opción en una norma, con el alcance y condiciones fijados en ella",
+        "Cada vez que el trabajador cambie de provincia",
+        "Cuando lo acuerden trabajador y empresario por contrato"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 7.5 dispone que 'únicamente podrá optarse entre diversos Regímenes del sistema... en los casos en que se reconozca expresamente tal opción, con el alcance y en las condiciones fijadas en la norma que la establezca'. No existe opción general por tener varias actividades (A), ni por cambio de provincia (C), ni por pacto contractual (D). La correcta es la B.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Quién asigna el número de la Seguridad Social y con qué finalidad principal, según el art. 21.1?",
+      "options": [
+        "El Instituto Nacional de Empleo, para gestionar prestaciones por desempleo",
+        "La Tesorería General de la Seguridad Social, para la identificación del ciudadano en sus relaciones con la Seguridad Social como afiliado y en alta",
+        "Las entidades gestoras, para identificar exclusivamente a los pensionistas",
+        "La Inspección de Trabajo, para fines sancionadores"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 21.1 establece que 'la Tesorería General de la Seguridad Social asignará un número de la Seguridad Social a cada ciudadano para la identificación del mismo en sus relaciones con la Seguridad Social como afiliado y en alta...'. No lo asigna el INEM (A), ni solo entidades gestoras (C), ni la Inspección (D). La opción correcta es la B.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 21.1, además de los ciudadanos afiliados y en alta, ¿a quién se asignará también número de la Seguridad Social?",
+      "options": [
+        "Solo a los empresarios con trabajadores a su cargo",
+        "A los beneficiarios de pensiones u otras prestaciones del sistema, tanto en su modalidad contributiva como no contributiva",
+        "Exclusivamente a los desempleados perceptores de prestaciones por desempleo",
+        "Solo a los funcionarios públicos de la Administración del Estado"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 21.1 indica que 'Asimismo, la Tesorería General de la Seguridad Social asignará número de la Seguridad Social a los beneficiarios de pensiones u otras prestaciones del sistema, tanto en su modalidad contributiva como no contributiva'. No se limita a empresarios (A), desempleados (C) ni funcionarios (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué otros sujetos responsables del ingreso de recursos reciben número de la Seguridad Social, según el art. 21.1?",
+      "options": [
+        "Solo las empresas de más de 50 trabajadores",
+        "Únicamente las entidades financieras colaboradoras",
+        "Las personas físicas o jurídicas y entidades sin personalidad como sujetos responsables del ingreso de cuotas y otros recursos de la Seguridad Social",
+        "Solo las entidades gestoras y servicios comunes"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 21.1 añade que el número de la Seguridad Social se asignará también a las personas físicas o jurídicas y a las entidades sin personalidad como sujetos responsables del ingreso de cuotas y otros recursos de la Seguridad Social. El resto de opciones acotan o desvían indebidamente el ámbito subjetivo previsto en la norma.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 21.2, ¿ante qué órgano debe solicitar el ciudadano su número de la Seguridad Social si aún no lo tiene?",
+      "options": [
+        "Ante la Dirección Provincial de la Tesorería General o sus Administraciones",
+        "Exclusivamente ante la Inspección de Trabajo y Seguridad Social",
+        "Solo ante las entidades gestoras de prestaciones",
+        "Ante el Ministerio de Trabajo y Seguridad Social en Madrid"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 21.2 establece que 'el ciudadano que no tuviere número de la Seguridad Social deberá solicitarlo de las Direcciones Provinciales de la Tesorería General o de las Administraciones de las mismas'. No se menciona la Inspección (B), las entidades gestoras (C) ni el Ministerio central directamente (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué datos personales, además del número de la Seguridad Social, deben figurar en la solicitud de alta de trabajadores por cuenta ajena según el art. 30.2.a)?",
+      "options": [
+        "Únicamente nombre y apellidos del trabajador",
+        "Nombre y apellidos, número de documento de identidad, domicilio, fecha de inicio de la actividad, grupo de cotización y condiciones especiales de ésta",
+        "Solo el código de convenio colectivo aplicable",
+        "Solamente la ocupación laboral y el centro de trabajo"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 30.2.a) detalla que en la solicitud de alta figurarán, respecto del trabajador, 'su nombre y apellidos, número de la Seguridad Social, número del documento nacional de identidad o equivalente, domicilio, fecha de iniciación de la actividad, grupo de cotización, condiciones especiales de esta', además de otros datos. No se limita a nombre (A), ni solo convenio (C) ni solo ocupación y centro (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 30.2.a), ¿qué dato se incluye específicamente a efectos de la cobertura de accidentes de trabajo y enfermedades profesionales?",
+      "options": [
+        "El nivel de formación académica del trabajador",
+        "La actividad económica u ocupación desempeñada, con arreglo a la tarifa de primas vigente",
+        "El salario diario pactado en nómina",
+        "El número de hijos a cargo del trabajador"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 30.2.a) indica que, 'a efectos de la correspondiente a accidentes de trabajo y enfermedades profesionales, la actividad económica u ocupación desempeñada, con arreglo a la tarifa de primas vigente' debe constar en la solicitud. No menciona expresamente el salario (C) ni hijos (D), y el nivel de formación (A) se menciona aparte, no como dato específico de AT/EP.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En la solicitud de alta de trabajadores por cuenta propia, además de los datos personales, ¿qué datos sobre la actividad deben figurar según el art. 30.2.b)?",
+      "options": [
+        "Solo el código de cuenta de cotización de la empresa principal",
+        "Únicamente el número de colegiado profesional",
+        "Los referidos a la actividad económica u ocupación que determina su inclusión en el régimen y a la sede de la actividad, si fuera distinta del domicilio",
+        "Solo la duración prevista del contrato de trabajo"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 30.2.b) señala que en la solicitud de alta de trabajadores por cuenta propia deberán figurar los datos relativos a la actividad económica u ocupación que determina su inclusión en el régimen y a la sede de la actividad, si fuera distinta del domicilio del trabajador. Las demás opciones mencionan datos que no cumplen esta función o que no son los previstos como esenciales en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 30.3, ¿qué datos deben figurar en las solicitudes de baja de los trabajadores?",
+      "options": [
+        "Solo la fecha de cese, sin más datos",
+        "Datos de identificación del trabajador, fecha de baja, causa y datos relativos a peculiaridades de cotización y acción protectora, además de datos del empresario en cuenta ajena",
+        "Únicamente el código de convenio colectivo aplicable",
+        "Exclusivamente el número de la Seguridad Social del empresario"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 30.3 dispone que en las solicitudes de baja, además de los datos de identificación del trabajador, 'figurará la fecha de la baja, su causa y los datos relativos a las peculiaridades en materia de cotización y acción protectora' y, en cuenta ajena, los datos del empresario y código de cuenta. No se limita a la fecha (A), ni solo a convenio (C), ni solo a datos del empresario (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 30.4, ¿quién debe firmar las solicitudes de alta y baja de los trabajadores?",
+      "options": [
+        "Siempre únicamente el trabajador, sea cual sea el régimen",
+        "Solo la Tesorería General de la Seguridad Social",
+        "El empresario o trabajador autónomo; y las solicitudes de alta por el trabajador por cuenta ajena deberán ir firmadas en todo caso por el trabajador",
+        "Exclusivamente el representante sindical del centro de trabajo"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 30.4 establece que las solicitudes de alta y de baja deben ir firmadas por el empresario o, en su caso, por el trabajador autónomo, y que las solicitudes de alta por el trabajador por cuenta ajena deberán ir firmadas en todo caso por el propio trabajador. Las opciones alternativas atribuyen la firma a sujetos distintos o excluyen a quienes la norma impone como firmantes.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué requisito se exige para que las altas y bajas instrumentadas por medios electrónicos tengan plena validez, según el art. 30.5?",
+      "options": [
+        "Que sean confirmadas siempre en papel en el plazo de 10 días",
+        "Que quede garantizada su autenticidad, integridad y conservación, así como su recepción por la Tesorería General de la Seguridad Social",
+        "Que se presenten simultáneamente ante la Inspección de Trabajo",
+        "Que vayan firmadas únicamente con firma manuscrita del empresario"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 30.5 indica que las altas y bajas por medios electrónicos tendrán plena validez 'siempre que quede garantizada su autenticidad, integridad y conservación, así como su recepción por la Tesorería General de la Seguridad Social'. No exige confirmación en papel (A), ni presentación ante Inspección (C), ni firma manuscrita (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 32.1, ¿por qué medios deben comunicarse la iniciación o el cese en la prestación de servicios o actividad a la empresa o por cuenta propia?",
+      "options": [
+        "Siempre mediante comunicación verbal al funcionario de la Tesorería",
+        "Mediante los correspondientes modelos oficiales o por los procedimientos especiales establecidos al efecto",
+        "Solo mediante burofax con acuse de recibo",
+        "Únicamente mediante comparecencia personal del trabajador"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 32.1 dispone que estas comunicaciones 'se comunicarán necesariamente mediante los correspondientes modelos oficiales de solicitud... o por los procedimientos especiales establecidos al efecto'. No habla de comunicación verbal (A), burofax (C) ni comparecencia personal exclusiva (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 32.2, ¿a qué órgano deben dirigirse las solicitudes de alta inicial o sucesiva de los trabajadores por cuenta ajena?",
+      "options": [
+        "A la Dirección Provincial de la Tesorería General o Administraciones de la misma de la provincia en que esté domiciliada la empresa",
+        "Siempre al Ministerio de Trabajo y Seguridad Social, con independencia de la provincia",
+        "Exclusivamente a la Inspección de Trabajo y Seguridad Social",
+        "A cualquier registro administrativo sin canalización posterior"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 32.2 establece que las solicitudes de alta 'deberán ir dirigidas a la Dirección Provincial de la Tesorería General de la Seguridad Social o Administraciones de la misma en la provincia en que esté domiciliada la empresa...' o en la que radique el establecimiento, según los casos. No se menciona el Ministerio central (B), ni la Inspección (C) ni registros sin canalización (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 33.2, si la solicitud de afiliación, alta o baja no reúne requisitos o documentos, ¿qué normativa general se aplica?",
+      "options": [
+        "Lo previsto en el art. 71.1 de la Ley 30/1992, de 26 de noviembre",
+        "Directamente el Reglamento General de Recaudación",
+        "El Estatuto de los Trabajadores",
+        "La Ley 11/2007, de acceso electrónico de los ciudadanos a los servicios públicos, de forma exclusiva"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 33.2 señala que si la solicitud 'no reuniere los requisitos o no se acompañaren los documentos...' 'se estará a lo dispuesto en el artículo 71.1 de la Ley 30/1992, de 26 de noviembre'. No remite al Reglamento de Recaudación (B), ni al ET (C), ni a la Ley 11/2007 como norma general (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 35.1.2.º, ¿a qué fecha se retrotraen los efectos de las altas practicadas de oficio por la Dirección Provincial o Administración competente?",
+      "options": [
+        "A la fecha de presentación de la solicitud por el trabajador",
+        "A la fecha en que los hechos que las motiven hayan sido conocidos por la Dirección Provincial o Administración",
+        "Al primer día del mes natural siguiente al conocimiento de los hechos",
+        "Siempre a la fecha de la resolución administrativa, sin retroacción"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 35.1.2.º dispone que 'las altas practicadas de oficio... retrotraerán sus efectos a la fecha en que los hechos que las motiven hayan sido conocidos' por dichas oficinas. No se refiere a la fecha de solicitud (A), ni al primer día del mes siguiente (C), ni niega la retroacción (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 35.1.2.º, cuando las altas de oficio se efectúan como consecuencia de actuación de la Inspección de Trabajo y Seguridad Social promovida por orden superior, instancia de entidad gestora o denuncia, ¿a qué fecha se retrotraen sus efectos?",
+      "options": [
+        "A la fecha de la actuación inspectora en todo caso",
+        "A la fecha de la orden superior, de la instancia de la entidad gestora o de la entrada de la denuncia, queja o petición",
+        "Al inicio del año natural en curso",
+        "Nunca se retrotraen en estos supuestos"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 35.1.2.º precisa que si la actuación inspectora 'hubiera sido promovida por orden superior, a instancia de las entidades gestoras o como consecuencia de denuncia, queja o petición expresa... los efectos se retrotraerán a la fecha en que se haya producido la orden superior o la instancia... o en que hayan tenido entrada las referidas instancias, denuncia, queja o petición'. No siempre a la fecha de actuación (A), ni al inicio del año (C), ni se niega la retroacción (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 35.2.2.º, si la baja se solicita fuera de plazo o en modelo distinto del establecido, ¿hasta cuándo se mantiene la obligación de cotizar?",
+      "options": [
+        "Hasta el día del cese real en el trabajo, aunque se comunique tarde",
+        "Hasta el final del año natural del cese",
+        "Hasta el día en que la Tesorería General de la Seguridad Social conozca el cese en el trabajo o actividad",
+        "Hasta que la empresa presente una reclamación ante la Inspección"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 35.2.2.º establece que, cuando la baja se solicita fuera de plazo o en modelo inadecuado, la obligación de cotizar no se extingue hasta el día en que la Tesorería General de la Seguridad Social conoce efectivamente el cese en el trabajo o actividad. Las demás opciones fijan momentos que no se corresponden con el criterio legal de conocimiento del cese.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 36.1, ¿qué situación concreta se considera asimilada a la de alta respecto a los días cotizados de artistas y profesionales taurinos?",
+      "options": [
+        "Solo los días en que efectivamente actúen en un espectáculo",
+        "Los días que resulten cotizados por aplicación de las normas que regulan su cotización, aunque no se correspondan con prestación de servicios",
+        "Únicamente los días de ensayo previos a las actuaciones",
+        "Ningún día se considera asimilado a la de alta en estos colectivos"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 36.1.10 establece, para artistas y profesionales taurinos, que 'los días que resulten cotizados por aplicación de las normas que regulan su cotización... tendrán la consideración de días cotizados y en situación de alta aunque no se correspondan con los de prestación de servicios'. No se limita a los días efectivos de actuación (A), ni solo ensayos (C), ni niega la asimilación (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 36.1.11, a los solos efectos de conservación del derecho a la asistencia sanitaria, ¿qué situación se considera asimilada a la de alta?",
+      "options": [
+        "La de cualquier trabajador que haya estado afiliado alguna vez, sin requisitos de tiempo",
+        "Solo la situación de desempleo sin inscripción como demandante",
+        "La situación de baja de los trabajadores por cuenta ajena incluidos en el Régimen correspondiente, que hayan permanecido en alta un período mínimo de 90 días dentro de los 365 anteriores a la baja, en los términos del art. 6 del Decreto 2766/1967",
+        "Únicamente la baja de los trabajadores autónomos del Régimen Especial"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 36.1.11 dispone que, a los solos efectos de conservación del derecho a la asistencia sanitaria, se considera asimilada la situación de baja de los trabajadores por cuenta ajena que hayan permanecido en alta un período mínimo de 90 días dentro de los 365 anteriores, en los términos del art. 6 del Decreto 2766/1967. Las otras opciones no respetan los requisitos de régimen y tiempo establecidos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 36.1.15, en el Régimen Especial de Trabajadores por Cuenta Propia o Autónomos, ¿qué período se considera situación asimilada a la de alta tras la baja?",
+      "options": [
+        "Los treinta días naturales siguientes a la baja",
+        "Los noventa días naturales siguientes al último día del mes en que se produzca la baja",
+        "El año natural completo siguiente a la baja",
+        "No existe situación asimilada a la de alta tras la baja en este Régimen"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 36.1.15 indica que, en el Régimen Especial de Autónomos, es situación asimilada 'el período de los noventa días naturales siguientes al último día del mes en que se produzca la baja en dicho Régimen'. No se limita a 30 días (A), ni a un año (C), ni se niega la existencia de asimilación (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 60.1, ¿qué efectos tienen las altas indebidas en un Régimen de personas que no deben figurar incluidas en el campo de aplicación de ninguno de ellos?",
+      "options": [
+        "Surtirán los mismos efectos señalados en el artículo anterior para las afiliaciones indebidas",
+        "Producen plenos efectos indefinidamente",
+        "Carecen absolutamente de efectos jurídicos en todo caso",
+        "Generan únicamente responsabilidad penal, pero no tienen regulación específica en el Reglamento"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 60.1 establece que las altas indebidas en un Régimen de personas que no deben figurar incluidas en su campo de aplicación surtirán los mismos efectos que las afiliaciones indebidas. Las restantes opciones atribuyen a esas altas efectos que la norma no prevé, ya sea dotándolas de plena eficacia indefinida, negándosela por completo o limitándolas al plano penal.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 60.3, ¿qué se entiende sin perjuicio de las altas indebidas declaradas?",
+      "options": [
+        "De las reclamaciones o devoluciones de cuotas y prestaciones que procedan en función de la causa de nulidad o anulabilidad",
+        "De la imposibilidad absoluta de reclamar cuotas en ningún caso",
+        "De la extinción automática de todos los derechos de los trabajadores",
+        "De la obligación de las entidades gestoras de mantener siempre las prestaciones sin revisión"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 60.3 establece que lo dispuesto 'se entiende sin perjuicio de las reclamaciones o devoluciones de cuotas y de prestaciones que, en su caso, procedan en función de la causa de nulidad o anulabilidad'. No excluye reclamaciones (B), ni implica extinción automática de derechos (C) ni obliga a mantener prestaciones sin revisión (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 61.1.1.º, cuando la baja indebida se declara por causas especialmente graves (lesión de derechos fundamentales, incompetencia manifiesta, infracción penal, etc.), ¿desde cuándo se considera al trabajador en alta?",
+      "options": [
+        "Desde la fecha de la resolución que declara la baja indebida",
+        "Desde que concurriera la causa que determina la nulidad (por ejemplo, desde que se dictó la baja contraria al ordenamiento)",
+        "Solo desde el inicio del año natural en curso",
+        "Desde la fecha en que el trabajador lo solicite expresamente"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 61.1.1.º indica que, en estos casos, 'el trabajador será considerado en alta desde que concurriera dicha causa', manteniéndose la obligación de cotizar durante dicho período. No se limita a la fecha de resolución (A), ni al inicio del año (C), ni a la fecha de solicitud del trabajador (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 61.1.3.º, ¿qué sucede con la obligación de cotizar cuando, habiéndose producido una baja indebida, continúa la prestación de servicios o el ejercicio de la actividad?",
+      "options": [
+        "La obligación de cotizar se interrumpe hasta que se regularice la baja",
+        "La obligación de cotizar solo se mantiene durante un máximo de seis meses",
+        "La obligación de cotizar no queda interrumpida durante la baja indebidamente causada, reclamándose las cuotas pertinentes hasta los últimos cuatro años",
+        "La obligación de cotizar se traslada a la entidad gestora correspondiente"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 61.1.3.º dispone que, cuando pese a una baja indebida continúa la prestación de servicios o el ejercicio de la actividad, la obligación de cotizar no queda interrumpida y se reclaman las cuotas correspondientes siempre que no sean anteriores a los últimos cuatro años. Las demás alternativas contradicen directamente este régimen de mantenimiento de la obligación de cotizar.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 29.2, ¿para qué contingencias se considera de pleno derecho en situación de alta al trabajador por cuenta ajena, aunque el empresario incumpla sus obligaciones de alta?",
+      "options": [
+        "Solo para la pensión de jubilación",
+        "Para accidentes de trabajo, enfermedades profesionales, desempleo, riesgo durante el embarazo y riesgo durante la lactancia natural, y a exclusivos efectos de asistencia sanitaria por enfermedad común, maternidad y accidente no laboral",
+        "Únicamente para prestaciones familiares por hijo a cargo",
+        "Solo para la asistencia sanitaria por accidente de trabajo"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 29.2 establece que estos trabajadores 'se considerarán, de pleno derecho, en situación de alta... a efectos de accidentes de trabajo, enfermedades profesionales, desempleo, riesgo durante el embarazo y riesgo durante la lactancia natural' y añade que 'igual norma se aplicará a los exclusivos efectos de la asistencia sanitaria por enfermedad común, maternidad y accidente no laboral'. No se limita a jubilación (A), ni a prestaciones familiares (C) ni solo AT (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 27.2.º, ¿qué derecho tiene el empresario, el trabajador o quien presente la solicitud de afiliación respecto al justificante?",
+      "options": [
+        "Ninguno, ya que no se prevé la expedición de justificante",
+        "Puede exigir el correspondiente justificante en los términos regulados en el art. 32.5 del Reglamento",
+        "Solo puede solicitar una copia simple sin efectos jurídicos",
+        "Debe conformarse con la constancia verbal de haber presentado la solicitud"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 27.2.º establece que 'el empresario, el trabajador o, en su caso, quien hubiere presentado las solicitudes de afiliación podrá exigir el correspondiente justificante, en los términos regulados en el apartado 5 del artículo 32 de este Reglamento'. No se niega este derecho (A), ni se limita a copia sin efectos (C), ni a constancia verbal (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 23, ¿cuál de las siguientes NO es una forma expresamente prevista para promover la afiliación a la Seguridad Social?",
+      "options": [
+        "De oficio por la Tesorería General de la Seguridad Social",
+        "A instancia de las entidades gestoras o colaboradoras",
+        "Exclusivamente por resolución judicial en procedimiento contencioso-administrativo",
+        "A petición de los propios interesados o de quienes los representen"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 23 regula las formas de promover la afiliación: de oficio, a instancia de las entidades gestoras o colaboradoras, y a petición de los interesados o de quienes los representen. No menciona como modalidad específica la afiliación 'exclusivamente por resolución judicial' (opción C), que por tanto no es una forma prevista en dicho precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Con arreglo al art. 25, cuando el empresario incumple la obligación de promover la afiliación de un trabajador por cuenta ajena, ¿qué posibilidad se reconoce al propio trabajador?",
+      "options": [
+        "Ninguna, queda a la exclusiva iniciativa de la Inspección de Trabajo",
+        "Solo puede reclamar ante la jurisdicción social, pero no instar su afiliación",
+        "Puede solicitar directamente su afiliación ante la Tesorería General de la Seguridad Social",
+        "Debe esperar a que transcurran tres años para que la afiliación se entienda producida de pleno derecho"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 25 prevé expresamente que, en caso de incumplimiento empresarial de la obligación de promover la afiliación, el trabajador podrá instar directamente su afiliación ante la Tesorería General de la Seguridad Social. No queda a la sola actuación inspectora (A), ni se limita a la vía judicial sin más (B), ni se difiere automáticamente tres años (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 28, cuando se producen variaciones en los datos de afiliación que inciden en la determinación de la base o del tipo de cotización, ¿desde cuándo despliegan efectos en la cotización dichas variaciones si se comunican en plazo?",
+      "options": [
+        "Desde la fecha en que la Tesorería tenga conocimiento efectivo, cualquiera que sea el momento de la variación",
+        "Desde el día primero del mes natural siguiente a aquel en que tenga lugar la variación",
+        "Desde el mismo día en que se produce la variación, con independencia del mes",
+        "Únicamente desde el ejercicio presupuestario siguiente al de la variación"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 28 distingue los efectos de las variaciones de datos. Cuando afectan a la determinación de la base o del tipo de cotización y se comunican en plazo, sus efectos se producen, en general, desde el día primero del mes natural siguiente a aquel en que tenga lugar la variación. No se remiten al mero conocimiento administrativo (A), ni siempre al mismo día (C), ni al ejercicio siguiente (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 28, cuando las variaciones de datos de afiliación no afectan a la determinación de la base o del tipo de cotización, ¿qué regla general se aplica a sus efectos si se comunican correctamente?",
+      "options": [
+        "Producen efectos desde el mismo día en que se haya producido la variación",
+        "Nunca producen efectos retroactivos, solo hacia el futuro",
+        "Solo surten efectos desde el día primero del mes siguiente, afecten o no a la cotización",
+        "Quedan a la discreción de la Inspección de Trabajo, sin regla general"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 28 establece que las variaciones de datos que no inciden en la determinación de la base o del tipo de cotización, cuando se comunican en tiempo y forma, producen efectos desde el mismo día en que se haya producido la variación. No se limita siempre al mes siguiente (C), ni se deja a discreción de la Inspección (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 32.3, cuando la solicitud de alta o baja se presenta en registro administrativo distinto del de la Tesorería General de la Seguridad Social, ¿qué fecha se considera a efectos de plazos?",
+      "options": [
+        "La de entrada en la Dirección Provincial de la Tesorería, con independencia de la fecha de presentación en el otro registro",
+        "La del día siguiente hábil a la entrada en el registro ajeno a la Tesorería",
+        "La de presentación en cualquier registro de los previstos en la legislación de procedimiento administrativo común",
+        "La de notificación de la resolución que reconozca o deniegue el alta"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Conforme al art. 32.3, cuando las solicitudes se presentan en cualquiera de los registros previstos en la legislación de procedimiento administrativo, la fecha que se toma en cuenta a efectos de plazos es la de presentación en dicho registro. No se difiere necesariamente a la entrada en la Dirección Provincial (A), ni al día siguiente hábil (B), ni se vincula a la notificación de la resolución (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 32.5, ¿qué debe garantizarse en los justificantes de presentación de las solicitudes de afiliación, altas, bajas y variaciones de datos?",
+      "options": [
+        "Únicamente el número de entrada en el registro de la Tesorería",
+        "Solo la identificación del trabajador afectado",
+        "La constancia de la fecha, hora y lugar de presentación, así como la identificación del sujeto que presenta la solicitud",
+        "Exclusivamente la firma manuscrita del funcionario receptor"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 32.5 detalla el contenido mínimo de los justificantes de presentación, exigiendo que consten, al menos, la fecha, hora y lugar de presentación y la identificación del sujeto que presenta la solicitud. No se limita al número de entrada (A), ni a la sola identificación del trabajador (B), ni a la firma del funcionario (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 33.1, cuando la afiliación o el alta se practican de oficio, ¿qué actuación previa suele concurrir en la mayor parte de los supuestos?",
+      "options": [
+        "Una resolución judicial firme que ordene la afiliación",
+        "Una actuación de la Inspección de Trabajo y Seguridad Social que ponga de manifiesto la situación de hecho",
+        "Una simple denuncia anónima sin más trámite",
+        "Una comunicación verbal del trabajador al funcionario de la Tesorería"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 33.1 contempla que las afiliaciones y altas de oficio se produzcan, en muchos casos, a consecuencia de actuaciones de la Inspección de Trabajo y Seguridad Social que revelan la existencia de relaciones laborales o de situaciones determinantes de inclusión en el Sistema. No exige inexcusablemente resolución judicial (A), ni se basa en denuncias anónimas sin más (C), ni en comunicaciones verbales aisladas (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 34, una vez reconocida la afiliación o el alta, ¿qué principio rige respecto de la eficacia de dicho reconocimiento mientras no se modifiquen o extingan las circunstancias que lo motivaron?",
+      "options": [
+        "El reconocimiento solo produce efectos durante el mes siguiente a la resolución",
+        "El reconocimiento decae automáticamente al año, salvo renovación expresa",
+        "El reconocimiento se mantiene mientras persistan las circunstancias determinantes, sin necesidad de nuevas resoluciones",
+        "El reconocimiento queda siempre condicionado a la ratificación judicial"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 34 consagra la estabilidad del reconocimiento de la afiliación y del alta mientras subsistan las circunstancias que lo justifican, sin exigencia de renovaciones periódicas ni ratificaciones adicionales. No se limita a un mes (A) ni a un año (B), ni queda condicionado sistemáticamente a control judicial (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 35.3, en los Regímenes en que la cotización se realice por meses completos, ¿cómo se computan los días de alta cuando el alta o la baja no coinciden con el primer o último día del mes?",
+      "options": [
+        "Solo se computan los días efectivamente trabajados",
+        "Se computa el mes completo como de alta si hubo alta en cualquier día del mismo",
+        "Se computa medio mes en todo caso",
+        "Se deja a la negociación colectiva el cómputo de los días de alta"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 35.3 establece que, en los Regímenes en que la cotización se realiza por meses completos, el alta o la baja producida en cualquier día del mes conlleva el cómputo del mes completo como de alta, a efectos de cotización. No se limita a los días efectivamente trabajados (A), ni se fija medio mes (C), ni se remite a la negociación colectiva (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 36.1, dentro del catálogo de situaciones asimiladas a la de alta, ¿cuál de las siguientes se incluye expresamente?",
+      "options": [
+        "La mera inscripción como demandante de empleo sin más requisitos",
+        "La excedencia voluntaria en todo caso, sin limitaciones",
+        "Determinados supuestos de traslado del trabajador al extranjero al servicio de empresas españolas, en los términos reglamentarios",
+        "Cualquier situación de inactividad, aunque no se haya cotizado previamente"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 36.1 enumera diversas situaciones asimiladas a la de alta, entre las que se incluyen determinados supuestos de traslado al extranjero al servicio de empresas españolas, siempre que se cumplan las condiciones reglamentarias. No se reconoce de forma genérica cualquier inscripción como demandante (A), ni toda excedencia voluntaria (B), ni cualquier inactividad sin cotización previa (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 60.2, cuando una afiliación indebida ha servido de base para reconocer prestaciones a favor de una persona que no debía estar incluida en el campo de aplicación del Régimen, ¿qué procede respecto de dichas prestaciones?",
+      "options": [
+        "Se mantienen en todo caso, por aplicación del principio de seguridad jurídica",
+        "Se revisan y, en su caso, se declaran indebidas, con obligación de reintegro si procede",
+        "Solo se suspenden hacia el futuro, sin posibilidad de reclamar lo ya percibido",
+        "Se trasladan automáticamente al Régimen correcto sin revisión alguna"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 60.2 prevé la revisión de las prestaciones reconocidas con base en afiliaciones indebidas, pudiendo declararse indebidas y procediendo, en su caso, el reintegro de las cantidades percibidas, en función de la causa de nulidad o anulabilidad. No se mantienen siempre (A), ni se limitan a suspenderse solo hacia el futuro (C), ni se trasladan sin revisión (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 61.2, cuando la baja indebida se ha producido respecto de un trabajador que debía seguir incluido en el Régimen correspondiente, ¿qué puede implicar la revisión de la situación?",
+      "options": [
+        "Únicamente la corrección registral, sin efectos en prestaciones ni en cotizaciones",
+        "La consideración de alta durante el período de baja indebida y la exigencia de las cotizaciones correspondientes, con revisión de las prestaciones afectadas",
+        "Solo la imposición de una sanción al trabajador por no haber advertido el error",
+        "La extinción automática de cualquier derecho a prestaciones futuras"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 61.2 contempla que la revisión de las bajas indebidas puede comportar la consideración del trabajador en alta durante el período en cuestión, con la correspondiente exigencia de cotizaciones y la revisión de prestaciones, respetando en todo caso la prescripción. No se limita a una mera corrección formal (A), ni sanciona al trabajador por el error (C), ni extingue automáticamente derechos futuros (D).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En relación con el art. 29.1, cuando la empresa incumple la obligación de solicitar el alta del trabajador por cuenta ajena, ¿qué mecanismo prevé el Reglamento para garantizar la protección del trabajador frente a los riesgos cubiertos?",
+      "options": [
+        "No se prevé ningún mecanismo específico, debiendo el trabajador acudir a la vía judicial",
+        "Se considera al trabajador en situación de no afiliado, sin derecho a prestaciones",
+        "Se articula la posibilidad de altas y afiliaciones de oficio o a instancia del trabajador para evitar la desprotección derivada del incumplimiento empresarial",
+        "Se traslada íntegramente la responsabilidad prestacional al propio trabajador"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 29.1, en conexión con los preceptos sobre afiliaciones y altas de oficio y a instancia del trabajador, configura mecanismos para que la falta de solicitud de alta por el empresario no suponga la desprotección del trabajador frente a las contingencias cubiertas, permitiendo la actuación de la Tesorería y del propio interesado. No se deja sin regulación (A), ni se le priva de derecho a prestaciones (B), ni se le traslada la responsabilidad (D).",
+      "difficulty": "hard"
+    }
+  ]
+}

@@ -70,10 +70,9 @@ export default function VideoRoom() {
         alert('Error: No se pudo conectar a la videollamada')
         router.push('/forum')
       }
-      if (room) {
-        room.disconnect()
-      }
     }
+
+    connectRoom()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomId])
 

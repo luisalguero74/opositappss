@@ -1,0 +1,130 @@
+{
+  "data": [
+    {
+      "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+      "questionCount": 10,
+      "questions": [
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "Según el artículo 1 de la Constitución, ¿cuáles son los valores superiores que propugna el Estado social y democrático de Derecho en su ordenamiento jurídico?",
+          "options": "[\"La libertad, la justicia, la igualdad y el pluralismo político\",\"La igualdad, la unidad de la Nación, la soberanía nacional y la seguridad jurídica\",\"La justicia, la autonomía de las nacionalidades y regiones, la solidaridad y la jerarquía normativa\",\"La libertad, la seguridad jurídica, la propiedad privada y la solidaridad\"]",
+          "correctAnswer": "La libertad, la justicia, la igualdad y el pluralismo político",
+          "explanation": "El artículo 1.1 establece que España se constituye en un Estado social y democrático de Derecho que propugna como valores superiores de su ordenamiento jurídico la libertad, la justicia, la igualdad y el pluralismo político. Las demás opciones mezclan otros principios (unidad de la Nación, solidaridad, seguridad jurídica, jerarquía normativa) que aparecen en otros preceptos pero no forman parte de ese elenco de valores superiores.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "Conforme al artículo 1 de la Constitución, ¿dónde reside la soberanía nacional y de quién emanan los poderes del Estado?",
+          "options": "[\"Reside en las Cortes Generales, que representan al pueblo español\",\"Reside en el pueblo español, del que emanan los poderes del Estado\",\"Reside conjuntamente en el Rey y en el pueblo español\",\"Reside en la Nación española, de la que emanan los poderes del Estado\"]",
+          "correctAnswer": "Reside en el pueblo español, del que emanan los poderes del Estado",
+          "explanation": "El artículo 1.2 dispone que la soberanía nacional reside en el pueblo español, del que emanan los poderes del Estado. No se atribuye la residencia de la soberanía a las Cortes Generales ni se comparte con el Rey, por lo que solo la opción correcta refleja literalmente el precepto.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "De acuerdo con el artículo 2, ¿cuál de las siguientes afirmaciones recoge de forma completa los elementos esenciales sobre la unidad de la Nación y las autonomías?",
+          "options": "[\"La Constitución solo reconoce la autonomía de las regiones, sin referencia a las nacionalidades ni a la solidaridad\",\"La Constitución se fundamenta en la indisoluble unidad de la Nación española y reconoce y garantiza el derecho a la autonomía de las nacionalidades y regiones que la integran, así como la solidaridad entre todas ellas\",\"La Constitución proclama la unidad de la Nación española y permite la independencia de las nacionalidades y regiones que lo soliciten por mayoría\",\"La Constitución garantiza la autonomía política de las Comunidades Autónomas, pero no menciona la unidad de la Nación española\"]",
+          "correctAnswer": "La Constitución se fundamenta en la indisoluble unidad de la Nación española y reconoce y garantiza el derecho a la autonomía de las nacionalidades y regiones que la integran, así como la solidaridad entre todas ellas",
+          "explanation": "El artículo 2 afirma que la Constitución se fundamenta en la indisoluble unidad de la Nación española, patria común e indivisible de todos los españoles, y reconoce y garantiza el derecho a la autonomía de las nacionalidades y regiones que la integran y la solidaridad entre todas ellas. La opción correcta recoge la unidad indisoluble, la autonomía de nacionalidades y regiones y la solidaridad. Las otras opciones omiten o distorsionan estos elementos.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "Según el artículo 3, ¿cuál de las siguientes afirmaciones refleja correctamente el régimen lingüístico en relación con el castellano?",
+          "options": "[\"El castellano es la lengua oficial de algunas Comunidades Autónomas y solo existe el derecho a usarla, sin deber de conocerla\",\"El castellano es la lengua española oficial del Estado, pero el deber de conocerla solo recae en los poderes públicos\",\"El castellano es la lengua española oficial del Estado y todos los españoles tienen el deber de conocerla y el derecho a usarla\",\"El castellano comparte el carácter de lengua oficial del Estado con las demás lenguas españolas\"]",
+          "correctAnswer": "El castellano es la lengua española oficial del Estado y todos los españoles tienen el deber de conocerla y el derecho a usarla",
+          "explanation": "El artículo 3.1 establece que el castellano es la lengua española oficial del Estado y que todos los españoles tienen el deber de conocerla y el derecho a usarla. Las opciones incorrectas niegan el deber general de conocerla o equiparan su oficialidad a la de las demás lenguas españolas, lo que contradice el tenor literal del precepto.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "¿Qué exige el artículo 3 respecto a las demás lenguas españolas para que sean también oficiales y en qué ámbito?",
+          "options": "[\"Serán oficiales en todo el territorio del Estado si así lo deciden las Cortes Generales\",\"Serán oficiales únicamente en los municipios donde así lo establezcan sus ordenanzas\",\"Serán cooficiales en las provincias donde tengan mayor número de hablantes, sin necesidad de Estatuto\",\"Serán también oficiales en las respectivas Comunidades Autónomas de acuerdo con sus Estatutos\"]",
+          "correctAnswer": "Serán también oficiales en las respectivas Comunidades Autónomas de acuerdo con sus Estatutos",
+          "explanation": "El artículo 3.2 dispone que las demás lenguas españolas serán también oficiales en las respectivas Comunidades Autónomas de acuerdo con sus Estatutos. La opción correcta recoge el ámbito (las respectivas Comunidades Autónomas) y la condición (de acuerdo con sus Estatutos). El resto de opciones amplían o cambian el ámbito sin base en el texto.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "Conforme al artículo 4, ¿cuál es la descripción correcta de la bandera de España?",
+          "options": "[\"Tres franjas horizontales roja, amarilla y roja, siendo la roja superior de doble anchura que la amarilla\",\"Tres franjas horizontales roja, amarilla y roja, todas de igual anchura\",\"Tres franjas horizontales roja, amarilla y roja, siendo la amarilla de doble anchura que cada una de las rojas\",\"Dos franjas horizontales roja y amarilla, siendo la amarilla de doble anchura que la roja\"]",
+          "correctAnswer": "Tres franjas horizontales roja, amarilla y roja, siendo la amarilla de doble anchura que cada una de las rojas",
+          "explanation": "El artículo 4.1 indica que la bandera de España está formada por tres franjas horizontales, roja, amarilla y roja, siendo la amarilla de doble anchura que cada una de las rojas. Solo la opción correcta reproduce esta configuración; las demás alteran la anchura o el número de franjas.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "Según el artículo 6, ¿cuál de las siguientes características NO se menciona expresamente en relación con los partidos políticos?",
+          "options": "[\"Que expresan el pluralismo político\",\"Que sus programas deben ser aprobados por las Cortes Generales\",\"Que concurren a la formación y manifestación de la voluntad popular\",\"Que son instrumento fundamental para la participación política\"]",
+          "correctAnswer": "Que sus programas deben ser aprobados por las Cortes Generales",
+          "explanation": "El artículo 6 señala que los partidos políticos expresan el pluralismo político, concurren a la formación y manifestación de la voluntad popular y son instrumento fundamental para la participación política, y que su creación y actividad son libres dentro del respeto a la Constitución y a la ley, con estructura y funcionamiento democráticos. En ningún momento se indica que sus programas deban ser aprobados por las Cortes Generales, que es un requisito inventado en la opción correcta.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "De acuerdo con el artículo 7, ¿cuál es la finalidad principal que la Constitución atribuye a los sindicatos de trabajadores y a las asociaciones empresariales?",
+          "options": "[\"Determinar, junto con los partidos, la forma política del Estado\",\"Ser el único cauce de participación política de trabajadores y empresarios\",\"Ejercer el control parlamentario sobre el Gobierno en materia laboral\",\"Contribuir a la defensa y promoción de los intereses económicos y sociales que les son propios\"]",
+          "correctAnswer": "Contribuir a la defensa y promoción de los intereses económicos y sociales que les son propios",
+          "explanation": "El artículo 7 establece que los sindicatos de trabajadores y las asociaciones empresariales contribuyen a la defensa y promoción de los intereses económicos y sociales que les son propios. No se les atribuyen funciones de control parlamentario, ni se les reconoce como único cauce de participación política ni de determinación de la forma política del Estado.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "Según el artículo 8, ¿qué misiones tienen encomendadas las Fuerzas Armadas y cómo se componen?",
+          "options": "[\"Se componen del Ejército de Tierra y la Armada, y su misión es garantizar la unidad de la Nación y la solidaridad entre nacionalidades y regiones\",\"Se componen del Ejército de Tierra, la Armada y el Ejército del Aire y su misión es garantizar la soberanía e independencia de España, defender su integridad territorial y el ordenamiento constitucional\",\"Se componen del Ejército de Tierra, la Armada, el Ejército del Aire y la Guardia Civil, y su misión es garantizar la seguridad ciudadana\",\"Se componen del Ejército de Tierra, la Armada y el Ejército del Aire, y su misión es exclusivamente la defensa frente a agresiones exteriores\"]",
+          "correctAnswer": "Se componen del Ejército de Tierra, la Armada y el Ejército del Aire y su misión es garantizar la soberanía e independencia de España, defender su integridad territorial y el ordenamiento constitucional",
+          "explanation": "El artículo 8.1 dispone que las Fuerzas Armadas, constituidas por el Ejército de Tierra, la Armada y el Ejército del Aire, tienen como misión garantizar la soberanía e independencia de España, defender su integridad territorial y el ordenamiento constitucional. La opción correcta recoge tanto la composición como las tres misiones. Las restantes opciones omiten parte de la misión o añaden cuerpos o funciones no previstas.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        },
+        {
+          "questionnaireId": "tema01-cuestionario-01-aass-turno-libre-general-titulo-preliminar",
+          "text": "Conforme al artículo 9.3, ¿cuál de las siguientes listas recoge solo principios garantizados expresamente por la Constitución?",
+          "options": "[\"Publicidad de las normas, independencia judicial, responsabilidad política del Gobierno y solidaridad entre Comunidades Autónomas\",\"Principio de legalidad, jerarquía normativa, publicidad de las normas, irretroactividad de las disposiciones sancionadoras no favorables o restrictivas de derechos individuales, seguridad jurídica, responsabilidad e interdicción de la arbitrariedad de los poderes públicos\",\"Principio de legalidad, soberanía nacional, unidad de la Nación, irretroactividad de todas las leyes, seguridad jurídica y supremacía del Rey\",\"Jerarquía normativa, autonomía de las nacionalidades y regiones, solidaridad, responsabilidad y supremacía de la Constitución sobre la ley\"]",
+          "correctAnswer": "Principio de legalidad, jerarquía normativa, publicidad de las normas, irretroactividad de las disposiciones sancionadoras no favorables o restrictivas de derechos individuales, seguridad jurídica, responsabilidad e interdicción de la arbitrariedad de los poderes públicos",
+          "explanation": "El artículo 9.3 establece que la Constitución garantiza el principio de legalidad, la jerarquía normativa, la publicidad de las normas, la irretroactividad de las disposiciones sancionadoras no favorables o restrictivas de derechos individuales, la seguridad jurídica, la responsabilidad y la interdicción de la arbitrariedad de los poderes públicos. La opción correcta reproduce esta enumeración; las otras mezclan principios de otros artículos o añaden conceptos no mencionados en este precepto.",
+          "temaCodigo": "T01",
+          "temaNumero": 1,
+          "temaParte": "general",
+          "temaTitulo": "Tema 01 - La Constitución Española de 1978. Título Preliminar",
+          "difficulty": "alta"
+        }
+      ]
+    }
+  ]
+}

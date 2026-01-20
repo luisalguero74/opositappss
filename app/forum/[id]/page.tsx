@@ -8,7 +8,7 @@ interface Post {
   id: string
   content: string
   createdAt: string
-  author: { id: string; email: string }
+  user?: { id: string; email: string } | null
 }
 
 interface Thread {
@@ -80,7 +80,7 @@ export default function ThreadDetail() {
           {posts.map(p => (
             <div key={p.id} className="bg-white rounded-xl shadow p-5">
               <div className="text-gray-600 text-sm mb-2">
-                <span className="font-semibold">{p.author.email}</span> — {new Date(p.createdAt).toLocaleString()}
+                <span className="font-semibold">{p.user?.email || 'Usuario desconocido'}</span> — {new Date(p.createdAt).toLocaleString()}
               </div>
               <div className="text-gray-800 whitespace-pre-wrap">{p.content}</div>
             </div>
