@@ -1,0 +1,26 @@
+name: Cron Generate Questions (Especifico)
+
+on:
+  schedule:
+    # 03:00 UTC ≈ 04:00 en España (invierno)
+    - cron: '0 3 * * *'
+  # Permite lanzarlo a mano desde la pestaña Actions para probar
+  workflow_dispatch: {}
+
+jobs:
+  call-especifico-cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call especifico cron endpoint
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET no está definido en los Secrets de GitHub"
+            exit 1
+          fi
+
+          echo "Llamando a /api/cron/generate-questions?category=especifico"
+          curl -sS -X GET \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            https://www.opositapp.site/api/cron/generate-questions?category=especifico
