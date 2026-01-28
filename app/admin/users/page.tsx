@@ -68,7 +68,7 @@ export default function UsersManagement() {
   const [userHistory, setUserHistory] = useState<UserHistory | null>(null)
   const [loading, setLoading] = useState(true)
   const [loadingHistory, setLoadingHistory] = useState(false)
-  const [filter, setFilter] = useState<'all' | 'admin' | 'user'>('all')
+  const [filter, setFilter] = useState<'all' | 'admin' | 'editor' | 'user'>('all')
   const [searchTerm, setSearchTerm] = useState('')
 
   const [currentPassword, setCurrentPassword] = useState('')
@@ -431,6 +431,16 @@ export default function UsersManagement() {
                 Admins ({users.filter(u => u.role === 'admin').length})
               </button>
               <button
+                onClick={() => setFilter('editor')}
+                className={`px-4 py-2 rounded-lg font-semibold transition ${
+                  filter === 'editor'
+                    ? 'bg-amber-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Editores ({users.filter(u => u.role === 'editor').length})
+              </button>
+              <button
                 onClick={() => setFilter('user')}
                 className={`px-4 py-2 rounded-lg font-semibold transition ${
                   filter === 'user'
@@ -470,6 +480,10 @@ export default function UsersManagement() {
                           {user.role === 'admin' ? (
                             <span className="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded">
                               👑 Admin
+                            </span>
+                          ) : user.role === 'editor' ? (
+                            <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-semibold rounded">
+                              ✏️ Editor
                             </span>
                           ) : (
                             <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded">
@@ -538,6 +552,7 @@ export default function UsersManagement() {
                         disabled={!selectedUser.active}
                       >
                         <option value="user">👤 Usuario</option>
+                        <option value="editor">✏️ Editor</option>
                         <option value="admin">👑 Admin</option>
                       </select>
                       

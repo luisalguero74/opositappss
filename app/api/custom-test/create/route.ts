@@ -9,6 +9,20 @@ function uniqueStrings(values: string[]): string[] {
   return Array.from(new Set(values))
 }
 
+function safeParseOptions(raw: any): string[] {
+  if (!raw) return []
+  if (Array.isArray(raw)) return raw
+  if (typeof raw === 'string') {
+    try {
+      const parsed = JSON.parse(raw)
+      return Array.isArray(parsed) ? parsed : []
+    } catch {
+      return []
+    }
+  }
+  return []
+}
+
 // POST - Crear test personalizado
 export async function POST(req: NextRequest) {
   try {
@@ -66,6 +80,7 @@ export async function POST(req: NextRequest) {
     const generalQuestions = hasGeneral ? await prisma.question.findMany({
       where: {
         temaCodigo: { in: generalTopicCodes },
+        aiReviewed: true,
         ...(difficulty && difficulty !== 'todas' ? { difficulty } : {})
       },
       include: {
@@ -81,6 +96,7 @@ export async function POST(req: NextRequest) {
     const specificQuestions = hasSpecific ? await prisma.question.findMany({
       where: {
         temaCodigo: { in: specificTopicCodes },
+        aiReviewed: true,
         ...(difficulty && difficulty !== 'todas' ? { difficulty } : {})
       },
       include: {
@@ -129,7 +145,7 @@ export async function POST(req: NextRequest) {
     const rebalanced = rebalanceQuestionsABCD(
       selectedQuestions.map((q: any) => ({
         id: q.id,
-        options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options,
+        options: safeParseOptions(q.options),
         correctAnswer: q.correctAnswer
       })),
       2
@@ -154,7 +170,9 @@ export async function POST(req: NextRequest) {
     await Promise.all(
       selectedQuestions.map((q: any, index: any) => {
         const rb = rebalanceById.get(q.id)
-        const newOptions = rb?.options && Array.isArray(rb.options) ? rb.options : JSON.parse(q.options)
+        const newOptions = rb?.options && Array.isArray(rb.options)
+          ? rb.options
+          : safeParseOptions(q.options)
         const newCorrectAnswer = rb?.correctAnswer || q.correctAnswer
         return prisma.question.create({
           data: {
@@ -176,9 +194,10 @@ export async function POST(req: NextRequest) {
     const questionsForResponse = selectedQuestions.map((q: any) => ({
       id: q.id,
       text: q.text,
-      options: JSON.parse(q.options),
+      options: safeParseOptions(q.options),
       correctAnswer: q.correctAnswer,
-      tema: q.temaTitulo || `Tema ${q.temaNumero || 'N/A'}`
+      tema: q.temaTitulo || `Tema ${q.temaNumero || 'N/A'}`,
+      explanation: q.explanation || ''
     }))
 
     return NextResponse.json({ 

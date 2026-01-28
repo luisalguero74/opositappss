@@ -1,0 +1,925 @@
+{
+  "data": [
+    {
+      "temaNumero": 3,
+      "temaParte": "ESPECÍFICO",
+      "temaTitulo": "Normas sobre afiliación. Altas y bajas en el régimen general. Procedimiento y efectos. El convenio especial y otras situaciones asimiladas a la del alta. Encuadramiento e inscripción.",
+      "difficulty": "dificil",
+      "questions": [
+        {
+          "text": "¿Desde qué momento surten efectos, con carácter general, las actuaciones inspectoras relativas a altas y bajas?",
+          "options": [
+            "Desde el primer día del mes siguiente a la actuación inspectora",
+            "Desde el mismo día en que se lleva a cabo la actuación inspectora",
+            "Desde la fecha de notificación al interesado",
+            "Desde la fecha que fije la resolución de la Tesorería General"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General recibe documentos que acreditan la baja de un trabajador, ¿desde cuándo producen efectos dichas anotaciones, con carácter general?",
+          "options": [
+            "Desde la fecha en que se reciban los documentos",
+            "Desde la fecha de emisión de los documentos",
+            "Desde la fecha de notificación al empresario",
+            "Desde la fecha que figure en la liquidación de cuotas"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "¿Qué posibilidad reconoce la norma a los interesados respecto a la fecha en que se han producido los hechos determinantes de altas o bajas?",
+          "options": [
+            "Impugnar la actuación inspectora sin aportar prueba alguna",
+            "Solicitar siempre que los efectos se retrotraigan a la fecha de solicitud",
+            "Demostrar que los hechos tuvieron lugar en otra fecha distinta",
+            "Exigir que los efectos se limiten a los tres meses anteriores"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Si el interesado demuestra que la extinción del contrato tuvo lugar en una fecha anterior a la inicialmente anotada, ¿desde qué momento surtirán efectos las bajas?",
+          "options": [
+            "Desde la fecha de la actuación inspectora, sin cambios",
+            "Desde la nueva fecha acreditada por el interesado",
+            "Desde el último día del mes en que se acredite la extinción",
+            "Desde la fecha que determine la Inspección de Trabajo en todo caso"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En relación con las bajas, cuando el interesado acredita una fecha distinta de la inicialmente tomada en cuenta, la producción de efectos queda condicionada a lo dispuesto en:",
+          "options": [
+            "El artículo 29 del Reglamento General de Recaudación",
+            "El apartado 2 del artículo 35 del Reglamento de inscripción y afiliación",
+            "El artículo 20 de la Ley General de la Seguridad Social",
+            "El apartado 3 del artículo 23 del Reglamento de altas y bajas"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "¿Qué precepto remite específicamente la regulación de los efectos de las bajas cuando se acredite una fecha distinta de la inicialmente tenida en cuenta?",
+          "options": [
+            "Artículo 15.1 del Reglamento de inscripción",
+            "Artículo 35.2 del Reglamento de inscripción, altas y bajas",
+            "Artículo 41.3 del Texto Refundido de la LGSS",
+            "Artículo 7.4 del Reglamento General de Cotización"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General, mediante actuación inspectora, constata la extinción de la relación laboral de varios trabajadores, ¿qué criterio general sigue para fijar la fecha de efectos de las bajas?",
+          "options": [
+            "La fecha de notificación al empresario",
+            "La fecha de la actuación inspectora, salvo prueba en contrario",
+            "La fecha media ponderada de las extinciones",
+            "La fecha del último día del mes natural siguiente"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Si la Tesorería General recibe de oficio datos de otra Administración que acreditan el cese de un trabajador, ¿qué valor tienen a efectos de alta o baja?",
+          "options": [
+            "Son meramente informativos y no producen efectos",
+            "Producen efectos desde que se emite el informe de la otra Administración",
+            "Producen efectos desde que la Tesorería General los recibe",
+            "Exigen siempre una nueva actuación inspectora complementaria"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En el régimen general, cuando se acredita que el cese de un trabajador se produjo en fecha anterior a la actuación inspectora, los efectos de la baja se retrotraerán:",
+          "options": [
+            "Siempre a la fecha real del cese, sin limitación",
+            "Nunca a una fecha anterior, por seguridad jurídica",
+            "A la fecha real del cese, con los límites del artículo 35.2",
+            "Solo al día primero del mes en que se solicita la rectificación"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "¿Qué tipo de prueba exige la norma a los interesados para acreditar una fecha distinta de la inicialmente considerada en las actuaciones de afiliación?",
+          "options": [
+            "Prueba plena documental o pericial exclusivamente",
+            "Cualquier medio de prueba admitido en derecho que demuestre la fecha",
+            "Solo declaración responsable del empresario",
+            "Únicamente resolución judicial firme"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General constata, por los cauces reglamentarios, la inscripción de una empresa carente de actividad, ¿qué actuación procede respecto de dicha inscripción?",
+          "options": [
+            "Mantener la inscripción pero suspender sus efectos",
+            "Modificar la inscripción a un régimen especial específico",
+            "Dejar sin efecto la inscripción efectuada de oficio",
+            "Transformar la inscripción en un código de cuenta colectivo"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "¿En qué supuesto procederá la Tesorería General a dejar sin efecto una inscripción de empresa ya practicada?",
+          "options": [
+            "Cuando la empresa cambie de domicilio",
+            "Cuando se trate de empresa carente de actividad y sin reunir requisitos",
+            "Cuando la empresa se integre en un grupo de empresas",
+            "Cuando la empresa solicite voluntariamente su baja en el censo tributario"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La anulación de la inscripción de una empresa sin actividad por la Tesorería General se realiza:",
+          "options": [
+            "A instancia de parte y previa audiencia siempre",
+            "De oficio, a través de los mismos procedimientos de control",
+            "Solo tras resolución judicial contencioso-administrativa",
+            "Mediante acuerdo conjunto con la Inspección de Trabajo"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando se deja sin efecto la inscripción de una empresa carente de actividad, esta decisión es independiente de:",
+          "options": [
+            "La posible imposición de sanciones o responsabilidades penales",
+            "La obligación de la empresa de comunicar su baja fiscal",
+            "La duración de los contratos de sus trabajadores",
+            "La existencia de deudas con la Seguridad Social"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "¿Qué relación existe entre la anulación de la inscripción de empresas sin actividad y el inicio de procedimientos sancionadores?",
+          "options": [
+            "Son actuaciones incompatibles entre sí",
+            "La anulación de inscripción excluye cualquier sanción posterior",
+            "La anulación se entiende sin perjuicio de las actuaciones sancionadoras",
+            "Las sanciones solo pueden imponerse si no se anula la inscripción"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Respecto a las empresas inscritas sin actividad real, la Tesorería General, además de anular la inscripción, puede:",
+          "options": [
+            "Imponer automáticamente el cierre de la empresa",
+            "Iniciar actuaciones sancionadoras o penales si proceden",
+            "Devolver todas las cuotas ingresadas",
+            "Conceder de oficio un convenio especial a los socios"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General deja sin efecto la inscripción de una empresa carente de actividad, ¿qué sucede con las posibles responsabilidades derivadas de altas indebidas de trabajadores?",
+          "options": [
+            "Quedan automáticamente extinguidas",
+            "Se trasladan a la Administración laboral autonómica",
+            "Pueden ser objeto de actuaciones sancionadoras específicas",
+            "Se limitan a las tres últimas mensualidades de cotización"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En el contexto de las altas y bajas, el apartado que regula la posibilidad de acreditar una fecha distinta a la inicialmente tenida en cuenta se remite, para las bajas, a:",
+          "options": [
+            "El régimen de reclamaciones previas en materia de prestaciones",
+            "El artículo 35.2 del Reglamento de inscripción, altas y bajas",
+            "Las normas sobre prescripción de deudas a la Seguridad Social",
+            "La normativa de procedimiento administrativo común"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando se prueba que la baja de un trabajador tuvo lugar en fecha distinta a la inicialmente registrada, la eficacia retroactiva de la baja estará condicionada principalmente por:",
+          "options": [
+            "Los límites de retroacción del artículo 35.2 del Reglamento",
+            "La voluntad del empresario",
+            "El informe de la Inspección de Trabajo",
+            "La situación económica de la empresa"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La norma permite que los interesados acrediten una fecha diferente para la extinción o el cese, ¿con qué finalidad principal?",
+          "options": [
+            "Evitar cualquier responsabilidad por falta de alta",
+            "Ajustar los efectos jurídicos a la realidad de los hechos",
+            "Conseguir siempre una reducción de cuotas",
+            "Obtener prestaciones de desempleo retroactivas"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En materia de afiliación y altas, la actuación inspectora que constata la situación real de los trabajadores produce efectos, salvo prueba en contrario, desde:",
+          "options": [
+            "La fecha de firma del acta de infracción",
+            "La fecha en que se dicta resolución sancionadora",
+            "El mismo día en que se lleva a cabo la actuación inspectora",
+            "El día primero del mes en que se detectó la infracción"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Según la norma, las actuaciones y anotaciones relativas a altas y bajas efectuadas por la Tesorería General surten efectos, por regla general, desde:",
+          "options": [
+            "El día primero del mes siguiente",
+            "El mismo día en que se realiza la actuación o se reciben los datos",
+            "La fecha de la resolución administrativa que las confirme",
+            "La fecha que determine la Inspección de Trabajo"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General recibe documentos que acreditan la extinción de la relación laboral, las anotaciones que practica a partir de ellos producen efectos desde:",
+          "options": [
+            "La fecha de emisión de los documentos",
+            "La fecha en que se reciben dichos documentos",
+            "La fecha de firma del contrato de trabajo",
+            "El último día del mes en que se presenta la documentación"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Los interesados pueden modificar la fecha de efectos de las actuaciones de afiliación y bajas si:",
+          "options": [
+            "Solicitan la revisión en el plazo de cinco años",
+            "Demuestran que los hechos ocurrieron en otra fecha distinta",
+            "Aportan un certificado de empresa sin más requisitos",
+            "Presentan reclamación previa en materia de prestaciones"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La regla general de que las actuaciones inspectoras surten efectos desde el día en que se realizan admite excepción cuando:",
+          "options": [
+            "Los interesados acreditan que los hechos tuvieron lugar en otra fecha",
+            "La empresa comunica su disconformidad por escrito",
+            "La Inspección de Trabajo decide aplazar los efectos",
+            "Se interpone recurso contencioso-administrativo"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En el caso de las bajas, la eficacia de la fecha distinta acreditada por el interesado se condiciona expresamente a:",
+          "options": [
+            "Lo dispuesto en el apartado 2 del artículo 35 del Reglamento",
+            "El informe favorable de la Inspección de Trabajo",
+            "La autorización del Director Provincial de la Tesorería",
+            "La inexistencia de cuotas pendientes de ingreso"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "El apartado 3 del precepto analizado se refiere a actuaciones y anotaciones derivadas de:",
+          "options": [
+            "Altas de oficio exclusivamente",
+            "Actuaciones inspectoras o recepción de datos y documentos",
+            "Resoluciones judiciales firmes únicamente",
+            "Solicitudes de prestaciones por desempleo"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando el trabajador cesa en la empresa y la Tesorería General no tiene constancia inmediata, la fecha de efectos de la baja será, en principio:",
+          "options": [
+            "La que declare el trabajador en su solicitud",
+            "La que conste en el parte médico de baja",
+            "La que resulte de la actuación inspectora o de los documentos recibidos",
+            "La fecha media entre el cese y la actuación inspectora"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "¿Qué finalidad persigue la posibilidad de que el interesado acredite una fecha distinta de la inicialmente tenida en cuenta para las actuaciones de afiliación y bajas?",
+          "options": [
+            "Facilitar la elusión del pago de cuotas",
+            "Ajustar los efectos de la afiliación y baja a la realidad fáctica",
+            "Permitir siempre una retroacción ilimitada de efectos",
+            "Otorgar prioridad a la declaración de la empresa sobre cualquier otra prueba"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Si un trabajador acredita que su cese se produjo con posterioridad a la fecha inicialmente anotada, la Tesorería General deberá:",
+          "options": [
+            "Modificar la baja para que produzca efectos desde la nueva fecha acreditada",
+            "Mantener en todo caso la fecha inicial anotada",
+            "Anular la baja y exigir una nueva solicitud",
+            "Trasladar la cuestión a la jurisdicción social sin pronunciarse"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando se pretende adelantar la fecha de baja en Seguridad Social por acreditarse un cese anterior, debe tenerse en cuenta, específicamente, lo previsto respecto de las bajas en:",
+          "options": [
+            "El Reglamento General de Recaudación",
+            "El artículo 35.2 del Reglamento de inscripción, altas y bajas",
+            "La Ley General Tributaria",
+            "El Estatuto de los Trabajadores"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La referencia expresa a que, en cuanto a las bajas, se estará a lo dispuesto en el apartado 2 del artículo 35 implica que:",
+          "options": [
+            "Las bajas no pueden tener nunca efectos retroactivos",
+            "La retroacción de efectos de la baja queda sujeta a límites y condiciones específicos",
+            "La fecha de baja viene determinada solo por el parte de la empresa",
+            "Se requiere autorización judicial para modificar la fecha de baja"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En el apartado 4 se prevé que, cuando la Tesorería General conozca la inscripción de empresas carentes de actividad, procederá a:",
+          "options": [
+            "Modificar de oficio el régimen de encuadramiento",
+            "Suspender temporalmente la inscripción por seis meses",
+            "Dejar sin efecto la inscripción efectuada",
+            "Transformar la empresa en un trabajador autónomo societario"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Para que la Tesorería General pueda dejar sin efecto una inscripción de empresa, además de carecer de actividad, es necesario que:",
+          "options": [
+            "Haya transcurrido un año desde la inscripción",
+            "No reúna los requisitos para estar inscrita en el régimen correspondiente",
+            "Esté al corriente en el pago de cuotas",
+            "Haya solicitado voluntariamente la baja en la Seguridad Social"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La anulación de la inscripción de empresas sin actividad se realiza:",
+          "options": [
+            "Siempre a instancia del trabajador",
+            "Por resolución conjunta de la Tesorería y la Inspección",
+            "De oficio, utilizando los mismos procedimientos y cauces previstos para el control",
+            "Únicamente previa sentencia judicial firme"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La mención a que la anulación de la inscripción se entiende \"sin perjuicio\" de otras actuaciones significa que:",
+          "options": [
+            "No se pueden imponer sanciones si se anula la inscripción",
+            "La anulación sustituye a cualquier procedimiento sancionador",
+            "Pueden iniciarse procedimientos sancionadores o penales adicionales si procede",
+            "Se excluye la posibilidad de reclamar cuotas atrasadas"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Las actuaciones en orden al inicio de procedimientos sancionadores o penales frente a empresas sin actividad guardan relación con:",
+          "options": [
+            "La mera falta de presentación de cuentas anuales",
+            "La inscripción indebida y la posible simulación de relaciones laborales",
+            "El incumplimiento de obligaciones fiscales autonómicas",
+            "La falta de inscripción en el Registro Mercantil"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General deja sin efecto la inscripción de una empresa sin actividad, dicha decisión afecta principalmente a:",
+          "options": [
+            "Su posibilidad de seguir de alta en el censo de empresarios",
+            "Su encuadramiento en el régimen de Seguridad Social correspondiente",
+            "Su personalidad jurídica como sociedad mercantil",
+            "Su capacidad para contratar con la Administración"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La expresión \"empresas carentes de actividad\" alude, en el contexto del apartado 4, a aquellas que:",
+          "options": [
+            "No tienen trabajadores pero realizan actividad económica",
+            "No desarrollan realmente la actividad para la que se inscribieron",
+            "Han cesado temporalmente por causa de fuerza mayor",
+            "Se dedican exclusivamente a actividades formativas internas"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "¿Qué consecuencia puede derivarse para una empresa que se mantiene inscrita sin actividad real y sin reunir los requisitos de encuadramiento?",
+          "options": [
+            "Únicamente la anulación de la inscripción, sin más",
+            "La iniciación de procedimientos sancionadores o incluso penales",
+            "La conversión automática en cooperativa de trabajo asociado",
+            "La asunción por el Estado de sus obligaciones salariales"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General conoce, por los mismos cauces previstos en los apartados 1 y 2, la existencia de empresas inscritas sin actividad, debe actuar:",
+          "options": [
+            "Solo si lo solicita un trabajador afectado",
+            "Únicamente a petición de la Inspección de Trabajo",
+            "De oficio, dejando sin efecto la inscripción y valorando otras actuaciones",
+            "Esperando a que se produzca una resolución judicial"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La previsión de que la Tesorería General pueda dejar sin efecto la inscripción de empresas sin actividad tiene como finalidad principal:",
+          "options": [
+            "Facilitar el acceso a prestaciones a sus socios",
+            "Depurar el censo de empresas en Seguridad Social y evitar fraudes",
+            "Permitir la transformación de las empresas en entidades sin ánimo de lucro",
+            "Garantizar el pago de salarios por el FOGASA"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando un empresario figura inscrito pero no tiene realmente actividad ni trabajadores, la Tesorería General, tras comprobarlo, puede:",
+          "options": [
+            "Mantener la inscripción sin efectos económicos",
+            "Dejarla sin efecto y, en su caso, iniciar actuaciones sancionadoras",
+            "Transformar de oficio al empresario en trabajador autónomo",
+            "Derivar automáticamente responsabilidad a los administradores sociales"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Desde la perspectiva de la afiliación, la posibilidad de acreditar una fecha distinta a la de la actuación inspectora introduce un elemento de:",
+          "options": [
+            "Aleatoriedad en la fijación de las fechas",
+            "Flexibilidad para adaptar los efectos a la realidad probada",
+            "Inseguridad jurídica para la Administración",
+            "Automatismo en la rectificación de oficios"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La norma analizada permite que las actuaciones inspectoras produzcan efectos desde el mismo día en que se realizan, sin perjuicio de:",
+          "options": [
+            "La posibilidad de la empresa de oponerse sin aportar prueba",
+            "La facultad de los interesados de acreditar una fecha diferente",
+            "La obligación de la Inspección de fijar siempre una fecha posterior",
+            "La necesidad de homologación judicial de la actuación inspectora"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En el caso de la extinción, cese o baja de los trabajadores, los documentos que acreditan tales hechos pueden proceder de:",
+          "options": [
+            "Únicamente del empresario",
+            "Cualquier órgano administrativo o jurisdiccional competente",
+            "Exclusivamente de la autoridad laboral autonómica",
+            "Solo de la Inspección de Trabajo y Seguridad Social"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Si un trabajador causa baja en la empresa pero el empresario no la comunica, y la situación se detecta mediante inspección, la fecha de efectos de la baja será:",
+          "options": [
+            "Siempre la del día de la inspección",
+            "Siempre la del día de firma del acta",
+            "La del día de la actuación inspectora, salvo que se acredite otra fecha",
+            "La del primer día del mes siguiente a la inspección"
+          ],
+          "correctAnswer": "C",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando se acreditan hechos relativos a la extinción o cese que tuvieron lugar en fecha posterior a la inicialmente anotada, la Tesorería General deberá:",
+          "options": [
+            "Adelantar aún más la fecha para proteger al trabajador",
+            "Ajustar la fecha de efectos a la realidad probada",
+            "Mantener la fecha inicial anotada por seguridad jurídica",
+            "Remitir la cuestión a la vía judicial sin modificar la anotación"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La expresión \"los efectos que procedan\" en relación con la fecha acreditada por el interesado se refiere a:",
+          "options": [
+            "Los efectos recaudatorios exclusivamente",
+            "Todos los efectos jurídicos que deriven de la afiliación, alta o baja correctamente fechadas",
+            "Solo los efectos en materia de prestaciones por desempleo",
+            "Únicamente los efectos disciplinarios para el empresario"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "El control de empresas inscritas sin actividad y sin reunir requisitos de encuadramiento pretende, entre otros fines, evitar:",
+          "options": [
+            "La utilización de la inscripción para generar altas ficticias",
+            "La presentación de recursos ante la jurisdicción social",
+            "La contratación de trabajadores a tiempo parcial",
+            "La aplicación del convenio colectivo inadecuado"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La mención a \":tales hechos han tenido lugar en otra fecha\" abarca, en particular, los hechos de:",
+          "options": [
+            "Cambio de categoría profesional",
+            "Extinción, cese o baja de los trabajadores",
+            "Modificación sustancial de condiciones de trabajo",
+            "Traslado geográfico del centro de trabajo"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando un empresario mantiene una inscripción en un régimen de Seguridad Social sin desarrollar la actividad propia de ese régimen, la Tesorería General puede considerar que:",
+          "options": [
+            "Se trata de una simple falta formal sin consecuencias",
+            "La inscripción está carente de causa y debe anularse",
+            "La empresa pasa automáticamente al RETA",
+            "Debe abrirse directamente procedimiento penal"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Las anotaciones a que se refiere el apartado 3 pueden ser practicadas por la Tesorería General como consecuencia de:",
+          "options": [
+            "Informes de la Inspección de Trabajo o documentos acreditativos de cese",
+            "Solicitudes verbales de los trabajadores",
+            "Reclamaciones previas en materia de prestaciones",
+            "Resoluciones judiciales penales sobre delitos fiscales"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "El dato de que las actuaciones y anotaciones surten efectos desde el mismo día en que se llevan a cabo implica que:",
+          "options": [
+            "No cabe ningún tipo de revisión posterior",
+            "Se produce un efecto inmediato sobre la situación de alta o baja",
+            "La fecha debe coincidir con el último día del mes",
+            "La empresa puede elegir libremente otra fecha"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General recibe los documentos de baja de un trabajador con retraso, pero estos acreditan una fecha anterior, la regla general es que los efectos:",
+          "options": [
+            "Se produzcan desde la recepción, sin admitir prueba en contrario",
+            "Se adapten a la fecha real acreditada, con los límites normativos",
+            "Queden en suspenso hasta resolución judicial",
+            "Se fijen en la fecha que resulte más favorable para la empresa"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Desde la perspectiva de la Seguridad Social, la existencia de empresas inscritas sin actividad real puede ser indicio de:",
+          "options": [
+            "Un mero error administrativo sin trascendencia",
+            "Posibles fraudes relacionados con altas ficticias o encuadramientos indebidos",
+            "Una correcta gestión de recursos humanos",
+            "La aplicación de un convenio colectivo sectorial"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "El hecho de que las actuaciones de la Tesorería General en estos casos se realicen \"por los mismos procedimientos y cauces\" que los apartados anteriores indica que:",
+          "options": [
+            "Se trata de un procedimiento completamente distinto",
+            "Se emplean los mismos canales de información e inspección que para las altas y bajas",
+            "Es necesaria siempre una autorización judicial previa",
+            "Solo pueden actuar a instancia de parte interesada"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En caso de discrepancia sobre la fecha de efectos de una baja practicada de oficio, el interesado puede:",
+          "options": [
+            "Aportar prueba de que el cese tuvo lugar en otra fecha",
+            "Solicitar que se mantenga la fecha inicial sin más",
+            "Exigir siempre que la fecha coincida con el fin de mes",
+            "Pedir que la fecha se fije por acuerdo entre empresario y trabajador"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La posibilidad de acreditar una fecha distinta para el cese o baja se proyecta sobre:",
+          "options": [
+            "La afiliación inicial al sistema",
+            "Las altas, bajas y demás actuaciones relacionadas con la extinción o cese",
+            "Exclusivamente sobre las prestaciones económicas",
+            "Solo sobre los convenios especiales"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando se declara sin efecto la inscripción de una empresa sin actividad, ¿qué ocurre con las altas que se hubieran podido realizar al amparo de dicha inscripción?",
+          "options": [
+            "Se consideran siempre válidas e inatacables",
+            "Pueden ser objeto de revisión y dar lugar a sanciones",
+            "Quedan automáticamente convertidas en convenios especiales",
+            "Se transforman en contratos indefinidos a tiempo completo"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La norma que analizamos se inscribe, sistemáticamente, en la regulación de:",
+          "options": [
+            "Las prestaciones por muerte y supervivencia",
+            "La afiliación, altas, bajas y variaciones de datos en el sistema de Seguridad Social",
+            "La recaudación ejecutiva de cuotas",
+            "El procedimiento sancionador en materia laboral"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Desde la óptica del control de empresas, la actuación de la Tesorería General frente a inscripciones sin actividad se complementa habitualmente con:",
+          "options": [
+            "La apertura de un expediente de clasificación profesional",
+            "La colaboración con la Inspección de Trabajo para depurar responsabilidades",
+            "La concesión de exenciones de cuotas",
+            "La tramitación de subsidios por desempleo"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En relación con las fechas de efectos, el precepto alude a \"actuaciones y anotaciones\". Las anotaciones a que se refiere son, fundamentalmente:",
+          "options": [
+            "Anotaciones en el Registro Mercantil",
+            "Asientos en los registros de afiliación, altas y bajas de la Tesorería General",
+            "Inscripciones en el Registro Civil",
+            "Notas internas sin trascendencia jurídica"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General recibe datos de otras administraciones sobre el cese de un trabajador, esos datos permiten:",
+          "options": [
+            "Unicamente notificar al trabajador la baja",
+            "Practicar las anotaciones de baja con efectos desde el día en que se reciben, salvo prueba en contrario",
+            "Abrir de oficio un expediente sancionador sin más",
+            "Modificar retroactivamente las cotizaciones sin límite temporal"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La referencia a \"actuación inspectora\" en el apartado 3 comprende, en particular:",
+          "options": [
+            "Las visitas y comprobaciones realizadas por la Inspección de Trabajo y Seguridad Social",
+            "Las reuniones internas de la Tesorería General",
+            "Las comunicaciones telefónicas entre empresa y administración",
+            "Las decisiones adoptadas por los comités de empresa"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Si tras la actuación inspectora se comprueba que un trabajador continúa prestando servicios pese a constar de baja en Seguridad Social, la Tesorería General deberá:",
+          "options": [
+            "Mantener la baja por seguridad jurídica",
+            "Proceder a regularizar la situación de alta desde la fecha que corresponda",
+            "Esperar a que el empresario solicite el alta",
+            "Remitir el asunto exclusivamente a la jurisdicción social"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La acreditación de una fecha distinta por los interesados puede influir tanto en:",
+          "options": [
+            "La base reguladora de futuras prestaciones como en la exigencia de cuotas",
+            "Solo en la jornada de trabajo",
+            "Únicamente en la categoría profesional",
+            "Exclusivamente en la elección de mutua colaboradora"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Desde el punto de vista recaudatorio, fijar correctamente la fecha de baja resulta esencial porque:",
+          "options": [
+            "Determina el régimen de responsabilidad penal",
+            "Delimita el período por el que existe obligación de cotizar",
+            "Define el tipo de contrato aplicable",
+            "Impide cualquier revisión posterior de oficio"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Cuando la Tesorería General aprecia que una empresa carece de actividad y no reúne requisitos para estar inscrita, la anulación de la inscripción se adopta:",
+          "options": [
+            "Siempre previa denuncia de los trabajadores",
+            "De oficio, en el marco de sus potestades de gestión",
+            "Por resolución del Ministerio de Trabajo exclusivamente",
+            "Por decisión de los representantes de los trabajadores"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La frase \"sin perjuicio de las actuaciones procedentes en orden al inicio de las actuaciones sancionadoras o penales\" implica que:",
+          "options": [
+            "La anulación de la inscripción excluye toda otra medida",
+            "Pueden iniciarse otros procedimientos si concurren infracciones o delitos",
+            "Es obligatorio archivar cualquier denuncia previa",
+            "No se pueden reclamar cuotas si se anula la inscripción"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En síntesis, el apartado 3 regula fundamentalmente:",
+          "options": [
+            "Los requisitos para inscribir empresas",
+            "Los efectos temporales de las actuaciones inspectoras y de los datos recibidos sobre altas y bajas",
+            "La cuantía de las sanciones por falta de alta",
+            "El procedimiento judicial para impugnar sanciones"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Y el apartado 4 se centra, principalmente, en:",
+          "options": [
+            "La determinación de la base de cotización",
+            "La anulación de la inscripción de empresas sin actividad y sin requisitos de encuadramiento",
+            "La regulación del convenio especial",
+            "La gestión recaudatoria en vía ejecutiva"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En relación con la posibilidad de acreditar otra fecha para el cese, ¿qué efecto puede tener sobre el derecho a prestaciones por desempleo?",
+          "options": [
+            "Ninguno, porque la fecha de baja en Seguridad Social es irrelevante",
+            "Puede determinar el inicio y duración de la prestación al ajustar la situación de alta real",
+            "Siempre supone la pérdida del derecho a prestaciones",
+            "Impide el acceso a subsidios asistenciales"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Si una empresa figura inscrita pero nunca ha tenido trabajadores, ni actividad efectiva, la Tesorería General puede entender que:",
+          "options": [
+            "La inscripción es meramente preventiva y válida",
+            "La inscripción carece de causa y procede dejarla sin efecto",
+            "Debe mantenerse hasta su cancelación registral mercantil",
+            "Solo puede anularse a petición del empresario"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La posibilidad de iniciar actuaciones penales en estos casos se vincula, entre otros supuestos, a:",
+          "options": [
+            "La existencia de simples errores formales",
+            "Conductas de fraude a la Seguridad Social o simulación de relaciones laborales",
+            "La falta de comunicación de simples variaciones de datos",
+            "El incumplimiento de plazos administrativos sin relevancia económica"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La precisión de que los interesados podrán demostrar que los hechos ocurrieron en \"otra fecha\" supone reconocerles:",
+          "options": [
+            "Una facultad probatoria para corregir la fecha de efectos",
+            "La posibilidad de elegir la fecha más beneficiosa",
+            "Un derecho automático a la retroacción de cinco años",
+            "La capacidad de modificar el tipo de contrato registrado"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La regulación de los efectos temporales de las actuaciones de afiliación y bajas busca, en último término:",
+          "options": [
+            "Garantizar la aleatoriedad en la gestión",
+            "Asegurar la concordancia entre la realidad de la relación laboral y la situación registrada en Seguridad Social",
+            "Desvincular la afiliación de la efectiva prestación de servicios",
+            "Evitar cualquier responsabilidad del empresario"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "Que las actuaciones y anotaciones surtan efectos \"desde el mismo día\" en que se realizan pretende, en particular:",
+          "options": [
+            "Retrasar la protección social",
+            "Evitar situaciones de vacío de cobertura y asegurar continuidad en la afiliación",
+            "Reducir el volumen de trabajo de la Tesorería",
+            "Incrementar las sanciones a los empresarios"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La remisión a otros preceptos del Reglamento (como el artículo 35.2) refleja:",
+          "options": [
+            "Una técnica de reenvío normativo para concretar límites específicos",
+            "Un error de sistemática jurídica",
+            "La voluntad de derogar parcialmente dichos preceptos",
+            "La inexistencia de regulación suficiente en el Reglamento"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En los supuestos de empresas sin actividad, la competencia para dejar sin efecto la inscripción corresponde a:",
+          "options": [
+            "Los órganos de la Tesorería General de la Seguridad Social",
+            "Las comunidades autónomas",
+            "Los sindicatos más representativos",
+            "Los juzgados de lo social en exclusiva"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "¿Por qué se insiste en que la anulación de la inscripción se entiende \"sin perjuicio\" de otras actuaciones sancionadoras o penales?",
+          "options": [
+            "Porque la anulación agota todas las responsabilidades posibles",
+            "Porque la anulación es una medida de gestión, distinta de las sanciones o delitos que puedan derivarse",
+            "Porque las sanciones solo se aplican si no se anula la inscripción",
+            "Porque las actuaciones penales se sustituyen por la anulación administrativa"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "La expresión \"por los mismos procedimientos y cauces previstos\" conecta las actuaciones sobre empresas sin actividad con:",
+          "options": [
+            "Los procedimientos de afiliación, altas y bajas regulados en los apartados anteriores",
+            "Los procedimientos de recaudación ejecutiva",
+            "Las normas de prevención de riesgos laborales",
+            "La regulación de la jornada y descansos"
+          ],
+          "correctAnswer": "A",
+          "difficulty": "dificil"
+        },
+        {
+          "text": "En definitiva, los apartados 3 y 4 del precepto analizado refuerzan:",
+          "options": [
+            "El control formal de la contabilidad empresarial",
+            "La adecuación entre la realidad de la actividad empresarial y la situación registral en Seguridad Social",
+            "La autonomía colectiva en la fijación de condiciones de trabajo",
+            "La libre inscripción y baja en el sistema sin control administrativo"
+          ],
+          "correctAnswer": "B",
+          "difficulty": "dificil"
+        }
+      ]
+    }
+  ]
+}

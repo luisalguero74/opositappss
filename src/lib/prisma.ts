@@ -28,10 +28,11 @@ function withPrismaServerlessPgWorkaround(url: string): string {
   }
 }
 
+// Usamos siempre la URL adaptada a entornos con PgBouncer (Supabase),
+// tanto en producción como en desarrollo, para evitar errores de
+// "prepared statement \"sX\" already exists".
 const effectiveDatasourceUrl =
-  datasourceUrl && process.env.NODE_ENV === 'production'
-    ? withPrismaServerlessPgWorkaround(datasourceUrl)
-    : datasourceUrl
+  datasourceUrl ? withPrismaServerlessPgWorkaround(datasourceUrl) : datasourceUrl
 
 export const prisma =
   globalForPrisma.prisma ??

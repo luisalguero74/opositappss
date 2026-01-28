@@ -1,0 +1,669 @@
+{
+  "data": [
+    {
+      "temaNumero": 5,
+      "temaParte": "ESPECIFICO",
+      "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA",
+      "temaCodigo": "E05",
+      "difficulty": "hard",
+      "questions": [
+        {
+          "question": "De acuerdo con el Reglamento General de Recaudación de la Seguridad Social, ¿qué describe con mayor precisión la gestión recaudatoria?",
+          "options": [
+            "El conjunto de actuaciones administrativas dirigidas a la realización efectiva de los créditos y derechos de la Seguridad Social",
+            "La mera contabilización interna de derechos a favor de la Seguridad Social, sin atender a su cobro",
+            "Exclusivamente la fase ejecutiva de embargo y enajenación de bienes del deudor",
+            "Solo la gestión presupuestaria y contable de las entidades gestoras"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El Reglamento define la gestión recaudatoria como la actividad administrativa conducente a la realización de los créditos y derechos de la Seguridad Social, abarcando tanto el periodo voluntario como el ejecutivo. No se reduce a la contabilidad, al apremio aislado ni a la gestión presupuestaria.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En el Reglamento General de Recaudación de la Seguridad Social, la competencia primaria para la gestión recaudatoria de cuotas y demás recursos del sistema se atribuye a:",
+          "options": [
+            "La Inspección de Trabajo y Seguridad Social",
+            "La Tesorería General de la Seguridad Social",
+            "La Agencia Estatal de Administración Tributaria",
+            "Las entidades gestoras de prestaciones económicas"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La gestión recaudatoria de los recursos del sistema se atribuye a la Tesorería General de la Seguridad Social como servicio común, sin perjuicio de la colaboración de otros órganos o de atribuciones específicas por norma.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "Desde la perspectiva del Reglamento General de Recaudación, ¿cuál de los siguientes conceptos forma parte del objeto típico de la gestión recaudatoria?",
+          "options": [
+            "La recaudación de tributos estatales totalmente ajenos a la Seguridad Social",
+            "La tramitación de recursos contencioso-administrativos ante los tribunales",
+            "La realización de cuotas de la Seguridad Social y demás recursos del sistema que se le atribuyan",
+            "La gestión interna de personal de las entidades gestoras"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El Reglamento se centra en la realización de las cuotas y otros recursos propios del sistema, así como de aquellos que se le atribuyan por norma, sin extenderse a tributos ajenos ni a funciones jurisdiccionales o de gestión de personal.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En relación con los colaboradores de los órganos de recaudación de la Tesorería General, el Reglamento General de Recaudación considera colaboradores, entre otros, a:",
+          "options": [
+            "Cualquier empresa privada que ingrese sus propias cuotas",
+            "Las comunidades de propietarios que administran fincas urbanas",
+            "Los bancos, cajas de ahorro y demás entidades de crédito autorizadas como oficinas recaudadoras",
+            "Exclusivamente los notarios y registradores de la propiedad"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El Reglamento enumera como colaboradores a las entidades financieras autorizadas como oficinas recaudadoras y a otras administraciones u órganos que asumen funciones recaudatorias por concierto o disposición, no a cualquier empresa ni a comunidades de propietarios por el mero hecho de serlo.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En el ámbito objetivo del Reglamento General de Recaudación de la Seguridad Social, se incluyen de forma destacada:",
+          "options": [
+            "Las cuotas de la Seguridad Social y los conceptos de recaudación conjunta que se establezcan",
+            "Exclusivamente los tributos estatales de naturaleza impositiva",
+            "Las tasas judiciales en el orden social, con carácter general",
+            "Solo los capitales coste de pensiones financiados íntegramente con impuestos"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El Reglamento se aplica a la recaudación de cuotas de la Seguridad Social y de otros conceptos de recaudación conjunta legalmente establecidos, además de otros recursos propios del sistema. Los tributos y tasas ajenos al ámbito de la Seguridad Social se rigen por su propia normativa tributaria.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En materia de competencia funcional, la Inspección de Trabajo y Seguridad Social, respecto de la gestión recaudatoria regulada en el Reglamento General de Recaudación:",
+          "options": [
+            "Asume en exclusiva la titularidad de la función recaudatoria",
+            "Colabora en el control y comprobación de las obligaciones de cotizar y demás deberes de los sujetos responsables",
+            "Sustituye a la Tesorería General en el ejercicio de la vía ejecutiva",
+            "Determina de forma directa los recargos aplicables a las deudas en vía voluntaria"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El Reglamento reconoce la competencia recaudatoria de la Tesorería General, sin perjuicio de las funciones de control, comprobación y propuesta de liquidación que ejerce la Inspección de Trabajo y Seguridad Social en coordinación con aquélla.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En el Régimen General de la Seguridad Social, la obligación de cotizar por un trabajador por cuenta ajena comienza, con carácter general, en el momento en que:",
+          "options": [
+            "Se abona el primer salario, con independencia de la fecha real de inicio de la prestación",
+            "Se cumple el primer mes completo de actividad",
+            "Se presenta el primer documento de cotización ante la Tesorería",
+            "Empieza la prestación de servicios que determina su alta, aunque ésta se formalice fuera de plazo"
+          ],
+          "correctAnswer": "D",
+          "explanation": "La obligación de cotizar se vincula al inicio de la relación laboral determinante del alta, con independencia de que la empresa formalice el alta y presente documentos en plazo. El retraso en las formalidades no exime de las cuotas devengadas desde el inicio efectivo.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En el Régimen General, la obligación de cotizar por un trabajador por cuenta ajena cesa, con carácter ordinario:",
+          "options": [
+            "El último día del mes natural en que se produce el cese en la prestación de servicios determinante del alta",
+            "El mismo día del cese, sin referencia al mes",
+            "En la fecha en que la empresa comunica el cese, aunque sea posterior al hecho",
+            "En el último día del año natural en que se comunica el cese a la Tesorería"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Como regla general, la obligación de cotizar se extiende hasta el último día del mes en que tiene lugar el cese de la actividad determinante del alta, salvo supuestos específicos en que se establece un régimen distinto para determinados colectivos o situaciones.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En la recaudación en periodo voluntario de cuotas mensuales correspondientes a trabajadores por cuenta ajena, el plazo ordinario de ingreso previsto en el Reglamento y sus normas de desarrollo comprende:",
+          "options": [
+            "Los diez primeros días naturales del mes al que corresponden las cuotas",
+            "El mes natural siguiente a aquel en que se devengan las cuotas",
+            "Desde el día 20 hasta el último día del mes de devengo",
+            "Los tres meses siguientes al devengo, sin más precisión"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Las cuotas mensuales se ingresan, con carácter general, en el mes natural siguiente al de su devengo, constituyendo ese mes el periodo voluntario ordinario de recaudación, sin ceñirse a un tramo de pocos días salvo que se establezcan particularidades en normas de desarrollo.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "La falta simultánea de presentación de documentos de cotización e ingreso de cuotas en plazo reglamentario determina, a efectos recaudatorios, que la deuda se considere:",
+          "options": [
+            "Regularizada si se presenta cualquier escrito, aunque no incluya datos de bases y tipos",
+            "Prescrita automáticamente al finalizar el mes siguiente al devengo",
+            "Descubierta, pudiendo ser objeto de liquidación de oficio o mediante actas de liquidación",
+            "Inexistente mientras no haya actuación inspectora formal"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Cuando no se presentan documentos ni se ingresa en plazo, la deuda se califica como descubierta y puede ser determinada por la Tesorería mediante liquidación de oficio o por actas de la Inspección, sin necesidad de que el sujeto se persone o declare voluntariamente.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En el Reglamento General de Recaudación, la recaudación en periodo voluntario se caracteriza, entre otros aspectos, porque:",
+          "options": [
+            "La falta de ingreso en plazo impide definitivamente cualquier recaudación posterior",
+            "Permite el pago sin recargos dentro de los plazos fijados reglamentariamente",
+            "Solo se aplica a las sanciones, pero no a las cuotas",
+            "Exige siempre la previa notificación de providencia de apremio"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El periodo voluntario es aquel en el que el obligado puede ingresar la deuda en los plazos fijados sin recargos de apremio, aunque el retraso dentro de ese periodo pueda tener otros efectos. La vía ejecutiva y la providencia de apremio se reservan para el impago tras finalizar dicho periodo.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "Cuando una deuda de la Seguridad Social entra en vía ejecutiva, el título que inicia el procedimiento de apremio es, conforme al Reglamento:",
+          "options": [
+            "La diligencia de embargo",
+            "La providencia de apremio dictada por el órgano competente de la Tesorería",
+            "La certificación bancaria de descubierto",
+            "La resolución judicial firme en vía civil"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La providencia de apremio es el acto administrativo que inicia formalmente la vía ejecutiva y sirve de título suficiente para proceder al embargo de bienes del deudor, sin necesidad de previa resolución judicial en la mayoría de los supuestos.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En el procedimiento de apremio, la diligencia de embargo de bienes del deudor produce, principalmente:",
+          "options": [
+            "La afección de los bienes embargados al pago de la deuda y la limitación de su libre disposición",
+            "La extinción automática de la deuda principal",
+            "La conversión de la deuda en sanción administrativa",
+            "La obligación de la Tesorería de condonar recargos e intereses"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La diligencia de embargo vincula los bienes señalados al pago de la deuda, impidiendo su libre disposición por el deudor y preparando su realización forzosa. No implica por sí misma la extinción de la deuda ni la condonación de recargos o intereses.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "Conforme al Reglamento General de Recaudación, la enajenación de bienes embargados para el pago de deudas de Seguridad Social se realiza, con carácter general, mediante:",
+          "options": [
+            "Subasta pública u otros procedimientos de realización previstos reglamentariamente",
+            "Venta directa al deudor por el importe que ofrezca",
+            "Cesión gratuita a entidades privadas sin ánimo de lucro",
+            "Asignación discrecional a cualquier tercero sin procedimiento"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El Reglamento contempla la subasta, el concurso y la adjudicación directa como formas de realización de los bienes embargados, siguiendo un procedimiento reglado que garantice la publicidad y concurrencia en la medida prevista legalmente.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En materia de prescripción de deudas por cuotas con la Seguridad Social, el Reglamento General de Recaudación establece, con carácter general, un plazo de:",
+          "options": [
+            "Dos años para todas las deudas",
+            "Cuatro años para el derecho de la Administración a exigir el pago",
+            "Diez años para cualquier actuación recaudatoria",
+            "Un año contado desde la fecha de devengo de la primera cuota impagada"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El régimen general fija un plazo de prescripción de cuatro años para el derecho de la Administración a determinar la deuda y exigir su pago, así como para otros derechos relacionados, sin perjuicio de las causas de interrupción previstas.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En la gestión recaudatoria, la responsabilidad solidaria frente a la Seguridad Social implica que:",
+          "options": [
+            "Cada deudor responde únicamente de una parte proporcional de la deuda",
+            "La Administración puede exigir el total de la deuda a cualquiera de los obligados solidarios",
+            "Solo puede reclamarse al responsable una vez declarada la prescripción",
+            "El deudor principal queda exonerado si se dirige la acción contra un responsable"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La solidaridad permite a la Administración dirigirse contra cualquiera de los obligados para cobrar la totalidad de la deuda, sin perjuicio de las relaciones internas entre ellos. Se diferencia de la responsabilidad subsidiaria, que exige la previa declaración de fallido del deudor principal.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "La responsabilidad subsidiaria frente a la Seguridad Social, según el Reglamento General de Recaudación, se caracteriza porque, con carácter general:",
+          "options": [
+            "Puede exigirse indistintamente al principal o al subsidiario desde el inicio",
+            "Solo puede hacerse efectiva tras haberse declarado fallido total o parcialmente el deudor principal",
+            "Implica la exoneración del deudor principal una vez declarada",
+            "Se aplica únicamente en el ámbito sancionador, nunca en cuotas"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La responsabilidad subsidiaria requiere agotar, en términos generales, la vía ejecutiva frente al deudor principal hasta su declaración de fallido, para después derivar la acción contra los responsables subsidiarios, de acuerdo con las reglas legales de derivación de responsabilidad.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En la recaudación de cuotas del Régimen General, las cuotas obreras descontadas a los trabajadores y no ingresadas por la empresa tienen la consideración de:",
+          "options": [
+            "Ingreso válido desde el momento del descuento en nómina",
+            "Donación tácita del trabajador al empresario",
+            "Deuda íntegra pendiente frente a la Seguridad Social, como cuotas retenidas indebidamente",
+            "Sanción que sustituye a la obligación de cotizar"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Las cuotas obreras descontadas no pierden su naturaleza de deuda frente a la Seguridad Social hasta que son efectivamente ingresadas; el empresario responde de su ingreso, sin que el descuento equivalga a pago ni pueda calificarse como donación.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En el ámbito de los aplazamientos de deudas con la Seguridad Social, el Reglamento General de Recaudación establece, con carácter general, que las cuotas obreras ya descontadas:",
+          "options": [
+            "Son aplazables en las mismas condiciones que cualquier otra deuda",
+            "No son aplazables, al tratarse de cantidades detraídas de los salarios de los trabajadores",
+            "Solo son aplazables si el trabajador lo consiente por escrito",
+            "Son siempre condonadas al solicitar el aplazamiento"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La normativa de aplazamientos excluye en general las cuotas obreras ya retenidas, precisamente por ser cantidades deducidas de los salarios y que debían haberse ingresado inmediatamente a favor de la Seguridad Social.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En un aplazamiento de deudas con la Seguridad Social concedido al amparo del Reglamento General de Recaudación, el incumplimiento de los plazos de pago fijados suele producir:",
+          "options": [
+            "La extinción automática de la deuda",
+            "La exigibilidad inmediata del total pendiente en vía ejecutiva",
+            "La conversión de la deuda en subvención",
+            "La imposibilidad de iniciar la vía ejecutiva"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El incumplimiento del cuadro de pagos de un aplazamiento implica normalmente la revocación de éste y la exigibilidad en bloque de la deuda pendiente, que puede recaudarse ya en vía ejecutiva con los recargos e intereses que procedan.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En la gestión recaudatoria, la compensación entre deudas con la Seguridad Social y créditos reconocidos a favor del mismo sujeto procede, con carácter general, cuando:",
+          "options": [
+            "La deuda y el crédito son líquidos, vencidos y exigibles, y concurren los requisitos reglamentarios",
+            "El deudor declara verbalmente su voluntad de no pagar",
+            "El crédito corresponde a prestaciones inembargables en toda su cuantía",
+            "La Tesorería lo decide discrecionalmente sin base normativa"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La compensación exige créditos recíprocos, líquidos, vencidos y exigibles entre la Tesorería y el obligado, sometidos a los requisitos previstos en el Reglamento, sin vulnerar los límites de inembargabilidad ni la naturaleza de las prestaciones protegidas.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "Respecto a la devolución de ingresos indebidos en el ámbito de la Seguridad Social, el Reglamento General de Recaudación establece que tal devolución procede cuando:",
+          "options": [
+            "Se hayan ingresado cantidades no debidas o en cuantía superior a la legalmente exigible",
+            "El sujeto manifiesta que ya no desea estar al corriente",
+            "El ingreso se ha realizado en plazo voluntario, cualquiera que sea su causa",
+            "La deuda resultaba correcta, pero el obligado la discute sin fundamento"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La devolución de ingresos indebidos se reconoce cuando existe un pago sin causa, por error material o de derecho, o en cuantía superior a la debida, siempre dentro de los plazos y requisitos procedimentales fijados en la normativa.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En relación con los medios de pago admitidos en la recaudación de la Seguridad Social, el Reglamento General de Recaudación establece que el pago mediante cheque o transferencia se considera realizado, con carácter general, en la fecha en que:",
+          "options": [
+            "El obligado emite el cheque o dicta la orden de transferencia",
+            "La entidad financiera recibe físicamente el cheque, aunque no lo abone",
+            "El importe queda efectivamente abonado en la cuenta restringida de la Tesorería General de la Seguridad Social",
+            "La Tesorería registra contablemente el ingreso con independencia de la fecha de abono"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El Reglamento vincula la eficacia del pago al momento en que las cantidades se ponen realmente a disposición de la Tesorería en las cuentas habilitadas, de modo que la mera emisión del cheque o la orden de transferencia no bastan para entender cumplida la obligación en plazo.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "Cuando el ingreso de cuotas se realiza a través de entidades financieras colaboradoras, la responsabilidad de estas entidades frente a la Tesorería General de la Seguridad Social consiste, principalmente, en:",
+          "options": [
+            "Sustituir por completo al deudor en la obligación de pago",
+            "Ingresar puntualmente en las cuentas restringidas las cantidades recaudadas y cumplir las obligaciones de información y custodia",
+            "Asumir la titularidad de las deudas en caso de impago",
+            "Determinar discrecionalmente los recargos que se aplicarán a cada ingreso"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Las entidades colaboradoras actúan como intermediarias en la recaudación, obligadas a recibir los fondos, custodiarlos y trasladarlos a la Tesorería en los términos convenidos, respondiendo frente a ésta en caso de incumplimiento de esas funciones, pero sin convertirse en deudores principales de las cuotas.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En el marco del Reglamento General de Recaudación, el uso de medios electrónicos y domiciliación bancaria para el pago de cuotas se configura como:",
+          "options": [
+            "Una posibilidad siempre voluntaria para cualquier sujeto, sin excepciones",
+            "Un medio de pago admitido reglamentariamente que puede ser obligatorio para determinados colectivos",
+            "Un mecanismo reservado exclusivamente a las Administraciones Públicas",
+            "Una modalidad que excluye el devengo de intereses de demora"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La normativa de gestión recaudatoria impulsa el uso de medios electrónicos y domiciliación, pudiendo imponer su utilización a ciertos sujetos obligados por razón de su tamaño o naturaleza, sin que ello altere el régimen sustantivo de devengo de recargos e intereses.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En cuanto a los recargos por ingreso fuera de plazo sin requerimiento previo, el Reglamento General de Recaudación establece que su cuantía se determina fundamentalmente en función de:",
+          "options": [
+            "El número de trabajadores afectados por la deuda",
+            "El tiempo transcurrido desde la finalización del plazo reglamentario de ingreso hasta la fecha efectiva de pago",
+            "La existencia o no de inspección previa",
+            "La voluntad subjetiva del deudor de cumplir o no sus obligaciones"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Los recargos por ingreso fuera de plazo sin requerimiento se graduan según el retraso temporal en el pago respecto del fin del periodo voluntario, conforme a los tramos porcentuales que fija la normativa, sin atender a factores como el número de trabajadores o la mera intención del deudor.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "El recargo de apremio previsto en el Reglamento General de Recaudación se exige, con carácter general, cuando:",
+          "options": [
+            "La deuda sigue impagada tras la finalización del periodo voluntario y se inicia la vía ejecutiva",
+            "Se ingresa la deuda dentro del periodo voluntario sin requerimiento",
+            "El obligado presenta una solicitud de aplazamiento en plazo",
+            "Se interpone un recurso administrativo contra la liquidación, aunque la deuda esté ingresada"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El recargo de apremio está ligado al inicio del procedimiento ejecutivo tras el impago en periodo voluntario, configurándose como una exacción accesoria destinada a cubrir los costes del cobro forzoso y a incentivar el pago en plazo.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En materia de intereses de demora, el Reglamento General de Recaudación dispone que, con carácter general, se devengan desde:",
+          "options": [
+            "El día siguiente a la finalización del plazo reglamentario de ingreso hasta la fecha de pago",
+            "La fecha en que la Tesorería practique la primera actuación ejecutiva",
+            "La fecha en que el deudor reconozca expresamente la deuda",
+            "La fecha de la resolución judicial que confirme la liquidación"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Los intereses de demora compensan el perjuicio derivado del retraso en el pago de deudas exigibles, por lo que, salvo normas especiales, se computan desde el día siguiente al vencimiento del plazo voluntario hasta el ingreso efectivo, incluso aunque no se hayan iniciado actuaciones ejecutivas.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "Cuando el obligado realiza un pago parcial que no cubre la totalidad de las deudas en periodo voluntario, la imputación del mismo se rige, según el Reglamento, por:",
+          "options": [
+            "Las instrucciones que discrecionalmente dicte la entidad financiera colaboradora",
+            "El orden que libremente determine el obligado, con independencia de lo que disponga la normativa",
+            "Las reglas de imputación establecidas reglamentariamente, que atienden a la antigüedad y naturaleza de las deudas",
+            "Un criterio puramente aleatorio fijado por sorteo"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El Reglamento fija criterios para imputar los pagos parciales, habitualmente priorizando deudas más antiguas y recargos, evitando que el deudor pueda seleccionar arbitrariamente qué conceptos atiende en detrimento de la integridad del crédito público.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En vía ejecutiva, la imputación de pagos parciales sobre una deuda con la Seguridad Social suele seguir, conforme al Reglamento, el siguiente orden preferente:",
+          "options": [
+            "Primero al principal, después a intereses y finalmente a costas y recargos",
+            "Primero a intereses, luego a principal y por último a costas",
+            "Primero a costas del procedimiento, después a recargos e intereses y, por último, al principal",
+            "Exclusivamente al principal, sin atender a recargos ni costas"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La normativa prioriza la cobertura de las costas y exacciones accesorias originadas por la vía ejecutiva antes de amortizar el principal, garantizando así la integridad económica de la actuación recaudatoria y evitando que queden impagos los gastos y recargos asociados.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "El certificado de estar al corriente en el cumplimiento de las obligaciones con la Seguridad Social acredita, esencialmente, que el sujeto:",
+          "options": [
+            "Nunca ha tenido deudas con la Seguridad Social en el pasado",
+            "Está exento de obligaciones futuras de cotizar",
+            "No tiene, en la fecha de expedición, deudas exigibles en periodo voluntario o ejecutivo en los términos que fija la normativa",
+            "No puede ser objeto de actuaciones inspectoras mientras el certificado esté vigente"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El certificado refleja la situación del obligado en un momento concreto respecto de deudas exigibles, y se utiliza a efectos de contratación pública, percepción de subvenciones u otros supuestos legales, sin implicar inmunidad futura ni ausencia histórica de incumplimientos.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En caso de sucesión de empresa o de centro de trabajo, la normativa de Seguridad Social prevé, a efectos recaudatorios, que el adquirente:",
+          "options": [
+            "Quede totalmente exonerado de las deudas anteriores del transmitente",
+            "Responda solidariamente, en los términos legales, de las deudas por cuotas anteriores a la transmisión vinculadas a la actividad transmitida",
+            "Sea responsable únicamente de las sanciones, pero no de las cuotas",
+            "Solo responda si así lo pactan expresamente las partes en el contrato privado"
+          ],
+          "correctAnswer": "B",
+          "explanation": "En los supuestos de sucesión empresarial, la ley y el Reglamento articulan regímenes de responsabilidad, generalmente solidaria, entre transmitente y adquirente respecto de las deudas pendientes derivadas de la actividad, protegiendo así el crédito público y los derechos de los trabajadores.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En el ámbito de las contratas y subcontratas de obras o servicios, la empresa principal puede llegar a responder frente a la Seguridad Social:",
+          "options": [
+            "Solo si asume expresamente por contrato todas las deudas de los subcontratistas",
+            "Nunca, ya que la responsabilidad recae exclusivamente en quien contrata directamente a los trabajadores",
+            "Solidariamente, en los términos previstos legalmente, de las obligaciones de Seguridad Social de contratistas y subcontratistas respecto de la actividad objeto de la contrata",
+            "Únicamente cuando las obras o servicios tengan una duración inferior a un mes"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La legislación prevé supuestos de responsabilidad solidaria de la empresa principal respecto de las deudas de Seguridad Social de contratistas y subcontratistas vinculadas a la obra o servicio contratado, lo que refuerza las garantías recaudatorias y la protección de los trabajadores.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "La derivación de responsabilidad a los administradores de sociedades por deudas con la Seguridad Social procede, de acuerdo con la normativa aplicable, cuando:",
+          "options": [
+            "Exista actuación culposa o dolosa en la generación o agravación de la deuda, en los términos previstos legalmente",
+            "La sociedad tenga cualquier deuda, con independencia de la conducta de los administradores",
+            "Los administradores hayan cesado antes de que se generara la deuda",
+            "Las deudas sean anteriores al nombramiento de los administradores, sin excepción"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La responsabilidad de los administradores se vincula a conductas culposas o dolosas en la gestión social que determinan la falta de ingreso de cuotas o el agravamiento de la deuda, no a la mera existencia de impagos ajenos a su actuación o anteriores a su gestión, salvo supuestos tasados.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "El Reglamento General de Recaudación prevé la adopción de medidas cautelares sobre bienes del deudor antes de dictar providencia de apremio cuando:",
+          "options": [
+            "Siempre que exista cualquier deuda, sin necesidad de motivación","Existan indicios racionales de que el cobro de la deuda podría frustrarse o dificultarse gravemente si no se actúa de inmediato",
+            "El deudor haya solicitado un aplazamiento en plazo",
+            "El importe de la deuda sea inferior al mínimo inembargable"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Las medidas cautelares se reservan para supuestos en que se aprecie riesgo fundado de ocultación o transmisión de bienes que comprometa el cobro, debiendo ser motivadas, proporcionadas y limitadas temporalmente, sin adoptarse de forma automática por la mera existencia de deuda.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En materia de embargo de salarios y pensiones, el Reglamento General de Recaudación, en conexión con la normativa procesal, establece que:",
+          "options": [
+            "Puede embargarse siempre el 100 % de la percepción, cualquiera que sea su importe",
+            "Solo pueden embargarse salarios superiores a diez veces el salario mínimo interprofesional, sin tramos intermedios",
+            "Deben respetarse límites de inembargabilidad y tramos porcentuales en función de la cuantía de la percepción",
+            "Las prestaciones de Seguridad Social son siempre absolutamente inembargables"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La normativa establece un sistema de tramos de inembargabilidad y porcentajes crecientes sobre el exceso, aplicable a salarios y pensiones, de forma que se garantiza una cuantía mínima para la subsistencia del deudor y su familia, sin excluir por completo el embargo de percepciones más elevadas.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "El orden de embargo de bienes previsto en el Reglamento General de Recaudación y en la normativa supletoria responde, con carácter general, al principio de:",
+          "options": [
+            "Embargar siempre en primer lugar los bienes inmuebles",
+            "Embargar en primer lugar los bienes de más difícil realización",
+            "Embargar preferentemente dinero en efectivo, cuentas y otros activos de realización inmediata antes que bienes de más difícil enajenación",
+            "Embargar solo bienes muebles de escaso valor para evitar conflictos"
+          ],
+          "correctAnswer": "C",
+          "explanation": "El orden de embargo prioriza los bienes de más fácil realización, como dinero, saldos en cuenta y valores, antes que inmuebles u otros activos cuya enajenación resulta más compleja, respetando además los límites de inembargabilidad y el principio de proporcionalidad.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "La tercería de dominio planteada frente a un embargo acordado en vía ejecutiva de la Seguridad Social tiene por finalidad principal:",
+          "options": [
+            "Que el propio deudor discuta la cuantía de la deuda",
+            "Que un tercero ajeno a la deuda acredite la titularidad de los bienes embargados para levantar o limitar el embargo sobre ellos",
+            "Que la entidad financiera reclame sus comisiones por la gestión del embargo",
+            "Que los trabajadores impugnen la base de cotización aplicada"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La tercería de dominio permite a quien se considera verdadero propietario de los bienes embargados oponer su derecho frente a la Administración ejecutante, buscando que dichos bienes queden fuera de la traba al no pertenecer al deudor ejecutado.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "Cuando un deudor de la Seguridad Social se somete a un procedimiento concursal, el tratamiento de los créditos de la Tesorería General se sujeta, con carácter general, a:",
+          "options": [
+            "La extinción automática de todos los créditos públicos al declararse el concurso",
+            "La imposibilidad absoluta de que los créditos públicos se vean afectados por el convenio concursal",
+            "La libre decisión del deudor sobre qué deudas públicas atender",
+            "Las reglas de clasificación, prelación y, en su caso, sujeción a quitas y esperas que establezca la legislación concursal para los créditos públicos"
+          ],
+          "correctAnswer": "D",
+          "explanation": "La legislación concursal establece una regulación específica para los créditos públicos, que pueden quedar sometidos a los efectos del convenio o del plan de liquidación en la medida y condiciones que dicha normativa permite, sin que ello suponga su automática extinción ni su inmunidad absoluta.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "La declaración de un crédito como fallido en la recaudación de la Seguridad Social supone que:",
+          "options": [
+            "La deuda se extingue definitivamente y ya no puede reclamarse en ningún caso",
+            "La Tesorería está obligada a condonar automáticamente los recargos e intereses",
+            "Se reconoce la imposibilidad actual de cobro por inexistencia de bienes embargables, sin perjuicio de su posible rehabilitación si se conocen nuevos bienes dentro del plazo de prescripción",
+            "El crédito se convierte en una sanción administrativa"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La calificación de un crédito como fallido refleja una situación de insolvencia provisional del deudor, que no impide que, si aparecen nuevos bienes o mejora su situación patrimonial dentro de los plazos legales, la Tesorería pueda reactivar las actuaciones para su cobro.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        },
+        {
+          "question": "En la recaudación frente a entes y Administraciones públicas deudoras de la Seguridad Social, el Reglamento General de Recaudación prevé que:",
+          "options": [
+            "Se les aplique exactamente el mismo régimen que a los deudores privados, sin especialidad alguna",
+            "No puedan exigirse nunca recargos ni intereses sobre sus deudas",
+            "La ejecución se adapte a las especialidades previstas en la normativa presupuestaria y de haciendas públicas, compatibilizando el cobro con el funcionamiento de los servicios públicos",
+            "Las deudas se conviertan automáticamente en subvenciones nominativas"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La ejecución frente a entes públicos debe articularse respetando las reglas de estabilidad presupuestaria y gestión de tesorería propias del sector público, sin que ello suponga la imposibilidad de exigir el pago ni la conversión automática de las deudas en ayudas o subvenciones.",
+          "difficulty": "hard",
+          "temaCodigo": "E05",
+          "temaNumero": 5,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 05-ESPECÍFICO LA GESTIÓN RECAUDATORIA"
+        }
+        
+      ]
+    }
+  ]
+}

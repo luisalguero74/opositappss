@@ -125,16 +125,11 @@ export async function POST(req: NextRequest) {
         const rawCorrect = q.correctAnswer
         let correctAnswer = ''
 
-        if (
-          typeof rawCorrect === 'string' &&
-          /^[A-D]$/i.test(rawCorrect) &&
-          optionsArray &&
-          optionsArray.length >= 4
-        ) {
-          const idxMap: Record<string, number> = { a: 0, b: 1, c: 2, d: 3 }
-          const idx = idxMap[rawCorrect.toLowerCase()]
-          correctAnswer = sanitizeString(optionsArray[idx] ?? rawCorrect)
+        if (typeof rawCorrect === 'string' && /^[A-D]$/i.test(rawCorrect)) {
+          // Normalizamos siempre a letra A/B/C/D para ser coherentes con el resto del sistema
+          correctAnswer = rawCorrect.toUpperCase()
         } else {
+          // Formatos antiguos o respuestas como texto completo
           correctAnswer = sanitizeString(rawCorrect)
         }
 

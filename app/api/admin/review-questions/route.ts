@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { ValidadorPreguntas } from '@/lib/validador-preguntas'
 import { PROMPT_MEJORADO_LGSS, PROMPT_MEJORADO_TEMAGENERAL } from '@/lib/prompts-mejorados'
+import { getCorrectAnswerLetter, safeParseOptions } from '@/lib/answer-normalization'
 
 export const maxDuration = 300
 export const dynamic = 'force-dynamic'
@@ -74,27 +75,10 @@ export async function GET(req: NextRequest) {
     let totalInvalidas = 0
 
     for (const pregunta of preguntas) {
-      let opciones: string[] = []
+      const opciones = safeParseOptions(pregunta.options as any)
 
-      try {
-        if (typeof pregunta.options === 'string') {
-          const parsed = JSON.parse(pregunta.options)
-          opciones = Array.isArray(parsed) ? parsed : []
-        } else if (Array.isArray(pregunta.options)) {
-          opciones = pregunta.options
-        } else {
-          opciones = []
-        }
-      } catch (e) {
-        console.error('⚠️ Opciones mal formadas en pregunta para análisis de calidad:', {
-          id: pregunta.id,
-          raw: pregunta.options,
-          error: (e as any)?.message
-        })
-        opciones = []
-      }
-
-      const correctAnswerIndex = ['A', 'B', 'C', 'D'].indexOf(pregunta.correctAnswer)
+      const letter = getCorrectAnswerLetter(String(pregunta.correctAnswer ?? ''), opciones)
+      const correctAnswerIndex = letter ? ['A', 'B', 'C', 'D'].indexOf(letter.toUpperCase()) : -1
 
       const validacion = ValidadorPreguntas.validar({
         pregunta: pregunta.text,

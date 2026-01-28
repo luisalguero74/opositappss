@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, Suspense } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { getCorrectAnswerLetter } from '@/lib/answer-normalization'
 
 interface Question {
   id: string
@@ -59,10 +60,13 @@ function QuestionsReviewInner() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState<any>({})
   const [filter, setFilter] = useState<'all' | 'general' | 'especifico'>('all')
+  const [originFilter, setOriginFilter] = useState<'all' | 'cron'>('all')
   const [difficultyFilter, setDifficultyFilter] = useState<'all' | 'facil' | 'media' | 'dificil'>('all')
   const [selectedTemas, setSelectedTemas] = useState<number[]>([])
   const [selectedQuestions, setSelectedQuestions] = useState<Set<string>>(new Set())
   const [creatingQuestionnaire, setCreatingQuestionnaire] = useState(false)
+  const [searchText, setSearchText] = useState('')
+  const [compactView, setCompactView] = useState(true)
 
   const [mode, setMode] = useState<'db' | 'ai'>('db')
   const [aiQuestions, setAiQuestions] = useState<AIQuestion[]>([])
@@ -132,19 +136,24 @@ function QuestionsReviewInner() {
 
   const handleEdit = (question: Question) => {
     setEditingId(question.id)
+    const optionsArray =
+      typeof question.options === 'string'
+        ? (() => {
+            try {
+              const parsed = JSON.parse(question.options)
+              return Array.isArray(parsed) ? parsed : []
+            } catch {
+              return []
+            }
+          })()
+        : question.options
+
+    const inferredLetter = getCorrectAnswerLetter(String(question.correctAnswer ?? ''), optionsArray)
+
     setEditData({
       text: question.text,
-      options:
-        typeof question.options === 'string'
-          ? (() => {
-              try {
-                return JSON.parse(question.options)
-              } catch {
-                return []
-              }
-            })()
-          : question.options,
-      correctAnswer: question.correctAnswer,
+      options: optionsArray,
+      correctAnswer: (inferredLetter ?? 'a').toUpperCase(),
       explanation: question.explanation,
       difficulty: question.difficulty
     })
@@ -281,9 +290,17 @@ function QuestionsReviewInner() {
     const temas = new Map<number, string>()
     questions
       .filter(q => {
-        if (filter === 'all') return true
-        const parte = normalizeParte(q.temaParte)
-        return parte === filter
+        if (filter !== 'all') {
+          const parte = normalizeParte(q.temaParte)
+          if (parte !== filter) return false
+        }
+
+        if (originFilter === 'cron') {
+          const title = q.questionnaire?.title || ''
+          if (!/cron/i.test(title)) return false
+        }
+
+        return true
       })
       .forEach(q => {
         if (q.temaNumero !== null) {
@@ -298,15 +315,31 @@ function QuestionsReviewInner() {
     return Array.from(temas.entries())
       .sort((a, b) => a[0] - b[0])
       .map(([num, titulo]) => ({ numero: num, titulo }))
-  }, [questions, filter])
+  }, [questions, filter, originFilter])
 
   const filteredQuestions = questions.filter(q => {
     if (filter !== 'all') {
       const parte = normalizeParte(q.temaParte)
       if (parte !== filter) return false
     }
+    if (originFilter === 'cron') {
+      const title = q.questionnaire?.title || ''
+      if (!/cron/i.test(title)) return false
+    }
     if (difficultyFilter !== 'all' && q.difficulty !== difficultyFilter) return false
     if (selectedTemas.length > 0 && !selectedTemas.includes(q.temaNumero || -1)) return false
+    if (searchText.trim()) {
+      const haystack = [
+        q.text,
+        q.explanation || '',
+        q.temaTitulo || '',
+        q.questionnaire?.title || ''
+      ]
+        .join(' \n ')
+        .toLowerCase()
+      const needle = searchText.toLowerCase().trim()
+      if (!haystack.includes(needle)) return false
+    }
     return true
   })
 
@@ -677,19 +710,29 @@ function QuestionsReviewInner() {
 
                             <div className="mt-2 font-semibold text-gray-900">{q.text}</div>
 
-                            {options.length > 0 && (
-                              <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
-                                {options.map((opt, idx) => {
-                                  const label = ['A', 'B', 'C', 'D'][idx]
-                                  const isCorrect = label === q.correctAnswer
-                                  return (
-                                    <div key={idx} className={`text-sm p-2 rounded border ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}>
-                                      <span className="font-semibold">{label})</span> {opt}
-                                    </div>
-                                  )
-                                })}
-                              </div>
-                            )}
+                            {options.length > 0 && (() => {
+                              const letter = getCorrectAnswerLetter(String(q.correctAnswer ?? ''), options)
+                              const correctLetter = letter ? letter.toUpperCase() : null
+
+                              return (
+                                <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
+                                  {options.map((opt, idx) => {
+                                    const label = ['A', 'B', 'C', 'D'][idx]
+                                    const isCorrect = correctLetter === label
+                                    return (
+                                      <div
+                                        key={idx}
+                                        className={`text-sm p-2 rounded border ${
+                                          isCorrect ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'
+                                        }`}
+                                      >
+                                        <span className="font-semibold">{label})</span> {opt}
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              )
+                            })()}
 
                             {q.explanation && (
                               <div className="mt-3 text-sm text-gray-700 bg-purple-50 border border-purple-100 rounded p-3">
@@ -718,7 +761,7 @@ function QuestionsReviewInner() {
 
           {mode === 'db' && (
             <>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Filtrar por Categoría:</label>
               <select
@@ -747,6 +790,17 @@ function QuestionsReviewInner() {
                 <option value="dificil">Difícil</option>
               </select>
             </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Filtrar por origen:</label>
+              <select
+                value={originFilter}
+                onChange={(e) => setOriginFilter(e.target.value as any)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="all">Todos los cuestionarios</option>
+                <option value="cron">Solo generados por Cron</option>
+              </select>
+            </div>
             <div className="flex items-end">
               <div className="w-full">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -756,6 +810,28 @@ function QuestionsReviewInner() {
                   Seleccionadas: {selectedQuestions.size}
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Buscar por texto, explicación o cuestionario:</label>
+              <input
+                type="text"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder="Escribe parte de la pregunta, explicación o título..."
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex items-end">
+              <button
+                type="button"
+                onClick={() => setCompactView(prev => !prev)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white hover:bg-gray-50 text-sm font-semibold text-gray-700 flex items-center justify-center gap-2"
+              >
+                {compactView ? '🔎 Ver detalle completo' : '📋 Ver en modo compacto'}
+              </button>
             </div>
           </div>
 
@@ -942,7 +1018,7 @@ function QuestionsReviewInner() {
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-2">
+                            <div className="flex items-center gap-3 mb-2 flex-wrap">
                               <span className="text-sm font-semibold text-blue-600">
                                 {q.temaParte} - Tema {q.temaNumero}
                               </span>
@@ -953,54 +1029,90 @@ function QuestionsReviewInner() {
                               }`}>
                                 {q.difficulty}
                               </span>
+                              {q.questionnaire?.title && (
+                                <span className="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700 max-w-xs truncate">
+                                  {q.questionnaire.title}
+                                </span>
+                              )}
                             </div>
-                            <p className="text-lg font-bold text-gray-800 mb-3">
-                              {index + 1}. {q.text}
-                            </p>
-                            <div className="space-y-2 mb-3">
-                              {(Array.isArray(q.options)
-                                ? q.options
-                                : (() => {
-                                    if (typeof q.options !== 'string') return [] as string[]
-                                    try {
-                                      const parsed = JSON.parse(q.options)
-                                      return Array.isArray(parsed) ? parsed : []
-                                    } catch {
-                                      return [] as string[]
-                                    }
-                                  })()
-                              ).map((opt: string, i: number) => (
-                                <div 
-                                  key={i}
-                                  className={`px-3 py-2 rounded ${
-                                    String.fromCharCode(65 + i) === q.correctAnswer 
-                                      ? 'bg-green-100 border-2 border-green-400 font-semibold' 
-                                      : 'bg-gray-50'
-                                  }`}
-                                >
-                                  {String.fromCharCode(65 + i)}) {opt}
-                                </div>
-                              ))}
-                            </div>
-                            <div className="bg-blue-50 border-l-4 border-blue-500 p-3">
-                              <p className="text-sm text-gray-700">
-                                <strong>Explicación:</strong> {q.explanation}
+
+                            {compactView ? (
+                              <p className="text-base font-semibold text-gray-800 mb-1">
+                                {index + 1}.{' '}
+                                {q.text.length > 220 ? `${q.text.slice(0, 220)}…` : q.text}
                               </p>
-                            </div>
+                            ) : (
+                              <p className="text-lg font-bold text-gray-800 mb-3">
+                                {index + 1}. {q.text}
+                              </p>
+                            )}
+
+                            {!compactView && (
+                              <>
+                                <div className="space-y-2 mb-3">
+                                  {(() => {
+                                    const options: string[] = Array.isArray(q.options)
+                                      ? q.options
+                                      : (() => {
+                                          if (typeof q.options !== 'string') return [] as string[]
+                                          try {
+                                            const parsed = JSON.parse(q.options)
+                                            return Array.isArray(parsed) ? parsed : []
+                                          } catch {
+                                            return [] as string[]
+                                          }
+                                        })()
+
+                                    const letter = getCorrectAnswerLetter(String(q.correctAnswer ?? ''), options)
+                                    const correctLetter = letter ? letter.toUpperCase() : null
+
+                                    return options.map((opt: string, i: number) => {
+                                      const label = String.fromCharCode(65 + i)
+                                      const isCorrect = correctLetter === label
+                                      return (
+                                        <div
+                                          key={i}
+                                          className={`px-3 py-2 rounded ${
+                                            isCorrect
+                                              ? 'bg-green-100 border-2 border-green-400 font-semibold'
+                                              : 'bg-gray-50'
+                                          }`}
+                                        >
+                                          {label}) {opt}
+                                        </div>
+                                      )
+                                    })
+                                  })()}
+                                </div>
+                                <div className="bg-blue-50 border-l-4 border-blue-500 p-3">
+                                  <p className="text-sm text-gray-700">
+                                    <strong>Explicación:</strong> {q.explanation}
+                                  </p>
+                                </div>
+                              </>
+                            )}
                           </div>
-                          <div className="flex gap-2 ml-4">
+                          <div className="flex flex-col gap-2 ml-4 items-end">
                             <button
-                              onClick={() => handleEdit(q)}
-                              className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
+                              onClick={() => setCompactView(prev => !prev)}
+                              className="border border-gray-300 text-gray-700 px-3 py-1 rounded hover:bg-gray-50 text-xs"
                             >
-                              ✏️ Editar
+                              {compactView ? '🔎 Ver detalle' : '📋 Ver compacto'}
                             </button>
-                            <button
-                              onClick={() => handleDelete(q.id)}
-                              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
-                            >
-                              🗑️
-                            </button>
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => handleEdit(q)}
+                                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
+                              >
+                                ✏️ Editar
+                              </button>
+                              <button
+                                onClick={() => handleDelete(q.id)}
+                                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                              >
+                                🗑️
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>

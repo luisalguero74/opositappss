@@ -155,6 +155,17 @@ export default function Dashboard() {
             </div>
           </Link>
 
+          {/* Repositorio de Documentos */}
+          <Link href="/repositorio" className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group">
+            <div className="bg-gradient-to-r from-slate-700 to-gray-900 p-4 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-white">Repositorio de Documentos</h2>
+              <div className="text-white text-3xl">📁</div>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-600 text-sm">Accede al repositorio interno de temarios, leyes y otros documentos vinculados a tu preparación.</p>
+            </div>
+          </Link>
+
           {/* Aulas Virtuales */}
           <Link href="/classrooms" className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group">
             <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-4 flex items-center justify-between">

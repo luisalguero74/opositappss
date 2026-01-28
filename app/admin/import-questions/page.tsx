@@ -11,6 +11,9 @@ export default function ImportQuestions() {
   const [importing, setImporting] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
+  const [batchRunning, setBatchRunning] = useState(false)
+  const [batchResult, setBatchResult] = useState<any>(null)
+  const [batchError, setBatchError] = useState('')
 
   if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
     router.push('/dashboard')
@@ -33,20 +36,71 @@ export default function ImportQuestions() {
         headers: { 'Content-Type': 'application/json' },
         // Enviamos el JSON tal cual está en el fichero;
         // el backend se encarga de normalizar los distintos formatos.
-        body: text
+        body: text,
       })
 
-      const data = await res.json()
+      const resText = await res.text()
+      let data: any = null
+
+      try {
+        data = resText ? JSON.parse(resText) : null
+      } catch (e) {
+        setError(
+          `La respuesta de la API no es JSON válido (código ${res.status}). Inicio de la respuesta: "${resText.slice(
+            0,
+            200,
+          )}"`,
+        )
+        return
+      }
 
       if (res.ok) {
         setResult(data)
       } else {
-        setError(data.error || 'Error al importar')
+        setError(data?.error || 'Error al importar')
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al procesar archivo')
     } finally {
       setImporting(false)
+    }
+  }
+
+  const handleBatchImport = async () => {
+    setBatchRunning(true)
+    setBatchError('')
+    setBatchResult(null)
+
+    try {
+      const res = await fetch('/api/admin/questions/import-from-json-files', {
+        method: 'POST',
+      })
+
+      const text = await res.text()
+      let data: any = null
+
+      try {
+        data = text ? JSON.parse(text) : null
+      } catch (e) {
+        // La API debería devolver siempre JSON; si no es así, mostramos un mensaje más claro
+        setBatchError(
+          `La respuesta de la API no es JSON válido (código ${res.status}). Inicio de la respuesta: "${text.slice(
+            0,
+            200,
+          )}"`,
+        )
+        return
+      }
+
+      if (!res.ok) {
+        setBatchError(data?.error || 'Error al importar desde JSON del servidor')
+      } else {
+        setBatchResult(data)
+      }
+    } catch (err) {
+      setBatchError(err instanceof Error ? err.message : 'Error al lanzar la importación en lote')
+    } finally {
+      setBatchRunning(false)
     }
   }
 
@@ -90,6 +144,45 @@ export default function ImportQuestions() {
             >
               {importing ? '⏳ Importando...' : '📁 Seleccionar Archivo JSON'}
             </label>
+          </div>
+
+          <div className="mt-8 border rounded-lg p-6 bg-gray-50">
+            <h2 className="text-lg font-bold text-gray-800 mb-3">Importar directamente desde los JSON del servidor</h2>
+            <p className="text-gray-600 mb-4 text-sm">
+              Esta opción recorre todos los ficheros <span className="font-mono">TEMA*.json</span> que hay en el proyecto
+              y los vuelca en la base de datos, igual que cuando ejecutas el comando en terminal.
+            </p>
+            <button
+              onClick={handleBatchImport}
+              disabled={batchRunning}
+              className={`px-4 py-2 rounded-lg font-semibold transition ${
+                batchRunning
+                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-indigo-600 text-white hover:bg-indigo-700'
+              }`}
+            >
+              {batchRunning ? '⏳ Importando temario...' : '🔄 Reimportar temario desde JSON del servidor'}
+            </button>
+
+            {batchError && (
+              <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-3 rounded">
+                <p className="text-red-800 text-sm font-semibold">❌ {batchError}</p>
+              </div>
+            )}
+
+            {batchResult && (
+              <div className="mt-4 bg-green-50 border-l-4 border-green-500 p-3 rounded">
+                <p className="text-green-800 text-sm font-semibold mb-1">✅ Importación en lote completada</p>
+                <p className="text-green-700 text-sm">
+                  Ficheros procesados: {batchResult.filesProcessed} · Preguntas nuevas creadas: {batchResult.totalCreated}
+                </p>
+                {batchResult.errors && batchResult.errors.length > 0 && (
+                  <p className="text-yellow-700 text-xs mt-2">
+                    Avisos en algunos ficheros (revisa la consola de logs para más detalle).
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
           {error && (

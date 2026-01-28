@@ -160,6 +160,25 @@ export default function Admin() {
             </div>
           </div>
 
+          {/* Contact Leads desde formulario externo */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-emerald-500 to-teal-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">📇</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Emails y Teléfonos (externo)</h2>
+              <p className="text-gray-600 mb-4 text-sm">
+                Consulta y exporta los datos recogidos con el formulario externo compartido (por ejemplo, en grupos de WhatsApp).
+              </p>
+              <Link
+                href="/admin/contact-leads"
+                className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition text-sm"
+              >
+                Ver registros →
+              </Link>
+            </div>
+          </div>
+
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
             <div className="bg-gradient-to-r from-slate-700 to-gray-900 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">✉️</div>
@@ -356,6 +375,25 @@ export default function Admin() {
             </div>
           </div>
 
+          {/* Repositorio de Documentos (admin) */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-slate-700 to-gray-900 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">📁</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Repositorio de Documentos</h2>
+              <p className="text-gray-600 mb-4 text-sm">
+                Accede al repositorio interno de temarios, leyes y material jurídico. Controla qué ficheros son solo lectura y cuáles permiten descarga.
+              </p>
+              <Link
+                href="/admin/repositorio"
+                className="inline-block bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-sm"
+              >
+                Gestionar Repositorio →
+              </Link>
+            </div>
+          </div>
+
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
             <div className="bg-gradient-to-r from-red-500 to-pink-600 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">📰</div>
@@ -504,6 +542,19 @@ export default function Admin() {
               <p className="text-gray-600 mb-4 text-sm">Crea tests interactivos descargables con corrección automática y celebración al 100%.</p>
               <Link href="/admin/test-generator" className="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-purple-700 transition text-sm">
                 Generar Tests →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-700 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🧮</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Asistente de Tests Personalizados</h2>
+              <p className="text-gray-600 mb-4 text-sm">Configura número de preguntas, mix de temas y bloque de publicación sin tocar el generador antiguo.</p>
+              <Link href="/admin/test-planner" className="inline-block bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-700 hover:to-indigo-800 transition text-sm">
+                Abrir Asistente →
               </Link>
             </div>
           </div>

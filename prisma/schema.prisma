@@ -41,6 +41,7 @@ model User {
   spacedCards    SpacedRepetitionCard[] @relation("UserSpacedCards")
   studySessions  StudySession[] @relation("UserStudySessions")
   notifications  Notification[] @relation("UserNotifications")
+  repoAccessLogs RepoDocumentAccessLog[] @relation("UserRepoAccessLogs")
 }
 
 model Account {
@@ -467,6 +468,74 @@ model TemaLegalDocument {
   @@index([documentId])
 }
 
+// =============================================
+// Repositorio interno de documentos (Supabase)
+// =============================================
+
+// Carpetas lógicas del repositorio (no son carpetas físicas del NAS,
+// sino "secciones" que verán los usuarios dentro de OPOSITAPP).
+model RepoFolder {
+  id          String         @id @default(cuid())
+  code        String         @unique // Código estable: "temario-general", "temario-especifico", etc.
+  name        String
+  description String?
+
+  // Estructura jerárquica opcional (carpetas dentro de carpetas)
+  parentId String?
+  parent   RepoFolder?      @relation("RepoFolderParent", fields: [parentId], references: [id], onDelete: SetNull)
+  children RepoFolder[]     @relation("RepoFolderParent")
+
+  documents RepoDocument[]
+
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+// Documento del repositorio: referencia a un PDF/presentación almacenado
+// en Supabase Storage (o en otro almacenamiento compatible).
+model RepoDocument {
+  id           String   @id @default(cuid())
+  folderId     String
+  folder       RepoFolder @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+  title        String        // Título visible para el usuario
+  fileName     String        // Nombre del fichero, ej: "tema01_constitucion.pdf"
+  storagePath  String        // Ruta dentro del bucket, ej: "repo/temario-general/tema01.pdf"
+  storageBucket String?      // Nombre del bucket de Supabase, ej: "repositorio-documentos"
+
+  fileType     String?       // "pdf", "pptx", "docx", etc.
+  fileSize     Int?          // Tamaño en bytes
+  pages        Int?          // Número de páginas (opcional)
+
+  isActive     Boolean @default(true)   // Para ocultar sin borrar
+  allowDownload Boolean @default(false) // Si la UI permite al usuario descargar el fichero
+
+  accessLogs   RepoDocumentAccessLog[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([folderId])
+}
+
+// Log de accesos para trazabilidad completa: quién accede, cuándo y cómo.
+model RepoDocumentAccessLog {
+  id         String   @id @default(cuid())
+  documentId String
+  document   RepoDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  userId     String?
+  user       User?    @relation("UserRepoAccessLogs", fields: [userId], references: [id], onDelete: SetNull)
+
+  action     String   // "view", "preview", "download", etc.
+  ipAddress  String?
+  userAgent  String?  @db.Text
+  createdAt  DateTime @default(now())
+
+  @@index([documentId, createdAt])
+  @@index([userId, createdAt])
+}
+
 model AllowedPhoneNumber {
   id          String   @id @default(cuid())
   phoneNumber String   @unique // Número de teléfono permitido (formato: +34XXXXXXXXX)
@@ -474,6 +543,17 @@ model AllowedPhoneNumber {
   addedAt     DateTime @default(now())
   
   @@index([phoneNumber])
+}
+
+// Formulario externo simple para recoger emails y teléfonos
+model ContactLead {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String
+  phone     String
+  note      String?
+  source    String?  // Ej: "whatsapp-grupo-a", "landing-opos"
+  createdAt DateTime @default(now())
 }
 
 // ====================

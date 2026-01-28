@@ -11,6 +11,7 @@ interface Question {
   options: string[]
   correctAnswer: string
   explanation: string
+  shuffledOptions?: string[]
 }
 
 interface TemaInfo {
@@ -50,6 +51,17 @@ export default function QuizPage() {
   const [markedQuestions, setMarkedQuestions] = useState<Set<string>>(new Set())
   const [markingQuestion, setMarkingQuestion] = useState<string | null>(null)
 
+  const shuffleArray = <T,>(items: T[]): T[] => {
+    const arr = [...items]
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      const temp = arr[i]
+      arr[i] = arr[j]
+      arr[j] = temp
+    }
+    return arr
+  }
+
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -74,14 +86,21 @@ export default function QuizPage() {
       fetch(`/api/questionnaires/${params.id}`)
         .then(res => res.json())
         .then(data => {
-          // Parse options JSON for each question
-          const parsedData = {
-            ...data,
-            questions: data.questions.map((q: any) => ({
+          // Parse options JSON for each question y barajar preguntas y opciones
+          const parsedQuestions: Question[] = data.questions.map((q: any) => {
+            const opts: string[] = typeof q.options === 'string' ? JSON.parse(q.options) : q.options
+            return {
               ...q,
-              options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options
-            }))
+              options: opts,
+              shuffledOptions: shuffleArray(opts)
+            }
+          })
+
+          const parsedData: Questionnaire = {
+            ...data,
+            questions: shuffleArray(parsedQuestions)
           }
+
           setQuestionnaire(parsedData)
           setLoading(false)
           
@@ -145,6 +164,21 @@ export default function QuizPage() {
     })
   }
 
+  const getCorrectAnswerText = (question: Question): string => {
+    const ca = String(question.correctAnswer ?? '').trim()
+    const letters = ['a', 'b', 'c', 'd']
+    const idxFromLetter = letters.indexOf(ca.toLowerCase())
+    if (idxFromLetter >= 0) {
+      return question.options?.[idxFromLetter] ?? ''
+    }
+
+    if (question.options?.includes(question.correctAnswer)) {
+      return question.correctAnswer
+    }
+
+    return ''
+  }
+
   const markQuestion = async (questionId: string, type: 'doubt' | 'review' | 'important', notes?: string) => {
     setMarkingQuestion(questionId)
     try {
@@ -202,14 +236,11 @@ export default function QuizPage() {
     try {
       const answers = questionnaire.questions.map(q => {
         const userAnswer = userAnswers.find(a => a.questionId === q.id)
-        const correctLetter = getCorrectLetter(q)
         const selectedAnswer = userAnswer?.selectedAnswer || ''
-        
+
         return {
           questionId: q.id,
-          selectedAnswer,
-          correctAnswer: correctLetter,
-          isCorrect: selectedAnswer === correctLetter
+          selectedAnswer
         }
       })
 
@@ -231,11 +262,11 @@ export default function QuizPage() {
         console.log('✓ Respuestas guardadas en estadísticas', data)
       }
 
+      const resultsNow = getResults()
       setShowResults(true)
       
       // Check if perfect score for celebration
-      const correctCount = answers.filter(a => a.isCorrect).length
-      if (correctCount === questionnaire.questions.length) {
+      if (resultsNow.correct === questionnaire.questions.length) {
         setShowCelebration(true)
         // Play victory sound with Web Audio API
         playVictorySound()
@@ -253,7 +284,10 @@ export default function QuizPage() {
     const total = questionnaire.questions.length
     const correct = questionnaire.questions.filter(q => {
       const userAnswer = userAnswers.find(a => a.questionId === q.id)
-      return userAnswer?.selectedAnswer === getCorrectLetter(q)
+      if (!userAnswer) return false
+      const correctText = getCorrectAnswerText(q)
+      if (!correctText) return false
+      return userAnswer.selectedAnswer === correctText
     }).length
     
     return {
@@ -263,22 +297,14 @@ export default function QuizPage() {
     }
   }
 
-  // Normalize correct answer letter: supports legacy data with text
-  const getCorrectLetter = (question: Question): string => {
-    const ca = question.correctAnswer?.toLowerCase()
-    if (['a','b','c','d'].includes(ca)) return ca
-    const idx = question.options.findIndex(opt => opt === question.correctAnswer)
-    return idx >= 0 ? String.fromCharCode(97 + idx) : 'a'
-  }
-
   const getQuestionResult = (questionId: string) => {
     const question = questionnaire?.questions.find(q => q.id === questionId)
     const userAnswer = userAnswers.find(a => a.questionId === questionId)
     if (!question || !userAnswer) return null
-    const correctLetter = getCorrectLetter(question)
+    const correctText = getCorrectAnswerText(question)
     return {
-      isCorrect: userAnswer.selectedAnswer === correctLetter,
-      correctAnswer: correctLetter,
+      isCorrect: userAnswer.selectedAnswer === correctText,
+      correctAnswer: correctText,
       explanation: question.explanation
     }
   }
@@ -442,10 +468,11 @@ export default function QuizPage() {
 
                 {/* Options */}
                 <div className="space-y-3">
-                  {question.options.map((option, optIndex) => {
+                  {(question.shuffledOptions ?? question.options).map((option, optIndex) => {
                     const optionLetter = String.fromCharCode(97 + optIndex) // a, b, c, d
-                    const isSelected = userAnswer?.selectedAnswer === optionLetter
-                    const isCorrect = optionLetter === getCorrectLetter(question)
+                    const isSelected = userAnswer?.selectedAnswer === option
+                    const correctText = getCorrectAnswerText(question)
+                    const isCorrect = option === correctText
                     
                     let optionClass = 'bg-gray-50 hover:bg-gray-100 border-gray-200'
                     
@@ -467,9 +494,9 @@ export default function QuizPage() {
                         <input
                           type="radio"
                           name={`question-${question.id}`}
-                          value={optionLetter}
+                          value={option}
                           checked={isSelected}
-                          onChange={() => !showResults && !timeExpired && handleAnswerChange(question.id, optionLetter)}
+                          onChange={() => !showResults && !timeExpired && handleAnswerChange(question.id, option)}
                           disabled={showResults || timeExpired}
                           className="mt-1 mr-3"
                         />
@@ -542,13 +569,56 @@ export default function QuizPage() {
               </button>
               <button
                 onClick={() => {
+                  if (!questionnaire) return
+                  const reshuffled = shuffleArray(
+                    questionnaire.questions.map(q => ({
+                      ...q,
+                      shuffledOptions: shuffleArray(q.options)
+                    }))
+                  )
+                  setQuestionnaire({ ...questionnaire, questions: reshuffled })
                   setUserAnswers([])
                   setShowResults(false)
                   setShowCelebration(false)
+                  setTimeLeft(45 * 60)
+                  setTimeExpired(false)
                 }}
                 className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold"
               >
-                🔄 Reintentar
+                🔄 Repetir test completo
+              </button>
+              <button
+                onClick={() => {
+                  if (!questionnaire) return
+
+                  const failedQuestions = questionnaire.questions.filter(q => {
+                    const userAnswer = userAnswers.find(a => a.questionId === q.id)
+                    const correctText = getCorrectAnswerText(q)
+                    return !userAnswer || !correctText || userAnswer.selectedAnswer !== correctText
+                  })
+
+                  if (failedQuestions.length === 0) {
+                    alert('No tienes preguntas falladas en este intento. ¡Excelente trabajo!')
+                    return
+                  }
+
+                  const reshuffledFailed = shuffleArray(
+                    failedQuestions.map(q => ({
+                      ...q,
+                      shuffledOptions: shuffleArray(q.options)
+                    }))
+                  )
+
+                  setQuestionnaire({ ...questionnaire, questions: reshuffledFailed })
+                  setUserAnswers([])
+                  setShowResults(false)
+                  setShowCelebration(false)
+                  setTimeLeft(45 * 60)
+                  setTimeExpired(false)
+                }}
+                className="px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 font-semibold"
+              >
+                🎯 Repetir solo falladas
               </button>
             </>
           )}

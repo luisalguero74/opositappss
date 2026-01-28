@@ -61,10 +61,10 @@ export async function POST(req: NextRequest) {
               text: q.text,
               options: JSON.stringify(q.options),
               correctAnswer: q.correctAnswer,
-              explanation: q.explanation || null,
+              // En el modelo Prisma, explanation es NOT NULL → usar string vacía si no viene
+              explanation: typeof q.explanation === 'string' ? q.explanation : '',
               temaCodigo: q.temaCodigo || null,
-              temaParte: perQuestionTemaParte ?? normalizedGlobalTemaParte,
-              order: index + 1
+              temaParte: perQuestionTemaParte ?? normalizedGlobalTemaParte
             }
           })
         }
@@ -85,7 +85,8 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('[Publish Questionnaire] Error:', error)
     return NextResponse.json({ 
-      error: 'Error al publicar cuestionario' 
+      error: 'Error al publicar cuestionario',
+      details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 })
   }
 }

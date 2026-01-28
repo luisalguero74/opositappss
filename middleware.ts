@@ -69,6 +69,7 @@ const protectedRoutes = [
   '/spaced-repetition',
   '/marked-questions',
   '/failed-questions',
+  '/repositorio',
   '/admin',
 ]
 

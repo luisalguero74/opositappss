@@ -153,7 +153,8 @@ export async function PATCH(
     const updateData: any = {}
     
     if (role !== undefined) {
-      if (!['user', 'admin'].includes(role)) {
+      const allowedRoles = ['user', 'editor', 'admin'] as const
+      if (!allowedRoles.includes(role)) {
         return NextResponse.json({ error: 'Rol inválido' }, { status: 400 })
       }
       updateData.role = role

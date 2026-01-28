@@ -1,0 +1,813 @@
+{
+  "data": [
+    {
+      "temaNumero": 4,
+      "temaParte": "ESPECIFICO",
+      "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1",
+      "temaCodigo": "E04",
+      "difficulty": "hard",
+      "questions": [
+        {
+          "question": "En el Régimen General, ¿quién es el sujeto responsable principal del cumplimiento de la obligación de cotizar a la Seguridad Social por las contingencias comunes de los trabajadores por cuenta ajena?",
+          "options": [
+            "El empresario, sin perjuicio de la posible responsabilidad del trabajador en la parte que le corresponde",
+            "Exclusivamente el trabajador, por tratarse de una obligación personalísima",
+            "La Tesorería General de la Seguridad Social, como acreedora de la obligación",
+            "Los representantes legales de los trabajadores, de forma solidaria con el empresario"
+          ],
+          "correctAnswer": "A",
+          "explanation": "En el Régimen General, la obligación de cotizar recae principalmente sobre el empresario, que está obligado a ingresar tanto su propia aportación como la parte de cotización que corresponde al trabajador, deduciéndola de su salario. El trabajador sólo asume la carga económica de su cuota, pero no la condición de sujeto obligado frente a la Tesorería. La Tesorería es el ente acreedor de la obligación, no el sujeto obligado al pago.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el Régimen General, ¿en qué momento nace la obligación de cotizar por un trabajador por cuenta ajena que ha sido dado de alta en la Seguridad Social?",
+          "options": [
+            "Desde el primer día del mes natural en que se inicie la prestación de servicios",
+            "Desde la fecha de presentación de la solicitud de alta ante la Tesorería General de la Seguridad Social",
+            "Desde el día exacto en que comience la prestación de servicios, aunque sea a mitad de mes",
+            "Desde el último día del mes en el que se produzca el alta"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La normativa de afiliación y cotización establece que la obligación de cotizar nace desde la fecha de alta del trabajador en la Seguridad Social, que se hace constar en la afiliación o en la variación de datos comunicada a la Tesorería General. Aunque la prestación de servicios pueda comenzar en una fecha concreta, el nacimiento de la obligación se vincula al alta administrativa correctamente presentada y aceptada.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En relación con la base de cotización por contingencias comunes en el Régimen General, ¿cuál de los siguientes conceptos retributivos debe excluirse de la misma?",
+          "options": [
+            "Las dietas y asignaciones para gastos de viaje que no superen los límites reglamentarios",
+            "El salario base mensual pactado en convenio colectivo",
+            "Los complementos personales de antigüedad consolidada",
+            "La parte proporcional de pagas extraordinarias devengadas en el mes"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Con carácter general, la base de cotización por contingencias comunes incluye la totalidad de las percepciones salariales, tanto en metálico como en especie, salvo que estén expresamente excluidas. Las dietas y asignaciones por gastos de viaje se excluyen sólo hasta los límites legales; el salario base, los complementos salariales y la parte proporcional de pagas extras forman parte de la base. Determinados conceptos consolidables como algunos pluses de antigüedad pueden excluirse cuando hayan sido objeto de conversión o compensación según la regulación específica de cotización, de ahí que no siempre se integren automáticamente en la base.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "¿Cuál de las siguientes afirmaciones sobre los topes máximos y mínimos de la base de cotización por contingencias comunes en el Régimen General es correcta?",
+          "options": [
+            "Existen bases máximas y mínimas que se aplican con independencia del grupo de cotización del trabajador",
+            "Sólo existe tope máximo de base de cotización, pero no mínimo",
+            "Los topes máximos y mínimos se fijan individualmente por cada empresa en función de su siniestralidad",
+            "Los topes operan únicamente para las contingencias profesionales y no para las comunes"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El sistema establece bases máximas y mínimas de cotización que, con carácter general, se fijan anualmente por norma y se aplican atendiendo al grupo de cotización y categoría profesional. No dependen de la siniestralidad concreta de la empresa. Además, los topes afectan tanto a las contingencias comunes como a otras aportaciones que se calculan sobre la misma base, de acuerdo con las disposiciones reguladoras de la cotización en el Régimen General.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En materia de tipos de cotización por contingencias comunes en el Régimen General, ¿qué característica distingue la aportación del empresario respecto de la del trabajador?",
+          "options": [
+            "La aportación empresarial es, con carácter general, superior a la del trabajador en el tipo aplicable",
+            "Ambas aportaciones son idénticas en porcentaje, variando sólo la base de cotización",
+            "El trabajador no realiza aportación alguna por contingencias comunes, asumiéndola íntegramente la empresa",
+            "La aportación empresarial es siempre fija y la del trabajador es variable según la edad"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Los tipos de cotización por contingencias comunes se desdoblan en una aportación a cargo de la empresa y otra a cargo del trabajador. La ley fija porcentajes diferenciados y, como regla general, el tipo empresarial es significativamente superior, reflejando el principio de mayor contribución del empresario al sostenimiento del sistema. No existe identidad de tipos ni asunción exclusiva por parte del trabajador o de la empresa.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En relación con la cotización por contingencias profesionales en el Régimen General, ¿cuál de las siguientes afirmaciones es correcta?",
+          "options": [
+            "La totalidad del tipo de cotización corre a cargo exclusivo del empresario",
+            "La aportación se distribuye al 50 % entre empresario y trabajador",
+            "La cotización por contingencias profesionales sólo se exige en contratos indefinidos",
+            "La participación del trabajador en estas contingencias se fija anualmente por ley de Presupuestos"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El sistema de cotización por contingencias profesionales (accidentes de trabajo y enfermedades profesionales) se rige por la tarifa de primas establecida reglamentariamente. La norma atribuye íntegramente al empresario la obligación de ingreso de estas cuotas, sin participación directa del trabajador en el tipo, aunque el coste pueda repercutirse indirectamente en la estructura salarial. No existe distribución al 50 % ni participación anual del trabajador fijada en la ley presupuestaria.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el sistema de tarifas de primas para la cotización por accidentes de trabajo y enfermedades profesionales, ¿qué elemento determina fundamentalmente el tipo aplicable a cada empresa?",
+          "options": [
+            "La actividad económica o epígrafe de la empresa según la clasificación oficial",
+            "El volumen de facturación anual declarado a la Agencia Tributaria",
+            "El número total de trabajadores fijos en plantilla, con independencia de la actividad",
+            "La provincia donde radique el centro de trabajo principal"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La tarifa de primas asigna tipos de cotización específicos en función de la actividad económica y del riesgo inherente a cada sector, identificado por códigos o epígrafes. No se calcula directamente sobre la facturación ni sobre el número de trabajadores, aunque estos factores puedan influir indirectamente en la base total de cotización. La ubicación territorial no determina por sí sola el tipo aplicable, que viene vinculado a la naturaleza de la actividad.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "Respecto a la cotización por desempleo en los contratos indefinidos a tiempo completo del Régimen General, ¿qué característica presenta el reparto de tipos entre empresario y trabajador?",
+          "options": [
+            "El empresario asume un tipo superior al del trabajador, fijado normativamente",
+            "El tipo de cotización es idéntico para empresario y trabajador",
+            "La totalidad de la cotización por desempleo recae exclusivamente en el trabajador",
+            "La cotización por desempleo sólo es exigible a la empresa en caso de contratos temporales"
+          ],
+          "correctAnswer": "D",
+          "explanation": "La normativa de cotización por desempleo prevé tipos diferenciados para empresario y trabajador, siendo el primero superior. Esta regla se aplica tanto a contratos indefinidos como temporales, con tipos concretos establecidos para cada modalidad. No existe asunción exclusiva por parte del trabajador ni identidad de tipos, y la obligación de cotizar se mantiene mientras subsista la relación laboral protegida por la prestación de desempleo.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En un contrato a tiempo parcial, ¿cómo se calcula con carácter general la base de cotización por contingencias comunes en el Régimen General?",
+          "options": [
+            "Sobre la remuneración efectivamente percibida en función de las horas trabajadas, con aplicación de los topes mínimos y máximos correspondientes",
+            "Sobre la base mínima del grupo de cotización, con independencia del salario y de las horas trabajadas",
+            "Sobre el salario a jornada completa del trabajador comparable, sin ajuste por parcialidad",
+            "Sobre una base ficticia fijada anualmente por la ley, ajena a la remuneración real"
+          ],
+          "correctAnswer": "A",
+          "explanation": "En los contratos a tiempo parcial, la base de cotización se determina con arreglo a las remuneraciones realmente percibidas por el trabajador, calculadas en función de las horas o días trabajados y prorrateando, en su caso, las pagas extraordinarias. A dicha base se le aplican los topes mínimos y máximos que procedan. No se impone automáticamente la base mínima del grupo ni un salario teórico de jornada completa, salvo reglas específicas para la protección de determinadas contingencias.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la gestión recaudatoria de cuotas de la Seguridad Social, ¿qué se entiende por período voluntario de ingreso en el Régimen General para las liquidaciones ordinarias mensuales?",
+          "options": [
+            "El plazo que media entre el primer y el último día del mes siguiente a aquel al que corresponden las cuotas",
+            "El periodo comprendido entre la fecha de alta del trabajador y la de baja",
+            "Los quince días naturales siguientes a la notificación de la providencia de apremio",
+            "El plazo de tres meses desde la finalización del ejercicio económico"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Para las liquidaciones ordinarias de cuotas en el Régimen General, el período voluntario de ingreso está legalmente fijado normalmente entre el primer y el último día del mes siguiente al de su devengo. En ese intervalo, el sujeto obligado puede ingresar las cuotas sin recargos ni intereses de demora, siempre que lo haga en la forma y con los medios establecidos por la Tesorería General de la Seguridad Social.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "Respecto a los recargos por ingreso fuera de plazo de las cuotas de la Seguridad Social sin requerimiento previo, ¿cuál de las siguientes opciones describe correctamente el criterio general aplicable?",
+          "options": [
+            "Se aplican recargos crecientes en función del retraso, que se calculan sobre el principal adeudado",
+            "Se aplica un recargo fijo único con independencia del tiempo transcurrido",
+            "No se aplican recargos si el ingreso se produce antes de tres meses desde el vencimiento",
+            "Los recargos sólo se exigen cuando media providencia de apremio notificada al deudor"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El Reglamento General de Recaudación de la Seguridad Social prevé recargos graduales por ingreso fuera de plazo sin requerimiento previo, que se calculan sobre el principal adeudado y aumentan en función del tiempo transcurrido desde el vencimiento. No existe un recargo único fijo ni un periodo general sin recargos, y la providencia de apremio corresponde ya a la vía ejecutiva, con recargos adicionales.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el Régimen General, cuando un trabajador permanece en situación de incapacidad temporal durante todo un mes natural, ¿cómo se determina la base de cotización por contingencias comunes correspondiente a dicho mes?",
+          "options": [
+            "Se toma la base de cotización del mes anterior al de la baja y se mantiene mientras dure la incapacidad",
+            "Se computa exclusivamente la prestación económica de incapacidad temporal como base de cotización",
+            "Se aplica la base mínima del grupo de cotización con independencia del salario previo",
+            "Se suspende la obligación de cotizar durante la incapacidad temporal"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Conforme a las normas de cotización, en las situaciones de incapacidad temporal la base de cotización por contingencias comunes se corresponde, con carácter general, con la del mes anterior al de producirse la baja, manteniéndose mientras dure dicha situación salvo variaciones normativas. La prestación económica en sí no sustituye a la base de cotización, y la obligación de cotizar se mantiene en los términos previstos legalmente.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En relación con la cotización durante las situaciones de huelga legal y cierre patronal en el Régimen General, ¿qué regla se aplica respecto a la obligación de cotizar por contingencias comunes?",
+          "options": [
+            "Se suspende la obligación de cotizar mientras dure la huelga o el cierre patronal",
+            "Se mantiene la obligación de cotizar por contingencias comunes como si se prestaran servicios normales",
+            "Sólo se cotiza por desempleo, pero no por contingencias comunes",
+            "Se cotiza exclusivamente por contingencias profesionales"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La normativa de Seguridad Social establece que, durante las situaciones de huelga legal y cierre patronal, la obligación de cotizar por contingencias comunes queda suspendida, al no existir prestación de servicios ni salario sujeto a cotización. No se mantiene una cotización ficticia por tales contingencias, sin perjuicio de la protección que corresponda en otras ramas o situaciones.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En materia de responsabilidad en el cumplimiento de la obligación de cotizar, ¿qué efecto tiene para el empresario la falta de ingreso de cuotas estando el trabajador correctamente dado de alta?",
+          "options": [
+            "La falta de ingreso no afecta a la cobertura del trabajador frente a las prestaciones, sin perjuicio de la responsabilidad empresarial",
+            "El trabajador queda sin protección alguna hasta que se regularice la situación",
+            "La Tesorería General de la Seguridad Social exonera de reclamar las cuotas transcurrido un año",
+            "Se traslada automáticamente la responsabilidad al trabajador por haber percibido el salario íntegro"
+          ],
+          "correctAnswer": "B",
+          "explanation": "De acuerdo con el principio de automaticidad de las prestaciones, cuando el trabajador está afiliado y en alta, la falta de ingreso de las cuotas por el empresario no perjudica, con carácter general, el reconocimiento de las prestaciones al trabajador. La Seguridad Social puede exigir al empresario las cuotas e imponer recargos y sanciones, pero la protección del trabajador se mantiene en los términos previstos legalmente.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la cotización al Régimen General por pagas extraordinarias, ¿cuál es la regla general sobre su cómputo en la base de cotización por contingencias comunes?",
+          "options": [
+            "Se prorratean entre los doce meses del año, añadiéndose a la base de cada mes la parte proporcional",
+            "Se cotiza únicamente en el mes en que las pagas extraordinarias se abonan efectivamente",
+            "Se excluyen de la base de cotización por tratarse de percepciones no periódicas",
+            "Sólo se computan a efectos de contingencias profesionales, pero no de comunes"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La normativa de cotización establece que las pagas extraordinarias forman parte de la base de cotización y, con carácter general, se prorratean entre los doce meses del año o entre el número de meses de devengo, añadiendo a la base mensual la parte proporcional correspondiente. No se excluyen de la base ni se limitan a contingencias profesionales únicamente.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "Cuando un trabajador desarrolla simultáneamente dos actividades encuadradas en el mismo Régimen General para distintos empleadores, ¿cómo se configura la obligación de cotizar?",
+          "options": [
+            "Cada empresario debe cotizar por la remuneración que abona, aplicándose los topes máximos sobre la suma de bases",
+            "Sólo el empresario con mayor retribución tiene obligación de cotizar",
+            "La cotización se realiza exclusivamente a través de un empresario designado de común acuerdo",
+            "Se suspende la obligación de cotizar en uno de los empleos para evitar duplicidad"
+          ],
+          "correctAnswer": "D",
+          "explanation": "En los supuestos de pluriempleo dentro del mismo régimen, cada empresario está obligado a cotizar por las retribuciones que abone al trabajador, debiendo respetarse, sobre la suma de las bases, los topes máximos y mínimos fijados legalmente. No existe un único empresario obligado ni se suspende la cotización en uno de los empleos, sino que se coordina la aplicación de los límites a través de la Tesorería General de la Seguridad Social.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En relación con las bonificaciones y reducciones de cuotas a la Seguridad Social, ¿cuál de las siguientes afirmaciones es correcta?",
+          "options": [
+            "Se configuran como beneficios en la cotización que minoran el importe a ingresar sin alterar la base ni el tipo legal",
+            "Implica siempre la exoneración total de la obligación de cotizar",
+            "Sólo pueden aplicarse en el Régimen Especial de Trabajadores Autónomos",
+            "Su concesión depende exclusivamente de acuerdos colectivos en la empresa"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Las bonificaciones y reducciones de cuotas son beneficios en la cotización previstos legalmente que minoran el importe efectivo a ingresar, pero no modifican la base de cotización ni los tipos fijados con carácter general. No suponen, salvo supuestos tasados, exoneración total de la obligación de cotizar y pueden existir en distintos regímenes, incluidas medidas de fomento del empleo o colectivos protegidos.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el marco del Régimen General, ¿qué tratamiento tiene, a efectos de cotización por contingencias comunes, la mejora voluntaria de prestaciones pactada en convenio colectivo?",
+          "options": [
+            "Tiene la consideración de concepto salarial y se integra en la base de cotización, salvo que la norma disponga lo contrario",
+            "Se considera siempre percepción extrasalarial excluida de la base de cotización",
+            "Sólo se tiene en cuenta para la cotización por contingencias profesionales",
+            "Queda sometida a un tipo de cotización autónomo ajeno a la base general"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Las mejoras voluntarias de prestaciones de Seguridad Social que se articulan como complementos de las mismas tienen, con carácter general, la naturaleza de percepciones extrasalariales y pueden quedar excluidas de la base de cotización cuando así lo establece la normativa específica. No se someten a un tipo de cotización autónomo, ni se integran automáticamente en la base de contingencias comunes si la ley o el reglamento las exceptúan.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "¿Cuál es la regla general sobre la obligación de cotizar durante los períodos de vacaciones anuales retribuidas y no disfrutadas antes de la extinción del contrato en el Régimen General?",
+          "options": [
+            "Se mantiene la obligación de cotizar por el período de vacaciones devengado y no disfrutado, que se considera de alta asimilada",
+            "No existe obligación de cotizar al haberse extinguido la relación laboral",
+            "Sólo se cotiza por contingencias profesionales, pero no por contingencias comunes",
+            "La cotización se traslada al nuevo empleador si el trabajador inicia otra relación laboral"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La normativa establece que, cuando a la extinción del contrato existan vacaciones devengadas y no disfrutadas, el período correspondiente se considera de alta asimilada a efectos de Seguridad Social, manteniéndose la obligación de cotizar por las contingencias protegidas. El empresario debe ingresar las cuotas sobre las retribuciones correspondientes a esas vacaciones, sin trasladar la obligación a un eventual nuevo empleador.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el ámbito de la Seguridad Social, ¿qué se entiende por 'situación asimilada al alta' a efectos de cotización y prestaciones?",
+          "options": [
+            "Una situación en la que, sin existir alta real en un régimen, la ley equipara determinados efectos a la misma",
+            "Una modalidad de alta voluntaria del trabajador en cualquier régimen",
+            "Un estado en el que se suspende toda obligación de cotizar y de proteger",
+            "Una categoría profesional específica con tipo de cotización reducido"
+          ],
+          "correctAnswer": "D",
+          "explanation": "Las situaciones asimiladas al alta son aquellas en las que, aun no existiendo una situación de alta efectiva en un régimen, la normativa equipara, a determinados efectos, esa situación a la de alta, especialmente en materia de prestaciones. Ejemplos son determinados períodos de desempleo, excedencias o desplazamientos al extranjero. No suponen automáticamente la suspensión de la obligación de cotizar ni constituyen una categoría profesional propia.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la determinación de la base de cotización por horas extraordinarias en el Régimen General, ¿cuál es la regla general respecto a su integración en la cotización por contingencias comunes?",
+          "options": [
+            "Se excluyen de la base de cotización por contingencias comunes, salvo las debidas a fuerza mayor en ciertos supuestos",
+            "Se integran íntegramente en la base de cotización por contingencias comunes",
+            "Sólo se computan a efectos de la cotización por desempleo",
+            "Se someten a un tipo único aplicable a todas las contingencias"
+          ],
+          "correctAnswer": "A",
+          "explanation": "La normativa distingue entre cotización por contingencias comunes y por conceptos de recaudación conjunta. Las horas extraordinarias, con carácter general, se excluyen de la base de cotización por contingencias comunes, sin perjuicio de su inclusión en otras bases específicas y de las particularidades de las efectuadas por fuerza mayor. No se integran íntegramente en la base común ni se limitan al desempleo.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "Respecto a la determinación de la base de cotización en los contratos para la formación en alternancia, ¿qué especialidad presenta la normativa de la Seguridad Social?",
+          "options": [
+            "Se aplican bases de cotización reducidas o tarifas planas, desvinculadas de la retribución real",
+            "Se cotiza siempre por la base mínima general del Régimen General",
+            "Se excluye completamente la obligación de cotizar por contingencias comunes",
+            "Sólo se cotiza por contingencias profesionales y desempleo"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Los contratos formativos han estado sometidos tradicionalmente a reglas especiales de cotización, en ocasiones mediante cuotas únicas o reducidas por contingencias comunes y profesionales, establecidas reglamentariamente. Estas especialidades persiguen fomentar la inserción laboral de jóvenes y personas en formación, sin suponer la exclusión total de la obligación de cotizar salvo previsión legal expresa.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el contexto de la cotización en el Régimen General, ¿qué se entiende por 'tipo adicional' por contingencias de accidente de trabajo y enfermedad profesional derivado de siniestralidad?",
+          "options": [
+            "Un recargo sobre las primas ordinarias que puede imponerse a empresas con elevada siniestralidad",
+            "Un tipo reducido concedido como incentivo a empresas sin accidentes",
+            "Una exención temporal de cotización por contingencias profesionales",
+            "Un tipo aplicable exclusivamente a las empresas de la construcción"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La legislación prevé que, en casos de siniestralidad anormalmente elevada imputable al incumplimiento de las medidas de seguridad e higiene, puedan imponerse recargos sobre las prestaciones económicas y, en su caso, tipos adicionales sobre las primas. Estos recargos actúan como mecanismo sancionador y preventivo, incrementando el coste de la cotización por contingencias profesionales para las empresas incumplidoras.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En relación con la obligación de cotizar de los trabajadores desplazados temporalmente al extranjero por empresas establecidas en España, ¿qué regla general establece la normativa de coordinación de regímenes?",
+          "options": [
+            "Pueden seguir cotizando al Régimen General español durante el período autorizado de desplazamiento, en los términos de los reglamentos comunitarios o convenios internacionales",
+            "Quedan automáticamente sometidos al régimen del país de destino y cesa la cotización al sistema español",
+            "Se suspende toda obligación de cotizar mientras dure el desplazamiento",
+            "Sólo cotizan por contingencias profesionales en España"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Los reglamentos comunitarios y los convenios bilaterales de Seguridad Social suelen permitir que los trabajadores desplazados temporalmente al extranjero sigan sujetos a la legislación de Seguridad Social del Estado de origen durante un período limitado, manteniendo la cotización en dicho sistema. Esta regla evita la doble cotización y garantiza la continuidad de la protección, siempre que se cumplan las condiciones y plazos establecidos en cada instrumento internacional.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la determinación de la base de cotización en el Régimen General, ¿qué tratamiento tienen, con carácter general, las percepciones en especie a efectos de cotización por contingencias comunes?",
+          "options": [
+            "Se valoran y se integran en la base de cotización, salvo exclusiones expresamente previstas",
+            "Se excluyen siempre de la base de cotización, al no ser percepciones en metálico",
+            "Sólo se computan para la cotización por desempleo y FOGASA",
+            "Se someten a una base separada que no se suma a la general"
+          ],
+          "correctAnswer": "D",
+          "explanation": "Conforme al régimen de cotización, las percepciones en especie que tengan carácter salarial se valoran, de acuerdo con las reglas fiscales y de Seguridad Social, e integran la base de cotización por contingencias comunes, salvo que una norma las excluya de forma específica. No se limitan a desempleo o FOGASA ni se someten a una base totalmente separada sin suma a la general.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "¿Qué efecto produce, a efectos de cotización, la declaración de nulidad de un despido con readmisión del trabajador en el Régimen General?",
+          "options": [
+            "La obligación del empresario de ingresar las cuotas correspondientes al período intermedio como si hubiera existido prestación de servicios",
+            "La exoneración total de la empresa de cotizar por el período entre el despido y la readmisión",
+            "La obligación de cotizar recae exclusivamente sobre el trabajador, que percibe los salarios de tramitación",
+            "Sólo se cotiza por las contingencias profesionales, al no haberse prestado efectivamente servicios"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Cuando se declara la nulidad del despido y se ordena la readmisión con abono de los salarios de tramitación, la situación se equipara, a efectos de Seguridad Social, a la de continuidad de la relación laboral. El empresario debe ingresar las cuotas correspondientes al período intermedio como si el trabajador hubiera estado en alta y prestando servicios, garantizando la protección por las distintas contingencias.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la cotización de los socios trabajadores de cooperativas de trabajo asociado encuadrados en el Régimen General asimilado, ¿qué particularidad puede presentar su base de cotización?",
+          "options": [
+            "Puede fijarse en función de los módulos internos de participación aprobados por la cooperativa, respetando los topes legales",
+            "Se limita siempre a la base mínima del grupo de cotización",
+            "Se determina exclusivamente por la Administración sin intervención de la cooperativa",
+            "Se excluye la obligación de cotizar por desempleo y FOGASA"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Los socios trabajadores de cooperativas de trabajo asociado pueden quedar asimilados a trabajadores por cuenta ajena a efectos de encuadramiento, de forma que su base de cotización se determina en función de las retribuciones derivadas de su actividad, que pueden estar vinculadas a módulos internos de participación. En todo caso, deben respetarse las bases mínimas y máximas fijadas legalmente y las normas específicas sobre cobertura de desempleo y FOGASA cuando resulte obligatoria.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el ámbito de la recaudación de cuotas, ¿qué naturaleza tiene la 'responsabilidad solidaria' en materia de Seguridad Social prevista para determinados supuestos de contratas y subcontratas?",
+          "options": [
+            "Permite exigir indistintamente a empresario principal y contratista el pago de las deudas por cuotas generadas en la obra o servicio",
+            "Implica que sólo el contratista responde frente a la Tesorería por las cuotas adeudadas",
+            "Supone la exoneración del empresario principal cuando existe certificado de estar al corriente",
+            "Se limita a las sanciones administrativas, pero no a las cuotas"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La legislación de Seguridad Social y laboral contempla supuestos de responsabilidad solidaria del empresario principal respecto de las obligaciones de Seguridad Social de los contratistas y subcontratistas en las obras y servicios que contraten. Esta solidaridad permite a la Tesorería reclamar el pago de las cuotas tanto al principal como al contratista, dentro de los límites y plazos fijados, reforzando las garantías recaudatorias y la protección de los trabajadores implicados.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En relación con la cotización durante los períodos de reducción de jornada por cuidado de hijo o familiar, ¿qué mecanismo de protección introduce la normativa de Seguridad Social?",
+          "options": [
+            "Se prevé el cómputo de una base de cotización incrementada o ficticia a efectos de determinadas prestaciones",
+            "Se suspende totalmente la obligación de cotizar durante la reducción",
+            "Sólo se cotiza por contingencias profesionales, excluyéndose las comunes",
+            "Se limita la base de cotización al salario efectivo sin posibilidad de mejora"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Para proteger las carreras de cotización de quienes ejercen el derecho a la reducción de jornada por cuidado de menores o familiares, la normativa establece mecanismos de mejora en el cómputo de las bases a efectos de determinadas prestaciones (como jubilación o incapacidad permanente), de manera que se consideren integrados períodos con bases superiores a las efectivamente cotizadas, dentro de ciertos límites y condiciones.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "Respecto a la obligación de cotizar de los trabajadores a tiempo parcial respecto del acceso a la pensión de jubilación, ¿qué principio ha reforzado la normativa y la jurisprudencia?",
+          "options": [
+            "La proporcionalidad en la protección, evitando un trato peyorativo injustificado frente a los trabajadores a tiempo completo",
+            "La reducción automática de las pensiones a la mitad, cualquiera que sea el tiempo parcial",
+            "La exclusión del cómputo de los períodos trabajados a tiempo parcial",
+            "La obligación de cotizar únicamente por contingencias profesionales"
+          ],
+          "correctAnswer": "D",
+          "explanation": "La normativa y la jurisprudencia, especialmente a raíz de pronunciamientos del Tribunal de Justicia de la Unión Europea y del Tribunal Constitucional, han reforzado el principio de igualdad y no discriminación de los trabajadores a tiempo parcial en el acceso a prestaciones como la jubilación, modulando reglas de cómputo y coeficientes para evitar resultados desproporcionadamente perjudiciales en función de la parcialidad de la jornada.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la estructura de la cotización a la Seguridad Social, ¿qué función cumple el Mecanismo de Equidad Intergeneracional (MEI) introducido en el sistema?",
+          "options": [
+            "Configura un recargo finalista sobre las cotizaciones con destino al Fondo de Reserva de la Seguridad Social",
+            "Es una reducción generalizada de tipos para equilibrar generacionalmente el esfuerzo contributivo",
+            "Supone la exención temporal de cotizar para los trabajadores jóvenes",
+            "Sustituye íntegramente a la cotización por contingencias comunes"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El Mecanismo de Equidad Intergeneracional se establece como un recargo o sobrecotización finalista sobre las bases de cotización, con destino al refuerzo del Fondo de Reserva u otros instrumentos de sostenibilidad, a fin de repartir entre distintas generaciones el esfuerzo derivado del envejecimiento poblacional. No implica una reducción de tipos ni la exención de cotizar para determinados colectivos, sino un incremento temporal y finalista de la cotización.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el Régimen General, cuando un trabajador se encuentra en situación de alta sin percibir remuneración por estar en excedencia forzosa con reserva de puesto, ¿cómo se configura, con carácter general, la obligación de cotizar por contingencias comunes?",
+          "options": [
+            "Se mantienen las cotizaciones a cargo exclusivo de la empresa durante todo el periodo de excedencia",
+            "Se suspende por completo la obligación de cotizar mientras dure la excedencia forzosa",
+            "Se limita la cotización a las contingencias profesionales, excluyendo las comunes",
+            "El trabajador asume íntegramente la cotización mediante convenio especial obligatorio"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Las situaciones de excedencia forzosa con reserva de puesto se configuran como situaciones asimiladas al alta, con una regulación específica en materia de cotización. Con carácter general, la obligación ordinaria de cotizar por contingencias comunes se suspende, sin perjuicio de la posibilidad de suscribir convenios especiales u otras formas de protección, mientras que las contingencias profesionales pueden quedar cubiertas en función de la normativa aplicable y del origen de la excedencia.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la determinación de la base de cotización en los contratos de relevo del Régimen General, ¿qué criterio se aplica respecto de las bases del trabajador relevista a jornada parcial?",
+          "options": [
+            "Se toma como referencia la base del trabajador relevado a jornada completa, sin ajuste",
+            "Se calcula sobre la remuneración real del relevista, en proporción a su jornada, aplicando los topes legales",
+            "Se fija una base única mínima para todos los relevistas, con independencia del salario",
+            "Sólo se cotiza por las horas que excedan del 50 % de la jornada"
+          ],
+          "correctAnswer": "B",
+          "explanation": "En los contratos de relevo, la base de cotización del trabajador relevista se determina, con carácter general, a partir de las remuneraciones efectivamente percibidas en función de la jornada pactada, aplicando los topes mínimos y máximos correspondientes. No se impone la base del trabajador relevado ni una base única, aunque existan requisitos adicionales sobre la correlación de bases y jornadas a efectos de determinadas modalidades de jubilación parcial.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En relación con la cotización en el Sistema Especial para Empleados de Hogar integrado en el Régimen General, ¿qué particularidad presenta la determinación de las bases de cotización?",
+          "options": [
+            "Se fijan bases normalizadas por tramos de retribución, en lugar de la remuneración exacta",
+            "Sólo se cotiza por contingencias profesionales y desempleo",
+            "Las bases se determinan libremente por el empleador, sin referencia a las retribuciones",
+            "Se aplica la misma base mínima del Régimen Especial de Trabajadores Autónomos"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El Sistema Especial para Empleados de Hogar prevé que las bases de cotización se establezcan, con carácter general, en función de tramos de retribución mensual, cada uno con una base de cotización asociada, de acuerdo con las disposiciones anuales. No se toman bases libremente fijadas ni se limita la cotización a determinadas contingencias, sino que se articula un sistema de bases normalizadas vinculado a la remuneración real.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el Régimen General, ¿qué efecto tiene, a efectos de cotización, la declaración administrativa de responsabilidad empresarial por falta de medidas de seguridad e higiene en el trabajo?",
+          "options": [
+            "Supone la aplicación de recargos sobre las prestaciones económicas reconocidas, sin modificar las bases de cotización",
+            "Implica la exoneración del empresario del ingreso de cuotas por contingencias profesionales",
+            "Determina la obligación del trabajador de asumir parte de las cuotas futuras",
+            "Conlleva automáticamente la suspensión de la cobertura de las prestaciones económicas"
+          ],
+          "correctAnswer": "C",
+          "explanation": "La declaración de responsabilidad empresarial por falta de medidas de seguridad e higiene se traduce, con carácter general, en recargos sobre las prestaciones económicas de Seguridad Social que perciba el trabajador afectado, recargos que corren exclusivamente a cargo del empresario. Estos recargos no alteran las bases de cotización ni trasladan la obligación de cotizar al trabajador, y se configuran como una consecuencia sancionadora y reparadora añadida a la cotización ordinaria.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "Respecto a la cotización por desempleo en los contratos temporales a tiempo completo del Régimen General, ¿qué característica distingue el tipo aplicado respecto de los contratos indefinidos?",
+          "options": [
+            "El tipo de cotización por desempleo es generalmente superior en los contratos temporales",
+            "El tipo de cotización es idéntico para contratos temporales e indefinidos",
+            "En los contratos temporales sólo cotiza el trabajador y no el empresario",
+            "Los contratos temporales están exentos de cotizar por desempleo"
+          ],
+          "correctAnswer": "B",
+          "explanation": "La normativa de cotización por desempleo diferencia, con carácter general, los tipos aplicables a los contratos indefinidos y a los temporales, siendo habitual que estos últimos soporten un tipo algo superior, como medida de desincentivo a la temporalidad. En ambos casos contribuyen empresario y trabajador, sin exoneración general para ninguno de ellos, y las variaciones de tipo se fijan anualmente por norma con rango de ley o reglamento.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el ámbito de la gestión recaudatoria, ¿qué se entiende por acta de liquidación de cuotas de la Seguridad Social?",
+          "options": [
+            "Un documento administrativo mediante el cual la Inspección de Trabajo y Seguridad Social determina deudas por cuotas no ingresadas",
+            "Un acuerdo privado entre empresa y trabajadores sobre el fraccionamiento de cuotas",
+            "Una resolución judicial que impone sanciones penales por fraude en la cotización",
+            "Un simple recordatorio informativo sin efectos ejecutivos"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El acta de liquidación es un documento administrativo emitido normalmente por la Inspección de Trabajo y Seguridad Social, en el que se cuantifican las cuotas a la Seguridad Social que se consideran adeudadas por el sujeto responsable, sirviendo de base para su exacción en vía recaudatoria. Tiene efectos ejecutivos una vez firme y no constituye un mero recordatorio, ni un acuerdo privado ni una resolución penal.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la determinación de la base de cotización en los supuestos de salarios de tramitación abonados tras sentencia judicial, ¿qué regla general rige en el Régimen General?",
+          "options": [
+            "Se integran en la base de cotización correspondiente al período a que se refieren, como si el trabajador hubiera estado en alta",
+            "Sólo se cotiza por el mes en que se abonan efectivamente los salarios de tramitación",
+            "Quedan excluidos de la base de cotización al no corresponder a trabajo efectivo",
+            "Se someten a una base separada que no incide en las prestaciones"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Cuando se abonan salarios de tramitación derivados de la declaración de improcedencia o nulidad de un despido, la normativa de Seguridad Social establece que las cuotas correspondientes se calculan como si el trabajador hubiera estado en alta y prestando servicios durante el período al que dichos salarios se refieren, integrándose en las bases de cotización de los meses afectados. De este modo se garantiza la continuidad de la protección y el cómputo adecuado de períodos y bases para futuras prestaciones.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el Sistema Especial para Trabajadores Agrarios por cuenta ajena integrado en el Régimen General, ¿qué particularidad presenta el cálculo de la base de cotización en períodos de inactividad?",
+          "options": [
+            "Los propios trabajadores pueden optar por mantener una cotización voluntaria sobre una base fijada reglamentariamente",
+            "La empresa está obligada a seguir cotizando íntegramente como si hubiera actividad",
+            "No existe posibilidad alguna de cotizar durante los períodos de inactividad",
+            "Se aplican automáticamente las bases mínimas del Régimen Especial de Autónomos"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El Sistema Especial Agrario por cuenta ajena prevé la posibilidad de que los trabajadores mantengan, en determinados períodos de inactividad y bajo ciertas condiciones, una cotización continuada mediante la suscripción de convenios especiales o mecanismos semejantes, calculada sobre bases reguladas normativamente. No se impone a la empresa la obligación de cotizar en ausencia de actividad, ni se excluye en todo caso la cobertura de tales períodos.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la cotización derivada de expedientes de regulación temporal de empleo (ERTE) por causas económicas, técnicas, organizativas o de producción, ¿qué regla general se aplica respecto de la obligación de cotizar?",
+          "options": [
+            "Se mantiene la obligación de cotizar por la totalidad de las contingencias, con posibles exoneraciones o reducciones reguladas",
+            "Se suspende absolutamente la obligación de cotizar mientras dure el ERTE",
+            "Sólo se cotiza por contingencias profesionales y no por comunes",
+            "La obligación de cotizar se traslada íntegramente al trabajador afectado"
+          ],
+          "correctAnswer": "D",
+          "explanation": "En los ERTE, la regla general es el mantenimiento de la obligación de cotizar durante los períodos de reducción de jornada o suspensión de contratos, si bien la normativa puede establecer exoneraciones parciales o totales de cuotas a cargo de la empresa en situaciones excepcionales (como crisis económicas o sanitarias), sin trasladar la obligación al trabajador. La cotización se extiende a las contingencias protegidas de acuerdo con el marco legal vigente en cada momento.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "¿Qué tratamiento reciben, a efectos de base de cotización por contingencias comunes, las indemnizaciones por despido que superan los límites exentos establecidos en la normativa fiscal?",
+          "options": [
+            "La parte que excede de los límites exentos se integra en la base de cotización, al tener carácter salarial",
+            "Se excluyen en todo caso de la base de cotización, estén exentas o no fiscalmente",
+            "Sólo se computan a efectos de la cotización por FOGASA",
+            "Se someten a un tipo único reducido ajeno a la base general"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Aunque las indemnizaciones por despido tienen, con carácter general, un tratamiento especial tanto fiscal como de Seguridad Social, la parte que excede de los límites exentos puede considerarse retribución sujeta a cotización, integrándose en la base de contingencias comunes si así lo establece expresamente la normativa de Seguridad Social. La coordinación entre la normativa fiscal y la de cotización resulta esencial para determinar en cada caso la parte computable.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En materia de recaudación de cuotas, ¿qué diferencia esencial existe entre el recargo por ingreso fuera de plazo sin requerimiento previo y el recargo aplicable tras el inicio de la vía ejecutiva?",
+          "options": [
+            "El recargo en vía ejecutiva es superior y se acompaña de intereses y costas, mientras que el recargo por ingreso fuera de plazo sin requerimiento es más reducido",
+            "Ambos recargos son idénticos en porcentaje y efectos",
+            "El recargo por ingreso fuera de plazo sólo se aplica cuando ya se ha dictado providencia de apremio",
+            "El recargo en vía ejecutiva se aplica exclusivamente a las deudas por contingencias profesionales"
+          ],
+          "correctAnswer": "B",
+          "explanation": "El recargo por ingreso fuera de plazo sin requerimiento previo tiene porcentajes inferiores a los aplicables cuando la deuda ya está en vía ejecutiva, fase en la que se añaden recargos más gravosos, intereses de demora y, en su caso, costas del procedimiento de apremio. La diferenciación de tramos y efectos busca incentivar el ingreso voluntario y temprano de las cuotas antes de la actuación coercitiva de la Administración.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la coordinación entre la base de cotización y la base reguladora de prestaciones, ¿qué principio general se observa en el sistema español de Seguridad Social?",
+          "options": [
+            "La base reguladora se calcula, en gran medida, a partir de las bases de cotización efectivamente ingresadas durante períodos de referencia",
+            "La base reguladora es independiente de las bases de cotización y se fija discrecionalmente por la Administración",
+            "Sólo se tienen en cuenta las bases de cotización correspondientes al último año",
+            "La base reguladora se determina exclusivamente por el salario mínimo interprofesional"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El sistema de Seguridad Social articula una estrecha conexión entre cotización y prestaciones, de modo que la base reguladora de muchas prestaciones económicas (como jubilación, incapacidad permanente o desempleo) se calcula a partir de las bases de cotización de períodos previos determinados. Este principio contributivo asegura que la protección guarde relación con el esfuerzo de cotización, dentro de los límites de suficiencia y solidaridad que también informan el sistema.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En los supuestos de pluriactividad, cuando una misma persona cotiza simultáneamente en el Régimen General y en el Régimen Especial de Trabajadores Autónomos, ¿qué medida correctora prevé la normativa respecto de las cotizaciones superpuestas?",
+          "options": [
+            "La posibilidad de devolución de excesos de cotización cuando se superan determinados topes fijados legalmente",
+            "La exclusión automática de la obligación de cotizar en uno de los regímenes",
+            "La acumulación ilimitada de bases de cotización sin tope alguno",
+            "La obligación de optar por un único régimen cotizando sólo en él"
+          ],
+          "correctAnswer": "A",
+          "explanation": "En situación de pluriactividad, la normativa contempla mecanismos para evitar una sobrecotización desproporcionada, como la devolución de una parte de las cuotas cuando las bases superan determinados límites fijados en cada ejercicio. No se impone, con carácter general, la renuncia a uno de los regímenes ni se excluye automáticamente la obligación de cotizar, respetándose el principio de contributividad con correcciones frente a la doble cotización excesiva.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el marco de la financiación de las prestaciones no contributivas, ¿qué relación guarda la cotización a la Seguridad Social con dichas prestaciones?",
+          "options": [
+            "Las prestaciones no contributivas se financian fundamentalmente mediante aportaciones presupuestarias del Estado, y no a través de las cotizaciones",
+            "Se financian exclusivamente con las cotizaciones de los trabajadores por cuenta ajena",
+            "Dependen únicamente de las cotizaciones de los autónomos afiliados al RETA",
+            "Se nutren de un fondo separado formado por donaciones privadas"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Las prestaciones no contributivas, como determinadas pensiones o ayudas asistenciales, se financian prioritariamente con cargo a los Presupuestos Generales del Estado, de acuerdo con el principio de separación de fuentes de financiación, que reserva las cotizaciones sociales para las prestaciones contributivas. De este modo se garantiza la sostenibilidad del sistema y la distinción entre protección basada en cotización y protección de carácter asistencial.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la fijación anual de las bases máximas y mínimas de cotización, ¿qué órgano o instrumento normativo establece sus importes en el sistema español de Seguridad Social?",
+          "options": [
+            "Generalmente, la Ley de Presupuestos Generales del Estado o normas con rango de ley que la desarrollan",
+            "Acuerdos entre organizaciones empresariales y sindicales sin intervención del Estado",
+            "Resoluciones internas de la Tesorería General de la Seguridad Social sin rango normativo",
+            "Circulares de las mutuas colaboradoras con la Seguridad Social"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Los importes de las bases máximas y mínimas de cotización se fijan ordinariamente en la Ley de Presupuestos Generales del Estado de cada ejercicio o en normas con rango de ley que la complementan o modifican, pudiendo ser objeto de desarrollo reglamentario. No se determinan por acuerdos privados ni por simples resoluciones administrativas sin cobertura legal, dado su impacto en la financiación del sistema.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En relación con la gestión del Fondo de Reserva de la Seguridad Social, ¿qué carácter presentan las aportaciones derivadas de excedentes de cotización?",
+          "options": [
+            "Tienen carácter finalista y se destinan a atender necesidades futuras de prestaciones contributivas",
+            "Constituyen ingresos ordinarios del Estado sin afectación específica",
+            "Se devuelven automáticamente a las empresas al cierre de cada ejercicio",
+            "Sólo pueden aplicarse al pago de prestaciones no contributivas"
+          ],
+          "correctAnswer": "D",
+          "explanation": "El Fondo de Reserva se nutre, entre otros recursos, de excedentes de cotización generados en ejercicios de superávit, que se integran como dotaciones con carácter finalista para atender desequilibrios futuros en el sistema contributivo, particularmente en materia de pensiones. No se trata de ingresos ordinarios sin afectación ni de cantidades reembolsables a empresas o destinadas a prestaciones no contributivas.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el contexto de la acción protectora del sistema, ¿qué función cumple el principio de contributividad en la configuración de la relación entre cotización y prestaciones?",
+          "options": [
+            "Vincula, en términos generales, el nivel de prestaciones al esfuerzo de cotización realizado, dentro de los límites de suficiencia y solidaridad",
+            "Garantiza que todas las prestaciones sean idénticas con independencia de las bases cotizadas",
+            "Permite excluir de protección a quienes no alcancen determinadas bases de cotización altas",
+            "Impone que las prestaciones se financien exclusivamente con impuestos generales"
+          ],
+          "correctAnswer": "A",
+          "explanation": "El principio de contributividad implica que las prestaciones contributivas se generan y cuantifican en función de las cotizaciones efectuadas, de modo que existe una relación entre el esfuerzo contributivo (bases y períodos cotizados) y el nivel de protección, sin perjuicio de la presencia de elementos de solidaridad y suficiencia mínima. Este principio justifica la estrecha conexión técnica entre normas de cotización y de determinación de prestaciones.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En el Régimen General, respecto a la cotización durante la situación de riesgo durante el embarazo, ¿qué regla general rige sobre la obligación de cotizar por contingencias comunes?",
+          "options": [
+            "Se suspende la obligación de cotizar desde el reconocimiento de la prestación",
+            "Se mantiene la obligación de cotizar, computando como base la que correspondía en la situación de trabajo previo",
+            "Sólo se cotiza por contingencias profesionales mientras dure la suspensión del contrato",
+            "La obligación de cotizar se traslada íntegramente a la entidad gestora o mutua colaboradora"
+          ],
+          "correctAnswer": "C",
+          "explanation": "En las situaciones de riesgo durante el embarazo, en las que se suspende el contrato de trabajo con derecho a prestación económica, la normativa de Seguridad Social establece, con carácter general, la continuidad de la cotización a efectos de determinadas contingencias, utilizando como referencia la situación previa al riesgo. La empresa y, en su caso, la entidad gestora o colaboradora asumen la obligación de cotizar en los términos fijados legalmente, preservando el cómputo de bases y períodos.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        },
+        {
+          "question": "En la aplicación del mecanismo de cotización adicional para anticipar la jubilación de determinados colectivos con largas carreras de cotización, ¿qué característica presenta dicha cotización?",
+          "options": [
+            "Se configura como una aportación complementaria de carácter finalista, vinculada a la financiación del mayor coste de las jubilaciones anticipadas",
+            "Supone una reducción del tipo de cotización para incentivar la jubilación anticipada",
+            "Libera a la empresa de la obligación de cotizar por contingencias comunes",
+            "Se aplica exclusivamente a los trabajadores en pluriactividad"
+          ],
+          "correctAnswer": "D",
+          "explanation": "Determinados mecanismos de jubilación anticipada pueden asociarse a cotizaciones adicionales o aportaciones específicas, orientadas a financiar el mayor coste que estas jubilaciones suponen para el sistema. Tales cotizaciones tienen carácter finalista y se añaden a las cuotas ordinarias, sin implicar reducciones generales de tipos ni exoneraciones de cotización por las contingencias comunes cubiertas.",
+          "difficulty": "hard",
+          "temaCodigo": "E04",
+          "temaNumero": 4,
+          "temaParte": "ESPECIFICO",
+          "temaTitulo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1"
+        }
+      ]
+    }
+  ]
+}

@@ -374,6 +374,10 @@ export async function GET(req: NextRequest) {
 
     console.log('[Cron] ✓ Autenticación exitosa')
 
+    const categoryParam = req.nextUrl?.searchParams?.get('category')?.toLowerCase?.() ?? null
+    const categoryFilter: 'general' | 'especifico' | null =
+      categoryParam === 'general' || categoryParam === 'especifico' ? categoryParam : null
+
     // Verificar Groq API Key
     if (!String(process.env.GROQ_API_KEY ?? '').trim()) {
       return NextResponse.json({ error: 'GROQ_API_KEY no configurada' }, { status: 500 })
@@ -392,6 +396,7 @@ export async function GET(req: NextRequest) {
     // Seleccionar temas con menos preguntas (máximo 5 por ejecución)
     const temasPendientes = TEMARIO_OFICIAL
       .filter(t => {
+        if (categoryFilter && t.categoria !== categoryFilter) return false
         const count = estadisticas.get(t.id.toLowerCase()) || 0
         return count < 100 // Generar hasta tener 100 preguntas por tema
       })

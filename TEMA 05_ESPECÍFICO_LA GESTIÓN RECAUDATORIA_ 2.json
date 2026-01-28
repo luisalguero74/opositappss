@@ -1,0 +1,604 @@
+{
+  "questions": [
+    {
+      "question": "¿Quién es competente para celebrar conciertos sobre gestión recaudatoria de la Seguridad Social entre la Tesorería General y una Administración Pública o una asociación profesional?",
+      "options": [
+        "El Director General de la Tesorería General de la Seguridad Social, previa autorización del Ministro de Trabajo y Asuntos Sociales o autoridad en quien delegue",
+        "El Ministro de Trabajo y Asuntos Sociales, sin intervención del Director General de la Tesorería General de la Seguridad Social",
+        "El Secretario de Estado de la Seguridad Social, previa autorización del Consejo de Ministros",
+        "Las Direcciones Provinciales de la Tesorería General de la Seguridad Social, previa autorización del Director General"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 1 de la Orden TAS/1562/2005 atribuye al Director General de la Tesorería General la celebración de conciertos de gestión recaudatoria con Administraciones Públicas y asociaciones profesionales, previa autorización del Ministro de Trabajo y Asuntos Sociales o autoridad en quien delegue. Por eso la opción A es la única que se ajusta al texto legal; las opciones B, C y D desplazan la competencia a otros órganos que el precepto no menciona como titulares de esta función.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué autorización se exige para que la Tesorería General celebre conciertos de gestión recaudatoria con entidades particulares, según el art. 1 de la Orden TAS/1562/2005?",
+      "options": [
+        "Autorización del Ministro de Trabajo y Asuntos Sociales o autoridad en quien delegue",
+        "Autorización del Secretario de Estado de la Seguridad Social",
+        "Autorización del Consejo de Ministros",
+        "No se requiere autorización previa, basta la decisión del Director General de la Tesorería General"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 1 de la Orden TAS/1562/2005 indica que, para conciertos entre la Tesorería General y entidades particulares, se requiere 'previa autorización del Consejo de Ministros'. Por tanto, la opción C es la correcta. La A recoge la autorización del Ministro, que el mismo artículo reserva a conciertos con Administraciones Públicas o asociaciones profesionales; la B menciona al Secretario de Estado, que no figura en este supuesto, y la D ignora la necesidad de autorización previa.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué órgano tiene reservada la autorización de medios de pago de deudas con la Seguridad Social distintos de los relacionados en el art. 21 del Reglamento General de Recaudación?",
+      "options": [
+        "Las Direcciones Provinciales de la Tesorería General de la Seguridad Social",
+        "La Subdirección General de Ordenación de Pagos y Gestión del Fondo de Reserva",
+        "La Dirección General de la Tesorería General de la Seguridad Social",
+        "La Unidad de Recaudación Ejecutiva de ámbito estatal"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 2.1 de la Orden TAS/1562/2005 reserva a la Dirección General de la Tesorería General de la Seguridad Social 'la autorización de medios de pago de las deudas con la Seguridad Social distintos de los relacionados en el artículo 21 del Reglamento General de Recaudación'. Por ello la opción C es correcta. Las opciones A y D se refieren a órganos territoriales o ejecutivos que no tienen reconocida esta competencia específica, y la B alude a una Subdirección que en el propio art. 2 se vincula a otras funciones pero no a esta autorización especial.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Cuál de los siguientes recursos figura expresamente en el art. 2.2 de la Orden TAS/1562/2005 como objeto de gestión recaudatoria reservada a los órganos centrales de la Tesorería General?",
+      "options": [
+        "Las cuotas de los trabajadores autónomos del Régimen Especial de Trabajadores por Cuenta Propia o Autónomos",
+        "Las aportaciones para el sostenimiento de los Servicios Comunes y Sociales de la Seguridad Social a efectuar por las Mutuas de Accidentes de Trabajo y Enfermedades Profesionales",
+        "Las cotizaciones empresariales por contingencias comunes del Régimen General",
+        "Las cuotas por desempleo y Fondo de Garantía Salarial"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 2.2.a) de la Orden TAS/1562/2005 incluye como recurso cuya gestión recaudatoria se reserva a los órganos centrales 'las aportaciones para el sostenimiento de los Servicios Comunes y Sociales de la Seguridad Social [...] a efectuar por las Mutuas de Accidentes de Trabajo y Enfermedades Profesionales de la Seguridad Social'. Esta descripción coincide con la opción B. Las opciones A, C y D aluden a cuotas o conceptos que no aparecen en la enumeración de las letras a) a j) del art. 2.2.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 2.2.e) de la Orden TAS/1562/2005, ¿qué porcentaje del exceso de excedentes de las Mutuas de Accidentes de Trabajo y Enfermedades Profesionales debe ingresarse como recurso gestionado por los órganos centrales?",
+      "options": [
+        "El 50 por 100 del exceso de excedentes",
+        "El 60 por 100 del exceso de excedentes",
+        "El 80 por 100 del exceso de excedentes",
+        "El 20 por 100 del exceso de excedentes"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 2.2.e) de la Orden TAS/1562/2005 señala como recurso la obligación de ingresar 'el 80 por 100 del exceso de excedentes' por parte de las Mutuas, entre otros supuestos. Por eso la opción C es la única que reproduce el porcentaje exacto. Las otras alternativas ofrecen porcentajes (50 %, 60 % y 20 %) que no se corresponden con el texto legal.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué funciones incluye la gestión recaudatoria reservada a los órganos centrales respecto de los recursos enumerados en el art. 2.2, según el art. 2.2.1 de la Orden TAS/1562/2005?",
+      "options": [
+        "Sólo la reclamación de las deudas y la vía de apremio",
+        "La reclamación de las deudas, el aplazamiento, la compensación, la devolución de ingresos indebidos, la expedición de certificaciones de pago y la admisión de consignaciones",
+        "Únicamente la expedición de certificaciones acreditativas de pago",
+        "Exclusivamente la tramitación de embargos de bienes en vía ejecutiva"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 2.2.1 (numerado como 2.1 en el texto) indica que la gestión recaudatoria reservada a los órganos centrales comprende 'las funciones de reclamación de las deudas correspondientes y, en su caso, el aplazamiento de las mismas, su compensación, la devolución de ingresos indebidos, así como la expedición de certificaciones acreditativas de su pago y la admisión de la consignación'. La opción B recoge este elenco completo. Las opciones A, C y D restringen indebidamente el alcance a sólo algunas de esas funciones.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Cuando respecto de las deudas gestionadas por los órganos centrales deba iniciarse el procedimiento de apremio, ¿qué prevé el art. 2.3 de la Orden TAS/1562/2005?",
+      "options": [
+        "Que el órgano central continúe íntegramente el procedimiento de apremio sin intervención de órganos territoriales",
+        "Que la Dirección General de la Tesorería General remita las actuaciones al Ministerio de Trabajo y Asuntos Sociales",
+        "Que el órgano central remita las actuaciones pertinentes a la Dirección Provincial de la Tesorería General en la que tenga su domicilio el deudor",
+        "Que la Unidad de Recaudación Ejecutiva de ámbito estatal asuma siempre la tramitación, con independencia del domicilio del deudor"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 2.3 dispone que, si ha de iniciarse el procedimiento de apremio respecto de esas deudas, 'el órgano central de la Tesorería General de la Seguridad Social remitirá las actuaciones pertinentes a la Dirección Provincial de la misma en la que tenga su domicilio el deudor'. La opción C recoge exactamente esta regla territorial. Las opciones A, B y D introducen órganos (continuación central, Ministerio, Unidad estatal) que el precepto no señala como destinatarios de la remisión.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 3.1.a) de la Orden TAS/1562/2005, ¿quién es competente para comunicar a la administración pública deudora el inicio del procedimiento de deducción respecto de los recursos gestionados por los órganos centrales del art. 2?",
+      "options": [
+        "El titular de la Subdirección General de Afiliación y Procedimientos Especiales de la Tesorería General de la Seguridad Social",
+        "El Director Provincial de la Tesorería General de la Seguridad Social",
+        "La Dirección General de Ordenación de la Seguridad Social",
+        "La Unidad de Recaudación Ejecutiva de ámbito estatal"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 3.1.a) atribuye al titular de la Subdirección General de Afiliación y Procedimientos Especiales 'la comunicación a la administración o entidad pública deudora del inicio del procedimiento de deducción' respecto de los recursos del sistema objeto de gestión recaudatoria reservada a los órganos centrales y de otros recursos. La opción A se ajusta al tenor literal. Las opciones B, C y D citan órganos que no aparecen en ese inciso como competentes para dicha comunicación.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En los casos en que el procedimiento recaudatorio se haya iniciado y deba continuarse por la respectiva Dirección Provincial, ¿a quién atribuye el art. 3.2.a) la comunicación del inicio del procedimiento de deducción a la administración pública deudora?",
+      "options": [
+        "Al Director General de la Tesorería General de la Seguridad Social",
+        "Al titular de la Subdirección General de Afiliación y Procedimientos Especiales",
+        "A los titulares de los órganos o unidades con competencia en materia de recaudación en período voluntario que determine el Director Provincial",
+        "A la Unidad de Recaudación Ejecutiva de ámbito estatal"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 3.2.a) establece que serán competentes 'los titulares de los órganos o unidades con competencia en materia de recaudación en período voluntario que determine el director provincial' para, entre otras funciones, comunicar el inicio del procedimiento de deducción cuando el procedimiento se haya iniciado y deba continuarse por la dirección provincial. La opción C reproduce esta fórmula. Las opciones A, B y D desplazan la competencia a otros órganos no mencionados en el apartado.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 4.1 de la Orden TAS/1562/2005, ¿cuál es la función principal de la Unidad de Recaudación Ejecutiva de ámbito estatal con sede en Madrid?",
+      "options": [
+        "Llevar de forma centralizada la tramitación de la gestión recaudatoria respecto a las empresas que, por su número de trabajadores u otras circunstancias, determine el Director General de la Tesorería General",
+        "Gestionar exclusivamente las deudas de las Administraciones Públicas frente a la Seguridad Social",
+        "Aprobar los modelos de documentos de cotización y recaudación en período voluntario",
+        "Resolver los recursos administrativos contra las providencias de apremio dictadas en todo el territorio nacional"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 4.1 dispone que la Unidad de Recaudación Ejecutiva de ámbito estatal 'llevará de forma centralizada la tramitación de la gestión recaudatoria respecto a las empresas que, por razón de su número de trabajadores u otras circunstancias concurrentes, se determinen por el Director General'. La opción A refleja esta competencia. Las opciones B, C y D añaden funciones (deudas de Administraciones, aprobación de modelos, resolución de recursos) que el precepto no le atribuye.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 5.1 de la Orden TAS/1562/2005, ¿qué puede autorizar el Director General de la Tesorería General cuando la especialidad y complejidad de las funciones recaudatorias lo requieran?",
+      "options": [
+        "La suspensión general de todos los procedimientos de apremio en una provincia",
+        "La gestión centralizada de determinadas funciones recaudatorias en la Subdirección General competente, Dirección Provincial, Administración de la Seguridad Social o Unidad de Recaudación Ejecutiva que designe",
+        "La condonación total de las deudas inferiores al 3 por 100 del IPREM mensual",
+        "La delegación automática de todas las competencias recaudatorias en las Mutuas de Accidentes de Trabajo y Enfermedades Profesionales"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 5.1 de la Orden TAS/1562/2005 prevé que el Director General podrá 'autorizar la gestión centralizada de determinadas funciones recaudatorias en la Subdirección General competente, Dirección Provincial, Administración de la Seguridad Social o Unidad de Recaudación Ejecutiva que el mismo designe'. La opción B reproduce este contenido. Las opciones A, C y D introducen facultades (suspensión general, condonación, delegación en Mutuas) que el precepto no contempla.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 6.1 de la Orden TAS/1562/2005, ¿qué entidades quedan autorizadas para actuar como oficinas recaudadoras en el ámbito de la Seguridad Social?",
+      "options": [
+        "Únicamente el Banco de España y las cajas de ahorro",
+        "Sólo las entidades de crédito que suscriban un convenio específico con cada Dirección Provincial",
+        "Las Mutuas de Accidentes de Trabajo y Enfermedades Profesionales de la Seguridad Social",
+        "Cualesquiera de las entidades financieras determinadas en el apartado 1 del art. 3 del Reglamento General de Recaudación de la Seguridad Social"
+      ],
+        "correctAnswer": "D",
+      "explanation": "El art. 6.1 establece que 'quedan autorizadas para actuar como oficinas recaudadoras en el ámbito de la Seguridad Social cualesquiera de las entidades financieras determinadas en el apartado 1 del artículo 3 del Reglamento General de Recaudación de la Seguridad Social'. Esa remisión coincide con la opción D. Las otras opciones restringen o desvían el ámbito: A y B limitan a ciertos tipos de entidades o a convenios provinciales y la C cita a las Mutuas, que el precepto no menciona como oficinas recaudadoras por esta vía.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué documentación deben acompañar los solicitantes que pretendan actuar como oficinas recaudadoras distintas de las entidades financieras del art. 3.1 del Reglamento General, según el art. 6.2 de la Orden TAS/1562/2005?",
+      "options": [
+        "Únicamente una declaración responsable de solvencia económica",
+        "Memoria justificativa de la posibilidad de recoger por medios técnicos la información de las operaciones como colaboradores y datos acreditativos de su solvencia y posible contribución al servicio",
+        "Sólo un certificado de estar al corriente en sus obligaciones tributarias y de Seguridad Social",
+        "Exclusivamente un plan de formación del personal encargado de la recaudación"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 6.2 exige que los solicitantes acompañen 'memoria justificativa de la posibilidad de recoger por medios técnicos la información de las operaciones que hayan de realizar como colaboradores, así como aquellos datos acreditativos de su solvencia y de su posible contribución al servicio de colaboración en la recaudación'. Esto se refleja en la opción B. Las opciones A, C y D recogen sólo parte de estos requisitos o documentos distintos a los previstos en el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 7 de la Orden TAS/1562/2005, ¿qué límite general se fija para considerar que la cuantía de una deuda es insuficiente para la cobertura del coste de su exacción y recaudación?",
+      "options": [
+        "El 3 por 100 del IPREM mensual vigente en el momento de la respectiva liquidación",
+        "El 20 por 100 del IPREM mensual vigente en el momento de la respectiva liquidación",
+        "Un IPREM mensual completo en el momento de la liquidación",
+        "La mitad del salario mínimo interprofesional mensual"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 7 fija que la cuantía estimada como insuficiente para la cobertura del coste de la exacción y recaudación 'se fija en el 3 por 100 del indicador público de renta de efectos múltiples (IPREM) mensual, vigente en el momento de la respectiva liquidación', salvo para la sucesión mortis causa. La opción A transcribe este límite general. La B es el porcentaje especial del 20 % previsto solo para responsabilidad por sucesión mortis causa, y C y D introducen referencias (IPREM completo o SMI) que no constan en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En los casos de responsabilidad por sucesión 'mortis causa', ¿qué límite específico fija el art. 7 de la Orden TAS/1562/2005 para iniciar el expediente de derivación de responsabilidad?",
+      "options": [
+        "El 3 por 100 del IPREM mensual",
+        "El 10 por 100 del IPREM mensual",
+        "El 20 por 100 del IPREM mensual",
+        "Un IPREM mensual completo"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El propio art. 7 añade que, 'salvo en los casos de responsabilidad por sucesión "mortis causa", en los que el indicado límite se fija en el 20 por 100 del IPREM mensual a efectos de iniciación del oportuno expediente de derivación de responsabilidad por causa de muerte'. Por eso la opción C es la correcta. El 3 % (opción A) es el límite general, no el especial para sucesión mortis causa, y las opciones B y D no aparecen en el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 8 de la Orden TAS/1562/2005, ¿cuándo podrán no emitirse ni notificarse las liquidaciones de cuotas efectuadas por la Tesorería General en sus propios documentos de cotización?",
+      "options": [
+        "Cuando el importe resultante a ingresar no exceda de la cuantía fijada en el art. 7",
+        "Cuando el deudor se encuentre en concurso de acreedores con convenio aprobado",
+        "Cuando el sujeto responsable haya solicitado un aplazamiento con garantía suficiente",
+        "Siempre que la deuda se refiera a un solo trabajador y a un solo mes"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 8 permite que 'podrán no ser emitidas ni notificadas' estas liquidaciones y 'podrá no iniciarse el procedimiento recaudatorio' cuando el importe resultante a ingresar 'no exceda de la cuantía fijada en el artículo anterior', es decir, la del art. 7 sobre el porcentaje del IPREM. La opción A refleja esta condición cuantitativa. Las otras opciones se basan en circunstancias (concurso, aplazamiento, número de trabajadores) que el precepto no contempla como causas para omitir la emisión y notificación.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 11.1 de la Orden TAS/1562/2005, ¿en qué caso no remitirán las Entidades Gestoras a la Tesorería General resoluciones definitivas de reintegro de prestaciones indebidamente percibidas?",
+      "options": [
+        "Cuando la cuantía no exceda del importe fijado en el art. 7 referido al IPREM mensual, salvo que por acumulación de deudas del mismo deudor se supere dicho importe",
+        "Cuando el deudor alegue insuficiencia de recursos económicos",
+        "Cuando se trate exclusivamente de prestaciones de desempleo",
+        "Cuando el reintegro proceda de un error de hecho reconocido por la propia entidad gestora"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 11.1 establece que las Entidades Gestoras y Colaboradoras 'no remitirán a la Tesorería General [...] las resoluciones definitivas en vía administrativa en las que se declare la procedencia de reintegros de prestaciones cuya cuantía no exceda del importe fijado en el artículo 7 referido al IPREM mensual vigente en el momento de la declaración, salvo que por acumulación de deudas del mismo deudor se superase dicho importe'. La opción A reproduce este supuesto. Las opciones B, C y D introducen criterios (insuficiencia de recursos, tipo de prestación, error de hecho) que no figuran como causa de no remisión en el artículo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 12.1 de la Orden TAS/1562/2005, ¿qué puede acordarse cuando, tras pagos parciales o devoluciones, la deuda resultante no excede del importe del IPREM mensual fijado en el art. 7?",
+      "options": [
+        "Debe continuarse necesariamente el procedimiento recaudatorio hasta el cobro íntegro",
+        "Podrá ponerse fin al procedimiento recaudatorio en período voluntario o en vía ejecutiva sin exigir el pago de la cantidad pendiente",
+        "Sólo puede suspenderse provisionalmente el procedimiento recaudatorio",
+        "Debe iniciarse un procedimiento de deducción frente a otras Administraciones públicas"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 12.1 prevé que, en esos casos, 'podrá ponerse fin al procedimiento recaudatorio en período voluntario o en vía ejecutiva sin exigir del sujeto responsable el pago de la cantidad pendiente' y los créditos podrán ser anulados y dados de baja en contabilidad. La opción B recoge este efecto. La A se opone al texto al exigir la continuación del procedimiento; la C sólo habla de suspensión y la D introduce un procedimiento de deducción que no se menciona en este precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Cómo define el art. 14.1 de la Orden TAS/1562/2005 el aval genérico respecto de las deudas con la Seguridad Social?",
+      "options": [
+        "Como el aval que garantiza exclusivamente una deuda concreta ya vencida",
+        "Como el aval que se presenta para responder del pago de todas y cada una de las deudas presentes y futuras del sujeto responsable con la Tesorería General de la Seguridad Social",
+        "Como el aval limitado a deudas en vía ejecutiva",
+        "Como el aval que sólo cubre las cuotas de un régimen especial"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 14.1 dispone que se entenderá por aval genérico aquel que 'se presente como garantía para responder del pago de todas y cada una de las deudas presentes y futuras del sujeto responsable con la Tesorería General de la Seguridad Social'. La opción B recoge esta definición. Las opciones A, C y D restringen el ámbito del aval a una deuda concreta, a la vía ejecutiva o a determinados regímenes, lo que no se corresponde con el concepto de aval genérico del precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Entre los requisitos del aval genérico del art. 14.2, ¿cuál de los siguientes se menciona expresamente?",
+      "options": [
+        "Debe ser solidario y formalizarse por entidades financieras de depósito o de crédito inscritas en el registro de bancos y banqueros o de cooperativas de crédito legalmente autorizadas",
+        "Debe ser mancomunado y formalizarse por cualquier persona jurídica solvente",
+        "Debe tener una vigencia máxima de cinco años renovable",
+        "Debe limitarse a deudas por cuotas, excluyendo otros recursos"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 14.2.1.º exige que el aval genérico 'habrá de ser solidario y formalizarse por entidades financieras de depósito o de crédito inscritas en el registro de bancos y banqueros o de cooperativas de crédito legalmente autorizadas'. La opción A reproduce literalmente este requisito. Las otras opciones (B, C y D) introducen condiciones de mancomunidad, vigencia temporal o limitación de objeto que no aparecen en el artículo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 15.2 de la Orden TAS/1562/2005, ¿cuándo podrá autorizarse la cancelación del aval genérico solicitado por el sujeto responsable?",
+      "options": [
+        "Siempre que hayan transcurrido más de cinco años desde su constitución, con independencia de la existencia de deuda",
+        "Cuando se acredite la inexistencia de deuda a cargo del sujeto responsable",
+        "Cuando el avalista solicite unilateralmente la cancelación, aun existiendo deudas",
+        "Automáticamente una vez iniciado el procedimiento de apremio"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 15.2 establece que la Dirección Provincial o Administración 'procederá a autorizar su cancelación una vez comprobada la inexistencia de deuda a cargo del sujeto responsable'. La opción B recoge esta condición. La A fija un plazo de cinco años no contemplado por el precepto. La C permitiría la cancelación a instancia del avalista aunque existan deudas, frente a lo que indica el artículo, que incluso prevé la ejecución del aval si hay deuda pendiente. La D tampoco se ajusta al texto, que no vincula la cancelación al inicio del apremio.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué efecto principal produce la constitución del aval genérico para el sujeto responsable, según el art. 16.1 de la Orden TAS/1562/2005?",
+      "options": [
+        "La suspensión automática de cualquier procedimiento recaudatorio en curso",
+        "La consideración de estar al corriente respecto de sus obligaciones de pago con la Seguridad Social, siempre que el importe avalado garantice suficientemente la deuda que pudiera producirse",
+        "La condonación parcial de las deudas ya devengadas",
+        "La exoneración de la obligación de presentar autoliquidaciones de cuotas"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 16.1 indica que la constitución del aval genérico determinará 'la consideración de estar al corriente respecto de sus obligaciones de pago con la Seguridad Social, siempre que el importe avalado garantice suficientemente la deuda que pudiera producirse'. La opción B plasma este efecto. La A contradice el art. 16.2, que aclara que el aval no suspende el procedimiento recaudatorio ni impide su inicio. Las opciones C y D (condonación o exoneración de autoliquidaciones) no aparecen en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 16.2 de la Orden TAS/1562/2005, ¿qué NO produce nunca por sí sola la constitución del aval genérico?",
+      "options": [
+        "La suspensión del procedimiento recaudatorio iniciado ni impide que se inicie frente al sujeto responsable",
+        "La consideración de estar al corriente en sus obligaciones de pago",
+        "La obligación de comunicar a la entidad financiera los cambios de domicilio del deudor",
+        "La cancelación de los recargos de apremio ya devengados"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 16.2 establece expresamente que la constitución del aval genérico 'en ningún caso [...] suspenderá el procedimiento recaudatorio iniciado y no impedirá que se inicie frente al sujeto responsable'. Por tanto, la opción A describe correctamente lo que NO produce el aval. Las opciones B, C y D recogen efectos (estar al corriente, comunicaciones, cancelación de recargos) que no son objeto de la prohibición del apartado 2 tal y como está redactado.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 2.3 de la Orden TAS/1562/2005, ¿con arreglo a qué precepto del Reglamento General de Recaudación se determina el domicilio del deudor a efectos de remitir las actuaciones a la Dirección Provincial competente para el apremio?",
+      "options": [
+        "Al artículo 10 del Reglamento General de Recaudación de la Seguridad Social",
+        "Al artículo 16 del Reglamento General de Recaudación de la Seguridad Social",
+        "Al artículo 21 del Reglamento General de Recaudación de la Seguridad Social",
+        "Al artículo 94 del Reglamento General de Recaudación de la Seguridad Social"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 2.3 de la Orden TAS/1562/2005 dispone que, cuando haya de iniciarse el procedimiento de apremio, el órgano central remitirá las actuaciones a la Dirección Provincial 'en la que tenga su domicilio el deudor, determinándose éste conforme a lo establecido en el artículo 16 del Reglamento General de Recaudación de la Seguridad Social'. Por eso la opción B es la única que cita el precepto correcto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué órgano es competente para emitir la resolución por la que se acuerdan la retención y deducción a favor de la Seguridad Social en los procedimientos de deducción con Administraciones públicas, según el art. 3.1.b) de la Orden TAS/1562/2005?",
+      "options": [
+        "El Director General de la Tesorería General de la Seguridad Social",
+        "El Secretario de Estado de la Seguridad Social",
+        "El titular de la Subdirección General de Afiliación y Procedimientos Especiales de la Tesorería General de la Seguridad Social",
+        "El Director Provincial de la Tesorería General de la Seguridad Social"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 3.1.b) atribuye al titular de la Subdirección General de Afiliación y Procedimientos Especiales 'la emisión de la resolución por la que se acuerde la retención y deducción a favor de la Seguridad Social' a que se refieren los arts. 39 y 41 del Reglamento General de Recaudación. La opción C reproduce este órgano. Las restantes alternativas mencionan órganos distintos a los previstos en dicho apartado.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En los supuestos en que el procedimiento recaudatorio se haya iniciado y deba continuarse por la Dirección Provincial, ¿qué función atribuye el art. 3.2.b) de la Orden TAS/1562/2005 a los titulares de los órganos o unidades competentes en recaudación en período voluntario?",
+      "options": [
+        "Resolver los recursos administrativos contra las providencias de apremio",
+        "Expedir las providencias de apremio que inicien la vía ejecutiva, en los supuestos en que proceda",
+        "Aprobar los conciertos de colaboración con entidades financieras",
+        "Autorizar la concesión de aplazamientos y fraccionamientos en todo caso"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 3.2.b) establece que dichos titulares serán competentes para 'la expedición de las providencias de apremio que inicien la vía ejecutiva, en los supuestos en que proceda'. La opción B recoge literalmente esta función. Las opciones A, C y D atribuyen funciones que el precepto no les asigna.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 4.1 de la Orden TAS/1562/2005, ¿qué posibilidad se reconoce a la Unidad de Recaudación Ejecutiva de ámbito estatal respecto de las actuaciones ejecutivas?",
+      "options": [
+        "Encomendar las actuaciones ejecutivas que considere oportunas a otras Unidades de Recaudación Ejecutiva",
+        "Delegar sus funciones en las Entidades Gestoras de la Seguridad Social",
+        "Trasladar la competencia ejecutiva a las Mutuas de Accidentes de Trabajo y Enfermedades Profesionales",
+        "Acordar la suspensión general de todos los procedimientos ejecutivos en una provincia"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El segundo párrafo del art. 4.1 prevé que, a los efectos indicados, 'la Unidad de Recaudación Ejecutiva de ámbito estatal podrá encomendar las actuaciones ejecutivas que considere oportunas a las demás unidades de recaudación ejecutiva'. Eso es precisamente lo que recoge la opción A. Las demás opciones introducen facultades (delegación en Entidades Gestoras o Mutuas, suspensión general) que no aparecen en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 4.2 de la Orden TAS/1562/2005, ¿cuál es el ámbito de actuación de las Unidades de Recaudación Ejecutiva distintas de la de ámbito estatal?",
+      "options": [
+        "Un ámbito fijado directamente por la Ley General de la Seguridad Social",
+        "El ámbito territorial que determine el Director General de la Tesorería General de la Seguridad Social",
+        "Exclusivamente la provincia en la que esté situada la unidad",
+        "El conjunto del territorio nacional, al igual que la Unidad estatal"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 4.2 indica que las Unidades de Recaudación Ejecutiva, 'cuyo ámbito territorial de actuación determinará el Director General de la Tesorería General de la Seguridad Social', llevarán a cabo las actuaciones ejecutivas y demás funciones recaudatorias en vía ejecutiva que se les atribuyen. Por eso la opción B es correcta. Las opciones A, C y D fijan o presuponen ámbitos que el precepto no establece así.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué prevé el art. 5.2 de la Orden TAS/1562/2005 respecto de la competencia de los órganos de la Tesorería General mencionados en la Sección primera?",
+      "options": [
+        "Que su competencia es siempre irrenunciable y no puede delegarse",
+        "Que sólo podrán delegar firma, pero no competencia, en funcionarios subalternos",
+        "Que podrán delegar su competencia o su firma o avocar el conocimiento y resolución de las materias en los términos de los arts. 13 y ss. de la Ley 30/1992",
+        "Que la competencia podrá trasladarse libremente a las Mutuas sin necesidad de norma habilitante"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 5.2 aclara que lo dispuesto en los artículos de la Sección primera se entiende sin perjuicio de que los órganos de la Tesorería General puedan 'delegar su competencia o su firma o avocar el conocimiento y resolución de las materias a que aquéllos se refieren, en los términos establecidos en los artículos 13 y siguientes de la Ley 30/1992'. La opción C reproduce esta remisión. Las demás opciones contradicen o restringen indebidamente esa posibilidad.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 6.2 de la Orden TAS/1562/2005, ¿qué órgano debe otorgar la autorización expresa para que entidades distintas de las financieras del art. 3.1 del Reglamento General actúen como oficinas recaudadoras?",
+      "options": [
+        "El Director General de la Tesorería General de la Seguridad Social",
+        "El Secretario de Estado de la Seguridad Social",
+        "El Ministro de Trabajo y Asuntos Sociales",
+        "Las Direcciones Provinciales de la Tesorería General de la Seguridad Social"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 6.2 dispone que, para que cualquier otra entidad, órgano o agente pueda actuar como oficina recaudadora, 'se requerirá autorización expresa del Secretario de Estado de la Seguridad Social'. Esa mención coincide con la opción B. Las otras opciones desplazan la competencia a órganos distintos de los previstos en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué criterio adicional puede utilizar la Secretaría de Estado de la Seguridad Social para limitar o denegar autorizaciones de oficinas recaudadoras, según el art. 6.3 de la Orden TAS/1562/2005?",
+      "options": [
+        "El nivel de empleo generado por la entidad solicitante",
+        "El volumen de negocio anual declarado a efectos del Impuesto sobre Sociedades",
+        "Los medios electrónicos, informáticos y telemáticos del solicitante respecto del suministro de datos e información necesarios para la gestión recaudatoria",
+        "La ubicación geográfica de la sede social de la entidad en capitales de provincia"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 6.3 establece que la Secretaría de Estado de la Seguridad Social podrá limitar o denegar las autorizaciones 'en función también de los medios electrónicos, informáticos y telemáticos del solicitante respecto del suministro de datos y de la información necesarios para la gestión recaudatoria'. La opción C recoge literalmente este criterio. Las restantes opciones no se mencionan en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 9 de la Orden TAS/1562/2005, ¿a qué liquidaciones de cuotas puede decidir la Tesorería General no emitir ni notificar y no iniciar el procedimiento recaudatorio?",
+      "options": [
+        "A las liquidaciones de cuotas efectuadas de oficio por la Inspección de Trabajo",
+        "A las liquidaciones de cuotas realizadas por la Tesorería General que, por un mayor importe, modifiquen las previas autoliquidaciones de los sujetos responsables, cuando la cantidad a ingresar no sea superior a la fijada en el art. 7",
+        "A cualquier liquidación de cuotas que resulte inferior al salario mínimo interprofesional mensual",
+        "Únicamente a las liquidaciones de cuotas correspondientes al Régimen Especial de Trabajadores Autónomos"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 9.1 prevé que podrán no emitirse ni notificarse, y podrá no iniciarse el procedimiento recaudatorio, respecto de 'las liquidaciones de cuotas realizadas por la Tesorería General de la Seguridad Social que modifiquen, por un mayor importe, las previas autoliquidaciones presentadas por los sujetos responsables', cuando la cantidad a ingresar 'no sea superior a la cantidad fijada en el artículo 7'. La opción B reproduce este supuesto. Las demás opciones no se ajustan al tenor literal.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el segundo párrafo del art. 9 de la Orden TAS/1562/2005, ¿cuándo no se exigirá el importe a ingresar fijado en determinadas liquidaciones de la Tesorería General, pese a existir saldo deudor para el sujeto responsable?",
+      "options": [
+        "Cuando la deuda se refiera exclusivamente a recargos de mora",
+        "Cuando la empresa lleve más de cinco años sin sanciones administrativas en materia de Seguridad Social",
+        "Cuando la liquidación rectifique autoliquidaciones previas con saldo acreedor o sin ingreso y el importe a ingresar no supere la cuantía del art. 7, sin perjuicio de la notificación",
+        "Cuando el sujeto responsable acredite pérdidas contables en el ejercicio anterior"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El segundo párrafo del art. 9 dispone que, en supuestos de liquidaciones de cuotas por la Tesorería General con saldo deudor para el sujeto responsable que rectifiquen previas autoliquidaciones con saldo acreedor o sin ingreso, 'no se exigirá el importe a ingresar fijado en la correspondiente liquidación siempre que no sea superior a dicha cuantía', esto es, la del art. 7, 'sin perjuicio de la notificación de la liquidación'. La opción C resume estas condiciones.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En relación con el art. 10 de la Orden TAS/1562/2005, ¿en qué supuesto podrá no emitirse ni notificarse la reclamación de deuda o acta de liquidación y no iniciarse el procedimiento recaudatorio?",
+      "options": [
+        "Cuando la deuda derive de cuotas ingresadas fuera de plazo pero sin recargo",
+        "Cuando, debiendo liquidarse las cuotas mediante acta de liquidación o reclamación de deuda, el importe que debería incluirse en ellas no exceda de la cantidad fijada en el art. 7",
+        "Cuando se trate de deudas correspondientes exclusivamente a recargos por falta de medidas de seguridad",
+        "Cuando exista una solicitud de fraccionamiento pendiente de resolución"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 10 establece que, cuando la liquidación de cuotas deba efectuarse a través de acta de liquidación o reclamación de deuda por falta de ingreso en plazo, 'podrá no emitirse ni notificarse la reclamación de deuda o acta de liquidación y no iniciarse el procedimiento recaudatorio del importe que debería incluirse en las mismas cuando no exceda de la cantidad fijada en el artículo 7'. La opción B recoge exactamente este límite cuantitativo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 11.2 de la Orden TAS/1562/2005, ¿en qué casos no iniciará la Tesorería General el procedimiento recaudatorio de reintegros de prestaciones indebidamente percibidas declarados por resolución definitiva administrativa?",
+      "options": [
+        "Cuando el importe del reintegro no sea superior al fijado en el art. 7 del IPREM mensual vigente en el momento del reintegro",
+        "Únicamente cuando el deudor sea una Administración pública",
+        "Siempre que se trate de prestaciones por desempleo, con independencia de su cuantía",
+        "Sólo cuando la resolución proceda de una sentencia judicial firme"
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 11.2 prevé que la Tesorería General 'no iniciará el procedimiento recaudatorio del importe a ingresar correspondiente al reintegro de prestaciones indebidamente percibidas' cuando dicho importe 'no sea superior al importe fijado en el artículo 7 del IPREM mensual vigente en el momento del reintegro', extendiendo esta regla también a resoluciones judiciales salvo que dispongan otra cosa. La opción A plasma este límite cuantitativo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 12.2 de la Orden TAS/1562/2005, cuando la deuda se encuentre en vía de apremio o en deducción frente a Administraciones públicas, ¿qué condición se exige para anular y dar de baja en contabilidad el crédito?",
+      "options": [
+        "Que el importe principal de la deuda no supere el IPREM mensual",
+        "Que la suma de principal, recargo, intereses y costas incorporados a cada expediente no exceda del límite del art. 7",
+        "Que sólo los intereses y costas sean inferiores al 3 por 100 del IPREM",
+        "Que la deuda se refiera únicamente a cuotas del Régimen General"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 12.2 exige que, en vía de apremio o deducción, 'la cuantía de la deuda a extinguir [...] sea la resultante de la suma del principal, recargo, intereses y costas del procedimiento, incorporada a cada expediente', y que esa cuantía sea la prevista en el apartado 1 (no superior al IPREM mensual). La opción B refleja que el límite se refiere a esa suma conjunta.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "¿Qué facultad reconoce el art. 13 de la Orden TAS/1562/2005 a la Tesorería General respecto de las deudas no superiores al 3 por 100 (y, en su caso, al 20 por 100) del IPREM mensual?",
+      "options": [
+        "Poner siempre fin al procedimiento recaudatorio sin más requisitos",
+        "Acordar la acumulación de tales deudas entre sí o con otras de importe superior del mismo deudor para superar la cuantía del art. 7 y proceder a su liquidación, notificación y recaudación",
+        "Condonar automáticamente las deudas inferiores al IPREM",
+        "Transformar dichas deudas en subvenciones reembolsables a favor del deudor"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 13 establece que la Tesorería General podrá acordar 'la acumulación de las deudas que no excedan del importe del IPREM mensual fijado en el artículo 7 al objeto de superar dicha cantidad, o la de tales deudas con otras de importe superior, siempre que todas ellas correspondan al mismo deudor', así como proceder a su liquidación, notificación y recaudación. La opción B resume esta facultad de acumulación.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 17.1 de la Orden TAS/1562/2005, mientras no se incumpla un aplazamiento concedido, ¿qué efecto produce para el sujeto responsable respecto de sus obligaciones con la Seguridad Social?",
+      "options": [
+        "La suspensión automática de todos los procedimientos de apremio en curso",
+        "La exoneración del pago de intereses de demora futuros",
+        "La consideración de estar al corriente de sus obligaciones con la Seguridad Social y la computabilidad de las cuotas aplazadas para carencia y cuantía de prestaciones, si el aplazamiento se concedió antes del hecho causante",
+        "La condonación parcial de la deuda principal aplazada"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El párrafo primero del art. 17.1 dispone que, en tanto no se produzca el incumplimiento del aplazamiento, las empresas y demás sujetos responsables "se considerarán al corriente de sus obligaciones con la Seguridad Social" a los efectos del art. 31.3 del Reglamento y del reconocimiento de prestaciones, siendo computables las cuotas aplazadas para carencia y cuantía si el aplazamiento se concedió antes del hecho causante. La opción C recoge literalmente este efecto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el segundo párrafo del art. 17.1 de la Orden TAS/1562/2005, ¿qué límite se establece a los efectos de un nuevo aplazamiento sobre deudas que ya fueron objeto de otro anterior incumplido?",
+      "options": [
+        "Que el nuevo aplazamiento producirá efectos para todas las prestaciones, presentes y futuras",
+        "Que sólo producirá efectos respecto de prestaciones causadas con anterioridad a su concesión",
+        "Que sólo producirá efectos respecto de prestaciones de incapacidad temporal",
+        "Que sólo producirá efectos respecto de las prestaciones de la Seguridad Social causadas con posterioridad a la concesión del nuevo aplazamiento"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El segundo párrafo del art. 17.1 señala que la concesión de un nuevo aplazamiento para deudas que ya hubiesen sido objeto de otro anterior incumplido "sólo producirá efectos respecto a las prestaciones de la Seguridad Social causadas con posterioridad a dicha concesión". La opción D reproduce esta limitación temporal.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 17.2 de la Orden TAS/1562/2005, ¿qué posibilidad se reconoce durante la vigencia de un aplazamiento para el pago de deudas con la Seguridad Social?",
+      "options": [
+        "Modificar libremente la duración máxima del aplazamiento sin límite legal",
+        "Modificar, a solicitud del beneficiario, las condiciones de amortización inicialmente establecidas, dentro de los límites de duración del art. 31.2 del Reglamento General de Recaudación",
+        "Suspender el devengo de intereses de demora mientras dure el aplazamiento",
+        "Convertir el aplazamiento en una moratoria sin intereses ni recargos"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 17.2 establece que la concesión de un aplazamiento "no impedirá que durante su vigencia puedan modificarse, a solicitud del beneficiario, las condiciones de amortización inicialmente establecidas", con sujeción a lo dispuesto sobre su duración por el art. 31.2 del Reglamento general de recaudación. La opción B recoge esta posibilidad y su límite.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 17.3 de la Orden TAS/1562/2005, cuando se solicita un nuevo aplazamiento por deudas generadas con posterioridad al que ya se disfruta, ¿qué exigencia se impone sobre el contenido de ese nuevo aplazamiento?",
+      "options": [
+        "Que incluya únicamente las deudas vencidas con anterioridad al aplazamiento inicial",
+        "Que incluya sólo las deudas de cuotas obreras",
+        "Que incluya la totalidad de las deudas aplazables existentes en el momento de la solicitud, tramitándose con arreglo al Reglamento general de recaudación",
+        "Que excluya expresamente las deudas por recargos e intereses"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 17.3 prevé que se podrá pedir el aplazamiento de deudas generadas con posterioridad al que se estuviera disfrutando, siempre que la solicitud se formule dentro de plazo reglamentario de ingreso, y precisa que "el nuevo aplazamiento [...] deberá incluir la totalidad de las deudas aplazables en el momento de la solicitud", de conformidad con el art. 32.3 del Reglamento. La opción C resume esta exigencia.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 17 bis.1 de la Orden TAS/1562/2005, ¿cómo deben ingresarse, con carácter general, los vencimientos de los aplazamientos concedidos para el pago de deudas con la Seguridad Social?",
+      "options": [
+        "Mediante ingreso en efectivo exclusivamente en las Direcciones Provinciales de la Tesorería General",
+        "Mediante cheque nominativo a favor de la Tesorería General presentado en cualquier oficina recaudadora",
+        "Mediante transferencia obligatoria desde una cuenta abierta en el Banco de España",
+        "Mediante domiciliación bancaria en cuenta corriente o libreta de ahorro en entidad financiera autorizada como oficina recaudadora de la Seguridad Social"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 17 bis.1 establece que los beneficiarios de aplazamientos 'deberán ingresar el importe de los correspondientes vencimientos mediante domiciliación bancaria en cuenta corriente o libreta de ahorro abierta en una entidad financiera autorizada para actuar como oficina recaudadora de la Seguridad Social', en los términos del propio artículo. La opción D reproduce esta forma general de ingreso.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 18.1 de la Orden TAS/1562/2005, ¿a qué deudas se aplica el interés de demora regulado en los arts. 28 de la LGSS y 11 del Reglamento General de Recaudación?",
+      "options": [
+        "Sólo a las deudas por cuotas empresariales del Régimen General",
+        "Únicamente a los reintegros de prestaciones indebidamente percibidas",
+        "A todas las deudas con la Seguridad Social constituidas por el importe de las cuotas y demás recursos objeto de gestión recaudatoria, así como por el de los recargos derivados de la falta de ingreso en plazo",
+        "Exclusivamente a las deudas por sanciones pecuniarias en materia de Seguridad Social"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 18.1 dispone que el interés de demora será de aplicación 'a todas las deudas con la Seguridad Social, constituidas por el importe de las cuotas y otros recursos objeto de gestión recaudatoria, así como por el de los recargos derivados de la falta de ingreso dentro de plazo reglamentario'. La opción C reproduce este ámbito amplio.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 19.1 de la Orden TAS/1562/2005, ¿desde qué momento se inicia el devengo de intereses de demora sobre el principal de la deuda y sobre el recargo aplicable?",
+      "options": [
+        "Sobre el principal, desde la fecha de la providencia de apremio; sobre el recargo, desde la fecha de su ingreso",
+        "Sobre el principal, desde el día siguiente al del vencimiento del plazo reglamentario de ingreso; sobre el recargo, desde el día siguiente al de finalización del plazo de quince días naturales tras la notificación de la providencia de apremio o de la comunicación de inicio del procedimiento de deducción",
+        "Sobre el principal y el recargo, siempre desde la fecha de la reclamación de deuda o acta de liquidación",
+        "Sobre el principal, desde la fecha de alta en Seguridad Social; sobre el recargo, desde la fecha de baja"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 19.1.a) y b) precisan que el devengo de intereses sobre el principal se inicia 'el día siguiente al del vencimiento del respectivo plazo reglamentario de ingreso' y, sobre el recargo aplicable, 'el día siguiente al de finalización del plazo de los quince días naturales siguientes a la notificación de la providencia de apremio o a la comunicación del inicio del procedimiento de deducción'. La opción B refleja ambas reglas.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 21.1 de la Orden TAS/1562/2005, ¿qué conceptos integran la base sobre la que se aplica el tipo de interés de demora para calcular el importe de los intereses devengados?",
+      "options": [
+        "Exclusivamente el principal de la deuda, sin incluir recargos",
+        "El principal de la deuda, el recargo aplicable y los intereses de demora ya devengados",
+        "El principal de la deuda y el recargo aplicable, sin incluir en ningún caso el interés de demora devengado con anterioridad",
+        "Sólo el recargo de apremio, excluyendo el principal"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 21.1 establece que 'el importe sobre el que se aplicará el tipo de interés de demora' vendrá constituido por 'el del principal de la deuda y por el del recargo aplicable, sin incluir en ningún caso el interés de demora devengado con anterioridad'. La opción C reproduce literalmente esta base de cálculo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 24.1 de la Orden TAS/1562/2005, ¿cómo debe efectuarse la consignación del importe de la deuda con la Seguridad Social cuando proceda conforme a los arts. 20 y 46.2 del Reglamento General de Recaudación?",
+      "options": [
+        "Mediante depósito en metálico en la caja de cualquier entidad financiera, sin más requisito",
+        "Mediante ingreso en la Caja General de Depósitos o en entidad financiera, a disposición de la Tesorería General de la Seguridad Social y en la cuenta que ésta determine",
+        "Mediante entrega de cheque al portador en las dependencias de la Inspección de Trabajo y Seguridad Social",
+        "Mediante ingreso en una cuenta bancaria del deudor con anotación a favor de la Tesorería General"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 24.1 dispone que, en los casos en que proceda la consignación, 'la misma se efectuará mediante ingreso en la Caja General de Depósitos o en entidad financiera, a disposición de la Tesorería General de la Seguridad Social y en la cuenta que ésta determine'. La opción B recoge literalmente esta forma de consignación.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 26.1 de la Orden TAS/1562/2005, ¿qué órgano es competente para tramitar la revisión de oficio de los actos de gestión recaudatoria y quién resuelve finalmente dicha revisión?",
+      "options": [
+        "Tramita la Dirección Provincial y resuelve el Ministro de Trabajo y Asuntos Sociales",
+        "Tramita el mismo órgano que dictó el acto y resuelve su inmediato superior jerárquico",
+        "Tramita y resuelve siempre la Subdirección General de Afiliación y Procedimientos Especiales",
+        "Tramita la Inspección de Trabajo y resuelve la Tesorería General de la Seguridad Social"
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 26.1.a) y b) indican que es competente para tramitar la revisión de oficio 'el mismo órgano que los hubiera dictado' y que 'es órgano competente para dictar la resolución que proceda el inmediato superior jerárquico del autor del acto'. La opción B sintetiza este esquema de tramitación y resolución.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 36 de la Orden TAS/1562/2005, cuando el empresario presenta en plazo reglamentario los documentos de cotización pero no ingresa la totalidad de las cuotas, ¿qué recargo se devenga sobre la deuda resultante?",
+      "options": [
+        "No se devenga ningún recargo si los documentos se presentaron en plazo",
+        "Se devenga siempre un recargo único del 20 por 100 con independencia del retraso",
+        "Se devenga el recargo previsto en el art. 10.1.a) del Reglamento General de Recaudación de la Seguridad Social",
+        "Se devenga exclusivamente un recargo del 3 por 100 vinculado al IPREM mensual"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El apartado 3 del art. 36 señala que, si se presentan los documentos en plazo reglamentario pero no se ingresan en él las cuotas correspondientes, 'se devengarán los recargos previstos en el artículo 10.1.a) del Reglamento general de recaudación de la Seguridad Social'. La opción C identifica expresamente este precepto y su consecuencia.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 43.1 de la Orden TAS/1562/2005, ¿cuál de los siguientes supuestos constituye, en todo caso, un ingreso indebido con derecho a devolución por parte de la Tesorería General de la Seguridad Social?",
+      "options": [
+        "El pago anticipado de cuotas futuras todavía no devengadas",
+        "El ingreso de una deuda dentro del plazo reglamentario pero sin aplicar bonificaciones a las que se tenía derecho",
+        "El pago de una sanción pecuniaria por infracción en materia de Seguridad Social",
+        "La duplicidad en el pago de una misma deuda con la Seguridad Social"
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 43.1 reconoce el derecho a la devolución de cantidades ingresadas indebidamente e incluye expresamente, entre otros casos, la 'duplicidad en el pago de una misma deuda'. La opción D se ajusta a este supuesto típico. Las demás opciones no se mencionan como tales en el catálogo de errores de hecho o de derecho que generan ingresos indebidos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 24.1 de la Orden TAS/1562/2005, ¿a qué preceptos del Reglamento General de Recaudación se remite expresamente la posibilidad de consignar el importe de la deuda con la Seguridad Social?",
+      "options": [
+        "A los artículos 10 y 21 del Reglamento General de Recaudación de la Seguridad Social",
+        "A los artículos 16 y 46.2 del Reglamento General de Recaudación de la Seguridad Social",
+        "A los artículos 20 y 46.2 del Reglamento General de Recaudación de la Seguridad Social",
+        "A los artículos 20 y 21 del Reglamento General de Recaudación de la Seguridad Social"
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 24.1 regula la consignación del importe de la deuda con la Seguridad Social 'en los casos a que se refieren los artículos 20 y 46.2 del Reglamento general de recaudación de la Seguridad Social'. La opción C recoge literalmente esta remisión a los arts. 20 y 46.2 del Reglamento.",
+      "difficulty": "hard"
+    }
+  ]
+}
