@@ -2,7 +2,15 @@
 
 import { readFileSync } from 'node:fs'
 
-const files = ['.env.production.local', '.env.production']
+// Intentionally prints ONLY keys (never values) so it's safe to run.
+// Include Vercel-pulled env files too.
+const files = [
+  '.env.vercel.production',
+  '.env.vercel',
+  '.env.production.vercel',
+  '.env.production.local',
+  '.env.production',
+]
 
 function parseKeys(text) {
   const keys = new Set()

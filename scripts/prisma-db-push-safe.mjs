@@ -8,11 +8,40 @@
 
 import { spawn } from 'node:child_process'
 import dns from 'node:dns'
+import { execFileSync } from 'node:child_process'
+
+function loadDatabaseUrlFromEnvFiles() {
+  try {
+    const out = execFileSync(process.execPath, ['scripts/get-db-url.mjs'], {
+      cwd: process.cwd(),
+      stdio: ['ignore', 'pipe', 'ignore'],
+      env: process.env,
+    })
+      .toString('utf8')
+      .trim()
+      // defensa extra por si el fichero contiene secuencias "\\n"
+      .replace(/\\n+$/, '')
+
+    return out || null
+  } catch {
+    return null
+  }
+}
 
 function main() {
-  const rawUrl = process.env.DATABASE_URL || ''
+  let rawUrl = process.env.DATABASE_URL || ''
   if (!rawUrl) {
-    console.error('[prisma-db-push-safe] Falta DATABASE_URL en el entorno (no la imprimo por seguridad).')
+    const loaded = loadDatabaseUrlFromEnvFiles()
+    if (loaded) {
+      rawUrl = loaded
+      process.env.DATABASE_URL = loaded
+      console.log('[prisma-db-push-safe] DATABASE_URL cargada desde .env (sin imprimir secretos).')
+    }
+  }
+  if (!rawUrl) {
+    console.error(
+      '[prisma-db-push-safe] Falta DATABASE_URL en el entorno y no se pudo cargar desde .env.vercel.production/.env.production*. Ejecuta primero el task "Pull Vercel Env (prod)" o define DATABASE_URL en tu shell.'
+    )
     process.exit(1)
   }
 
@@ -21,7 +50,9 @@ function main() {
   let url = rawUrl
   try {
     const u = new URL(rawUrl)
-    if (u.hostname.includes('pooler.supabase.com') || u.port === '6543') {
+    const isPooler = u.hostname.includes('pooler.supabase.com') || u.port === '6543'
+
+    if (isPooler) {
       if (!u.searchParams.get('sslmode')) {
         u.searchParams.set('sslmode', 'require')
       }
@@ -65,7 +96,7 @@ function main() {
 
   const child = spawn(
     process.platform === 'win32' ? 'npx.cmd' : 'npx',
-    ['prisma', 'db', 'push', '--accept-data-loss'],
+    ['prisma', 'db', 'push', '--accept-data-loss', '--skip-generate'],
     {
       stdio: 'inherit',
       env: {

@@ -1,14 +1,30 @@
 import fs from 'fs'
+import { execFileSync } from 'child_process'
 import bcrypt from 'bcrypt'
 import { PrismaClient } from '@prisma/client'
 
-// Lee DATABASE_URL de .env.local si no está en process.env
+// Lee DATABASE_URL de producción si no está en process.env.
+// Preferimos usar scripts/get-db-url.mjs (lee .env.vercel.production/.env.production*)
+// y solo si no existe, caemos a .env.local.
 function ensureDatabaseUrl() {
   if (process.env.DATABASE_URL) return
 
+  try {
+    const value = execFileSync('node', ['scripts/get-db-url.mjs'], {
+      stdio: ['ignore', 'pipe', 'ignore'],
+      encoding: 'utf8',
+    })
+    if (value && String(value).trim()) {
+      process.env.DATABASE_URL = String(value).trim()
+      return
+    }
+  } catch {
+    // ignore and try .env.local
+  }
+
   const envPath = '.env.local'
   if (!fs.existsSync(envPath)) {
-    console.error('.env.local no existe; no se puede leer DATABASE_URL.')
+    console.error('No se pudo resolver DATABASE_URL (ni con scripts/get-db-url.mjs ni con .env.local).')
     process.exit(1)
   }
 
@@ -69,7 +85,7 @@ const prisma = new PrismaClient(
 )
 
 async function main() {
-  const email = 'alguero2@yahoo.com'
+  const email = process.env.ADMIN_EMAIL || 'alguero2@yahoo.com'
 
   const newPassword = process.env.NEW_ADMIN_PASSWORD
   if (!newPassword) {

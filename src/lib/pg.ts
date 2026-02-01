@@ -41,12 +41,10 @@ export function getPgPool(): Pool {
       max: 10,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 5000,
-      // Retry logic for transient failures
-      maxRetries: 3
     })
 
     // Handle pool errors gracefully
-    global.__opositapp_pg_pool__.on('error', (err) => {
+    global.__opositapp_pg_pool__.on('error', (err: Error) => {
       console.error('[PG_POOL_ERROR]', err)
     })
   }
@@ -74,7 +72,7 @@ export async function getUserAnswerColumnInfo(pool: Pool): Promise<{
     const res = await pool.query(
       "select column_name from information_schema.columns where table_schema='public' and table_name='UserAnswer'"
     )
-    const cols = new Set(res.rows.map(r => String(r.column_name)))
+    const cols = new Set(res.rows.map((r: { column_name: unknown }) => String(r.column_name)))
     answerColumn = cols.has('selectedAnswer') ? 'selectedAnswer' : 'answer'
     hasAttemptId = cols.has('attemptId')
   } catch {

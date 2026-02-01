@@ -168,6 +168,10 @@ function extractSections(content: string, fileName: string): DocumentSection[] {
   return sections
 }
 
+export function extractSectionsFromContent(content: string, fileName: string): DocumentSection[] {
+  return extractSections(content, fileName)
+}
+
 /**
  * Limpia el texto para análisis de IA
  */
