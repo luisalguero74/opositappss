@@ -8,8 +8,8 @@ import { pathToFileURL } from 'url'
 
 // pdf-parse debe importarse dinámicamente debido a problemas con ESM
 const getPdfParse = async () => {
-  const module = await import('pdf-parse')
-  return (module as any).default || module
+  const pdfParseModule = await import('pdf-parse')
+  return (pdfParseModule as any).default || pdfParseModule
 }
 
 // Función para extraer preguntas del texto del PDF
@@ -22,7 +22,7 @@ function extractQuestionsFromText(text: string) {
   }> = []
 
   // Normalizar texto de forma más agresiva
-  let normalizedText = text
+  const normalizedText = text
     .replace(/\r\n/g, '\n')
     .replace(/\r/g, '\n')
     .trim()
@@ -64,7 +64,7 @@ function extractQuestionsFromText(text: string) {
     const pattern = questionPatterns[i]
     pattern.lastIndex = 0
     let match
-    let tempMatches: Array<{ number: string; text: string; index: number }> = []
+    const tempMatches: Array<{ number: string; text: string; index: number }> = []
     
     while ((match = pattern.exec(questionsSection)) !== null) {
       const questionNumber = match[1] && !isNaN(parseInt(match[1])) 

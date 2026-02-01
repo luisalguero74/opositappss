@@ -19,9 +19,6 @@ const IS_SERVERLESS = Boolean(
     process.env.NETLIFY
 )
 
-// En serverless (Vercel) el FS del repo es solo lectura; /tmp sí es escribible.
-const UPLOAD_DIR = IS_SERVERLESS ? join('/tmp', 'opositappss', 'biblioteca') : join(process.cwd(), 'documentos-temario', 'biblioteca')
-
 const MAX_CONTENT_CHARS = 250_000
 const MAX_SECTIONS = 250
 const MAX_SECTION_CHARS = 25_000
@@ -84,12 +81,20 @@ export async function POST(req: NextRequest) {
 
     console.log(`[BibliotecaLegal Upload][${requestId}] start file=${fileName} bytes=${buffer.length}`)
 
-    stage = 'write_tmp'
-    if (!existsSync(UPLOAD_DIR)) {
-      await mkdir(UPLOAD_DIR, { recursive: true })
+    stage = 'resolve_upload_dir'
+    // En serverless (Vercel) el FS del repo es solo lectura; /tmp sí es escribible.
+    let uploadDir = join('/tmp', 'opositappss', 'biblioteca')
+    if (!IS_SERVERLESS) {
+      const { getLocalBibliotecaDir } = await import('@/lib/local-documentos-temario')
+      uploadDir = getLocalBibliotecaDir()
     }
 
-    const filePath = join(UPLOAD_DIR, fileName)
+    stage = 'write_tmp'
+    if (!existsSync(uploadDir)) {
+      await mkdir(uploadDir, { recursive: true })
+    }
+
+    const filePath = join(uploadDir, fileName)
     await writeFile(filePath, buffer)
 
     // Contar páginas según tipo

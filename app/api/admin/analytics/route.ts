@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
     // Calcular fechas según rango
     const now = new Date()
-    let startDate = new Date()
+    const startDate = new Date()
     
     switch (range) {
       case 'day':

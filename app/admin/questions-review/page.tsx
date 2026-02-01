@@ -38,6 +38,33 @@ interface Question {
   } | null
 }
 
+interface AIQuestion {
+  id: string
+  text: string
+  options: string | string[]
+  correctAnswer: string
+  explanation: string
+  document?: {
+    id: string
+    title: string
+    type?: string | null
+    documentType?: string | null
+    topic?: string | null
+  } | null
+  section?: {
+    id: string
+    title: string
+  } | null
+  temaCodigo?: string | null
+  temaNumero?: number | null
+  temaParte?: string | null
+  temaTitulo?: string | null
+  difficulty?: string | null
+  reviewed?: boolean
+  approved?: boolean
+  reviewedAt?: string | null
+}
+
 function normalizeParte(value: string | null | undefined): 'general' | 'especifico' | null {
   if (!value) return null
   const base = value

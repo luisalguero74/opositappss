@@ -443,9 +443,9 @@ export default function AdminTestPlanner() {
 
         <div class="options">
           \${q.options.map((option, index) => \`
-            <label class="option" data-index="${index}">
-              <input type="radio" name="answer" value="${LETTERS[index]}">
-              <span>(${LETTERS[index]}) ${option}</span>
+            <label class="option" data-index="\${index}">
+              <input type="radio" name="answer" value="\${LETTERS[index]}">
+              <span>(\${LETTERS[index]}) \${option}</span>
             </label>\`).join('')}
         </div>
 

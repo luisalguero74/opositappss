@@ -3,6 +3,10 @@ import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcrypt'
 
 export async function GET() {
+  if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+    return NextResponse.json({ error: 'Not Found' }, { status: 404 })
+  }
+
   try {
     const user = await prisma.user.findUnique({
       where: { email: 'alguero2@yahoo.com' }
@@ -15,15 +19,16 @@ export async function GET() {
       })
     }
 
-    const passwordMatch = await bcrypt.compare('Admin2026!', user.password)
+    const passwordMatch = user.password
+      ? await bcrypt.compare('Admin2026!', user.password)
+      : false
 
     return NextResponse.json({
       userExists: true,
       email: user.email,
       role: user.role,
       active: user.active,
-      passwordMatch,
-      passwordHashStart: user.password.substring(0, 20)
+      passwordMatch
     })
   } catch (error) {
     return NextResponse.json({ 

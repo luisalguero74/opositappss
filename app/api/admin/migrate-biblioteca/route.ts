@@ -2,12 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { PrismaClient } from '@prisma/client'
-import { readFile } from 'fs/promises'
 import { join } from 'path'
-import { existsSync } from 'fs'
 
 const prisma = new PrismaClient()
-const BIBLIOTECA_DIR = join(process.cwd(), 'documentos-temario', 'biblioteca')
 
 interface BibliotecaJSON {
   documentos: Array<{
@@ -26,6 +23,8 @@ interface BibliotecaJSON {
 // Extraer contenido de archivo según tipo
 async function extractContent(filePath: string): Promise<string> {
   const extension = filePath.split('.').pop()?.toLowerCase()
+
+  const { readFile } = await import('fs/promises')
 
   try {
     if (extension === 'txt') {
@@ -96,6 +95,20 @@ export async function POST(req: NextRequest) {
     if (!session || session.user.role !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
+
+    if (process.env.VERCEL) {
+      return NextResponse.json(
+        {
+          error:
+            'Migración no soportada en producción (Vercel). Este endpoint depende de archivos locales. Ejecuta la migración desde local/NAS.',
+        },
+        { status: 501 }
+      )
+    }
+
+    const [{ readFile }, { existsSync }] = await Promise.all([import('fs/promises'), import('fs')])
+    const { getLocalBibliotecaDir } = await import('@/lib/local-documentos-temario')
+    const BIBLIOTECA_DIR = getLocalBibliotecaDir()
 
     const BIBLIOTECA_PATH = join(process.cwd(), 'data', 'biblioteca-legal.json')
 

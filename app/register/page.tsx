@@ -9,6 +9,7 @@ export default function Register() {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [repoAccess, setRepoAccess] = useState<'app_only' | 'repo_reader' | 'repo_editor_request'>('app_only')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const router = useRouter()
@@ -41,7 +42,7 @@ export default function Register() {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, phoneNumber, password })
+        body: JSON.stringify({ email, phoneNumber, password, repoAccess })
       })
 
       if (response.ok) {
@@ -119,6 +120,56 @@ export default function Register() {
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 transition"
               required
             />
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-gray-700 font-semibold mb-2">Acceso inicial</label>
+            <div className="space-y-2 text-sm text-gray-700">
+              <label className="flex items-start gap-2">
+                <input
+                  type="radio"
+                  name="repoAccess"
+                  value="app_only"
+                  checked={repoAccess === 'app_only'}
+                  onChange={() => setRepoAccess('app_only')}
+                  className="mt-1"
+                />
+                <span>
+                  <span className="font-semibold">Solo app</span>
+                  <span className="block text-xs text-gray-500">No se mostrará el acceso al repositorio.</span>
+                </span>
+              </label>
+              <label className="flex items-start gap-2">
+                <input
+                  type="radio"
+                  name="repoAccess"
+                  value="repo_reader"
+                  checked={repoAccess === 'repo_reader'}
+                  onChange={() => setRepoAccess('repo_reader')}
+                  className="mt-1"
+                />
+                <span>
+                  <span className="font-semibold">App y repositorio (lector)</span>
+                  <span className="block text-xs text-gray-500">Acceso de lectura al repositorio.</span>
+                </span>
+              </label>
+              <label className="flex items-start gap-2">
+                <input
+                  type="radio"
+                  name="repoAccess"
+                  value="repo_editor_request"
+                  checked={repoAccess === 'repo_editor_request'}
+                  onChange={() => setRepoAccess('repo_editor_request')}
+                  className="mt-1"
+                />
+                <span>
+                  <span className="font-semibold">App y repositorio (solicitar editor)</span>
+                  <span className="block text-xs text-gray-500">
+                    Acceso como lector y solicitud de editor pendiente de aprobación.
+                  </span>
+                </span>
+              </label>
+            </div>
           </div>
           <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg space-y-2">
             <label className="flex items-start gap-2 text-xs text-gray-700">

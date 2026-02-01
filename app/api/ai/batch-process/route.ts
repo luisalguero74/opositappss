@@ -3,85 +3,6 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { processDocument } from '@/lib/document-processor'
 import { prisma } from '@/lib/prisma'
-import { readdir, stat } from 'fs/promises'
-import { join } from 'path'
-
-interface FileToProcess {
-  filePath: string
-  fileName: string
-  type: string
-  topic?: string
-}
-
-async function findAllDocuments(): Promise<FileToProcess[]> {
-  const documents: FileToProcess[] = []
-  const basePath = join(process.cwd(), 'documentos-temario')
-
-  try {
-    // Procesar documentos de biblioteca
-    const bibliotecaPath = join(basePath, 'biblioteca')
-    try {
-      const bibliotecaFiles = await readdir(bibliotecaPath)
-      for (const file of bibliotecaFiles) {
-        if (file.match(/\.(txt|pdf|doc|docx)$/i)) {
-          documents.push({
-            filePath: `documentos-temario/biblioteca/${file}`,
-            fileName: file,
-            type: 'ley'
-          })
-        }
-      }
-    } catch (error) {
-      console.log('No se encontró directorio biblioteca')
-    }
-
-    // Procesar temario general
-    const generalPath = join(basePath, 'general')
-    try {
-      const generalFiles = await readdir(generalPath)
-      for (const file of generalFiles) {
-        if (file.match(/\.(txt|pdf|doc|docx)$/i) && !file.includes('README')) {
-          const match = file.match(/tema[_\s]?(\d+)/i)
-          const temaNum = match ? parseInt(match[1]) : undefined
-          
-          documents.push({
-            filePath: `documentos-temario/general/${file}`,
-            fileName: file,
-            type: 'temario_general',
-            topic: temaNum ? `Tema ${temaNum}` : undefined
-          })
-        }
-      }
-    } catch (error) {
-      console.log('No se encontró directorio general')
-    }
-
-    // Procesar temario específico
-    const especificoPath = join(basePath, 'especifico')
-    try {
-      const especificoFiles = await readdir(especificoPath)
-      for (const file of especificoFiles) {
-        if (file.match(/\.(txt|pdf|doc|docx)$/i) && !file.includes('README')) {
-          const match = file.match(/tema[_\s]?(\d+)/i)
-          const temaNum = match ? parseInt(match[1]) : undefined
-          
-          documents.push({
-            filePath: `documentos-temario/especifico/${file}`,
-            fileName: file,
-            type: 'temario_especifico',
-            topic: temaNum ? `Tema ${24 + temaNum}` : undefined // Los temas específicos empiezan en 24
-          })
-        }
-      }
-    } catch (error) {
-      console.log('No se encontró directorio especifico')
-    }
-  } catch (error) {
-    console.error('Error buscando documentos:', error)
-  }
-
-  return documents
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -94,8 +15,20 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const { action = 'scan', generateQuestions = false } = body
 
+    if (process.env.VERCEL) {
+      return NextResponse.json(
+        {
+          error:
+            'Este endpoint depende del filesystem local y no está soportado en producción (Vercel). Ejecuta el batch desde local/NAS o adapta a Backblaze B2 (presigned URLs).',
+        },
+        { status: 501 }
+      )
+    }
+
+    const { findAllLocalDocumentsToProcess } = await import('@/lib/local-temario-scan')
+
     if (action === 'scan') {
-      const documents = await findAllDocuments()
+      const documents = await findAllLocalDocumentsToProcess()
       return NextResponse.json({
         success: true,
         count: documents.length,
@@ -104,12 +37,14 @@ export async function POST(req: NextRequest) {
     }
 
     if (action === 'process-all') {
-      const documents = await findAllDocuments()
+      const documents = await findAllLocalDocumentsToProcess()
       const results = {
         processed: 0,
         failed: 0,
         errors: [] as string[]
       }
+
+      const [{ stat }, { join }] = await Promise.all([import('fs/promises'), import('path')])
 
       for (const doc of documents) {
         try {

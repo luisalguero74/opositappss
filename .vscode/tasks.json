@@ -52,191 +52,12 @@
 			"group": "build"
 		},
 		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Deploy Vercel (Prod)",
-			"type": "shell",
-			"command": "npx",
-			"args": [
-				"vercel",
-				"--prod"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
 			"label": "DB Backup (from .env.production*)",
 			"type": "shell",
 			"command": "zsh",
 			"args": [
 				"-lc",
 				"cd . && url=\"$(node scripts/get-db-url.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL found for backup.\"; exit 1; fi && DATABASE_URL=\"$url\" npm run db:backup"
-			],
-			"isBackground": false,
-			"group": "build"
-		},
-		{
-			"label": "List Env Keys (safe)",
-			"type": "shell",
-			"command": "zsh",
-			"args": [
-				"-lc",
-				"cd . && node scripts/list-env-keys.mjs | egrep -i 'DATABASE|POSTGRES|SUPABASE|PG|PRISMA|URL' | head -n 200"
 			],
 			"isBackground": false,
 			"group": "build"
@@ -348,6 +169,174 @@
 			"args": [
 				"-lc",
 				"cd . && curl -sL https://www.opositapp.site/ | grep -oF \"adsbygoogle.js?client=ca-pub-3330699408382004\" | head -n 5"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Migrate (prod, safe)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-migrations.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL found\"; exit 1; fi && DATABASE_URL=\"$url\" npx prisma migrate deploy"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Diagnose URL (prod, safe)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && node scripts/get-db-url-for-migrations.mjs --diagnose | head -n 50"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Diagnose URL (prod, safe) [no secrets]",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && node scripts/get-db-url-for-migrations.mjs --diagnose"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Migrate (prod, safe direct-if-possible)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-migrations.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL found\"; exit 1; fi && DATABASE_URL=\"$url\" npx prisma migrate deploy"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB DNS Check (supabase direct host)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && host db.aykhsftdivoisljomljm.supabase.co || nslookup db.aykhsftdivoisljomljm.supabase.co || dig +short db.aykhsftdivoisljomljm.supabase.co"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Locks Check (prod)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi && psql \"$url\" -v ON_ERROR_STOP=1 -c \"select now() as now;\" -c \"select pid, usename, state, wait_event_type, wait_event, age(now(), query_start) as age, left(query,120) as query from pg_stat_activity where datname=current_database() and state <> 'idle' order by query_start asc limit 30;\" -c \"select blocked.pid as blocked_pid, blocked.usename as blocked_user, age(now(), blocked.query_start) as blocked_age, left(blocked.query,80) as blocked_query, blocker.pid as blocker_pid, blocker.usename as blocker_user, age(now(), blocker.query_start) as blocker_age, left(blocker.query,80) as blocker_query from pg_locks bl join pg_stat_activity blocked on blocked.pid=bl.pid join pg_locks kl on kl.locktype=bl.locktype and kl.database is not distinct from bl.database and kl.relation is not distinct from bl.relation and kl.page is not distinct from bl.page and kl.tuple is not distinct from bl.tuple and kl.virtualxid is not distinct from bl.virtualxid and kl.transactionid is not distinct from bl.transactionid and kl.classid is not distinct from bl.classid and kl.objid is not distinct from bl.objid and kl.objsubid is not distinct from bl.objsubid and kl.pid <> bl.pid join pg_stat_activity blocker on blocker.pid=kl.pid where not bl.granted and kl.granted limit 20;\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Locks Check (prod, fixed)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi && psql \"$url\" -v ON_ERROR_STOP=1 -c \"select now() as now;\" -c \"select pid, usename, state, wait_event_type, wait_event, age(now(), query_start) as age, left(query,120) as query from pg_stat_activity where datname=current_database() and state <> $$idle$$ order by query_start asc limit 30;\" -c \"select blocked.pid as blocked_pid, blocked.usename as blocked_user, age(now(), blocked.query_start) as blocked_age, left(blocked.query,80) as blocked_query, blocker.pid as blocker_pid, blocker.usename as blocker_user, age(now(), blocker.query_start) as blocker_age, left(blocker.query,80) as blocker_query from pg_locks bl join pg_stat_activity blocked on blocked.pid=bl.pid join pg_locks kl on kl.locktype=bl.locktype and kl.database is not distinct from bl.database and kl.relation is not distinct from bl.relation and kl.page is not distinct from bl.page and kl.tuple is not distinct from bl.tuple and kl.virtualxid is not distinct from bl.virtualxid and kl.transactionid is not distinct from bl.transactionid and kl.classid is not distinct from bl.classid and kl.objid is not distinct from bl.objid and kl.objsubid is not distinct from bl.objsubid and kl.pid <> bl.pid join pg_stat_activity blocker on blocker.pid=kl.pid where not bl.granted and kl.granted limit 20;\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Locks Check (prod, fixed2)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi && psql \"$url\" -v ON_ERROR_STOP=1 -c \"select now() as now;\" -c \"select pid, usename, state, wait_event_type, wait_event, age(now(), query_start) as age, left(query,120) as query from pg_stat_activity where datname=current_database() and state <> \\$\\$idle\\$\\$ order by query_start asc limit 30;\" -c \"select blocked.pid as blocked_pid, blocked.usename as blocked_user, age(now(), blocked.query_start) as blocked_age, left(blocked.query,80) as blocked_query, blocker.pid as blocker_pid, blocker.usename as blocker_user, age(now(), blocker.query_start) as blocker_age, left(blocker.query,80) as blocker_query from pg_locks bl join pg_stat_activity blocked on blocked.pid=bl.pid join pg_locks kl on kl.locktype=bl.locktype and kl.database is not distinct from bl.database and kl.relation is not distinct from bl.relation and kl.page is not distinct from bl.page and kl.tuple is not distinct from bl.tuple and kl.virtualxid is not distinct from bl.virtualxid and kl.transactionid is not distinct from bl.transactionid and kl.classid is not distinct from bl.classid and kl.objid is not distinct from bl.objid and kl.objsubid is not distinct from bl.objsubid and kl.pid <> bl.pid join pg_stat_activity blocker on blocker.pid=kl.pid where not bl.granted and kl.granted limit 20;\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Locks Check (prod, final)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi && PAGER=cat psql \"$url\" -P pager=off -v ON_ERROR_STOP=1 -c \"select now() as now;\" -c \"select pid, usename, state, wait_event_type, wait_event, age(now(), query_start) as age, left(query,120) as query from pg_stat_activity where datname=current_database() and state <> \\$\\$idle\\$\\$ order by query_start asc limit 30;\" -c \"select blocked.pid as blocked_pid, blocked.usename as blocked_user, age(now(), blocked.query_start) as blocked_age, left(blocked.query,80) as blocked_query, blocker.pid as blocker_pid, blocker.usename as blocker_user, age(now(), blocker.query_start) as blocker_age, left(blocker.query,80) as blocker_query from pg_locks bl join pg_stat_activity blocked on blocked.pid=bl.pid join pg_locks kl on kl.locktype=bl.locktype and kl.database is not distinct from bl.database and kl.relation is not distinct from bl.relation and kl.page is not distinct from bl.page and kl.tuple is not distinct from bl.tuple and kl.virtualxid is not distinct from bl.virtualxid and kl.transactionid is not distinct from bl.transactionid and kl.classid is not distinct from bl.classid and kl.objid is not distinct from bl.objid and kl.objsubid is not distinct from bl.objsubid and kl.pid <> bl.pid join pg_stat_activity blocker on blocker.pid=kl.pid where not bl.granted and kl.granted limit 20;\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Migrate (prod via pooler, stable params)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-prisma-migrate.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL found\"; exit 1; fi && DATABASE_URL=\"$url\" npx prisma migrate deploy"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Check Prisma Migrations (prod)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi && PAGER=cat psql \"$url\" -P pager=off -v ON_ERROR_STOP=1 -c \"select migration_name, finished_at, applied_steps_count, rolled_back_at from _prisma_migrations order by finished_at desc nulls last limit 8;\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Apply Repo Access SQL (prod)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi && PAGER=cat psql \"$url\" -P pager=off -v ON_ERROR_STOP=1 -f prisma/migrations/20260201123000_repo_access_roles/migration.sql"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Verify Repo Access Objects (prod)",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi && PAGER=cat psql \"$url\" -P pager=off -v ON_ERROR_STOP=1 -c \"select to_regtype('\"'\"'public.\"'\"'\"'\"'RepoRole\"'\"'\"'\"''\"'\"') as repo_role_type;\" -c \"select to_regtype('\"'\"'public.\"'\"'\"'\"'RepoAccessRequestStatus\"'\"'\"'\"''\"'\"') as status_type;\" -c \"select column_name, data_type, udt_name, column_default from information_schema.columns where table_schema='public' and table_name='User' and column_name='repoRole';\" -c \"select to_regclass('public.\"'\"'RepoAccessRequest\"'\"') as repo_access_request_table;\" -c \"select indexname from pg_indexes where schemaname='public' and tablename='RepoAccessRequest' order by indexname;\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "DB Verify Repo Access Objects (prod) [sql file]",
+			"type": "shell",
+			"command": "zsh",
+			"args": [
+				"-lc",
+				"cd . && url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi && PAGER=cat psql \"$url\" -P pager=off -v ON_ERROR_STOP=1 -f scripts/verify-repo-access-prod.sql"
 			],
 			"isBackground": false,
 			"problemMatcher": [],

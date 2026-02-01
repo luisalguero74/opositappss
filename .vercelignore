@@ -1,1 +1,25 @@
-# Build timestamp: Thu Jan  8 18:40:16 CET 2026
+
+# Ignora archivos y carpetas grandes que deben migrarse a almacenamiento externo para evitar que Vercel los incluya en el bundle
+
+# Backups y bundles
+backups/
+opositapp-code-*.bundle
+opositapp-working-tree-*.tar.gz
+*.tsbuildinfo
+
+# Documentos temario y biblioteca legal (PDFs y txt)
+documentos-temario/
+documentos/
+
+# Exportaciones y dumps de preguntas
+questions-export.json
+questions.csv
+questions-dump.sql
+questionnaires.csv
+
+# Otros archivos grandes (solo artefactos específicos)
+opositapp-working-tree-*.tar.gz
+opositapp-code-*.bundle
+
+# Logs y archivos temporales
+*.log

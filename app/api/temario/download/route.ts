@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { readFile } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import {
+  buildRemoteTemarioUrl,
+  proxyRemoteFile,
+  getB2TemarioS3ConfigFromEnv,
+  presignB2GetObjectUrl,
+} from '@/lib/external-file'
 
 export async function GET(req: NextRequest) {
   try {
@@ -28,47 +31,45 @@ export async function GET(req: NextRequest) {
     }
 
     // Construir ruta del archivo
-    const filePath = join(process.cwd(), 'documentos-temario', categoria, fileName)
+    const remoteBaseUrl = process.env.OPOSITAPP_TEMARIO_REMOTE_BASE_URL
+    if (remoteBaseUrl) {
+      const url = buildRemoteTemarioUrl(remoteBaseUrl, categoria, fileName)
+      return await proxyRemoteFile({ url, fileName })
+    }
 
-    // Verificar que el archivo existe
-    if (!existsSync(filePath)) {
+    const b2cfg = getB2TemarioS3ConfigFromEnv()
+    if (b2cfg) {
+      const key = `${categoria}/${fileName}`
+      const signedUrl = await presignB2GetObjectUrl(b2cfg, key, 60)
+      return await proxyRemoteFile({ url: signedUrl, fileName })
+    }
+
+    if (process.env.VERCEL) {
+      return NextResponse.json(
+        {
+          error:
+            'No hay almacenamiento remoto configurado para temario en producción. Configura Backblaze B2 para temario (B2_TEMARIO_*/B2_TEMARIO_BUCKET) o OPOSITAPP_TEMARIO_REMOTE_BASE_URL.',
+        },
+        { status: 500 }
+      )
+    }
+
+    const { readLocalTemarioFile } = await import('@/lib/local-temario-storage')
+    const local = await readLocalTemarioFile(categoria, fileName)
+    if (!local) {
       return NextResponse.json(
         { error: 'Archivo no encontrado' },
         { status: 404 }
       )
     }
 
-    // Leer el archivo
-    const fileBuffer = await readFile(filePath)
+    const body = new Uint8Array(local.buffer)
 
-    // Determinar el tipo MIME segun la extension
-    const extension = fileName.split('.').pop()?.toLowerCase()
-    let contentType = 'application/octet-stream'
-    
-    switch (extension) {
-      case 'pdf':
-        contentType = 'application/pdf'
-        break
-      case 'txt':
-        contentType = 'text/plain; charset=utf-8'
-        break
-      case 'doc':
-        contentType = 'application/msword'
-        break
-      case 'docx':
-        contentType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        break
-      case 'epub':
-        contentType = 'application/epub+zip'
-        break
-    }
-
-    // Devolver el archivo con headers apropiados
-    return new NextResponse(fileBuffer, {
+    return new NextResponse(body, {
       headers: {
-        'Content-Type': contentType,
+        'Content-Type': local.contentType,
         'Content-Disposition': `attachment; filename="${encodeURIComponent(fileName)}"`,
-        'Content-Length': fileBuffer.length.toString(),
+        'Content-Length': body.byteLength.toString(),
       },
     })
   } catch (error) {

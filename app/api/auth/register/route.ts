@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcrypt'
-import { Prisma } from '@prisma/client'
+import { Prisma, RepoAccessRequestStatus, RepoRole } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { sendVerificationEmail } from '../../../../src/lib/email'
 import crypto from 'crypto'
@@ -23,7 +23,7 @@ function parseDateEnv(value: string | undefined): Date | null {
 export async function POST(request: NextRequest) {
   try {
     console.log('[REGISTER] Starting registration process')
-    const { email, phoneNumber, password } = await request.json()
+    const { email, phoneNumber, password, repoAccess } = await request.json()
     console.log('[REGISTER] Received data:', { email, phoneNumber: phoneNumber?.substring(0, 5) + '***' })
 
     if (!email || !password || !phoneNumber) {
@@ -103,13 +103,32 @@ export async function POST(request: NextRequest) {
         throw new Error('PHONE_ALREADY_EXISTS')
       }
 
-      return tx.user.create({
+      const repoAccessRaw = String(repoAccess || 'app_only')
+      const initialRepoRole =
+        repoAccessRaw === 'repo_reader' || repoAccessRaw === 'repo_editor_request'
+          ? RepoRole.READER
+          : RepoRole.NONE
+
+      const created = await tx.user.create({
         data: {
           email: normalizedEmail,
           phoneNumber: phoneToCheck,
           password: hashedPassword,
+          repoRole: initialRepoRole,
         },
       })
+
+      if (repoAccessRaw === 'repo_editor_request') {
+        await tx.repoAccessRequest.create({
+          data: {
+            userId: created.id,
+            desiredRole: RepoRole.EDITOR,
+            status: RepoAccessRequestStatus.PENDING,
+          },
+        })
+      }
+
+      return created
     })
     console.log('[REGISTER] User created:', user.id)
 

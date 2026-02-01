@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     const pool = getPgPool()
 
     // Inicializar con valores por defecto
-    let analytics: any = {
+    const analytics: any = {
       general: {
         totalAttempts: 0,
         totalQuestions: 0,
@@ -57,7 +57,17 @@ export async function GET(req: NextRequest) {
       const totalAttempts = Number(totalAttemptsRes.rows?.[0]?.n ?? 0)
       const totalQuestions = Number(totalQuestionsRes.rows?.[0]?.n ?? 0)
       const totalCorrect = Number(totalCorrectRes.rows?.[0]?.n ?? 0)
-      const recentAttempts = recentAttemptsRes.rows ?? []
+      type RecentAttemptRow = {
+        id: string
+        title: string
+        type: string
+        score: number
+        correctAnswers: number
+        totalQuestions: number
+        completedAt: string | null
+      }
+
+      const recentAttempts = (recentAttemptsRes.rows ?? []) as RecentAttemptRow[]
 
       const averageScore = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0
 
@@ -69,7 +79,7 @@ export async function GET(req: NextRequest) {
         totalIncorrect: totalQuestions - totalCorrect
       }
 
-      analytics.recentAttempts = recentAttempts.map(a => ({
+      analytics.recentAttempts = recentAttempts.map((a) => ({
         id: a.id,
         title: a.title,
         type: a.type,

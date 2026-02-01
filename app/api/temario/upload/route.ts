@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
 import { prisma } from '@/lib/prisma'
 import { TEMARIO_OFICIAL } from '@/lib/temario-oficial'
 
@@ -30,19 +27,22 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    if (process.env.VERCEL) {
+      return NextResponse.json(
+        {
+          error:
+            'Subida a disco local no soportada en producción (Vercel). Configura subida a almacenamiento remoto (Backblaze B2/Supabase Storage).',
+        },
+        { status: 501 }
+      )
+    }
+
     // Convertir el archivo a buffer
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
-    // Crear directorio si no existe
-    const uploadDir = join(process.cwd(), 'documentos-temario', categoria)
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true })
-    }
-
-    // Guardar archivo
-    const filePath = join(uploadDir, file.name)
-    await writeFile(filePath, buffer)
+    const { writeLocalTemarioFile } = await import('@/lib/local-temario-storage')
+    await writeLocalTemarioFile(categoria, file.name, buffer)
 
     // Contar páginas según tipo de archivo
     let numeroPaginas = 0

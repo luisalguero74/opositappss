@@ -140,7 +140,8 @@ export async function GET(req: NextRequest) {
       // - Partimos del temario en código (lista completa)
       // - Sobrescribimos con registros de BD cuando coincida el id
       // - Añadimos cualquier tema extra que pudiera existir solo en BD
-      temarioSource = temarioSource === 'db-error' ? 'db-error' : 'db+code'
+      // Con datos en BD: combinamos, pero mantenemos un valor compatible con el tipo.
+      temarioSource = temarioSource === 'db-error' ? 'db-error' : 'db'
 
       const byId = new Map<string, { id: string; numero: number; titulo: string; categoria: string }>()
 

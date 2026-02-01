@@ -49,9 +49,21 @@ export async function GET(request: NextRequest) {
         [userId]
       )
 
-      const userAnswers = answersRes.rows ?? []
+      type UserAnswerRow = {
+        questionId: unknown
+        isCorrect: boolean
+        createdAt: unknown
+        userAnswer?: unknown
+        questionText?: unknown
+        correctAnswer?: unknown
+        explanation?: unknown
+        questionnaireTitle?: unknown
+        questionnaireType?: unknown
+      }
+
+      const userAnswers = (answersRes.rows ?? []) as UserAnswerRow[]
       const totalQuestions = userAnswers.length
-      const correctAnswers = userAnswers.filter(a => a.isCorrect).length
+      const correctAnswers = userAnswers.filter((a) => a.isCorrect).length
       const incorrectAnswers = totalQuestions - correctAnswers
       const successRate = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0
 
@@ -125,16 +137,16 @@ export async function GET(request: NextRequest) {
         },
         repeatedErrors,
         recentErrors: userAnswers
-          .filter(a => !a.isCorrect)
+          .filter((a) => !a.isCorrect)
           .slice(0, 20)
-          .map(a => ({
+          .map((a) => ({
             questionId: String(a.questionId),
-            questionText: a.questionText || 'Pregunta sin texto',
-            questionnaireTitle: a.questionnaireTitle || 'Sin cuestionario',
-            questionnaireType: a.questionnaireType || 'unknown',
+            questionText: String(a.questionText ?? '') || 'Pregunta sin texto',
+            questionnaireTitle: String(a.questionnaireTitle ?? '') || 'Sin cuestionario',
+            questionnaireType: String(a.questionnaireType ?? '') || 'unknown',
             userAnswer: String(a.userAnswer ?? ''),
-            correctAnswer: a.correctAnswer || '',
-            explanation: a.explanation || '',
+            correctAnswer: String(a.correctAnswer ?? ''),
+            explanation: String(a.explanation ?? ''),
             date: a.createdAt
           }))
       })

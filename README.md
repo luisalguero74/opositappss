@@ -34,8 +34,34 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Admin Access
 
-Login: alguero2@yahoo.com
-Password: $aC468eUi)n7
+For security, admin credentials are not stored in this README. Use the existing scripts under `scripts/` to manage or reset admin access.
+
+Example (reset admin password):
+
+```bash
+NEW_ADMIN_PASSWORD='REPLACE_ME' node scripts/reset-admin-password.mjs
+```
+
+## Temario Storage (Private)
+
+In production, large temario files are served from private storage (Backblaze B2 S3-compatible). The app expects object keys in the format:
+
+`<categoria>/<fileName>` (e.g. `general/tema1_constitucion.txt`, `especifico/TEMA 1.pdf`).
+
+Recommended: use a dedicated bucket for temario (separate from other assets) via env vars:
+
+- `B2_TEMARIO_S3_BUCKET` (or `B2_TEMARIO_BUCKET`)
+- Reuse endpoint/region/credentials from `B2_S3_*` unless you want to override them with `B2_TEMARIO_S3_*`.
+
+To check what is missing in B2 and optionally upload from a local folder:
+
+```bash
+# Report missing objects
+node scripts/b2-temario-sync.mjs --dry-run --env prod
+
+# Upload missing (source folder can contain general/ and especifico/ subfolders)
+node scripts/b2-temario-sync.mjs --apply --source /PATH/TO/TEMARIO
+```
 
 ## Technologies
 

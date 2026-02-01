@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { unlink } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
 import { prisma } from '@/lib/prisma'
 
 export async function DELETE(req: NextRequest) {
@@ -29,19 +26,24 @@ export async function DELETE(req: NextRequest) {
       )
     }
 
-    // Construir ruta del archivo
-    const filePath = join(process.cwd(), 'documentos-temario', categoria, fileName)
+    if (process.env.VERCEL) {
+      return NextResponse.json(
+        {
+          error:
+            'Borrado en disco local no soportado en producción (Vercel). Implementa borrado en almacenamiento remoto (Backblaze B2/Supabase Storage).',
+        },
+        { status: 501 }
+      )
+    }
 
-    // Verificar que el archivo existe
-    if (!existsSync(filePath)) {
+    const { deleteLocalTemarioFile } = await import('@/lib/local-temario-storage')
+    const deleted = await deleteLocalTemarioFile(categoria, fileName)
+    if (!deleted) {
       return NextResponse.json(
         { error: 'Archivo no encontrado' },
         { status: 404 }
       )
     }
-
-    // Eliminar el archivo del sistema de archivos
-    await unlink(filePath)
 
     // Eliminar el registro de la base de datos
     if (temaId) {

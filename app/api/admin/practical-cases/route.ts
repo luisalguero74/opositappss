@@ -78,8 +78,8 @@ export async function POST(req: NextRequest) {
     console.log('📖 Leyendo contenido del archivo...')
     const buffer = await file.arrayBuffer()
     let content = ''
-    let fileName = file.name || ''
-    let mimeType = file.type || ''
+    const fileName = file.name || ''
+    const mimeType = file.type || ''
 
     // Detectar tipo por extensión o MIME
     const ext = fileName.split('.').pop()?.toLowerCase() || ''

@@ -2,9 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { processDocument } from '@/lib/document-processor'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { extractSectionsFromContent } from '@/lib/document-processor'
 
 // Reprocesa todos los documentos legales ya subidos y actualiza contenido + secciones
 export async function POST(req: NextRequest) {
@@ -15,7 +13,6 @@ export async function POST(req: NextRequest) {
     }
 
     const documents = await prisma.legalDocument.findMany()
-    const baseDir = join(process.cwd(), 'documentos-temario')
 
     let processed = 0
     let skipped = 0
@@ -28,30 +25,23 @@ export async function POST(req: NextRequest) {
         continue
       }
 
-      // Determinar carpeta según documentType
-      let subDir = 'biblioteca'
-      if (doc.documentType === 'temario_general') subDir = 'general'
-      else if (doc.documentType === 'temario_especifico') subDir = 'especifico'
-
-      const filePath = join(baseDir, subDir, doc.fileName)
-      if (!existsSync(filePath)) {
+      if (!doc.content || doc.content.trim().length === 0) {
         skipped++
-        errors.push({ id: doc.id, reason: `Archivo no encontrado: ${subDir}/${doc.fileName}` })
+        errors.push({ id: doc.id, reason: 'Sin contenido en BD (content vacío)' })
         continue
       }
 
       try {
-        const processedDoc = await processDocument(filePath, doc.fileName)
+        const sections = extractSectionsFromContent(doc.content, doc.fileName)
 
         await prisma.documentSection.deleteMany({ where: { documentId: doc.id } })
 
         await prisma.legalDocument.update({
           where: { id: doc.id },
           data: {
-            content: processedDoc.content,
             processedAt: new Date(),
             sections: {
-              create: processedDoc.sections.map((s, idx) => ({
+              create: sections.map((s, idx) => ({
                 title: s.title,
                 content: s.content,
                 order: idx

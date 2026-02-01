@@ -3,8 +3,6 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { processDocument } from '@/lib/document-processor'
 import { prisma } from '@/lib/prisma'
-import { readFile } from 'fs/promises'
-import { join } from 'path'
 import { generateEmbedding } from '@/lib/embeddings'
 
 // Procesar documento y guardarlo en BD
@@ -26,13 +24,24 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    if (process.env.VERCEL) {
+      return NextResponse.json(
+        {
+          error:
+            'Este endpoint depende del filesystem local y no está soportado en producción (Vercel). Sube el documento a Backblaze B2/Supabase Storage y adapta el procesado para leer desde URL firmada.',
+        },
+        { status: 501 }
+      )
+    }
+
     // Procesar documento
     console.log(`Procesando documento: ${fileName}`)
     const processed = await processDocument(filePath, fileName)
 
-    // Obtener tamaño del archivo
+    // Obtener tamaño del archivo (solo local)
+    const [{ stat }, { join }] = await Promise.all([import('fs/promises'), import('path')])
     const fullPath = join(process.cwd(), filePath)
-    const stats = await readFile(fullPath).then(b => ({ size: b.length }))
+    const stats = await stat(fullPath)
 
     // Generar embedding automáticamente
     let embeddingString: string | null = null

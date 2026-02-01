@@ -382,17 +382,6 @@ export default function BibliotecaLegalPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <button
-                        onClick={() => {
-                          const a = document.createElement('a')
-                          a.href = `/api/temario/download?archivo=${encodeURIComponent(doc.archivo)}`
-                          a.download = doc.archivo
-                          a.click()
-                        }}
-                        className="text-blue-600 hover:text-blue-900 mr-4"
-                      >
-                        Descargar
-                      </button>
-                      <button
                         onClick={() => handleDeleteDocumento(doc.id)}
                         className="text-red-600 hover:text-red-900"
                       >

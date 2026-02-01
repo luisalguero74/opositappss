@@ -196,7 +196,7 @@ export async function getErrorStats(days = 7) {
 
     const byType = {} as Record<string, number>
     const bySeverity = { low: 0, medium: 0, high: 0, critical: 0 }
-    let totalErrors = errors.length
+    const totalErrors = errors.length
     let unresolvedCount = 0
 
     errors.forEach(err => {

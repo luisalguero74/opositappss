@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { readdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { getB2TemarioS3ConfigFromEnv, listB2Objects } from '@/lib/external-file'
 
 export async function GET(req: NextRequest) {
   try {
@@ -26,16 +24,25 @@ export async function GET(req: NextRequest) {
       )
     }
 
-    // Ruta del directorio
-    const dirPath = join(process.cwd(), 'documentos-temario', categoria)
+    const b2cfg = getB2TemarioS3ConfigFromEnv()
+    let files: string[] = []
 
-    // Verificar que el directorio existe
-    if (!existsSync(dirPath)) {
-      return NextResponse.json({ archivos: [] })
+    if (b2cfg) {
+      files = await listB2Objects(b2cfg, `${categoria}/`)
+    } else {
+      if (process.env.VERCEL) {
+        return NextResponse.json(
+          {
+            error:
+              'No hay almacenamiento remoto configurado para temario en producción. Configura Backblaze B2 para temario (B2_TEMARIO_*/B2_TEMARIO_BUCKET) o OPOSITAPP_TEMARIO_REMOTE_BASE_URL.',
+          },
+          { status: 500 }
+        )
+      }
+
+      const { listLocalTemarioFiles } = await import('@/lib/local-temario-storage')
+      files = await listLocalTemarioFiles(categoria)
     }
-
-    // Leer archivos del directorio
-    const files = await readdir(dirPath)
     
     // Filtrar solo archivos (no directorios) y excluir README
     const archivos = files.filter(file => 

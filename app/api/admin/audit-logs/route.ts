@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
         action,
         entity,
         entityId: entityId || undefined,
+        adminId: session.user.id,
         adminEmail: session.user.email || 'unknown',
         changes: changes ? JSON.stringify(changes) : undefined,
         reason: reason || undefined
