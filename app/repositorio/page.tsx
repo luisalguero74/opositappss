@@ -107,6 +107,18 @@ export default function RepositorioPage() {
   const [apiError, setApiError] = useState<string | null>(null)
   const [apiLoading, setApiLoading] = useState(false)
 
+  const openRepoDocument = (id: string, opts?: { preview?: boolean }) => {
+    if (!USE_REPOSITORY_API) {
+      window.alert(
+        'Repositorio en modo demostración: estas carpetas y ficheros son de ejemplo.\n\nPara ver documentos reales, activa NEXT_PUBLIC_USE_REPOSITORY_API=true y carga el contenido desde el panel de administración.'
+      )
+      return
+    }
+
+    const preview = opts?.preview ? '?preview=1' : ''
+    window.open(`/api/repository/download/${id}${preview}`, '_blank')
+  }
+
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login?callbackUrl=/repositorio')
@@ -220,8 +232,9 @@ export default function RepositorioPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {(USE_REPOSITORY_API && foldersFromApi ? foldersFromApi : STATIC_FOLDERS).map((folder) => {
-                const isApiFolder = (folder as any).code !== undefined
-                const filesInFolder = USE_REPOSITORY_API && foldersFromApi && isApiFolder
+                const isApiFolder = typeof (folder as RepoFolderApi).code === 'string'
+                const usingApiData = USE_REPOSITORY_API && foldersFromApi && isApiFolder
+                const filesInFolder = usingApiData
                   ? (folder as RepoFolderApi).documents
                   : STATIC_FILES.filter((f) => f.folderId === (folder as StaticFolder).id)
 
@@ -258,7 +271,7 @@ export default function RepositorioPage() {
                               <button
                                 type="button"
                                 className="px-2 py-1 rounded-md border border-slate-200 bg-white text-[11px] font-semibold text-slate-700 hover:bg-slate-50"
-                                onClick={() => window.open(`/api/repository/download/${file.id}?preview=1`, '_blank')}
+                                onClick={() => openRepoDocument(file.id, { preview: true })}
                                 title="Ver documento en visor"
                               >
                                 Ver
@@ -267,7 +280,7 @@ export default function RepositorioPage() {
                                 <button
                                   type="button"
                                   className="px-2 py-1 rounded-md border border-slate-200 bg-white text-[11px] font-semibold text-slate-700 hover:bg-slate-50"
-                                  onClick={() => window.open(`/api/repository/download/${file.id}`, '_blank')}
+                                  onClick={() => openRepoDocument(file.id)}
                                   title="Descargar documento"
                                 >
                                   Descargar
@@ -305,7 +318,7 @@ export default function RepositorioPage() {
                         <button
                           type="button"
                           className="px-2 py-1 rounded-md border border-slate-200 bg-white text-[11px] font-semibold text-slate-700 hover:bg-slate-50"
-                          onClick={() => window.open(`/api/repository/download/${file.id}?preview=1`, '_blank')}
+                          onClick={() => openRepoDocument(file.id, { preview: true })}
                           title="Ver documento en visor"
                         >
                           Ver
@@ -314,7 +327,7 @@ export default function RepositorioPage() {
                           <button
                             type="button"
                             className="px-2 py-1 rounded-md border border-slate-200 bg-white text-[11px] font-semibold text-slate-700 hover:bg-slate-50"
-                            onClick={() => window.open(`/api/repository/download/${file.id}`, '_blank')}
+                            onClick={() => openRepoDocument(file.id)}
                             title="Descargar documento"
                           >
                             Descargar
