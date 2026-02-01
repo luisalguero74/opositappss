@@ -94,6 +94,8 @@ const STATIC_FILES: StaticFile[] = [
 ]
 
 export default function RepositorioPage() {
+  // Estado para el disclaimer legal
+  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false)
   // Flag de seguridad: si no está activado, la página usa solo datos estáticos.
   // Se puede activar por entorno (ej: Preview en Vercel) con NEXT_PUBLIC_USE_REPOSITORY_API=true.
   const USE_REPOSITORY_API = process.env.NEXT_PUBLIC_USE_REPOSITORY_API === 'true'
@@ -149,38 +151,69 @@ export default function RepositorioPage() {
 
   if (!session || status !== 'authenticated') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-sky-50 to-indigo-50">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <p className="text-sm text-slate-500">Cargando repositorio...</p>
       </div>
     )
   }
 
+
   const role = String(session.user?.role || '').toLowerCase()
   const isAdmin = role === 'admin'
-  const canDownload = role === 'admin' || role === 'editor'
+  const repoRole = String(session.user?.repoRole || 'NONE').toUpperCase()
+  const isEditor = repoRole === 'EDITOR'
+  const canAccessRepository = isAdmin || repoRole !== 'NONE'
+  const canDownload = isAdmin || repoRole === 'EDITOR'
+
+  if (!canAccessRepository) {
+    router.replace('/dashboard')
+    return null
+  }
+
+  // Mostrar disclaimer solo a usuarios (no admin/editor)
+  if (!isAdmin && !isEditor && !disclaimerAccepted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 p-6">
+        <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-sm p-8 border border-slate-200 flex flex-col items-center">
+          <h2 className="text-lg font-bold mb-4 text-slate-800 text-center">Condiciones de uso del material compartido</h2>
+          <div className="text-xs text-slate-700 mb-6 text-justify whitespace-pre-line">
+            El usuario/a declara aceptar las normas de uso responsable del material compartido, comprometiéndose a utilizarlo exclusivamente para los fines del grupo y a no difundirlo a terceros sin autorización. Asimismo, reconoce la existencia de un equilibrio de responsabilidad: quien facilita el material lo hace de forma desinteresada y con intención de apoyar el estudio colectivo, y quien accede a él, asume la obligación de respetar su carácter interno y confidencial. El usuario/a reconoce que el acceso al material compartido se realiza de forma voluntaria y bajo su exclusiva responsabilidad. Se compromete a utilizar dicho material únicamente para los fines internos del grupo y a no difundirlo, reproducirlo ni compartirlo con terceros sin autorización expresa.
+            
+            Los administradores/as del grupo actúan únicamente como facilitadores del acceso y no asumen responsabilidad legal por el uso indebido que puedan realizar los usuarios. La responsabilidad derivada de cualquier filtración, difusión no autorizada o vulneración de este compromiso recaerá exclusivamente en la persona que lleve a cabo dicha acción.
+
+            El usuario declara haber leído y aceptado estas condiciones antes de acceder al material.
+          </div>
+          <button
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition text-sm"
+            onClick={() => setDisclaimerAccepted(true)}
+          >
+            Acepto
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-sky-50 to-indigo-50 p-6">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-6 flex items-center justify-between gap-3 flex-wrap">
-          <div>
-            <Link
-              href={role === 'admin' ? '/admin' : '/dashboard'}
-              className="text-blue-600 hover:text-blue-800 font-semibold inline-block mb-2"
-            >
-              ← Volver
-            </Link>
-            <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-2">
-              📁 Repositorio de Documentos
-            </h1>
-            <p className="text-sm text-slate-600 mt-1">
-              Accede a las carpetas y ficheros aportados por el equipo. Los usuarios lectores solo pueden
-              ver en pantalla; los editores/administradores podrán descargar cuando el fichero lo permita.
-            </p>
-          </div>
+    <div className="min-h-screen bg-slate-50">
+      <div className="border-b border-slate-200 bg-white">
+        <div className="max-w-5xl mx-auto px-6 py-4">
+          <Link
+            href={role === 'admin' ? '/admin' : '/dashboard'}
+            className="text-sm font-semibold text-slate-700 hover:text-slate-900"
+          >
+            Volver
+          </Link>
+          <h1 className="mt-2 text-xl font-bold text-slate-900">Repositorio de documentos</h1>
+          <p className="mt-1 text-sm text-slate-600">
+            Accede a las carpetas y ficheros aportados por el equipo. Los usuarios lectores solo pueden
+            ver en pantalla; los editores/administradores podrán descargar cuando el fichero lo permita.
+          </p>
         </div>
+      </div>
 
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200 p-5 space-y-6">
+      <div className="max-w-5xl mx-auto p-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-6">
           <section>
             <h2 className="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide">
               Carpetas de material
@@ -200,14 +233,11 @@ export default function RepositorioPage() {
                 return (
                   <div
                     key={folder.id}
-                    className="rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 transition p-4 flex flex-col gap-3"
+                    className="rounded-xl border border-slate-200 bg-white shadow-sm hover:bg-slate-50 transition p-4 flex flex-col gap-3"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-1">
-                        <h3 className="text-base font-semibold text-slate-900 flex items-center gap-2">
-                          <span className="text-lg">📂</span>
-                          {folderName}
-                        </h3>
+                        <h3 className="text-base font-semibold text-slate-900">{folderName}</h3>
                         <span className="text-[11px] text-slate-500">
                           {filesInFolder.length} fichero{filesInFolder.length === 1 ? '' : 's'}
                         </span>
@@ -217,26 +247,28 @@ export default function RepositorioPage() {
                       )}
                     </div>
                     {filesInFolder.length > 0 ? (
-                      <ul className="space-y-2 text-xs text-slate-700">
+                      <ul className="divide-y divide-slate-100 text-xs text-slate-700">
                         {filesInFolder.map((file) => (
-                          <li key={file.id} className="flex items-center justify-between gap-2">
+                          <li key={file.id} className="flex items-center justify-between gap-2 py-2 px-2 -mx-2 rounded-lg hover:bg-slate-50">
                             <div className="flex-1 min-w-0">
-                              <p className="font-medium truncate">📄 {file.title}</p>
+                              <p className="font-medium text-slate-900 truncate">{file.title}</p>
                               <p className="text-[11px] text-slate-500 truncate">{file.fileName}</p>
                             </div>
                             <div className="flex items-center gap-1">
                               <button
                                 type="button"
-                                className="px-2 py-1 rounded-md bg-slate-900 text-white text-[11px] font-semibold hover:bg-slate-800"
-                                disabled
+                                className="px-2 py-1 rounded-md border border-slate-200 bg-white text-[11px] font-semibold text-slate-700 hover:bg-slate-50"
+                                onClick={() => window.open(`/api/repository/download/${file.id}?preview=1`, '_blank')}
+                                title="Ver documento en visor"
                               >
                                 Ver
                               </button>
                               {file.allowDownload && canDownload && (
                                 <button
                                   type="button"
-                                  className="px-2 py-1 rounded-md border border-slate-300 text-[11px] text-slate-800 bg-white hover:bg-slate-100"
-                                  disabled
+                                  className="px-2 py-1 rounded-md border border-slate-200 bg-white text-[11px] font-semibold text-slate-700 hover:bg-slate-50"
+                                  onClick={() => window.open(`/api/repository/download/${file.id}`, '_blank')}
+                                  title="Descargar documento"
                                 >
                                   Descargar
                                 </button>
@@ -258,30 +290,32 @@ export default function RepositorioPage() {
             <h2 className="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide">
               Ficheros sueltos
             </h2>
-            <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/70 p-4">
+            <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4">
               {STATIC_FILES.filter((f) => !f.folderId).length === 0 ? (
                 <p className="text-xs text-slate-500">No hay ficheros sueltos registrados todavía.</p>
               ) : (
-                <ul className="space-y-2 text-xs text-slate-700">
+                <ul className="divide-y divide-slate-100 text-xs text-slate-700">
                   {STATIC_FILES.filter((f) => !f.folderId).map((file) => (
-                    <li key={file.id} className="flex items-center justify-between gap-2">
+                    <li key={file.id} className="flex items-center justify-between gap-2 py-2 px-2 -mx-2 rounded-lg hover:bg-slate-50">
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium truncate">📄 {file.title}</p>
+                        <p className="font-medium text-slate-900 truncate">{file.title}</p>
                         <p className="text-[11px] text-slate-500 truncate">{file.fileName}</p>
                       </div>
                       <div className="flex items-center gap-1">
                         <button
                           type="button"
-                          className="px-2 py-1 rounded-md bg-slate-900 text-white text-[11px] font-semibold hover:bg-slate-800"
-                          disabled
+                          className="px-2 py-1 rounded-md border border-slate-200 bg-white text-[11px] font-semibold text-slate-700 hover:bg-slate-50"
+                          onClick={() => window.open(`/api/repository/download/${file.id}?preview=1`, '_blank')}
+                          title="Ver documento en visor"
                         >
                           Ver
                         </button>
                         {file.allowDownload && canDownload && (
                           <button
                             type="button"
-                            className="px-2 py-1 rounded-md border border-slate-300 text-[11px] text-slate-800 bg-white hover:bg-slate-100"
-                            disabled
+                            className="px-2 py-1 rounded-md border border-slate-200 bg-white text-[11px] font-semibold text-slate-700 hover:bg-slate-50"
+                            onClick={() => window.open(`/api/repository/download/${file.id}`, '_blank')}
+                            title="Descargar documento"
                           >
                             Descargar
                           </button>
@@ -293,9 +327,8 @@ export default function RepositorioPage() {
               )}
             </div>
             <p className="mt-3 text-[11px] text-slate-500">
-              Nota: por ahora los botones están desactivados. Cuando conectemos con Supabase Storage se
-              abrirán los documentos en visor de solo lectura, y la descarga solo estará disponible para
-              editores/administradores cuando el fichero lo permita.
+              Nota: los documentos se abren en visor de solo lectura. La descarga solo está disponible
+              para editores/administradores cuando el fichero lo permita.
             </p>
           </section>
         </div>

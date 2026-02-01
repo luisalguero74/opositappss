@@ -2,8 +2,22 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { getB2DownloadUrl } from '@/lib/b2'
 import { logRepoDocumentAccess } from '@/lib/repository'
+import { createClient } from '@supabase/supabase-js'
+import {
+  getB2RepositoryS3ConfigFromEnv,
+  presignB2GetObjectUrl,
+  proxyRemoteFile,
+} from '@/lib/external-file'
+
+function getSupabaseAdminClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) {
+    throw new Error('Missing Supabase env vars (NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY)')
+  }
+  return createClient(url, key)
+}
 
 // Endpoint para generar una URL de descarga temporal para un documento del repositorio.
 // IMPORTANTE: requiere que las tablas RepoFolder/RepoDocument/RepoDocumentAccessLog existan en BD.
@@ -34,28 +48,95 @@ export async function GET(
       return NextResponse.json({ error: 'Documento no encontrado' }, { status: 404 })
     }
 
-    if (!document.allowDownload) {
-      return NextResponse.json({ error: 'Descarga no permitida para este documento' }, { status: 403 })
+    const role = String(session.user.role || '').toLowerCase()
+    const isAdmin = role === 'admin'
+    const repoRole = String(session.user.repoRole || 'NONE').toUpperCase()
+    const preview = req.nextUrl.searchParams.get('preview') === '1'
+
+    const canAccessRepository = isAdmin || repoRole !== 'NONE'
+    const canDownload = isAdmin || repoRole === 'EDITOR'
+
+    if (!canAccessRepository) {
+      return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+    }
+
+    // Preview (ver) permitido para READER/EDITOR/admin.
+    // Descarga limitada a EDITOR/admin y solo si el documento lo permite.
+    if (!preview) {
+      if (!document.allowDownload) {
+        return NextResponse.json({ error: 'Descarga no permitida para este documento' }, { status: 403 })
+      }
+      if (!canDownload) {
+        return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+      }
     }
 
     if (!document.storagePath) {
       return NextResponse.json({ error: 'Documento sin ruta de almacenamiento configurada' }, { status: 500 })
     }
 
-    const b2Url = await getB2DownloadUrl({ key: document.storagePath })
+    const storageBucket = document.storageBucket || 'repositorio-documentos'
 
-    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null
-    const userAgent = req.headers.get('user-agent') || null
+    // Si el documento está en el bucket de Supabase, firmar desde Supabase.
+    if (storageBucket === 'repositorio-documentos') {
+      const supabase = getSupabaseAdminClient()
+      const { data, error } = await supabase.storage
+        .from(storageBucket)
+        .createSignedUrl(
+          document.storagePath,
+          600,
+          preview
+            ? undefined
+            : {
+                download: document.fileName || true,
+              }
+        )
 
-    await logRepoDocumentAccess({
-      documentId: document.id,
-      userId: session.user.id,
-      action: 'download',
-      ipAddress: ip,
-      userAgent,
-    })
+      if (error || !data?.signedUrl) {
+        return NextResponse.json({ error: 'Error al generar enlace de descarga' }, { status: 500 })
+      }
 
-    return NextResponse.redirect(b2Url)
+      const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null
+      const userAgent = req.headers.get('user-agent') || null
+
+      await logRepoDocumentAccess({
+        documentId: document.id,
+        userId: session.user.id,
+        action: preview ? 'view' : 'download',
+        ipAddress: ip,
+        userAgent,
+      })
+
+      return NextResponse.redirect(data.signedUrl)
+    }
+
+    // Caso B2 repositorio (bucket dedicado)
+    const b2Cfg = getB2RepositoryS3ConfigFromEnv()
+    if (b2Cfg && storageBucket === b2Cfg.bucket) {
+      const signedUrl = await presignB2GetObjectUrl(b2Cfg, document.storagePath, 60)
+
+      const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null
+      const userAgent = req.headers.get('user-agent') || null
+
+      await logRepoDocumentAccess({
+        documentId: document.id,
+        userId: session.user.id,
+        action: preview ? 'view' : 'download',
+        ipAddress: ip,
+        userAgent,
+      })
+
+      return await proxyRemoteFile({
+        url: signedUrl,
+        fileName: document.fileName,
+        disposition: preview ? 'inline' : 'attachment',
+      })
+    }
+
+    return NextResponse.json(
+      { error: 'Almacenamiento no soportado o no configurado para este documento' },
+      { status: 500 }
+    )
   } catch (error) {
     console.error('[Repository Download] Error:', error)
     return NextResponse.json({ error: 'Error al generar enlace de descarga' }, { status: 500 })

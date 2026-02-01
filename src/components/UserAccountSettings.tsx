@@ -37,6 +37,19 @@ export default function UserAccountSettings() {
   const [passwordLoading, setPasswordLoading] = useState(false)
   const [passwordMessage, setPasswordMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
 
+  // Estados para acceso a repositorio
+  const [repoRequestLoading, setRepoRequestLoading] = useState(false)
+  const [repoRequestMessage, setRepoRequestMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [pendingRepoRequest, setPendingRepoRequest] = useState<
+    | null
+    | {
+        id: string
+        desiredRole: string
+        status: string
+        createdAt: string
+      }
+  >(null)
+
   // Redirigir si no está autenticado
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -68,6 +81,55 @@ export default function UserAccountSettings() {
 
     loadUserData()
   }, [status])
+
+  // Cargar solicitud pendiente de repositorio
+  useEffect(() => {
+    if (status !== 'authenticated') return
+
+    let cancelled = false
+    const loadPending = async () => {
+      try {
+        const res = await fetch('/api/repository/access-requests')
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) return
+        if (cancelled) return
+        setPendingRepoRequest(data?.pending || null)
+      } catch {
+        // ignore
+      }
+    }
+
+    loadPending()
+    return () => {
+      cancelled = true
+    }
+  }, [status])
+
+  const repoRole = String(session?.user?.repoRole || 'NONE').toUpperCase()
+
+  const requestRepoAccess = async (desiredRole: 'READER' | 'EDITOR') => {
+    setRepoRequestMessage(null)
+    setRepoRequestLoading(true)
+    try {
+      const res = await fetch('/api/repository/access-requests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ desiredRole }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setRepoRequestMessage({ type: 'error', text: data?.error || 'No se pudo crear la solicitud' })
+        return
+      }
+
+      setPendingRepoRequest(data?.request || null)
+      setRepoRequestMessage({ type: 'success', text: 'Solicitud enviada. Queda pendiente de aprobación.' })
+    } catch {
+      setRepoRequestMessage({ type: 'error', text: 'Error de conexión' })
+    } finally {
+      setRepoRequestLoading(false)
+    }
+  }
 
   // ===== HANDLERS =====
 
@@ -268,6 +330,60 @@ export default function UserAccountSettings() {
                     </p>
                   </div>
                 )}
+
+                <div className="bg-gray-50 p-4 rounded-lg text-sm text-gray-700 border border-gray-200">
+                  <p className="font-medium mb-1">Repositorio</p>
+                  <p className="text-gray-600">
+                    Acceso actual: <span className="font-semibold text-gray-800">{repoRole}</span>
+                  </p>
+
+                  {pendingRepoRequest && (
+                    <div className="mt-3 text-sm text-blue-700 bg-blue-50 border border-blue-200 rounded-lg p-3">
+                      Tienes una solicitud pendiente ({String(pendingRepoRequest.desiredRole)}). Enviada el{' '}
+                      {new Date(pendingRepoRequest.createdAt).toLocaleString('es-ES')}.
+                    </div>
+                  )}
+
+                  {!pendingRepoRequest && repoRole === 'NONE' && (
+                    <button
+                      type="button"
+                      disabled={repoRequestLoading}
+                      className="mt-3 w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                      onClick={() => requestRepoAccess('READER')}
+                    >
+                      {repoRequestLoading ? 'Enviando...' : 'Solicitar acceso como lector'}
+                    </button>
+                  )}
+
+                  {!pendingRepoRequest && repoRole === 'READER' && (
+                    <button
+                      type="button"
+                      disabled={repoRequestLoading}
+                      className="mt-3 w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                      onClick={() => requestRepoAccess('EDITOR')}
+                    >
+                      {repoRequestLoading ? 'Enviando...' : 'Solicitar acceso como editor (descargas)'}
+                    </button>
+                  )}
+
+                  {!pendingRepoRequest && repoRole === 'EDITOR' && (
+                    <div className="mt-3 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg p-3">
+                      Ya tienes acceso de editor.
+                    </div>
+                  )}
+
+                  {repoRequestMessage && (
+                    <div
+                      className={`mt-3 p-3 rounded-lg border text-sm ${
+                        repoRequestMessage.type === 'success'
+                          ? 'bg-green-50 text-green-700 border-green-200'
+                          : 'bg-red-50 text-red-700 border-red-200'
+                      }`}
+                    >
+                      {repoRequestMessage.type === 'success' ? '✓' : '✕'} {repoRequestMessage.text}
+                    </div>
+                  )}
+                </div>
 
                 {profileMessage && (
                   <div
