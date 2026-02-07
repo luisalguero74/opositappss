@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { getB2RepositoryS3ConfigFromEnv, presignB2PutObjectUrl } from '@/lib/external-file'
+import { reportForbiddenRepositoryAction } from '@/lib/repository-security'
 
 export const runtime = 'nodejs'
 
@@ -11,14 +12,24 @@ export async function POST(req: NextRequest) {
     const role = String(session?.user?.role || '').toLowerCase()
     const repoRole = String(session?.user?.repoRole || '').toUpperCase()
     const canEdit = role === 'admin' || repoRole === 'EDITOR'
-    if (!session?.user || !canEdit) {
-      return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
-    }
-
     const body = await req.json().catch(() => null)
     const folderId = String(body?.folderId || '')
     const fileName = String(body?.fileName || '')
     const contentType = String(body?.contentType || '')
+
+    if (!session?.user || !canEdit) {
+      if (session?.user) {
+        await reportForbiddenRepositoryAction({
+          req,
+          session,
+          attemptedAction: 'upload-url',
+          reason: 'not-editor',
+          statusCode: 403,
+          details: { folderId, fileName },
+        })
+      }
+      return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+    }
 
     if (!folderId || !fileName) {
       return NextResponse.json({ error: 'Datos requeridos' }, { status: 400 })

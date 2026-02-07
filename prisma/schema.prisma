@@ -758,3 +758,44 @@ model MonetizationStat {
   @@index([platform, date])
   @@index([date])
 }
+
+model BoeMonitorRun {
+  id              String   @id @default(cuid())
+  job             String
+  publicationDate DateTime
+  success         Boolean  @default(false)
+  scannedItems    Int      @default(0)
+  matchedItems    Int      @default(0)
+  newItems        Int      @default(0)
+  error           String?
+  createdAt       DateTime @default(now())
+
+  items BoeAlertItem[]
+
+  @@unique([job, publicationDate])
+  @@index([job, createdAt])
+  @@index([publicationDate])
+}
+
+model BoeAlertItem {
+  id              String   @id @default(cuid())
+  runId           String
+  publicationDate DateTime
+  canonicalKey    String   @unique
+  boeId           String?
+  title           String
+  urlHtml         String
+  urlPdf          String?
+  section         String?
+  department      String?
+  epigrafe        String?
+  score           Int      @default(0)
+  reasons         String?
+  isRead          Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  run BoeMonitorRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@index([isRead, publicationDate])
+  @@index([publicationDate, createdAt])
+}

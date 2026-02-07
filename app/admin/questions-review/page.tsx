@@ -104,6 +104,64 @@ function QuestionsReviewInner() {
   const [aiApprovedFilter, setAiApprovedFilter] = useState<'all' | 'approved' | 'unapproved'>('all')
   const [autoFocusedFromQuality, setAutoFocusedFromQuality] = useState(false)
 
+  const handleDeleteAi = async (id: string) => {
+    if (!confirm('¿Eliminar esta pregunta IA?')) return
+    try {
+      const res = await fetch(`/api/admin/ai-questions/${id}`, { method: 'DELETE' })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        alert((data && data.error) || 'Error al eliminar la pregunta IA')
+        return
+      }
+      setAiSelected((prev) => {
+        const next = new Set(prev)
+        next.delete(id)
+        return next
+      })
+      loadAiQuestions()
+    } catch (error) {
+      console.error('Error eliminando pregunta IA:', error)
+      alert('Error al eliminar la pregunta IA')
+    }
+  }
+
+  const handleDeleteSelectedAi = async () => {
+    if (aiSelected.size === 0) {
+      alert('Selecciona al menos una pregunta IA para eliminar')
+      return
+    }
+    if (!confirm(`¿Eliminar ${aiSelected.size} preguntas IA seleccionadas? Esta acción no se puede deshacer.`)) {
+      return
+    }
+
+    const ids = Array.from(aiSelected)
+    try {
+      // Borrado en lotes para no saturar la API
+      const chunkSize = 5
+      for (let i = 0; i < ids.length; i += chunkSize) {
+        const chunk = ids.slice(i, i + chunkSize)
+        const results = await Promise.all(
+          chunk.map(async (id) => {
+            const res = await fetch(`/api/admin/ai-questions/${id}`, { method: 'DELETE' })
+            return res.ok
+          })
+        )
+        // Si hay fallos, lo dejamos visible para que el admin reintente
+        const anyFailed = results.some((ok) => !ok)
+        if (anyFailed) {
+          alert('Algunas eliminaciones de IA han fallado. Revisa y reintenta.')
+          break
+        }
+      }
+
+      setAiSelected(new Set())
+      loadAiQuestions()
+    } catch (error) {
+      console.error('Error eliminando preguntas IA en lote:', error)
+      alert('Error al eliminar preguntas IA seleccionadas')
+    }
+  }
+
   useEffect(() => {
     if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
       router.push('/dashboard')
@@ -676,6 +734,13 @@ function QuestionsReviewInner() {
                   >
                     {aiWorking === 'promote' ? '⏳ Enviando...' : `📥 Enviar a BD (${aiSelected.size})`}
                   </button>
+                  <button
+                    onClick={handleDeleteSelectedAi}
+                    disabled={aiWorking !== null || aiSelected.size === 0}
+                    className="px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 disabled:opacity-50 font-semibold text-sm"
+                  >
+                    🗑️ Eliminar IA ({aiSelected.size})
+                  </button>
                 </div>
               </div>
 
@@ -732,6 +797,13 @@ function QuestionsReviewInner() {
                                     {q.difficulty}
                                   </span>
                                 ) : null}
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteAi(q.id)}
+                                  className="px-3 py-1 rounded text-xs font-semibold bg-red-100 text-red-700 hover:bg-red-200"
+                                >
+                                  🗑️ Eliminar
+                                </button>
                               </div>
                             </div>
 

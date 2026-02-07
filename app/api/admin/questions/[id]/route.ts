@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { normalizeCorrectAnswerToUpperLetter } from '@/lib/answer-normalization'
 
 // PUT - Actualizar una pregunta
 export async function PUT(
@@ -25,13 +26,11 @@ export async function PUT(
       }, { status: 400 })
     }
 
-    // Aceptar tanto respuestas tipo texto completo como letras A/B/C/D
-    const rawCorrect = String(correctAnswer).trim()
-    const isLetterAnswer = ['A', 'B', 'C', 'D'].includes(rawCorrect.toUpperCase())
-
-    if (!isLetterAnswer && !options.includes(correctAnswer)) {
-      return NextResponse.json({ 
-        error: 'La respuesta correcta debe estar entre las opciones proporcionadas o ser A, B, C o D' 
+    const trimmedOptions = options.map((opt: string) => String(opt ?? '').trim())
+    const normalizedCorrect = normalizeCorrectAnswerToUpperLetter(correctAnswer, trimmedOptions)
+    if (!normalizedCorrect) {
+      return NextResponse.json({
+        error: 'La respuesta correcta debe poder normalizarse a A, B, C o D (letra, índice 0-3/1-4, o texto exacto de una opción)'
       }, { status: 400 })
     }
 
@@ -40,8 +39,8 @@ export async function PUT(
       where: { id },
       data: {
         text: text.trim(),
-        options: JSON.stringify(options.map((opt: string) => opt.trim())),
-        correctAnswer: correctAnswer.trim(),
+        options: JSON.stringify(trimmedOptions),
+        correctAnswer: normalizedCorrect,
         explanation: explanation.trim()
       }
     })

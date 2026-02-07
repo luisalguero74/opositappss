@@ -182,7 +182,7 @@ function LoginForm() {
               </a>
             </p>
             <p className="text-gray-500 mt-3 text-xs md:text-sm">
-              ¿Eres admin y no recuerdas la contraseña?{' '}
+              ¿Eres administrador y no recuerdas la contraseña?{' '}
               <a href="/admin/recover-password" className="text-indigo-600 font-semibold hover:text-indigo-700 hover:underline">
                 Recuperar acceso
               </a>

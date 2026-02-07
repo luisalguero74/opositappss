@@ -16,9 +16,6 @@ export async function GET(req: NextRequest) {
     }
 
     const questions = await prisma.question.findMany({
-      where: {
-        temaCodigo: { not: null } // Solo preguntas vinculadas a temas del temario
-      },
       include: {
         questionnaire: {
           select: {
@@ -31,8 +28,8 @@ export async function GET(req: NextRequest) {
       // Orden principal por parte (general/específico) y número de tema,
       // y dentro de cada tema, por fecha/hora de creación (más recientes primero).
       orderBy: [
-        { temaParte: 'asc' },
-        { temaNumero: 'asc' },
+        { temaParte: { sort: 'asc', nulls: 'last' } },
+        { temaNumero: { sort: 'asc', nulls: 'last' } },
         { createdAt: 'desc' }
       ]
     })

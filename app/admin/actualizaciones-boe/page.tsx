@@ -6,6 +6,38 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import bibliotecaLegal from '../../../data/biblioteca-legal.json'
 
+type BoeAlertItemDto = {
+  id: string
+  publicationDate: string
+  boeId: string | null
+  title: string
+  urlHtml: string
+  urlPdf: string | null
+  section: string | null
+  department: string | null
+  epigrafe: string | null
+  score: number
+  reasons: string | null
+  isRead: boolean
+  createdAt: string
+}
+
+type BoeAlertsResponse = {
+  unreadCount: number
+  lastRun:
+    | null
+    | {
+        createdAt: string
+        publicationDate: string
+        success: boolean
+        scannedItems: number
+        matchedItems: number
+        newItems: number
+        error: string | null
+      }
+  items: BoeAlertItemDto[]
+}
+
 interface NormativaMonitorizada {
   id: string
   titulo: string
@@ -100,9 +132,10 @@ const NORMATIVA_MONITORIZADA: NormativaMonitorizada[] = bibliotecaLegal.document
 export default function ActualizacionesBOE() {
   const { data: session, status } = useSession()
   const router = useRouter()
-  const [monitorizacionActiva, setMonitorizacionActiva] = useState(false)
-  const [ultimaComprobacion, setUltimaComprobacion] = useState<Date | null>(null)
-  const [actualizacionesDetectadas, setActualizacionesDetectadas] = useState<number>(0)
+  const [alerts, setAlerts] = useState<BoeAlertsResponse | null>(null)
+  const [loadingAlerts, setLoadingAlerts] = useState(false)
+  const [runningCheck, setRunningCheck] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
@@ -110,21 +143,64 @@ export default function ActualizacionesBOE() {
     }
   }, [status, session, router])
 
-  const activarMonitorizacion = () => {
-    setMonitorizacionActiva(true)
-    setUltimaComprobacion(new Date())
-    alert('✅ Monitorización activada. Se comprobará el BOE diariamente a las 08:00 AM')
+  const loadAlerts = async () => {
+    setLoadingAlerts(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/admin/boe/alerts', { cache: 'no-store' })
+      const data = (await res.json()) as BoeAlertsResponse
+      if (!res.ok) throw new Error((data as any)?.error || `HTTP ${res.status}`)
+      setAlerts(data)
+    } catch (e: any) {
+      setError(String(e?.message || e))
+    } finally {
+      setLoadingAlerts(false)
+    }
   }
 
-  const desactivarMonitorizacion = () => {
-    setMonitorizacionActiva(false)
-    alert('⏸️ Monitorización pausada')
+  useEffect(() => {
+    if (status === 'authenticated' && String(session?.user?.role || '').toLowerCase() === 'admin') {
+      loadAlerts()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, session?.user?.role])
+
+  const comprobarAhora = async () => {
+    setRunningCheck(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/admin/boe/run-check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      })
+      const data = await res.json()
+      if (!res.ok || !data?.success) throw new Error(data?.error || `HTTP ${res.status}`)
+      await loadAlerts()
+      alert(`✅ Comprobación completada. Nuevos: ${data.newItems} (Coincidencias: ${data.matchedItems})`)
+    } catch (e: any) {
+      setError(String(e?.message || e))
+      alert(`❌ Error comprobando BOE: ${String(e?.message || e)}`)
+    } finally {
+      setRunningCheck(false)
+    }
   }
 
-  const comprobarAhora = () => {
-    setUltimaComprobacion(new Date())
-    alert('🔍 Comprobando actualizaciones en el BOE...')
-    // Aquí iría la lógica real de comprobación
+  const setRead = async (ids: string[], isRead: boolean) => {
+    if (ids.length === 0) return
+    setError(null)
+    try {
+      const res = await fetch('/api/admin/boe/alerts/mark-read', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids, isRead })
+      })
+      const data = await res.json()
+      if (!res.ok || !data?.success) throw new Error(data?.error || `HTTP ${res.status}`)
+      await loadAlerts()
+    } catch (e: any) {
+      setError(String(e?.message || e))
+    }
   }
 
   if (status === 'loading') {
@@ -162,49 +238,145 @@ export default function ActualizacionesBOE() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                Estado del Monitor: {monitorizacionActiva ? (
-                  <span className="text-green-600">🟢 ACTIVO</span>
-                ) : (
-                  <span className="text-orange-600">⏸️ PAUSADO</span>
-                )}
+                Estado del Monitor: <span className="text-green-600">🟢 ACTIVO</span>
               </h2>
               <p className="text-gray-600">
-                {monitorizacionActiva 
-                  ? 'El sistema comprueba automáticamente el BOE cada día a las 08:00 AM'
-                  : 'Activa la monitorización para recibir notificaciones de cambios normativos'
-                }
+                El sistema analiza el BOE completo diariamente (cron) y genera alertas para Seguridad Social.
               </p>
-              {ultimaComprobacion && (
+              {alerts?.lastRun?.createdAt && (
                 <p className="text-sm text-gray-500 mt-2">
-                  Última comprobación: {ultimaComprobacion.toLocaleString('es-ES')}
+                  Última ejecución: {new Date(alerts.lastRun.createdAt).toLocaleString('es-ES')} (BOE {new Date(alerts.lastRun.publicationDate).toLocaleDateString('es-ES')})
                 </p>
               )}
             </div>
             
             <div className="flex gap-3">
-              {monitorizacionActiva ? (
-                <button
-                  onClick={desactivarMonitorizacion}
-                  className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg transition"
-                >
-                  ⏸️ Pausar
-                </button>
-              ) : (
-                <button
-                  onClick={activarMonitorizacion}
-                  className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition"
-                >
-                  ▶️ Activar Monitor
-                </button>
-              )}
-              
               <button
                 onClick={comprobarAhora}
-                className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition"
+                disabled={runningCheck}
+                className={`px-6 py-3 text-white font-bold rounded-lg transition ${
+                  runningCheck ? 'bg-blue-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+                }`}
               >
-                🔍 Comprobar Ahora
+                {runningCheck ? '⏳ Comprobando...' : '🔍 Comprobar Ahora'}
+              </button>
+
+              <button
+                onClick={loadAlerts}
+                disabled={loadingAlerts}
+                className={`px-6 py-3 text-white font-bold rounded-lg transition ${
+                  loadingAlerts ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-600 hover:bg-gray-700'
+                }`}
+              >
+                {loadingAlerts ? '⏳ Cargando...' : '🔄 Actualizar'}
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* Alertas Seguridad Social */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">🔔 Alertas BOE (Seguridad Social)</h2>
+              <p className="text-gray-600 mt-1 text-sm">
+                Se listan disposiciones detectadas automáticamente como potencialmente relevantes para Seguridad Social.
+              </p>
+              <p className="text-sm text-gray-700 mt-2">
+                No leídas: <strong>{alerts?.unreadCount ?? '—'}</strong>
+              </p>
+              {error && (
+                <p className="text-sm text-red-600 mt-2">
+                  ❌ {error}
+                </p>
+              )}
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setRead((alerts?.items || []).filter(i => !i.isRead).map(i => i.id), true)}
+                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition text-sm"
+              >
+                ✅ Marcar todo como leído
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-4 space-y-3">
+            {(alerts?.items || []).length === 0 ? (
+              <div className="text-sm text-gray-600 italic">No hay alertas todavía.</div>
+            ) : (
+              (alerts?.items || []).map(item => (
+                <div
+                  key={item.id}
+                  className={`border rounded-xl p-4 ${item.isRead ? 'border-gray-200 bg-gray-50' : 'border-blue-200 bg-blue-50'}`}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <span className={`px-2 py-1 rounded-full text-xs font-bold ${item.isRead ? 'bg-gray-200 text-gray-700' : 'bg-blue-200 text-blue-800'}`}>
+                          {item.isRead ? 'LEÍDO' : 'NUEVO'}
+                        </span>
+                        <span className="px-2 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800">
+                          Score: {item.score}
+                        </span>
+                        {item.boeId && (
+                          <span className="px-2 py-1 rounded-full text-xs font-bold bg-white text-gray-800 border border-gray-200">
+                            {item.boeId}
+                          </span>
+                        )}
+                        <span className="text-xs text-gray-600">
+                          {new Date(item.publicationDate).toLocaleDateString('es-ES')}
+                        </span>
+                      </div>
+
+                      <div className="font-bold text-gray-900">{item.title}</div>
+                      <div className="text-xs text-gray-600 mt-1">
+                        {[item.section, item.department, item.epigrafe].filter(Boolean).join(' · ')}
+                      </div>
+
+                      <div className="mt-2 flex flex-wrap gap-3 text-sm">
+                        <a
+                          href={item.urlHtml}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-700 hover:text-blue-800 font-semibold"
+                        >
+                          🔗 Ver en BOE.es →
+                        </a>
+                        {item.urlPdf && (
+                          <a
+                            href={item.urlPdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-700 hover:text-gray-800 font-semibold"
+                          >
+                            📄 PDF →
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      {item.isRead ? (
+                        <button
+                          onClick={() => setRead([item.id], false)}
+                          className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition text-sm"
+                        >
+                          ↩️ Marcar no leído
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => setRead([item.id], true)}
+                          className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition text-sm"
+                        >
+                          ✅ Marcar leído
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
 
@@ -292,38 +464,6 @@ export default function ActualizacionesBOE() {
           ))}
         </div>
 
-        {/* Sección de configuración */}
-        <div className="mt-8 bg-white rounded-xl shadow-lg p-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">⚙️ Configuración del Monitor</h2>
-          
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Email para Notificaciones
-              </label>
-              <input
-                type="email"
-                placeholder="admin@opositapp.com"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Frecuencia de Comprobación
-              </label>
-              <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-                <option>Diaria (08:00 AM)</option>
-                <option>Semanal (Lunes 08:00 AM)</option>
-                <option>Mensual (Día 1 - 08:00 AM)</option>
-              </select>
-            </div>
-
-            <button className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition">
-              💾 Guardar Configuración
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   )

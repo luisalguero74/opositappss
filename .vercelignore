@@ -17,6 +17,16 @@ questions.csv
 questions-dump.sql
 questionnaires.csv
 
+# Bancos de preguntas locales (evita subir ficheros generados no versionados)
+TEMA*.JSON
+
+# Scripts locales de generación/verificación
+scripts/generate-*.mjs
+scripts/verify-question-bank.mjs
+
+# Carpeta de debug local
+staging-debug/
+
 # Otros archivos grandes (solo artefactos específicos)
 opositapp-working-tree-*.tar.gz
 opositapp-code-*.bundle

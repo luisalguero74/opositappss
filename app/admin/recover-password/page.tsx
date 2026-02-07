@@ -56,7 +56,7 @@ export default function AdminRecoverPasswordPage() {
       <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-md">
         <div className="bg-gradient-to-r from-slate-700 to-gray-900 p-8 text-center">
           <Logo variant="white" />
-          <h1 className="text-2xl font-bold text-white mt-4">Recuperación Admin</h1>
+          <h1 className="text-2xl font-bold text-white mt-4">Recuperación de Administrador</h1>
           <p className="text-slate-200 mt-2 text-sm">Requiere la clave de administrador (ADMIN_API_KEY)</p>
         </div>
 
@@ -74,7 +74,7 @@ export default function AdminRecoverPasswordPage() {
           )}
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">Email admin</label>
+            <label className="block text-gray-700 font-semibold mb-2">Email de administrador</label>
             <input
               type="email"
               value={email}
@@ -85,7 +85,7 @@ export default function AdminRecoverPasswordPage() {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">Clave de admin (ADMIN_API_KEY)</label>
+            <label className="block text-gray-700 font-semibold mb-2">Clave de administrador (ADMIN_API_KEY)</label>
             <input
               type="password"
               value={apiKey}

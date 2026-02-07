@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { normalizeCorrectAnswerToUpperLetter } from '@/lib/answer-normalization'
 
 function normalizeTemaParte(value: unknown): string | null {
   if (!value) return null
@@ -31,6 +32,11 @@ function sanitizeString(value: unknown): string {
   return String(value).replace(/\u0000/g, '')
 }
 
+function toNullableString(value: unknown): string | null {
+  const v = sanitizeString(value).trim()
+  return v ? v : null
+}
+
 // Importar preguntas exportadas desde local o generadas en formato simplificado
 export async function POST(req: NextRequest) {
   try {
@@ -40,6 +46,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
+    const { searchParams } = new URL(req.url)
+    const markReviewed = searchParams.get('markReviewed') === 'true'
     const body = await req.json()
 
     let data = body?.data
@@ -121,23 +129,30 @@ export async function POST(req: NextRequest) {
           optionsString = sanitizeString(rawOptions)
         }
 
-        // Calcular respuesta correcta: aceptar letra (A-D) o texto completo
+        // Calcular respuesta correcta: normalizar a A/B/C/D siempre que sea posible
         const rawCorrect = q.correctAnswer
         let correctAnswer = ''
 
         if (typeof rawCorrect === 'string' && /^[A-D]$/i.test(rawCorrect)) {
-          // Normalizamos siempre a letra A/B/C/D para ser coherentes con el resto del sistema
           correctAnswer = rawCorrect.toUpperCase()
+        } else if (optionsArray && Array.isArray(optionsArray) && optionsArray.length === 4) {
+          const normalized = normalizeCorrectAnswerToUpperLetter(rawCorrect, optionsArray)
+          if (normalized) {
+            correctAnswer = normalized
+          } else {
+            correctAnswer = sanitizeString(rawCorrect)
+          }
         } else {
-          // Formatos antiguos o respuestas como texto completo
           correctAnswer = sanitizeString(rawCorrect)
         }
 
         const temaCodigo = sanitizeString(q.temaCodigo ?? item.temaCodigo)
         const temaNumero = q.temaNumero ?? item.temaNumero ?? null
         const temaParte = normalizeTemaParte(q.temaParte ?? item.temaParte)
-        const temaTitulo = sanitizeString(q.temaTitulo ?? item.temaTitulo)
-        const difficulty = sanitizeString(q.difficulty ?? item.difficulty)
+        const temaTitulo = toNullableString(q.temaTitulo ?? item.temaTitulo)
+        const difficulty = toNullableString(q.difficulty ?? item.difficulty)
+
+        const temaCodigoNorm = toNullableString(temaCodigo)
 
         // Verificar si ya existe (evitar duplicados)
         const existing = await prisma.question.findFirst({
@@ -155,11 +170,12 @@ export async function POST(req: NextRequest) {
               options: optionsString,
               correctAnswer,
               explanation: sanitizeString(q.explanation),
-              temaCodigo,
+              temaCodigo: temaCodigoNorm,
               temaNumero,
               temaParte,
               temaTitulo,
-              difficulty
+              difficulty,
+              ...(markReviewed ? { aiReviewed: true, aiReviewedAt: new Date() } : {})
             }
           })
           totalImported++

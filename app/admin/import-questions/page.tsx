@@ -14,6 +14,8 @@ export default function ImportQuestions() {
   const [batchRunning, setBatchRunning] = useState(false)
   const [batchResult, setBatchResult] = useState<any>(null)
   const [batchError, setBatchError] = useState('')
+  const [markReviewed, setMarkReviewed] = useState(true)
+  const [batchStatus, setBatchStatus] = useState<string>('')
 
   if (status === 'unauthenticated' || (session && String(session.user.role || '').toLowerCase() !== 'admin')) {
     router.push('/dashboard')
@@ -31,7 +33,7 @@ export default function ImportQuestions() {
     try {
       const text = await file.text()
 
-      const res = await fetch('/api/admin/questions/import', {
+      const res = await fetch(`/api/admin/questions/import?markReviewed=${markReviewed ? 'true' : 'false'}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // Enviamos el JSON tal cual está en el fichero;
@@ -70,33 +72,75 @@ export default function ImportQuestions() {
     setBatchRunning(true)
     setBatchError('')
     setBatchResult(null)
+    setBatchStatus('')
 
     try {
-      const res = await fetch('/api/admin/questions/import-from-json-files', {
-        method: 'POST',
-      })
+      const limit = 1
+      let offset = 0
+      let totalCreated = 0
+      let filesTotal: number | null = null
+      const allDetails: any[] = []
+      const allErrors: string[] = []
 
-      const text = await res.text()
-      let data: any = null
-
-      try {
-        data = text ? JSON.parse(text) : null
-      } catch (e) {
-        // La API debería devolver siempre JSON; si no es así, mostramos un mensaje más claro
-        setBatchError(
-          `La respuesta de la API no es JSON válido (código ${res.status}). Inicio de la respuesta: "${text.slice(
-            0,
-            200,
-          )}"`,
+      for (let guard = 0; guard < 500; guard++) {
+        setBatchStatus(
+          filesTotal == null
+            ? `⏳ Importando...`
+            : `⏳ Importando ${Math.min(offset + limit, filesTotal)}/${filesTotal}...`,
         )
-        return
+
+        const res = await fetch(
+          `/api/admin/questions/import-from-json-files?offset=${offset}&limit=${limit}&markReviewed=${markReviewed ? 'true' : 'false'}`,
+          { method: 'POST' },
+        )
+
+        const text = await res.text()
+        let data: any = null
+
+        try {
+          data = text ? JSON.parse(text) : null
+        } catch {
+          setBatchError(
+            `La respuesta de la API no es JSON válido (código ${res.status}). Inicio de la respuesta: "${text.slice(
+              0,
+              200,
+            )}"`,
+          )
+          return
+        }
+
+        if (!res.ok) {
+          setBatchError(data?.error || 'Error al importar desde JSON del servidor')
+          return
+        }
+
+        if (typeof data?.filesTotal === 'number') filesTotal = data.filesTotal
+        totalCreated += Number(data?.totalCreated || 0)
+        if (Array.isArray(data?.details)) allDetails.push(...data.details)
+        if (Array.isArray(data?.errors) && data.errors.length) allErrors.push(...data.errors)
+
+        if (data?.done) {
+          setBatchResult({
+            success: allErrors.length === 0,
+            filesProcessed: filesTotal ?? offset,
+            filesTotal: filesTotal ?? offset,
+            totalCreated,
+            details: allDetails,
+            errors: allErrors
+          })
+          setBatchStatus('')
+          return
+        }
+
+        const nextOffset = Number(data?.nextOffset)
+        if (!Number.isFinite(nextOffset) || nextOffset <= offset) {
+          setBatchError('La importación no avanzó (offset inválido).')
+          return
+        }
+        offset = nextOffset
       }
 
-      if (!res.ok) {
-        setBatchError(data?.error || 'Error al importar desde JSON del servidor')
-      } else {
-        setBatchResult(data)
-      }
+      setBatchError('Se alcanzó el límite de iteraciones de importación. Reintenta.')
     } catch (err) {
       setBatchError(err instanceof Error ? err.message : 'Error al lanzar la importación en lote')
     } finally {
@@ -126,6 +170,18 @@ export default function ImportQuestions() {
           </div>
 
           <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+            <div className="mb-4 flex items-center justify-center">
+              <label className="flex items-center gap-2 text-sm text-gray-700 select-none">
+                <input
+                  type="checkbox"
+                  checked={markReviewed}
+                  onChange={(e) => setMarkReviewed(e.target.checked)}
+                  disabled={importing}
+                  className="w-4 h-4"
+                />
+                Marcar como revisadas (recomendado para JSON verificados)
+              </label>
+            </div>
             <input
               type="file"
               accept=".json"
@@ -163,6 +219,10 @@ export default function ImportQuestions() {
             >
               {batchRunning ? '⏳ Importando temario...' : '🔄 Reimportar temario desde JSON del servidor'}
             </button>
+
+            {batchRunning && batchStatus && (
+              <div className="mt-3 text-sm text-gray-600">{batchStatus}</div>
+            )}
 
             {batchError && (
               <div className="mt-4 bg-red-50 border-l-4 border-red-500 p-3 rounded">

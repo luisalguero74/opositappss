@@ -59,9 +59,14 @@ function getOfficialTemaCode(especifico: boolean, numero: number | null): string
   return found?.codigo ?? null
 }
 
-export async function importTemaFromJson(rawFilePath: string, rawTemaCodigo?: string | null) {
+export async function importTemaFromJson(
+  rawFilePath: string,
+  rawTemaCodigo?: string | null,
+  opts?: { markReviewed?: boolean }
+) {
   const filePath = path.resolve(process.cwd(), rawFilePath)
   const temaCodigoOverride = rawTemaCodigo ? rawTemaCodigo.trim().toUpperCase() : null
+  const markReviewed = Boolean(opts?.markReviewed)
 
   console.log('📄 Archivo JSON:', filePath)
   if (temaCodigoOverride) {
@@ -183,6 +188,27 @@ export async function importTemaFromJson(rawFilePath: string, rawTemaCodigo?: st
   let created = 0
   let skipped = 0
 
+  // Cargamos de golpe las preguntas existentes del cuestionario para evitar N queries.
+  const existingQuestions = await prisma.question.findMany({
+    where: { questionnaireId: questionnaire.id },
+    select: {
+      id: true,
+      text: true,
+      correctAnswer: true,
+      temaCodigo: true,
+      temaNumero: true,
+      temaParte: true,
+      temaTitulo: true,
+      difficulty: true
+    }
+  })
+
+  const existingByKey = new Map<string, typeof existingQuestions[number]>()
+  for (const ex of existingQuestions) {
+    const key = `${ex.text}\u0000${ex.correctAnswer}`
+    existingByKey.set(key, ex)
+  }
+
   for (const q of questions) {
     const baseText = sanitize((q.text || q.question || '').toString()).trim()
 
@@ -219,13 +245,8 @@ export async function importTemaFromJson(rawFilePath: string, rawTemaCodigo?: st
       continue
     }
 
-    const existing = await prisma.question.findFirst({
-      where: {
-        questionnaireId: questionnaire.id,
-        text: baseText,
-        correctAnswer: correct
-      }
-    })
+    const key = `${baseText}\u0000${correct}`
+    const existing = existingByKey.get(key) || null
 
     if (existing) {
       // Actualizar metadatos de temario/dificultad si están ausentes o desajustados
@@ -271,7 +292,8 @@ export async function importTemaFromJson(rawFilePath: string, rawTemaCodigo?: st
         temaParte: temaParte || undefined,
         temaTitulo: temaTitulo || undefined,
         difficulty: difficulty ?? undefined,
-        aiReviewed: false
+        aiReviewed: markReviewed ? true : false,
+        aiReviewedAt: markReviewed ? new Date() : undefined
       }
     })
     created++

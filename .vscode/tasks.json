@@ -300,7 +300,7 @@
 			"command": "zsh",
 			"args": [
 				"-lc",
-				"cd . && url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\" && if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi && PAGER=cat psql \"$url\" -P pager=off -v ON_ERROR_STOP=1 -c \"select migration_name, finished_at, applied_steps_count, rolled_back_at from _prisma_migrations order by finished_at desc nulls last limit 8;\""
+				"setopt noglob; set +e; cd .; url=\"$(node scripts/get-db-url-for-psql.mjs 2>/dev/null)\"; if [ -z \"$url\" ]; then echo \"No DB URL\"; exit 1; fi; has=\"$( (PAGER=cat psql \"$url\" -P pager=off -tAc \"select to_regclass('public._prisma_migrations') is not null;\" 2>/dev/null || echo f) | tr -d '\\n\\r\\t ' )\"; if [ \"$has\" != \"t\" ]; then echo \"_prisma_migrations does not exist (DB may have been created with prisma db push).\"; exit 0; fi; PAGER=cat psql \"$url\" -P pager=off -v ON_ERROR_STOP=1 -c \"select migration_name, finished_at, applied_steps_count, rolled_back_at from _prisma_migrations order by finished_at desc nulls last limit 8;\""
 			],
 			"isBackground": false,
 			"problemMatcher": [],

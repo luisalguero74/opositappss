@@ -1,0 +1,244 @@
+{
+  "questions": [
+    {
+      "question": "Según el art. 1 del Reglamento General de Recaudación de la Seguridad Social (RD 1415/2004), ¿cuál de los siguientes NO aparece como recurso objeto de la gestión recaudatoria?",
+      "options": [
+        "El importe de las sanciones por infracciones en materia de Seguridad Social.",
+        "Frutos, rentas u otros productos de bienes muebles o inmuebles de la Seguridad Social.",
+        "Capitales coste de pensiones o de renta cierta temporal y otras prestaciones que deban ingresar mutuas o empresas responsables.",
+        "Reintegros de prestaciones indebidamente percibidas."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: B. El art. 1.1.o) incluye como recursos de la gestión recaudatoria \"cualesquiera otros ingresos (...) que tengan el carácter de ingresos de derecho público y cuyo objeto no sean frutos, rentas o cualquier otro producto de sus bienes muebles o inmuebles\". Por eso los frutos/rentas no entran. A, C y D sí aparecen expresamente en el art. 1.1.f), 1.1.d) y 1.1.m), respectivamente.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 2.1, ¿qué afirmación describe correctamente la competencia sobre la gestión recaudatoria de los recursos del sistema de la Seguridad Social objeto del reglamento?",
+      "options": [
+        "Es de competencia exclusiva de la Tesorería General de la Seguridad Social, bajo la dirección, vigilancia y tutela del Ministerio de Trabajo y Asuntos Sociales.",
+        "Es compartida entre la Tesorería General de la Seguridad Social y la Inspección de Trabajo y Seguridad Social, por regla general.",
+        "Corresponde a las entidades gestoras, y la Tesorería General actúa solo como colaboradora.",
+        "Corresponde a las comunidades autónomas salvo en vía ejecutiva."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 2.1 establece literalmente que \"La gestión de la recaudación (...) es de competencia exclusiva de la Tesorería General de la Seguridad Social\" y añade que ejercerá \"bajo la dirección, vigilancia y tutela de Ministerio de Trabajo y Asuntos Sociales\". B, C y D no se recogen así en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 2.3, respecto a la actuación territorial de la unidad de recaudación ejecutiva competente, ¿cuál es la regla correcta?",
+      "options": [
+        "Solo puede embargar bienes dentro de su demarcación; para bienes fuera debe inhibirse siempre.",
+        "Puede embargar fuera de su demarcación solo si los bienes son inmuebles.",
+        "Puede realizar actuaciones precisas para embargo y aseguramiento aunque los bienes radiquen fuera, pero si la naturaleza exige presencia física podrá requerir su realización al recaudador de la demarcación correspondiente.",
+        "No puede recabar auxilio de la autoridad gubernativa salvo por conducto exclusivo de sus órganos superiores, incluso en urgencia."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: C. El art. 2.3 dispone que la unidad competente \"llevará a cabo cuantas actuaciones resulten precisas (...) aun cuando dichos bienes radiquen fuera de su demarcación\"; y añade que \"cuando la propia naturaleza de la actuación requiera la presencia física (...) se podrá requerir su realización al recaudador ejecutivo de la demarcación territorial\". A y B contradicen esa habilitación. D es incorrecta porque el mismo art. 2.3 permite recabar cooperación \"por conducto de sus órganos superiores o directamente en caso de urgencia\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 3.2, ¿qué efecto tienen las autorizaciones, disposiciones específicas y conciertos que permiten colaborar en la gestión recaudatoria?",
+      "options": [
+        "Convierten automáticamente a la entidad autorizada en órgano de recaudación.",
+        "Otorgan a la entidad autorizada potestad sancionadora en materia recaudatoria.",
+        "Sustituyen a la Tesorería General de la Seguridad Social en el ejercicio de la competencia recaudatoria.",
+        "En ningún caso atribuyen el carácter de órganos de recaudación a las entidades u órganos autorizados o habilitados."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: D. El art. 3.2 es tajante: \"Las autorizaciones, disposiciones específicas y conciertos (...) en ningún caso atribuirán el carácter de órganos de recaudación\". A, B y C añaden efectos que el artículo niega o no contempla.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Sobre la concesión/denegación de autorizaciones para actuar como colaborador (art. 4.1) y el cese en la colaboración (art. 4.3), ¿qué combinación es correcta respecto al silencio administrativo?",
+      "options": [
+        "Autorización: silencio desestimatorio a los 6 meses; Cese: silencio estimatorio a los 3 meses.",
+        "Autorización: silencio estimatorio a los 6 meses; Cese: silencio desestimatorio a los 3 meses.",
+        "Autorización: silencio desestimatorio a los 3 meses; Cese: silencio desestimatorio a los 6 meses.",
+        "Autorización: silencio estimatorio a los 3 meses; Cese: silencio estimatorio a los 6 meses."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. art. 4.1: \"deberá resolver (...) en un plazo de seis meses (...) Transcurrido dicho plazo (...) podrá entenderse desestimada\". art. 4.3: el Secretario de Estado \"resolverá (...) en el plazo de tres meses, que se entenderá estimada en defecto de resolución expresa\". Las demás opciones invierten o alteran lo previsto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 6.5 (principios de economía y eficacia), ¿cuándo puede no iniciarse el procedimiento recaudatorio?",
+      "options": [
+        "Cuando el importe de la deuda sea inferior a la cantidad que determine el Ministro como insuficiente para cubrir el coste de exacción y recaudación.",
+        "Cuando el deudor sea una Administración pública.",
+        "Siempre que el deudor solicite aplazamiento, aunque sea incompleto.",
+        "Cuando hayan transcurrido 10 días naturales desde la puesta a disposición de una notificación electrónica."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 6.5 permite \"podrá no iniciarse el procedimiento recaudatorio cuando el importe de una deuda sea inferior a la cantidad que determine el Ministro (...) como insuficiente para la cobertura del coste\". B no está en ese artículo. C es falsa (arts. 35 y 36 regulan aplazamientos/incumplimiento, y el art. 6.5 no liga esto a una suspensión automática). D pertenece al art. 9.2.a) sobre notificaciones electrónicas.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 8, cuando un plazo reglamentario de pago se señale por días (y no se exprese otra cosa), ¿cómo se computa?",
+      "options": [
+        "Se entiende por días naturales, incluyendo sábados, domingos y festivos.",
+        "Se excluyen únicamente los domingos y festivos; los sábados siempre computan.",
+        "Se entiende que son días hábiles, excluyéndose sábados, domingos y festivos.",
+        "Se cuenta siempre por meses, trasladando el vencimiento al mismo ordinal del mes siguiente."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: C. El art. 8.a) indica que cuando los plazos se señalen por días, \"se entiende que éstos son hábiles, excluyéndose del cómputo los sábados, domingos y festivos\". A, B y D no coinciden con el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 9.2.a), para sujetos obligados a incorporarse o incorporados al Sistema RED, ¿cuándo se entiende practicada una notificación electrónica y qué ocurre si no se accede?",
+      "options": [
+        "Se entiende practicada al publicarse en el BOE; si no se accede en 30 días, se anula.",
+        "Se entiende practicada a los 3 días hábiles desde el envío; si no se accede, debe repetirse por correo.",
+        "Se entiende practicada al día siguiente de la puesta a disposición; si no se accede, se archiva el expediente.",
+        "Se entiende practicada en el momento del acceso a su contenido (si es dentro de 10 días naturales); si no se accede en ese plazo, se entiende rechazada y continúa el procedimiento."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: D. art. 9.2.a): \"Las notificaciones electrónicas se entenderán practicadas (...) en el momento en que se produzca el acceso (...) dentro de los diez días naturales\"; y añade que \"de no accederse (...) dentro del plazo (...) se entenderá rechazada\" y \"continuándose el procedimiento\". Las otras opciones inventan efectos/plazos no previstos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Un sujeto responsable cumplió dentro de plazo las obligaciones de liquidación (art. 29 LGSS citado en el art. 10.1.a) del reglamento), pero no ingresó las cuotas en plazo. ¿Qué recargo corresponde si paga dentro del primer mes natural siguiente al vencimiento del plazo?",
+      "options": [
+        "Recargo del 10% de la deuda.",
+        "Recargo del 20% de la deuda.",
+        "Recargo del 35% de la deuda.",
+        "No procede recargo si la deuda se paga dentro del primer mes natural siguiente."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. Art. 10.1.a).1.º: \"Recargo del 10 por ciento de la deuda, si se abonasen (...) dentro del primer mes natural siguiente\". B (20%) sería \"a partir del segundo mes natural\" (art. 10.1.a).2.º). C (35%) pertenece al supuesto de no cumplir liquidación (art. 10.1.b).2.º). D contradice el régimen del artículo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Un sujeto responsable NO cumplió dentro de plazo las obligaciones de liquidación (art. 10.1.b). Paga las cuotas debidas después de la terminación del plazo de ingreso establecido en la reclamación de deuda o acta de liquidación. ¿Qué recargo corresponde?",
+      "options": [
+        "10%.",
+        "20%.",
+        "No procede recargo, solo intereses.",
+        "35%."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: D. art. 10.1.b).2.º: \"Recargo del 35 por ciento de la deuda, si se abonasen (...) a partir de la terminación de dicho plazo de ingreso\". B (20%) solo aplica \"antes de la terminación\" del plazo (art. 10.1.b).1.º). A no corresponde a este supuesto. C es incorrecta: el artículo prevé recargo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 10.3, ¿qué limitación expresa establece el reglamento respecto a los recargos?",
+      "options": [
+        "Puede aplicarse recargo también sobre intereses, si la deuda lo permite.",
+        "Puede aplicarse recargo sobre recargos, pero no sobre intereses.",
+        "En ningún caso podrá aplicarse recargo sobre la deuda constituida a su vez por recargos o intereses.",
+        "El recargo solo se aplica si se notifica providencia de apremio."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: C. El art. 10.3 dice literalmente: \"En ningún caso podrá aplicarse recargo sobre la deuda constituida a su vez por recargos o intereses\". A y B contradicen el tenor literal. D es falso: el recargo se devenga por falta de pago en plazo reglamentario, no exige providencia (la providencia es del período ejecutivo: art. 6.1 y 84).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 11.1, ¿desde cuándo devenga intereses de demora el principal de una deuda, y desde cuándo devenga intereses el recargo aplicable a ese principal?",
+      "options": [
+        "Principal: desde la providencia de apremio; Recargo: desde el mismo día del vencimiento del plazo reglamentario.",
+        "Principal: desde el vencimiento del plazo reglamentario; Recargo: desde la notificación de la reclamación de deuda.",
+        "Principal: desde el día siguiente al vencimiento del plazo reglamentario; Recargo: desde la fecha de emisión de la providencia de apremio.",
+        "Principal: desde el día siguiente al vencimiento del plazo reglamentario; Recargo: solo desde el vencimiento del plazo de 15 días naturales siguientes a la notificación de la providencia de apremio."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: D. art. 11.1: \"El principal (...) devengará intereses de demora desde el día siguiente al del vencimiento del plazo reglamentario\" y \"El recargo aplicable (...) devengará intereses (...) sólo desde el vencimiento del plazo de los 15 días naturales siguientes a la notificación de la providencia de apremio\". A, B y C alteran esos hitos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 11.2, ¿cuándo son exigibles los intereses de demora devengados por el principal (en aplicación del art. 11.1)?",
+      "options": [
+        "Solo cuando hayan transcurrido 15 días naturales desde la notificación de la providencia de apremio o desde la comunicación del inicio del procedimiento de deducción, sin pago.",
+        "Siempre en período voluntario, desde el día siguiente al vencimiento del plazo reglamentario.",
+        "Nunca son exigibles si el deudor interpone recurso administrativo.",
+        "Solo si se dicta acta de liquidación por la Inspección."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. art. 11.2: \"sólo serán exigibles cuando hubiesen transcurrido 15 días naturales desde la notificación de la providencia de apremio o desde la comunicación del inicio del procedimiento de deducción, sin pago\". B confunde devengo con exigibilidad (el propio art. 6.2 y 11.2 matizan). C es falsa: el art. 11.1 afirma que el devengo no se suspende \"en ningún caso, por la impugnación\". D no es condición del artículo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 12.4, salvo que una norma legal establezca otra cosa, ¿qué conceptos NO pueden exigirse por responsabilidad solidaria/subsidiaria/mortis causa?",
+      "options": [
+        "El principal de la deuda.",
+        "Las costas del procedimiento.",
+        "Los intereses de demora del principal.",
+        "Las sanciones pecuniarias y los recargos sobre prestaciones económicas por falta de medidas de seguridad e higiene (salvo la excepción prevista para estos últimos)."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: D. art. 12.4: \"no podrán exigirse (...) las sanciones pecuniarias ni los recargos sobre prestaciones económicas (...) salvo (...) que exista declaración de responsabilidad de la entidad gestora competente\". A es exigible (arts. 13 y 14 regulan el principal). B y C no están prohibidos así en ese apartado.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 13.1, cuando concurren hechos que determinan responsabilidad solidaria, ¿qué efecto tiene dirigir el procedimiento recaudatorio contra uno de los responsables?",
+      "options": [
+        "Suspende automáticamente cualquier actuación contra los demás responsables solidarios.",
+        "No suspende ni impide que pueda seguirse contra otro hasta la total extinción del crédito.",
+        "Impide reclamar a otros responsables salvo autorización judicial.",
+        "Obliga a reclamar siempre contra todos a la vez."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: B. art. 13.1: \"podrá dirigirse (...) contra todos o contra cualquiera de ellos\" y \"El procedimiento (...) contra un responsable solidario no suspenderá ni impedirá que pueda seguirse contra otro, hasta la total extinción del crédito\". A, C y D contradicen el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 13.3, salvo limitación legal, ¿qué comprende la reclamación de deuda por derivación al responsable solidario?",
+      "options": [
+        "Solo el principal de la deuda, sin recargos, intereses ni costas.",
+        "El principal y los recargos, pero nunca intereses.",
+        "El principal y los recargos/intereses devengados hasta su emisión en el procedimiento seguido contra el primer responsable, e incluye también las costas generadas para el cobro.",
+        "Únicamente las costas del procedimiento por ser responsabilidad accesoria."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: C. art. 13.3: la derivación \"comprenderá el principal de la deuda y los recargos e intereses (...) devengado[s] al momento de su emisión\" e \"Incluirá, asimismo, las costas\". A, B y D omiten o contradicen ese alcance.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 13.4, antes de emitir una reclamación de deuda por derivación a un responsable solidario (regla general), ¿qué trámite previo debe realizarse y con qué plazo?",
+      "options": [
+        "No hay trámite previo: se emite directamente la reclamación sin audiencia.",
+        "Se dicta acuerdo de iniciación y se concede trámite de audiencia por 15 días desde el siguiente a la notificación.",
+        "Se dicta acuerdo de iniciación y se concede trámite de audiencia por 10 días.",
+        "Se exige un requerimiento judicial previo y audiencia por 30 días."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: B. art. 13.4: \"Previamente a su emisión, se dictará acuerdo de iniciación (...) dándole trámite de audiencia por un plazo de 15 días\". Además fija un \"plazo máximo (...) de seis meses\" para notificar la reclamación. A, C y D no se ajustan al artículo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 31.2, ¿cuál es el límite general de duración total de un aplazamiento y cuál es la excepción?",
+      "options": [
+        "Máximo 3 años; la excepción permite 10 años por decisión del Director Provincial.",
+        "Máximo 5 años; excepcionalmente, por causas extraordinarias acreditadas, el órgano puede elevar propuesta para conceder un periodo superior mediante resolución del Director General.",
+        "Máximo 2 años; la excepción permite 5 años si se aporta hipoteca.",
+        "No existe límite de duración si el deudor constituye aval genérico."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: B. art. 31.2: \"La duración total del aplazamiento no podrá exceder de cinco años\" y añade la excepción: \"cuando concurran causas (...) extraordinario (...) podrá elevar (...) propuesta (...) para (...) otro período superior\", resolviendo el Director General. Las demás opciones inventan límites o requisitos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el art. 33.4.b) se prevé un supuesto de exención de garantías y se incluye una nota sobre la Resolución de 6 de abril de 2020. Según esa nota (efectos desde 10/04/2020), ¿qué umbrales permiten NO constituir garantías en ese supuesto?",
+      "options": [
+        "Hasta 30.000 € o, si es inferior a 90.000 €, con un tercio en 10 días y el resto en 2 años.",
+        "Hasta 90.000 € siempre, sin condiciones.",
+        "Hasta 150.000 € o, si es inferior a 250.000 €, con un tercio en 10 días y el resto en 2 años.",
+        "Hasta 250.000 € siempre, sin condiciones."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: C. La nota insertada tras el art. 33.4.b) dice: \"con efectos desde el 10 de abril de 2020\" no será necesaria garantía \"cuando el total de la deuda aplazable sea igual o inferior a 150.000 € o cuando, siendo (...) inferior a 250.000 €, se acuerde que se ingrese al menos un tercio (...) antes de (...) diez días (...) y el resto en los dos años siguientes\". A refleja el texto original del art. 33.4.b) pero no el umbral de la nota. B y D eliminan condiciones que el texto exige.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 84.1 y 84.2, ¿qué caracteriza correctamente a la providencia de apremio y una consecuencia expresa de su omisión?",
+      "options": [
+        "Es un acto meramente informativo; su omisión no afecta a la vía ejecutiva.",
+        "Es el título ejecutivo suficiente y su omisión determina la improcedencia de la vía de apremio.",
+        "Es un requerimiento previo a la reclamación de deuda; su omisión solo afecta a la notificación.",
+        "Es una diligencia de embargo; su omisión se suple con la diligencia de embargo."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: B. El art. 84.1 afirma que \"La providencia de apremio constituye el título ejecutivo suficiente para el inicio del procedimiento de apremio\" y añade: \"Su omisión determinará la improcedencia de la vía de apremio\". A, C y D describen figuras distintas (reclamación de deuda, diligencia de embargo, etc.) o niegan el efecto expreso del artículo.",
+      "difficulty": "hard"
+    }
+  ]
+}

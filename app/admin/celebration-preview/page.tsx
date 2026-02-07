@@ -60,7 +60,7 @@ export default function CelebrationPreview() {
         {/* Header */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
           <Link href="/admin" className="text-orange-600 hover:text-orange-700 font-semibold mb-4 inline-block">
-            ← Volver al Panel de Administrador
+            ← Volver al Panel de Administración
           </Link>
           <h1 className="text-3xl font-bold text-gray-900 mt-4">Vista Previa de Celebración 100%</h1>
           <p className="text-gray-600 mt-2">

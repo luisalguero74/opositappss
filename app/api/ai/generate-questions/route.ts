@@ -4,6 +4,10 @@ import { authOptions } from '@/lib/auth'
 import { generateQuestionsFromContent, generateQuestionsWithOllama } from '@/lib/ai-question-generator'
 import { chunkText } from '@/lib/document-processor'
 import { prisma } from '@/lib/prisma'
+import {
+  normalizeCorrectAnswerToUpperLetter,
+  safeParseOptions
+} from '@/lib/answer-normalization'
 
 export async function POST(req: NextRequest) {
   try {
@@ -88,18 +92,25 @@ export async function POST(req: NextRequest) {
     // Guardar preguntas en BD
     const savedQuestions = await Promise.all(
       allQuestions.slice(0, count).map(q =>
-        prisma.generatedQuestion.create({
-          data: {
-            documentId,
-            sectionId: sectionId || undefined,
-            text: q.question,
-            options: JSON.stringify(q.options),
-            correctAnswer: q.correctAnswer,
-            explanation: q.explanation,
-            difficulty: q.difficulty || difficulty,
-            topic
-          }
-        })
+        (() => {
+          const parsedOptions = Array.isArray(q.options) ? q.options : safeParseOptions(q.options)
+          const options = (parsedOptions || []).map((o: unknown) => String(o ?? '').trim())
+          const correctAnswer =
+            normalizeCorrectAnswerToUpperLetter(q.correctAnswer, options) || 'A'
+
+          return prisma.generatedQuestion.create({
+            data: {
+              documentId,
+              sectionId: sectionId || undefined,
+              text: q.question,
+              options: JSON.stringify(options),
+              correctAnswer,
+              explanation: q.explanation,
+              difficulty: q.difficulty || difficulty,
+              topic
+            }
+          })
+        })()
       )
     )
 

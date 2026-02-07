@@ -1,5 +1,11 @@
 import { NextResponse } from 'next/server'
-import { S3Client, GetObjectCommand, ListObjectsV2Command, PutObjectCommand } from '@aws-sdk/client-s3'
+import {
+  S3Client,
+  GetObjectCommand,
+  ListObjectsV2Command,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
 export type RemoteFile = {
@@ -7,6 +13,7 @@ export type RemoteFile = {
   contentType?: string
   fileName?: string
   disposition?: 'attachment' | 'inline'
+  range?: string | null
 }
 
 export type B2S3Config = {
@@ -52,8 +59,13 @@ function inferContentType(fileName: string): string {
   }
 }
 
-export async function proxyRemoteFile({ url, contentType, fileName, disposition = 'attachment' }: RemoteFile) {
-  const res = await fetch(url)
+export async function proxyRemoteFile({ url, contentType, fileName, disposition = 'attachment', range }: RemoteFile) {
+  const headers: Record<string, string> = {}
+  if (range) headers['Range'] = range
+
+  const res = await fetch(url, {
+    headers,
+  })
 
   if (!res.ok) {
     return NextResponse.json(
@@ -68,13 +80,31 @@ export async function proxyRemoteFile({ url, contentType, fileName, disposition 
   const contentDisposition = `${disposition}; filename="${encodeURIComponent(resolvedName)}"`
 
   // Stream passthrough (no buffering in memory)
+  const upstreamHeaders = res.headers
+  const passthroughHeaders: Record<string, string> = {
+    'Content-Type': upstreamHeaders.get('content-type') || resolvedType,
+    'Content-Disposition': contentDisposition,
+    'Cache-Control': 'private, max-age=60',
+  }
+
+  const contentRange = upstreamHeaders.get('content-range')
+  if (contentRange) passthroughHeaders['Content-Range'] = contentRange
+
+  const acceptRanges = upstreamHeaders.get('accept-ranges')
+  if (acceptRanges) passthroughHeaders['Accept-Ranges'] = acceptRanges
+
+  const contentLength = upstreamHeaders.get('content-length')
+  if (contentLength) passthroughHeaders['Content-Length'] = contentLength
+
+  const etag = upstreamHeaders.get('etag')
+  if (etag) passthroughHeaders['ETag'] = etag
+
+  const lastModified = upstreamHeaders.get('last-modified')
+  if (lastModified) passthroughHeaders['Last-Modified'] = lastModified
+
   return new NextResponse(res.body, {
-    headers: {
-      'Content-Type': resolvedType,
-      'Content-Disposition': contentDisposition,
-      // Do not set Content-Length here; upstream may be chunked.
-      'Cache-Control': 'private, max-age=60',
-    },
+    status: res.status,
+    headers: passthroughHeaders,
   })
 }
 
@@ -178,6 +208,15 @@ export async function putB2Object(
     Key: params.key,
     Body: params.body,
     ContentType: params.contentType,
+  })
+  await client.send(command)
+}
+
+export async function deleteB2Object(cfg: B2S3Config, key: string) {
+  const client = createB2S3Client(cfg)
+  const command = new DeleteObjectCommand({
+    Bucket: cfg.bucket,
+    Key: key,
   })
   await client.send(command)
 }

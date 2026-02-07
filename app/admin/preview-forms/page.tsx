@@ -250,6 +250,30 @@ export default function PreviewForms() {
     return 0
   }
 
+  // Para la vista previa (no el modal): localizar la opción correcta aunque se guarde como texto, letra o índice
+  const getCorrectIndexFromQuestion = (question: Question): number => {
+    const options = Array.isArray(question.options) ? question.options : []
+    const raw = String(question.correctAnswer ?? '').trim()
+    if (!raw) return -1
+
+    const byText = options.findIndex((opt) => String(opt ?? '').trim() === raw)
+    if (byText >= 0) return byText
+
+    const upper = raw.toUpperCase()
+    if (['A', 'B', 'C', 'D'].includes(upper)) {
+      const idx = upper.charCodeAt(0) - 65
+      return idx >= 0 && idx < options.length ? idx : -1
+    }
+
+    if (/^\d+$/.test(raw)) {
+      const n = Number.parseInt(raw, 10)
+      if (n >= 0 && n <= 3) return n
+      if (n >= 1 && n <= 4) return n - 1
+    }
+
+    return -1
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -266,7 +290,7 @@ export default function PreviewForms() {
           <div className="flex items-center justify-between">
             <div>
               <Link href="/admin" className="text-orange-600 hover:text-orange-700 font-semibold mb-2 inline-block">
-                ← Volver al Panel de Administrador
+                ← Volver al Panel de Administración
               </Link>
               <h1 className="text-3xl font-bold text-gray-900 mt-2">Vista Previa de Formularios</h1>
               <p className="text-gray-600 mt-1">Revisa y publica los cuestionarios creados</p>
@@ -459,8 +483,9 @@ export default function PreviewForms() {
                       {/* Opciones */}
                       <div className="space-y-3">
                         {question.options.map((option, optIndex) => {
+                          const correctIndex = getCorrectIndexFromQuestion(question)
                           const optionLetter = String.fromCharCode(97 + optIndex)
-                          const isCorrect = option === question.correctAnswer
+                          const isCorrect = correctIndex >= 0 && optIndex === correctIndex
 
                           return (
                             <div

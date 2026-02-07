@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { rebalanceQuestionsABCD } from '@/lib/answer-alternation'
+import { normalizeCorrectAnswerToUpperLetter, safeParseOptions } from '@/lib/answer-normalization'
 
 export async function POST(req: NextRequest) {
   try {
@@ -91,14 +92,16 @@ export async function POST(req: NextRequest) {
           }
         }
 
-        const newCorrectAnswer = rb?.correctAnswer || q.correctAnswer
+        const newCorrectAnswerRaw = rb?.correctAnswer || q.correctAnswer
+        const normalizedCorrect =
+          normalizeCorrectAnswerToUpperLetter(newCorrectAnswerRaw, Array.isArray(newOptions) ? newOptions : safeParseOptions(newOptions)) ?? 'A'
 
         return prisma.question.create({
           data: {
             questionnaireId: questionnaire.id,
             text: q.text,
             options: JSON.stringify(newOptions),
-            correctAnswer: newCorrectAnswer,
+            correctAnswer: normalizedCorrect,
             explanation: q.explanation,
             temaCodigo: q.temaCodigo,
             temaNumero: q.temaNumero,

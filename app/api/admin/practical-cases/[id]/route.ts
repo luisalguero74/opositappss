@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import {
+  normalizeCorrectAnswerToUpperLetter,
+  safeParseOptions
+} from '@/lib/answer-normalization'
 
 export async function GET(
   req: NextRequest,
@@ -50,36 +54,51 @@ export async function PUT(
     const { id } = await params
     const { title, theme, statement, questions } = await req.json()
 
-    // Actualizar supuesto práctico
-    const updatedCase = await prisma.questionnaire.update({
-      where: { id },
-      data: {
-        title,
-        theme,
-        statement
-      }
-    })
+    const practicalCase = await prisma.$transaction(async tx => {
+      await tx.questionnaire.update({
+        where: { id },
+        data: {
+          title,
+          theme,
+          statement
+        }
+      })
 
-    // Actualizar preguntas si se proporcionaron
-    if (questions && Array.isArray(questions)) {
-      for (const question of questions) {
-        if (question.id) {
-          await prisma.question.update({
+      if (questions && Array.isArray(questions)) {
+        for (const question of questions) {
+          if (!question?.id) continue
+
+          const parsedOptions = Array.isArray(question.options)
+            ? question.options
+            : safeParseOptions(question.options)
+
+          const options: string[] = (parsedOptions || []).map((o: unknown) => String(o ?? '').trim())
+          if (options.length !== 4 || options.some((o: string) => !o)) {
+            throw new Error(`Opciones inválidas (questionId=${String(question.id)})`)
+          }
+
+          const normalizedCorrect =
+            normalizeCorrectAnswerToUpperLetter(question.correctAnswer, options) || null
+          if (!normalizedCorrect) {
+            throw new Error(`correctAnswer inválido (questionId=${String(question.id)})`)
+          }
+
+          await tx.question.update({
             where: { id: question.id },
             data: {
               text: question.text,
-              options: JSON.stringify(question.options),
-              correctAnswer: question.correctAnswer,
+              options: JSON.stringify(options),
+              correctAnswer: normalizedCorrect,
               explanation: question.explanation
             }
           })
         }
       }
-    }
 
-    const practicalCase = await prisma.questionnaire.findUnique({
-      where: { id },
-      include: { questions: true }
+      return tx.questionnaire.findUnique({
+        where: { id },
+        include: { questions: true }
+      })
     })
 
     return NextResponse.json({ 
@@ -90,7 +109,9 @@ export async function PUT(
 
   } catch (error) {
     console.error('Error updating practical case:', error)
-    return NextResponse.json({ error: 'Error al actualizar supuesto práctico' }, { status: 500 })
+    const message = error instanceof Error ? error.message : 'Error al actualizar supuesto práctico'
+    const status = /inválid/i.test(message) ? 400 : 500
+    return NextResponse.json({ error: message }, { status })
   }
 }
 

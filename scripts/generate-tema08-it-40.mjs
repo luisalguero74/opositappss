@@ -1,0 +1,682 @@
+import fs from "node:fs";
+
+const outPath = "TEMA  08_ESPECÍFICO_PRESTACIONES_ INCAPACIDAD_TEMPORAL.JSON";
+
+const questions = [];
+const push = (q) => questions.push({ ...q, difficulty: "hard" });
+
+const letters = ["A", "B", "C", "D"];
+const expect = (n, letter) => {
+  const exp = letters[(n - 1) % 4];
+  if (exp !== letter) {
+    throw new Error(`Answer pattern mismatch at Q${n}: expected ${exp}, got ${letter}`);
+  }
+};
+
+// 1
+expect(1, "A");
+push({
+  question:
+    "Según el art. 1.1 del Real Decreto 625/2014, ¿durante qué período temporal se aplica lo dispuesto en este real decreto a los procesos de incapacidad temporal?",
+  options: [
+    "Durante los primeros trescientos sesenta y cinco días de su duración.",
+    "Durante los primeros ciento ochenta días de su duración.",
+    "Durante los primeros quinientos cuarenta y cinco días de su duración.",
+    "Durante toda la duración del proceso, sin límite temporal.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. El art. 1.1 señala "durante los primeros trescientos sesenta y cinco días". B y C alteran el plazo. D contradice el límite temporal fijado.',
+});
+
+// 2
+expect(2, "B");
+push({
+  question:
+    "Conforme al art. 1.2 del Real Decreto 625/2014, ¿qué regímenes quedan excluidos de lo dispuesto en este real decreto?",
+  options: [
+    "El Régimen Especial de Trabajadores del Mar.",
+    "Los regímenes especiales de las Fuerzas Armadas, de los Funcionarios Civiles de la Administración del Estado y del personal al servicio de la Administración de Justicia.",
+    "Todos los regímenes especiales, sin excepción.",
+    "El Régimen General y el Régimen Especial de Trabajadores Autónomos.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 1.2 excluye "los regímenes especiales de las Fuerzas Armadas (...) de los Funcionarios Civiles (...) y del personal al servicio de la Administración de Justicia". A, C y D no se corresponden con esa enumeración.',
+});
+
+// 3
+expect(3, "C");
+push({
+  question:
+    "Según el art. 2.1 del Real Decreto 625/2014, ¿qué acto origina la iniciación de las actuaciones conducentes al reconocimiento del derecho al subsidio por incapacidad temporal?",
+  options: [
+    "La resolución del INSS reconociendo el subsidio.",
+    "La entrega del informe médico complementario.",
+    "La emisión del parte médico de baja.",
+    "La comunicación de la empresa a la entidad gestora.",
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. El art. 2.1 indica: "La emisión del parte médico de baja es el acto que origina la iniciación". A, B y D no figuran como acto iniciador.',
+});
+
+// 4
+expect(4, "D");
+push({
+  question:
+    "En el supuesto del art. 2.1 del Real Decreto 625/2014 (AT/EP con mutua o empresa colaboradora), ¿quién expide los partes de baja, confirmación o alta?",
+  options: [
+    "Siempre el médico del servicio público de salud que haya efectuado el reconocimiento.",
+    "La inspección médica del servicio público de salud.",
+    "El INSS, mediante resolución.",
+    "Los servicios médicos de la propia mutua o los servicios médicos de la empresa colaboradora.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 2.1 prevé que "los correspondientes partes (...) serán expedidos por los servicios médicos de la propia mutua o (...) de la empresa colaboradora". A es la regla general, pero aquí hay excepción; B y C no se recogen.',
+});
+
+// 5
+expect(5, "A");
+push({
+  question:
+    "Conforme al art. 2.2 del Real Decreto 625/2014, ¿qué debe preceder a todo parte médico de baja?",
+  options: [
+    "Un reconocimiento médico del trabajador que permita la determinación objetiva de la incapacidad temporal para el trabajo habitual.",
+    "Una resolución previa de la entidad gestora competente.",
+    "Un informe de control trimestral de la inspección médica.",
+    "La emisión previa de un parte de confirmación de la baja.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. El art. 2.2 establece: "Todo parte médico de baja irá precedido de un reconocimiento médico del trabajador". B, C y D no se exigen como requisito previo.',
+});
+
+// 6
+expect(6, "B");
+push({
+  question:
+    "Según el art. 2.2 del Real Decreto 625/2014, además de los datos personales, ¿cuál de los siguientes figura entre los datos obligatorios del parte de baja que se remiten telemáticamente al INSS?",
+  options: [
+    "La base reguladora diaria del subsidio.",
+    "El código nacional de ocupación del trabajador.",
+    "El porcentaje de cotización aplicable.",
+    "La cuantía exacta del subsidio.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 2.2 incluye "el código nacional de ocupación del trabajador". A, C y D no aparecen en la enumeración de datos obligatorios del parte.',
+});
+
+// 7
+expect(7, "C");
+push({
+  question:
+    "En procesos de duración estimada inferior a cinco días naturales (art. 2.3.a del Real Decreto 625/2014), ¿qué regla fija el precepto sobre la fecha del alta consignada en el parte?",
+  options: [
+    "Debe ser siempre el quinto día natural contado desde la baja.",
+    "Debe coincidir necesariamente con el día siguiente al de la baja.",
+    "Puede ser la misma que la de la baja o cualquiera de los tres días naturales siguientes.",
+    "Debe fijarse por el INSS al recibir el parte.",
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. El art. 2.3.a indica que la fecha de alta "podrá ser la misma que la de la baja o cualquiera de los tres días naturales siguientes a esta". A y B son restricciones no previstas; D no está en el texto.',
+});
+
+// 8
+expect(8, "D");
+push({
+  question:
+    "En procesos <5 días (art. 2.3.a del Real Decreto 625/2014), si el trabajador solicita reconocimiento el día fijado como alta, ¿qué puede hacer el facultativo si considera que no ha recuperado la capacidad laboral?",
+  options: [
+    "Emitir necesariamente el alta y remitir al trabajador a reclamar ante el INSS.",
+    "Negar el reconocimiento, porque el alta ya está fijada en el parte.",
+    "Solicitar siempre informe médico complementario antes de decidir.",
+    "Emitir el parte de confirmación de la baja.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 2.3.a prevé que el trabajador "podrá solicitar" reconocimiento y que el facultativo "podrá emitir el parte de confirmación de la baja" si no ha recuperado su capacidad. A, B y C no se recogen.',
+});
+
+// 9
+expect(9, "A");
+push({
+  question:
+    "Tras el primer parte de confirmación en procesos de duración estimada entre cinco y treinta días (art. 2.3.b del Real Decreto 625/2014), ¿qué límite máximo se fija para los sucesivos partes de confirmación, cuando sean necesarios?",
+  options: [
+    "No podrán emitirse con una diferencia de más de catorce días naturales entre sí.",
+    "No podrán emitirse con una diferencia de más de veintiocho días naturales entre sí.",
+    "No podrán emitirse con una diferencia de más de treinta y cinco días naturales entre sí.",
+    "Solo pueden emitirse mensualmente.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. El art. 2.3.b establece que los sucesivos "no podrán emitirse con una diferencia de más de catorce días naturales entre sí". B y C corresponden a otros grupos (2.3.c y 2.3.d). D no existe.',
+});
+
+// 10
+expect(10, "B");
+push({
+  question:
+    "En procesos de duración estimada de entre treinta y uno y sesenta días (art. 2.3.c del Real Decreto 625/2014), ¿qué límite máximo se establece entre sucesivos partes de confirmación, cuando sean necesarios?",
+  options: [
+    "No más de catorce días naturales.",
+    "No más de veintiocho días naturales.",
+    "No más de treinta y cinco días naturales.",
+    "No más de siete días naturales.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 2.3.c dispone que los sucesivos "no podrán emitirse con una diferencia de más de veintiocho días naturales entre sí". A y D no son el límite de este grupo; C corresponde al grupo d).',
+});
+
+// 11
+expect(11, "C");
+push({
+  question:
+    "En procesos de duración estimada de sesenta y uno o más días (art. 2.3.d del Real Decreto 625/2014), ¿qué límite máximo se establece para la fecha de la revisión médica prevista en el parte de baja inicial?",
+  options: [
+    "No excederá en más de siete días naturales a la fecha de baja inicial.",
+    "No excederá en más de cinco días naturales a la fecha de baja inicial.",
+    "No excederá en más de catorce días naturales a la fecha de baja inicial.",
+    "No excederá en más de treinta y cinco días naturales a la fecha de baja inicial.",
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. El art. 2.3.d fija que la revisión "en ningún caso excederá en más de catorce días naturales a la fecha de baja inicial". A y B no son el plazo del grupo d). D confunde con el límite entre partes sucesivos.',
+});
+
+// 12
+expect(12, "D");
+push({
+  question:
+    "En procesos de duración estimada de sesenta y uno o más días (art. 2.3.d del Real Decreto 625/2014), tras el primer parte de confirmación, ¿qué límite máximo se fija entre los sucesivos partes de confirmación?",
+  options: [
+    "No más de catorce días naturales.",
+    "No más de veintiocho días naturales.",
+    "No más de siete días naturales.",
+    "No más de treinta y cinco días naturales.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 2.3.d dispone que los sucesivos "no podrán emitirse con una diferencia de más de treinta y cinco días naturales entre sí". A y B son límites de otros grupos; C no figura.',
+});
+
+// 13
+expect(13, "A");
+push({
+  question:
+    "Según el último párrafo del art. 2.3 del Real Decreto 625/2014, ¿qué facultad tiene el facultativo respecto a la revisión médica en cualquiera de los procesos previstos en ese apartado?",
+  options: [
+    "Puede fijar la correspondiente revisión médica en un período inferior al indicado en cada caso.",
+    "Debe fijar siempre la revisión médica en el máximo permitido en cada grupo.",
+    "Solo puede fijar revisiones inferiores si lo autoriza previamente el INSS.",
+    "No puede alterar los plazos de revisión una vez emitido el parte de baja.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. El art. 2.3 dice que el facultativo "podrá fijar la correspondiente revisión médica en un período inferior al indicado en cada caso". B, C y D contradicen el texto.',
+});
+
+// 14
+expect(14, "B");
+push({
+  question:
+    "Conforme al art. 2.4 del Real Decreto 625/2014, ¿qué debe emitirse siempre que se produzca una modificación o actualización del diagnóstico?",
+  options: [
+    "Un parte de baja nuevo, anulando el anterior.",
+    "Un parte de confirmación que recoja la duración estimada por el médico que lo emite.",
+    "Un informe de control trimestral.",
+    "Una resolución del INSS declarando la contingencia.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 2.4 ordena: "se emitirá un parte de confirmación" que recogerá la duración estimada. A, C y D no son lo previsto por el precepto.',
+});
+
+// 15
+expect(15, "C");
+push({
+  question:
+    "Según el art. 2.4 del Real Decreto 625/2014, ¿cuándo debe expedirse el parte de alta?",
+  options: [
+    "Siempre al cumplir los 365 días de duración del proceso.",
+    "Solo cuando lo solicite la empresa.",
+    "Cuando el facultativo considere que el trabajador ha recuperado su capacidad laboral.",
+    "Únicamente tras informe médico complementario.",
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. El art. 2.4 dispone: "expedirá el parte de alta cuando considere que el trabajador ha recuperado su capacidad laboral". A, B y D añaden condiciones no recogidas.',
+});
+
+// 16
+expect(16, "D");
+push({
+  question:
+    "De acuerdo con el art. 2.5 del Real Decreto 625/2014, ¿en qué plazo debe el INSS transmitir al ISM y a las mutuas los partes de baja y confirmación por contingencia común relativos a trabajadores cuya IT gestionen?",
+  options: [
+    "En un máximo de siete días naturales desde su recepción.",
+    "Solo al cierre del trimestre correspondiente.",
+    "En el plazo que determine cada mutua en su concierto.",
+    "De manera inmediata y, en todo caso, en el primer día hábil siguiente al de su recepción.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 2.5 establece que el INSS transmitirá "de manera inmediata, y, en todo caso, en el primer día hábil siguiente al de su recepción". A, B y C no aparecen en el texto.',
+});
+
+// 17
+expect(17, "A");
+push({
+  question:
+    "Según el art. 2.5 del Real Decreto 625/2014, el modelo de parte médico debe permitir su gestión informatizada. ¿Qué elemento señala expresamente que debe figurar en ese modelo?",
+  options: [
+    "Un código identificativo del centro de salud emisor.",
+    "El salario mensual del trabajador.",
+    "La cuantía del subsidio ya reconocida.",
+    "El número de afiliación a una mutua concreta como dato obligatorio.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. El art. 2.5 indica que en el modelo "figurará un código identificativo del centro de salud emisor". B, C y D no constan como requisitos del modelo.',
+});
+
+// 18
+expect(18, "B");
+push({
+  question:
+    "Conforme al art. 3.1 del Real Decreto 625/2014, ¿quiénes pueden instar, motivadamente, ante el INSS la revisión de la consideración inicial de la contingencia?",
+  options: [
+    "Solo el trabajador afectado.",
+    "El servicio público de salud, el ISM, las mutuas o las empresas colaboradoras que hayan emitido el parte de baja.",
+    "Únicamente la empresa del trabajador.",
+    "Exclusivamente la Inspección de Trabajo y Seguridad Social.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 3.1 habilita a "el servicio público de salud, el Instituto Social de la Marina, las mutuas o las empresas colaboradoras, que hayan emitido el parte de baja". A, C y D no son los sujetos del apartado.',
+});
+
+// 19
+expect(19, "C");
+push({
+  question:
+    "Según el art. 3.2 del Real Decreto 625/2014, si el facultativo de la mutua/empresa colaboradora considera inicialmente que la patología causante es común, ¿qué actuación describe correctamente el precepto?",
+  options: [
+    "Debe emitir parte de baja por contingencia común y tramitarlo ante el INSS.",
+    "Debe abstenerse de prestar cualquier asistencia sanitaria.",
+    "Puede remitir al trabajador al servicio público de salud para su tratamiento, sin perjuicio de dispensar asistencia en urgencia o riesgo vital.",
+    "Debe iniciar de oficio un procedimiento de disconformidad con el alta médica.",
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. El art. 3.2 permite "remitir al trabajador al servicio público de salud" y añade "sin perjuicio de dispensarle la asistencia precisa en los casos de urgencia o de riesgo vital". A, B y D no se ajustan al texto.',
+});
+
+// 20
+expect(20, "D");
+push({
+  question:
+    "Conforme al art. 3.2 del Real Decreto 625/2014, el informe médico que entrega la mutua/empresa al trabajador (cuando determina inicialmente contingencia común) debe contener determinados extremos. ¿Cuál de las siguientes combinaciones es la correcta?",
+  options: [
+    "Solo el diagnóstico y la fecha prevista de alta.",
+    "Únicamente los datos personales y la contingencia inicial.",
+    "La base reguladora y el cálculo del subsidio.",
+    "Descripción de la patología, diagnóstico, tratamiento dispensado y motivos de la determinación como común, acompañando los informes de las pruebas realizadas, en su caso.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 3.2 exige un informe que "describa la patología y señale su diagnóstico, el tratamiento dispensado y los motivos" y que "acompañará los informes relativos a las pruebas". A, B y C omiten o inventan contenidos.',
+});
+
+// 21
+expect(21, "A");
+push({
+  question:
+    "Según el art. 3.2 del Real Decreto 625/2014, si el trabajador acude al servicio público de salud y el médico de este emite parte de baja por contingencia común, ¿qué posibilidad se reconoce al beneficiario?",
+  options: [
+    "Puede formular reclamación ante el INSS sobre la consideración de la contingencia, aplicando el procedimiento del art. 6 del RD 1430/2009.",
+    "Debe aceptar sin más la consideración de contingencia común.",
+    "Solo puede reclamar ante la empresa.",
+    "Únicamente puede pedir un informe de control trimestral.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. El art. 3.2 dice: "el beneficiario podrá formular reclamación (...) ante el Instituto Nacional de la Seguridad Social" y remite al procedimiento del art. 6 del RD 1430/2009. B, C y D no se recogen.',
+});
+
+// 22
+expect(22, "B");
+push({
+  question:
+    "Conforme al art. 3.2 del Real Decreto 625/2014, si el facultativo que emite el parte de baja discrepa de la consideración de la contingencia otorgada por la mutua/empresa, ¿qué efecto se mantiene expresamente?",
+  options: [
+    "El parte de baja queda sin efectos hasta que resuelva el INSS.",
+    "El parte médico produce plenos efectos, sin perjuicio de la discrepancia.",
+    "La discrepancia obliga a emitir un nuevo parte de baja por contingencia profesional.",
+    "Se paraliza la asistencia sanitaria hasta la resolución.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 3.2 permite la discrepancia "sin perjuicio de que el parte médico produzca plenos efectos". A, C y D contradicen el texto.',
+});
+
+// 23
+expect(23, "C");
+push({
+  question:
+    "Según el último párrafo del art. 3.2 del Real Decreto 625/2014, ¿qué determina la resolución que se dicte en el procedimiento?",
+  options: [
+    "Únicamente la fecha de alta médica y la duración estimada del proceso.",
+    "Solo el código nacional de ocupación y el diagnóstico.",
+    "El carácter común o profesional de la contingencia y el sujeto obligado al pago de las prestaciones y, en su caso, a la asistencia sanitaria.",
+    "La cuantía exacta del subsidio diario.",
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. El art. 3.2 indica que la resolución "establecerá el carácter común o profesional" y "el sujeto obligado al pago" y "a la prestación de asistencia sanitaria, en su caso". A, B y D no son el objeto señalado.',
+});
+
+// 24
+expect(24, "D");
+push({
+  question:
+    "Conforme al art. 4.1 del Real Decreto 625/2014, en procesos de IT cuya gestión corresponda al servicio público de salud y duración prevista superior a 30 días, ¿qué debe acompañar al segundo parte de confirmación de la baja?",
+  options: [
+    "Un informe de control trimestral.",
+    "La documentación clínica completa de atención primaria y especializada.",
+    "Un dictamen-propuesta del equipo de valoración de incapacidades.",
+    "Un informe médico complementario expedido por el facultativo que haya extendido el parte anterior.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 4.1 establece que "el segundo parte de confirmación de la baja irá acompañado de un informe médico complementario". A es del art. 4.2; B y C no son lo exigido por este apartado.',
+});
+
+// 25
+expect(25, "A");
+push({
+  question:
+    "Según el art. 4.1 del Real Decreto 625/2014, ¿cada cuánto deben actualizarse necesariamente los informes médicos complementarios?",
+  options: [
+    "Con cada dos partes de confirmación de baja posteriores.",
+    "Con cada parte de confirmación, siempre.",
+    "Solo cuando cambie el diagnóstico.",
+    "Al finalizar el proceso, una sola vez.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. El art. 4.1 dice: "Los informes médicos complementarios se actualizarán, necesariamente, con cada dos partes de confirmación de baja posteriores". B, C y D no coinciden con el texto.',
+});
+
+// 26
+expect(26, "B");
+push({
+  question:
+    "Conforme al art. 4.2 del Real Decreto 625/2014, ¿con qué periodicidad (y desde cuándo) se expide el informe de control de la incapacidad en procesos cuya gestión corresponda al servicio público de salud?",
+  options: [
+    "Mensualmente, desde el primer parte de confirmación.",
+    "Trimestralmente, a contar desde la fecha de inicio de la baja médica.",
+    "Semestralmente, a contar desde el segundo parte de confirmación.",
+    "Anualmente, a contar desde el parte de baja.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 4.2 indica: "trimestralmente, a contar desde la fecha de inicio de la baja médica" se expedirá un informe de control. A, C y D no se recogen.',
+});
+
+// 27
+expect(27, "C");
+push({
+  question:
+    "Según el art. 4.3 del Real Decreto 625/2014, ¿quiénes tienen acceso a los informes médicos complementarios, informes de control, actualizaciones y pruebas médicas realizadas, respecto de procesos por contingencias comunes correspondientes a trabajadores protegidos por las mutuas?",
+  options: [
+    "Solo el trabajador y la empresa.",
+    "Únicamente los inspectores médicos del servicio público de salud.",
+    "Los inspectores médicos adscritos al INSS, al ISM y los facultativos de las mutuas, para desarrollar sus funciones.",
+    "Exclusivamente el INSS, sin intervención del ISM ni de las mutuas.",
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. El art. 4.3 indica que "tendrán acceso (...) los inspectores médicos adscritos al Instituto Nacional de la Seguridad Social, al Instituto Social de la Marina y los facultativos de las mutuas". A, B y D no se ajustan.',
+});
+
+// 28
+expect(28, "D");
+push({
+  question:
+    "Conforme al segundo párrafo del art. 4.3 del Real Decreto 625/2014, ¿quiénes tienen acceso (preferentemente por vía telemática) a la documentación clínica de atención primaria y especializada?",
+  options: [
+    "Todos los facultativos de las mutuas, sin limitación.",
+    "La empresa y el trabajador, sin intervención de inspección médica.",
+    "Cualquier médico del servicio público de salud, por razón asistencial.",
+    "Exclusivamente los inspectores médicos del propio servicio público de salud y los inspectores médicos adscritos al INSS o, en su caso, al ISM.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 4.3 (párrafo segundo) señala "exclusivamente" a esos inspectores. A, B y C no se ajustan al alcance de "exclusivamente".',
+});
+
+// 29
+expect(29, "A");
+push({
+  question:
+    "Según la regla Primera del art. 3 del Real Decreto 1430/2009, ¿en qué plazo máximo puede el interesado manifestar su disconformidad con la resolución que declare la extinción de la IT por alta médica?",
+  options: [
+    "En el plazo máximo de cuatro días naturales siguientes a la notificación de la resolución.",
+    "En el plazo máximo de diez días hábiles siguientes a la notificación.",
+    "En el plazo máximo de treinta días naturales desde la fecha de alta.",
+    "En cualquier momento mientras dure la incapacidad temporal.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. La regla Primera del art. 3 indica "plazo máximo de los cuatro días naturales siguientes" a la notificación. B, C y D no figuran en el texto.',
+});
+
+// 30
+expect(30, "B");
+push({
+  question:
+    "Conforme a la regla Primera del art. 3 del Real Decreto 1430/2009, ¿cómo se instrumenta la manifestación de disconformidad (modelo y disponibilidad)?",
+  options: [
+    "Se presenta en escrito libre, exclusivamente por sede electrónica.",
+    "Se cumplimenta en el modelo aprobado por la entidad gestora, disponible en sus páginas web.",
+    "Se realiza oralmente ante la empresa, que lo remite al INSS.",
+    "Se formaliza mediante parte médico emitido por el servicio público de salud.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 3 (Primera) dice "modelo aprobado" y que "estará a disposición (...) en las correspondientes páginas web". A, C y D no se ajustan.',
+});
+
+// 31
+expect(31, "C");
+push({
+  question:
+    "Según la regla Segunda del art. 3 del Real Decreto 1430/2009, ¿dónde se presenta la manifestación de disconformidad?",
+  options: [
+    "Exclusivamente ante el INSS o el ISM.",
+    "Solo ante la empresa.",
+    "Ante la inspección médica del servicio público de salud, pudiendo presentarse también ante órganos del art. 38.4 de la Ley 30/1992.",
+    "Únicamente ante la Inspección de Trabajo y Seguridad Social.",
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. La regla Segunda indica: "se presentará ante la inspección médica del servicio público de salud" y añade que "podrá presentarse" ante órganos del art. 38.4 de la Ley 30/1992. A, B y D no coinciden.',
+});
+
+// 32
+expect(32, "D");
+push({
+  question:
+    "Conforme a la regla Tercera del art. 3 del Real Decreto 1430/2009, ¿cuándo debe el interesado comunicar a la empresa que ha iniciado el procedimiento de disconformidad?",
+  options: [
+    "En el plazo de cuatro días naturales desde la notificación.",
+    "Antes de presentar la disconformidad.",
+    "En el plazo de diez días hábiles desde la presentación.",
+    "En el mismo día en que presente la disconformidad o en el siguiente día hábil.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 3 (regla Tercera) dispone que lo comunicará a la empresa "en el mismo día" o "en el siguiente día hábil". A, B y C no se ajustan.',
+});
+
+// 33
+expect(33, "A");
+push({
+  question:
+    "Según la regla Cuarta del art. 3 del Real Decreto 1430/2009, ¿qué obligación de comunicación se establece entre la entidad gestora y los servicios públicos de salud, y respecto a la empresa?",
+  options: [
+    "INSS/ISM y servicios públicos de salud deben comunicarse recíprocamente el inicio y decisiones; además, la entidad gestora comunicará a la empresa decisiones que afecten a la duración de la IT.",
+    "Solo la empresa comunica al INSS el inicio del procedimiento.",
+    "Las comunicaciones se realizan únicamente al final del procedimiento.",
+    "Solo se comunican las resoluciones finales, no el inicio.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. El art. 3 (regla Cuarta) exige comunicar "recíprocamente" el inicio y "todas las decisiones"; y añade que la entidad gestora comunicará a la empresa "todas las decisiones que puedan afectar a la duración". B, C y D contradicen el texto.',
+});
+
+// 34
+expect(34, "B");
+push({
+  question:
+    "Conforme a la regla Quinta del art. 3 del Real Decreto 1430/2009, ¿cómo deben realizarse preferentemente las comunicaciones entre entidades gestoras, servicios públicos de salud y las dirigidas a la empresa?",
+  options: [
+    "Exclusivamente por correo postal certificado.",
+    "Preferentemente por medios electrónicos, informáticos o telemáticos.",
+    "Solo de forma presencial ante la inspección médica.",
+    "Mediante acta notarial.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 3 (regla Quinta) establece que se realizarán "preferentemente por medios electrónicos, informáticos o telemáticos". A, C y D no se recogen.',
+});
+
+// 35
+expect(35, "C");
+push({
+  question:
+    "Según el art. 3.1.a) de la Orden de 18 de enero de 1996, ¿en qué supuesto se menciona expresamente la iniciación de oficio del procedimiento para reconocer prestaciones económicas por invalidez permanente?",
+  options: [
+    "Cuando el trabajador esté en desempleo en los últimos veinticuatro meses.",
+    "Cuando se haya presentado una reclamación previa contra una resolución.",
+    "Cuando se extinga la situación de incapacidad temporal por el transcurso del plazo máximo y se emita, en su caso, alta médica por agotamiento de la incapacidad temporal.",
+    "Cuando el trabajador solicite una revisión de la contingencia por accidente de trabajo.",
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. El art. 3.1.a) indica "expresamente, cuando se extinga la situación de incapacidad temporal por el transcurso del plazo máximo (...) y se emita, en su caso, alta médica por agotamiento". A, B y D no son ese supuesto expreso.',
+});
+
+// 36
+expect(36, "D");
+push({
+  question:
+    "Conforme al art. 1.1.a) del Real Decreto 1300/1995, ¿cuál de las siguientes funciones se atribuye como competencia del INSS, cualquiera que sea la Entidad gestora o colaboradora que cubra la contingencia?",
+  options: [
+    "Emitir los partes médicos de baja, confirmación y alta en todos los procesos.",
+    "Determinar el código nacional de ocupación del trabajador en el parte de baja.",
+    "Autorizar el acceso de las empresas a la documentación clínica de atención primaria.",
+    "Evaluar, calificar y revisar la incapacidad y reconocer el derecho a prestaciones económicas contributivas por invalidez permanente, así como determinar las contingencias causantes.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 1.1.a) atribuye al INSS "Evaluar, calificar y revisar la incapacidad" y "reconocer el derecho (...) por invalidez permanente" y "determinar las contingencias causantes". A, B y C no aparecen en ese apartado.',
+});
+
+// 37
+expect(37, "A");
+push({
+  question:
+    "Según el art. 2.1 del Real Decreto 1300/1995, ¿qué estructura se constituye en cada Dirección Provincial del INSS?",
+  options: [
+    "Un Equipo de Valoración de Incapacidades, con encuadramiento orgánico y funcional en la propia Dirección Provincial.",
+    "Una unidad de inspección médica integrada en la empresa.",
+    "Una comisión mixta empresa-mutua para decidir la contingencia.",
+    "Un órgano judicial para resolver reclamaciones previas.",
+  ],
+  correctAnswer: "A",
+  explanation:
+    'Correcta: A. El art. 2.1 indica: "se constituirá un Equipo de Valoración de Incapacidades" con encuadramiento orgánico y funcional en la Dirección Provincial. B, C y D no se recogen.',
+});
+
+// 38
+expect(38, "B");
+push({
+  question:
+    "Conforme al art. 2.3.b).3.º del Real Decreto 1300/1995, ¿cuál de los siguientes es uno de los Vocales del Equipo de Valoración de Incapacidades?",
+  options: [
+    "El Director provincial del INSS, necesariamente.",
+    "Un Inspector de Trabajo y Seguridad Social, propuesto por la Inspección de Trabajo y Seguridad Social.",
+    "Un notario designado por el Ministerio.",
+    "Un representante sindical elegido por los trabajadores.",
+  ],
+  correctAnswer: "B",
+  explanation:
+    'Correcta: B. El art. 2.3.b).3.º incluye como Vocal "Un Inspector de Trabajo y Seguridad Social, propuesto por la Inspección de Trabajo y Seguridad Social". A, C y D no figuran como Vocales en el precepto.',
+});
+
+// 39
+expect(39, "C");
+push({
+  question:
+    "Según el art. 2.1 de la Orden de 18 de enero de 1996, ¿qué órgano resulta competente para iniciar, instruir y resolver los procedimientos para el reconocimiento de derechos por incapacidad laboral?",
+  options: [
+    "La Dirección General del INSS, siempre.",
+    "La Tesorería General de la Seguridad Social, por ser la entidad recaudadora.",
+    "Las Direcciones Provinciales del INSS de la provincia en que tenga su domicilio el interesado.",
+    "La inspección médica del servicio público de salud, como órgano instructor."
+  ],
+  correctAnswer: "C",
+  explanation:
+    'Correcta: C. El art. 2.1 establece que serán competentes "las Direcciones Provinciales del Instituto Nacional de la Seguridad Social de la provincia en que tenga su domicilio el interesado". A, B y D no se corresponden con esa competencia territorial.',
+});
+
+// 40
+expect(40, "D");
+push({
+  question:
+    "Conforme al art. 4.4 de la Orden de 18 de enero de 1996, si faltan datos o documentos preceptivos en la solicitud, ¿qué consecuencia prevé el precepto si el interesado no subsana en plazo?",
+  options: [
+    "Se archiva automáticamente sin posibilidad de aportar nada más.",
+    "Se concede siempre una ampliación automática de otros diez días.",
+    "Se continúa el procedimiento, pero se valorará negativamente al interesado.",
+    "Se le tendrá por desistido si no subsana en el plazo de diez días, conforme al art. 71 de la Ley 30/1992.",
+  ],
+  correctAnswer: "D",
+  explanation:
+    'Correcta: D. El art. 4.4 dispone que se requerirá subsanación en "el plazo de diez días", "teniéndosele por desistido" si no lo hiciera, conforme al art. 71 de la Ley 30/1992. A, B y C no aparecen en el texto.',
+});
+
+const payload = { questions };
+fs.writeFileSync(outPath, JSON.stringify(payload, null, 2) + "\n", "utf8");
+
+// Validation (basic)
+const parsed = JSON.parse(fs.readFileSync(outPath, "utf8"));
+if (!Array.isArray(parsed.questions) || parsed.questions.length !== 40) {
+  throw new Error(`Expected 40 questions, got ${parsed.questions?.length}`);
+}
+const dist = { A: 0, B: 0, C: 0, D: 0 };
+let run = 0;
+let last = null;
+for (const [i, q] of parsed.questions.entries()) {
+  if (!Array.isArray(q.options) || q.options.length !== 4) throw new Error(`Bad options at index ${i}`);
+  if (!(q.correctAnswer in dist)) throw new Error(`Bad correctAnswer at index ${i}`);
+  dist[q.correctAnswer]++;
+  if (q.correctAnswer === last) run++;
+  else {
+    run = 1;
+    last = q.correctAnswer;
+  }
+  if (run > 2) throw new Error(`Run>2 at index ${i}`);
+  if (typeof q.explanation !== "string" || !q.explanation.includes("art.")) throw new Error(`Missing 'art.' in explanation at index ${i}`);
+}
+
+console.log("OK", outPath);
+console.log("count", parsed.questions.length);
+console.log("dist", dist);

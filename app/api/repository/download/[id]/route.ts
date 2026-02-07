@@ -4,11 +4,14 @@ import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { logRepoDocumentAccess } from '@/lib/repository'
 import { createClient } from '@supabase/supabase-js'
+import { reportForbiddenRepositoryAction } from '@/lib/repository-security'
 import {
   getB2RepositoryS3ConfigFromEnv,
   presignB2GetObjectUrl,
   proxyRemoteFile,
 } from '@/lib/external-file'
+
+export const runtime = 'nodejs'
 
 function getSupabaseAdminClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -57,6 +60,14 @@ export async function GET(
     const canDownload = isAdmin || repoRole === 'EDITOR'
 
     if (!canAccessRepository) {
+      await reportForbiddenRepositoryAction({
+        req,
+        session,
+        attemptedAction: 'download',
+        reason: 'no-repo-access',
+        statusCode: 403,
+        details: { documentId: id, preview },
+      })
       return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
     }
 
@@ -67,6 +78,14 @@ export async function GET(
         return NextResponse.json({ error: 'Descarga no permitida para este documento' }, { status: 403 })
       }
       if (!canDownload) {
+        await reportForbiddenRepositoryAction({
+          req,
+          session,
+          attemptedAction: 'download',
+          reason: 'requires-editor-or-admin',
+          statusCode: 403,
+          details: { documentId: id, allowDownload: document.allowDownload },
+        })
         return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
       }
     }
@@ -107,13 +126,22 @@ export async function GET(
         userAgent,
       })
 
+      // If we redirect to Supabase, the browser will render cross-origin and the app
+      // can't reliably overlay a watermark due to CSP and embedding rules.
+      // For preview, proxy through our domain so the viewer page can iframe it.
+      if (preview) {
+        // In practice, redirect is the most reliable approach for inline PDF viewing
+        // and avoids server-side proxy issues (timeouts/range requests/etc.).
+        return NextResponse.redirect(data.signedUrl)
+      }
+
       return NextResponse.redirect(data.signedUrl)
     }
 
     // Caso B2 repositorio (bucket dedicado)
     const b2Cfg = getB2RepositoryS3ConfigFromEnv()
     if (b2Cfg && storageBucket === b2Cfg.bucket) {
-      const signedUrl = await presignB2GetObjectUrl(b2Cfg, document.storagePath, 60)
+      const signedUrl = await presignB2GetObjectUrl(b2Cfg, document.storagePath, preview ? 900 : 60)
 
       const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null
       const userAgent = req.headers.get('user-agent') || null
@@ -126,10 +154,17 @@ export async function GET(
         userAgent,
       })
 
+      // Preview inside the viewer uses an iframe; redirecting to the signed URL is the
+      // most reliable way to let the browser handle PDF range requests directly.
+      if (preview) {
+        return NextResponse.redirect(signedUrl)
+      }
+
       return await proxyRemoteFile({
         url: signedUrl,
         fileName: document.fileName,
-        disposition: preview ? 'inline' : 'attachment',
+        disposition: 'attachment',
+        range: req.headers.get('range'),
       })
     }
 

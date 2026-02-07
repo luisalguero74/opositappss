@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { temaCodigoVariants } from '@/lib/tema-codigo'
 import { rebalanceQuestionsABCD } from '@/lib/answer-alternation'
+import { normalizeCorrectAnswerToUpperLetter } from '@/lib/answer-normalization'
 
 function uniqueStrings(values: string[]): string[] {
   return Array.from(new Set(values))
@@ -173,13 +174,14 @@ export async function POST(req: NextRequest) {
         const newOptions = rb?.options && Array.isArray(rb.options)
           ? rb.options
           : safeParseOptions(q.options)
-        const newCorrectAnswer = rb?.correctAnswer || q.correctAnswer
+        const newCorrectAnswerRaw = rb?.correctAnswer || q.correctAnswer
+        const normalizedCorrect = normalizeCorrectAnswerToUpperLetter(newCorrectAnswerRaw, newOptions) ?? 'A'
         return prisma.question.create({
           data: {
             questionnaireId: questionnaire.id,
             text: q.text,
             options: JSON.stringify(newOptions),
-            correctAnswer: newCorrectAnswer,
+            correctAnswer: normalizedCorrect,
             explanation: q.explanation,
             temaCodigo: q.temaCodigo,
             temaNumero: q.temaNumero,

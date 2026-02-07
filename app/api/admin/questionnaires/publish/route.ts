@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { normalizeCorrectAnswerToUpperLetter } from '@/lib/answer-normalization'
 
 function normalizeTemaParte(value: unknown): string | null {
   if (!value) return null
@@ -57,10 +58,20 @@ export async function POST(req: NextRequest) {
           create: questions.map((q: any, index: number) => {
             const perQuestionTemaParte = normalizeTemaParte(q.temaParte)
 
+            const opts: string[] = Array.isArray(q.options)
+              ? q.options.map((o: any) => String(o ?? '').trim()).filter(Boolean)
+              : []
+
+            const normalizedCorrect = normalizeCorrectAnswerToUpperLetter(q.correctAnswer, opts)
+            if (!normalizedCorrect) {
+              const preview = String(q?.text || '').trim().slice(0, 80)
+              throw new Error(`correctAnswer inválida para pregunta: "${preview}"`)
+            }
+
             return {
               text: q.text,
-              options: JSON.stringify(q.options),
-              correctAnswer: q.correctAnswer,
+              options: JSON.stringify(opts),
+              correctAnswer: normalizedCorrect,
               // En el modelo Prisma, explanation es NOT NULL → usar string vacía si no viene
               explanation: typeof q.explanation === 'string' ? q.explanation : '',
               temaCodigo: q.temaCodigo || null,

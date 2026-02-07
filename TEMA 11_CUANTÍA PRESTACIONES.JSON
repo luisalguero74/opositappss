@@ -1,0 +1,484 @@
+{
+  "questions": [
+    {
+      "question": "Según el art. 2.1, si durante la incapacidad laboral transitoria se modifican las bases tarifadas de cotización, ¿cómo se recalcula la cuantía?",
+      "options": [
+        "Se mantiene siempre sobre la base existente en la fecha inicial, sin cambios.",
+        "Se calcula sobre la nueva base que le corresponda al trabajador.",
+        "Se recalcula promediando las bases de los últimos 24 meses.",
+        "Se recalcula sobre el salario real, en todo caso."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 2.1 prevé expresamente que \"si... se produjese una modificación de las bases tarifadas de cotización, la cuantía de la prestación se calculará sobre la nueva base\". Las otras respuestas niegan esta regla o traen métodos del cap. VIII (art. 49-50) sin base aquí.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 11.2, para trabajadores excluidos de asistencia sanitaria e incapacidad laboral transitoria debidas a enfermedad común o accidente no laboral, ¿qué condición temporal adicional se exige antes de poder ser beneficiarios del subsidio por invalidez provisional?",
+      "options": [
+        "Haber agotado las prestaciones por desempleo en todo caso.",
+        "Haber estado en desempleo total y subsidiado durante 6 meses.",
+        "Haber realizado reconocimientos periódicos cada 6 meses durante 2 años.",
+        "Haber permanecido de baja en su Empresa por esas contingencias durante 24 meses ininterrumpidos."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 11.2 prevé el supuesto de excluidos y exige, además, haber permanecido de baja \"durante un plazo ininterrumpido de veinticuatro meses\". Las otras respuestas confunden con el art. 25 (reconocimientos) o con el art. 28.2 (asimiladas).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 11.1, en caso de enfermedad común o accidente no laboral que haya dado lugar a incapacidad laboral transitoria, ¿qué período de cotización debe estar cubierto para ser beneficiario del subsidio por invalidez provisional?",
+      "options": [
+        "500 días dentro de los 5 años inmediatamente anteriores a la fecha de inicio de dicha incapacidad.",
+        "365 días dentro del año inmediatamente anterior al fallecimiento.",
+        "24 meses ininterrumpidos de baja en la Empresa, sin exigencia adicional.",
+        "7 años de cotización dentro de los 10 años anteriores."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 11.1 exige \"un periodo de cotización de quinientos días dentro de los cinco años inmediatamente anteriores\" a la fecha en que se inició la incapacidad laboral transitoria. Las otras opciones mezclan reglas de viudedad (art. 32.1) o requisitos distintos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 15, ¿cuándo son compatibles los subsidios de espera y asistencia con la percepción de un salario y qué puede hacer la Empresa si la suma supera la retribución anterior?",
+      "options": [
+        "Son compatibles siempre, aunque la suma exceda de la retribución previa.",
+        "Son siempre incompatibles con cualquier salario.",
+        "Son compatibles si la suma es igual o inferior a la retribución previa; si es superior, la Empresa puede reducir el salario hasta el importe anterior (o el superior que lo haya sustituido con carácter general).",
+        "Solo son compatibles si el salario es de un cargo público en excedencia forzosa."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 15 dispone que los subsidios \"serán compatibles\" con salario si la suma es \"igual o inferior\" a la retribución previa; si fuese superior, el salario \"podrá reducirse\" por la Empresa hasta el límite indicado. Las otras opciones contradicen literalmente el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 12.1.c), si tras readaptación/rehabilitación se reconoce incapacidad permanente total para la profesión habitual, ¿a cuántas mensualidades de la base de cotización equivale la cantidad a tanto alzado?",
+      "options": [
+        "A 18 mensualidades de su base de cotización.",
+        "A 40 mensualidades de su base de cotización.",
+        "A 6 mensualidades de la base reguladora.",
+        "A 12 mensualidades del salario real."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 12.1.c) señala que el pago único será \"de cuarenta mensualidades\" si se trata de incapacidad permanente total (y \"dieciocho mensualidades\" si fuese incapacidad permanente parcial para la profesión habitual). Las demás cifras corresponden a otros supuestos (art. 35: 6 mensualidades) o no aparecen.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 26.2, ¿en qué supuesto el primer grado de silicosis se equipara al segundo grado, aunque por sí solo no origine disminución de capacidad funcional?",
+      "options": [
+        "Cuando el trabajador tenga 60 o más años.",
+        "Cuando coexista con cargas familiares y falta de ingresos.",
+        "Mientras coexista con bronconeumopatía crónica (con o sin síndromes asmáticos), o con cardiopatía orgánica aunque compensada, o con un cuadro de tuberculosis sospechoso de actividad o lesiones residuales.",
+        "Cuando coexista con desempleo total y subsidiado."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 26.2 indica que el primer grado \"se equiparará... al segundo\" \"mientras coexista\" con alguna de las enfermedades listadas (a, b o c), incluyendo \"bronconeumopatía crónica\" y \"cardiopatía orgánica\". Las demás opciones son ajenas a la silicosis.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 31.4, ¿qué dos obligaciones formales se imponen a los beneficiarios del porcentaje del 70% en viudedad respecto a variaciones y declaración de rendimientos?",
+      "options": [
+        "Comunicar variaciones familiares/económicas en 30 días y presentar declaración de rendimientos (propios y de la unidad familiar) antes del 1 de marzo de cada año.",
+        "Comunicar variaciones en 6 meses y declarar rendimientos antes del 31 de diciembre.",
+        "Comunicar variaciones solo si lo requiere la Empresa y declarar rendimientos solo si hay hijos menores.",
+        "No existe obligación de comunicación ni de declaración anual."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 31.4 establece la obligación de comunicar en \"el plazo de treinta días\" las variaciones relevantes y, además, presentar \"declaración\" de rendimientos \"antes del 1 de marzo de cada año\". Las otras opciones alteran plazos o suprimen obligaciones.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 26.1, ¿cómo se consideran el segundo y tercer grado de silicosis a efectos de invalidez y a qué grados se equiparan?",
+      "options": [
+        "Se equiparan a viudedad y orfandad, respectivamente.",
+        "Se consideran lesiones no invalidantes y se equiparan a indemnización por baremo.",
+        "Solo el tercer grado se considera invalidez permanente; el segundo es incapacidad laboral transitoria.",
+        "Se consideran situaciones constitutivas de invalidez permanente y se equiparan, respectivamente, a incapacidad total para la profesión habitual y a incapacidad absoluta para todo trabajo."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 26.1 dispone que el segundo y tercer grado \"tendrán la consideración de situaciones constitutivas de invalidez permanente\" y se equiparan \"respectivamente\" a incapacidad total y absoluta. Las demás opciones mezclan figuras ajenas (art. 16 o cap. V).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 17, ¿hasta cuándo son revisables las declaraciones de incapacidad y cuáles son las causas de revisión previstas?",
+      "options": [
+        "Son revisables en todo tiempo mientras el incapacitado no haya cumplido la edad mínima para la pensión de vejez, por agravación/mejoría o por error de diagnóstico.",
+        "Solo son revisables durante los 6 meses del período de observación.",
+        "Son revisables únicamente por muerte, y solo una vez.",
+        "Son revisables siempre, incluso después de cumplir la edad mínima de vejez, pero solo por error de diagnóstico."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 17 dice que las declaraciones serán revisables \"en todo tiempo\" \"en tanto que el incapacitado no haya cumplido la edad mínima\" para vejez, por \"agravación o mejoría\" o \"error de diagnóstico\". Las demás opciones introducen límites distintos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 36.1, ¿cuál es la cuantía de la pensión temporal de orfandad para cada huérfano y qué mínimo se garantiza?",
+      "options": [
+        "El 55% de la base de cotización, con un mínimo de 250 pesetas.",
+        "El 52% de la base reguladora, con un mínimo de 5.000 pesetas.",
+        "El 20% de la base reguladora del causante (calculada según el art. 31), con un mínimo de 250 pesetas.",
+        "El 35% de la base reguladora, con un mínimo de 18 mensualidades."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 36.1 dispone que la pensión de orfandad será \"equivalente al veinte por ciento\" de la base reguladora y fija \"con un mínimo de doscientas cincuenta pesetas\". Las demás opciones mezclan porcentajes y cuantías de viudedad (art. 31), invalidez (art. 12) o pagos únicos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 5, ¿quién asume el pago del subsidio correspondiente al día del alta cuando el trabajador es dado de alta sin invalidez?",
+      "options": [
+        "Siempre el trabajador, mediante reintegro posterior.",
+        "Siempre la Empresa, con independencia de quién pagara antes.",
+        "Siempre el Instituto Nacional de Previsión, sin excepciones.",
+        "La Entidad Gestora, Mutua Patronal o Empresa autorizada que venía abonando el subsidio hasta ese día."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 5 establece que \"el pago del subsidio del día de alta correrá a cargo\" de la Entidad Gestora, Mutua Patronal o Empresa autorizada que lo venía abonando. Las demás opciones asignan el pago sin base en el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 12.2, si un trabajador declarado con incapacidad permanente total para su profesión habitual opta por pensión vitalicia, ¿qué cuantía se reconoce y en qué plazo debe ejercitarse la opción (si procede)?",
+      "options": [
+        "Una pensión vitalicia del 70% de la base reguladora, con opción en 24 mensualidades.",
+        "Una pensión vitalicia del 55% de su base de cotización; la opción debe ejercitarse dentro de los 30 días siguientes a la declaración (si está en el supuesto del art. 136.2).",
+        "Una pensión vitalicia del 52% de la base reguladora, con opción dentro de los 30 días desde el fallecimiento.",
+        "Una pensión vitalicia del 100% del salario real, con opción en 2 años desde la declaración."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 12.2 establece que, si el trabajador opta, \"la cuantía de ésta será equivalente al cincuenta y cinco por ciento de su base de cotización\" y que la opción debe ejercitarse \"dentro de los treinta días siguientes\" a la declaración (en el supuesto legal previsto). Las demás opciones mezclan porcentajes de viudedad (art. 31) o la incapacidad permanente absoluta (art. 12.4).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 30, ¿cuál es la cuantía del subsidio de defunción cuando el beneficiario es un familiar del fallecido y cuál cuando lo percibe otra persona que acredita haber pagado el sepelio?",
+      "options": [
+        "6 mensualidades de la base reguladora si es familiar; y si lo cobra otra persona, 18 mensualidades de la base.",
+        "250 pesetas si es familiar; y si lo cobra otra persona, siempre 5.000 pesetas sin necesidad de acreditar gastos.",
+        "5.000 pesetas si el beneficiario es un familiar; y si lo cobra otra persona, el importe de los gastos del sepelio con el límite máximo de 5.000 pesetas.",
+        "El 20% de la base reguladora si es familiar; y si lo cobra otra persona, el 52% de la base reguladora."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 30 establece que el subsidio consiste en \"cinco mil pesetas\" si el beneficiario es familiar; y, si lo cobra otra persona, \"el importe de los gastos\" del sepelio \"sin que pueda rebasarse\" esa cantidad. Las demás opciones confunden mínimos o porcentajes de otros artículos (art. 36, art. 35, art. 31).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A efectos del art. 12.3, ¿cómo se determina la 'profesión habitual' en caso de accidente y en caso de enfermedad común o profesional?",
+      "options": [
+        "En accidente (sea o no de trabajo), la desempeñada normalmente al tiempo de sufrirlo; en enfermedad, la actividad fundamental durante los 12 meses anteriores al inicio de la incapacidad laboral transitoria.",
+        "En accidente, la actividad del último año; en enfermedad, la actividad del último mes.",
+        "En accidente, la profesión indicada por la Empresa; en enfermedad, la que elija el trabajador.",
+        "En accidente, siempre la profesión de afiliación; en enfermedad, siempre la profesión del contrato vigente."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 12.3 dice: \"en caso de accidente, sea o no de trabajo, la desempeñada normalmente... al tiempo de sufrirlo\" y, \"en caso de enfermedad común o profesional\", la actividad fundamental en los \"doce meses anteriores\" al inicio de la incapacidad laboral transitoria. Las demás opciones alteran criterios y plazos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 4, ¿qué exigencia específica se impone en caso de maternidad para ser beneficiaria del subsidio por incapacidad laboral transitoria?",
+      "options": [
+        "Realizar un trabajo a tiempo parcial compatible con el subsidio.",
+        "Abstenerse de todo trabajo lucrativo por cuenta ajena o propia durante los periodos de descanso obligatorio y voluntario.",
+        "Suspender únicamente el trabajo por cuenta ajena, pero no el trabajo por cuenta propia.",
+        "Solicitar autorización previa del Servicio Común para trabajar durante el descanso."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 4 dispone que \"en caso de maternidad\" las beneficiarias \"deberán abstenerse de todo trabajo lucrativo\" por cuenta ajena o propia durante los periodos de descanso. Las otras opciones contradicen el \"todo trabajo\" o traen la autorización del art. 24 (enfermedad profesional), que aquí no aplica.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 12.5, ¿qué incremento corresponde al gran inválido sobre la pensión y qué alternativa puede autorizar la Entidad Gestora a petición del interesado?",
+      "options": [
+        "Un incremento del 35%; y puede sustituirse por reducción del salario por la Empresa.",
+        "Un incremento del 20%; y puede sustituirse por una indemnización a tanto alzado de 6 mensualidades.",
+        "Un incremento del 70%; y puede sustituirse por becas y salarios de estímulo.",
+        "Un incremento del 50% destinado a remunerar a la persona que le atienda; y puede autorizar su sustitución por alojamiento y cuidado en régimen de internado en una institución asistencial."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 12.5 establece que, si fuese gran inválido, la pensión se incrementa \"en un cincuenta por ciento\", destinado a remunerar al cuidador, y que la Entidad Gestora puede autorizar \"la sustitución del incremento\" por \"su alojamiento y cuidado... en régimen de internado\". Las demás opciones mezclan otros artículos (art. 36/35/15).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 49.1, ¿cómo se calcula la base reguladora para determinar la pensión de invalidez del art. 12.2 (pensión vitalicia) y qué margen de elección se concede al interesado?",
+      "options": [
+        "Es el promedio de 12 meses dividido por 12; se elige dentro de los 2 años anteriores.",
+        "Es el cociente de dividir por 28 la suma de bases de cotización de 24 meses ininterrumpidos; esos 24 meses se eligen dentro de los 7 años anteriores a la fecha en que se cause el derecho.",
+        "Es el salario real del último mes; se elige libremente cualquier periodo.",
+        "Es la base de cotización del día del alta; se elige dentro de los 5 años anteriores."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 49.1 define la base reguladora como el \"cociente\" de dividir \"por veintiocho\" la suma de bases de 24 meses, y permite elegir esos 24 meses dentro de los \"siete años\" anteriores al hecho causante. Las demás opciones alteran divisor, periodo o concepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 25, cuando se disponen reconocimientos médicos periódicos a inválidos por enfermedad profesional, ¿qué regla mínima se fija entre reconocimientos sucesivos y qué particularidad se establece sobre los plazos generales de revisión?",
+      "options": [
+        "Entre reconocimientos sucesivos deben transcurrir al menos 6 meses, y no rigen los plazos generales de revisión.",
+        "Entre reconocimientos deben transcurrir 2 años, y rigen siempre los plazos generales.",
+        "Entre reconocimientos deben transcurrir 1 mes, y se aplican los plazos del art. 19.",
+        "No existe regla mínima, y las revisiones quedan prohibidas."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 25 prevé que \"no regirán los plazos\" generales para revisiones en estos casos, pero exige que \"entre los reconocimientos sucesivos deberán transcurrir, al menos, seis meses\". Las otras opciones contradicen literalmente el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 31.1, ¿qué porcentaje se aplica con carácter general a la base reguladora para calcular la pensión de viudedad?",
+      "options": [
+        "El 20%.",
+        "El 75%.",
+        "El 55%.",
+        "El 52%."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 31.1 indica: \"El porcentaje... para la determinación de la cuantía de la pensión de viudedad será del 52 por ciento\". Las demás cifras pertenecen a otras prestaciones (art. 2/10, art. 12.2, art. 36.1).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 21.a), si tras una revisión se reconoce otro grado que da derecho a una pensión de cuantía diferente, ¿desde cuándo se percibe la nueva pensión?",
+      "options": [
+        "Desde el primer día del mes siguiente a la revisión médica.",
+        "Desde la fecha de solicitud de revisión.",
+        "Desde el día siguiente a la fecha de la resolución definitiva en que se haya declarado el nuevo grado.",
+        "Desde el mismo día de la resolución definitiva, sin esperar al día siguiente."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 21.a) ordena que \"pasará a percibir la nueva pensión a partir del día siguiente a la fecha de la resolución definitiva\". Las demás opciones adelantan o alteran el dies a quo sin respaldo en el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 14.3, ¿en qué momentos debe satisfacerse la cantidad a tanto alzado del art. 12.1.c)?",
+      "options": [
+        "Solo cuando el trabajador solicite revisión a los 2 años.",
+        "Siempre al cumplir 24 mensualidades de subsidio de espera.",
+        "Al finalizar el tratamiento/proceso y previa revisión si procediera; o de forma inmediata si la invalidez se declara sin posibilidad razonable de recuperación por resolución definitiva de la Comisión competente.",
+        "Únicamente al inicio del tratamiento, como anticipo."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 14.3 indica dos momentos: \"al dar por finalizado el... tratamiento\" (con revisión si procede) y, si se declara \"sin posibilidad razonable de recuperación\" por resolución definitiva, \"con carácter inmediato\". Las demás opciones no están en el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 16.2, ¿cuál es la regla general de incompatibilidad de las indemnizaciones por lesiones permanentes no invalidantes y cuál es la excepción de compatibilidad que se contempla?",
+      "options": [
+        "Son incompatibles con las prestaciones económicas de invalidez permanente; pero son compatibles si las lesiones indemnizadas son totalmente independientes de las tomadas en consideración para declarar la invalidez permanente.",
+        "Son compatibles siempre, porque las lesiones no son invalidantes.",
+        "Son incompatibles incluso si las lesiones son independientes.",
+        "Solo son compatibles si el causante era pensionista de vejez."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 16.2 declara que las cantidades a tanto alzado \"serán incompatibles\" con las prestaciones de invalidez permanente, \"sin embargo\" admite compatibilidad cuando las lesiones son \"totalmente independientes\" de las consideradas para declarar la invalidez. Las otras opciones eliminan o deforman la excepción.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 12.1.a), ¿qué porcentajes se aplican al subsidio de espera en incapacidad permanente parcial y total, y sobre qué base se calculan?",
+      "options": [
+        "20% (parcial) y 52% (total), calculados sobre la base reguladora del causante.",
+        "52% (parcial) y 70% (total), calculados sobre la base reguladora de viudedad.",
+        "75% (parcial) y 100% (total), calculados sobre el salario real.",
+        "35% (parcial) y 55% (total), calculados sobre la misma base de cotización que sirvió para la incapacidad laboral transitoria de la que derive."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 12.1.a) fija que el subsidio de espera es del \"treinta y cinco por ciento\" (incapacidad permanente parcial) y \"cincuenta y cinco por ciento\" (incapacidad permanente total), ambos calculados sobre \"la misma base de cotización\" usada para la incapacidad laboral transitoria. Las demás opciones mezclan viudedad/orfandad o inventan porcentajes.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 9.1, ¿cuál es la duración máxima del periodo de observación en enfermedad profesional y quién puede prorrogarlo?",
+      "options": [
+        "Máximo 12 meses, prorrogables indefinidamente por la Empresa.",
+        "Máximo 6 meses, prorrogables por igual plazo por la Comisión Técnica Calificadora Central a propuesta de la Provincial.",
+        "Máximo 24 meses, prorrogables por el Juzgado de lo Social.",
+        "Máximo 3 meses, prorrogables solo por el Instituto Nacional de Previsión."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 9.1 fija \"una duración máxima de seis meses\" y permite prórroga \"por igual plazo\" por la Comisión Técnica Calificadora Central a propuesta de la Provincial. Las demás opciones inventan plazos/órganos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 23.a), en invalidez permanente derivada de enfermedad profesional, si el trabajador está al servicio de una Empresa en el momento del reconocimiento médico y cesa en el trabajo por la declaración de invalidez, ¿cuál es la fecha inicial del devengo de la pensión?",
+      "options": [
+        "El mismo día del reconocimiento médico.",
+        "El día siguiente al cese en el trabajo.",
+        "El día primero del mes siguiente al cese.",
+        "El día siguiente al inicio del período de observación, necesariamente."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 23.a) fija que, si está al servicio de una Empresa y cesa por la declaración, la fecha será \"la del día siguiente al cese\". Las otras opciones no coinciden con la regla prevista.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el art. 10, ¿qué cuantía tiene el subsidio por invalidez provisional y qué base se toma como referencia?",
+      "options": [
+        "Equivale al 75% de la misma base de cotización usada para calcular la incapacidad laboral transitoria de la que derive.",
+        "Equivale al 52% de la base reguladora de viudedad.",
+        "Equivale al 35% del salario real del inválido.",
+        "Equivale a una cantidad a tanto alzado de 18 mensualidades."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 10 dispone que la invalidez provisional da derecho \"a un subsidio equivalente al setenta y cinco por ciento\" de la misma base de cotización usada para la incapacidad laboral transitoria de la que deriva. Las demás confunden con viudedad (art. 31) o con subsidios/pagos únicos del art. 12.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 12.2, ¿qué ocurre si transcurre el plazo para optar por la pensión vitalicia sin ejercitar la opción, y qué regla especial se aplica si el trabajador tuviera 60 o más años en la fecha de declaración de incapacidad?",
+      "options": [
+        "Se pierde definitivamente el derecho; y con 60 o más años se abre un nuevo plazo de 30 días.",
+        "Se entiende ejercitada la opción a favor del pago a tanto alzado; y con 60 o más años se exige ratificación expresa.",
+        "Se entiende efectuada la opción a favor de la pensión vitalicia; y si tenía 60 o más años, la opción se entiende realizada en todo caso a favor de la pensión vitalicia.",
+        "Se prorroga automáticamente el plazo de opción; y con 60 o más años se aplica el 70%."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 12.2 dispone: \"Transcurrido el mencionado plazo sin ejercitar el derecho de opción se entenderá efectuado a favor de la pensión vitalicia\" y añade: \"si el trabajador tuviese sesenta o más años... el derecho de opción se entenderá realizado en favor de la pensión vitalicia\". Las otras respuestas inventan efectos y porcentajes.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 24, ¿qué requisito previo debe cumplir un pensionista por enfermedad profesional para trabajar por cuenta ajena y qué deber específico se impone al empresario?",
+      "options": [
+        "El trabajador necesita autorización judicial; y el empresario debe cotizar por bases tarifadas especiales.",
+        "El trabajador solo debe comunicarlo en 30 días; y el empresario no tiene deber alguno.",
+        "El trabajador puede trabajar libremente; y el empresario debe reducirle el salario si supera la retribución anterior.",
+        "El trabajador debe obtener previamente autorización del Servicio Común; y el empresario debe comprobar, antes de admitirle, que dicha autorización existe."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 24.1 exige \"autorización\" previa del Servicio Común para trabajar; y el art. 24.2 obliga al empresario a \"comprobar... que han obtenido la autorización\" antes de admitirles. Las demás opciones confunden con art. 31.4 (30 días), art. 15 (reducción salarial) o inventan requisitos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 26.4, ¿qué particularidad tiene el derecho a pensión del trabajador declarado silicótico de segundo grado y qué percibe si se acoge a medidas de recuperación?",
+      "options": [
+        "Tiene derecho a pensión solo si acredita cargas familiares; y si se acoge a recuperación se suspende la pensión.",
+        "Tiene derecho a pensión solo si es menor de 18 años; y si se acoge a recuperación percibe una indemnización por baremo.",
+        "Tiene derecho a pensión cualquiera que sea su edad; y si se acoge a medidas de recuperación, además de la pensión percibirá solo las becas y salarios de estímulo que puedan corresponderle.",
+        "Tiene derecho a pensión solo tras 2 años desde la declaración; y si se acoge a recuperación percibe el 70% de la base reguladora."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 26.4 indica que el silicótico de segundo grado tendrá derecho a pensión \"cualquiera que fuese su edad\" y que, si se acoge a recuperación, \"además de la pensión\" percibirá \"sólo las becas y salarios de estímulo\". Las demás opciones inventan condiciones.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 31.2, ¿cuándo se entiende que la pensión de viudedad constituye la principal o única fuente de ingresos del pensionista a efectos de aplicar el 70%?",
+      "options": [
+        "Cuando la pensión supere el 75% del salario mínimo interprofesional.",
+        "Cuando el importe anual de la pensión represente, como mínimo, el 50% del total de los ingresos del pensionista, en cómputo anual.",
+        "Cuando existan cargas familiares, sin necesidad de valorar ingresos.",
+        "Cuando el pensionista haya comunicado variaciones en 30 días."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 31.2 precisa que se entiende principal o única fuente cuando \"el importe anual de la misma represente, como mínimo, el 50 por 100 del total de los ingresos\". Las otras opciones toman conceptos del propio art. 31.2 (75% SMI para cargas familiares) pero no definen la principal fuente, o mezclan obligaciones del art. 31.4.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "En el art. 3, ¿qué ocurre con la acción protectora por incapacidad laboral transitoria NO derivada de accidente de trabajo o enfermedad profesional para ciertos trabajadores del Régimen General?",
+      "options": [
+        "Quedan exceptuados si están excluidos de asistencia sanitaria según el art. 83.a) a') de la Ley; y los padres de familia numerosa que ejerciten la opción indicada gozarán también de esa cobertura.",
+        "Quedan protegidos siempre, con independencia de estar o no excluidos de asistencia sanitaria.",
+        "Quedan exceptuados únicamente si la incapacidad deriva de accidente de trabajo.",
+        "Quedan exceptuados todos los trabajadores en excedencia forzosa."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 3 indica que \"quedarán exceptuados\" de esta acción protectora quienes estén excluidos de asistencia sanitaria y añade que \"los padres de familia numerosa que hagan uso de la opción\" gozarán también de la cobertura. Las demás opciones alteran el supuesto (AT/EP) o introducen figuras del art. 28.2.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 32.1, respecto al requisito del apartado b) del art. 160 de la Ley (para viudas), ¿qué periodo de cotización se exige en este Reglamento?",
+      "options": [
+        "6 meses de observación en enfermedad profesional.",
+        "500 días dentro de los 7 años anteriores al fallecimiento.",
+        "24 meses ininterrumpidos de baja en la Empresa.",
+        "500 días dentro de los 5 años anteriores al fallecimiento del causante."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 32.1 fija expresamente que \"el período de cotización requerido será el de quinientos días dentro de los cinco años anteriores\" al fallecimiento del causante. Las otras opciones mezclan plazos y figuras de otros artículos (art. 11.2, art. 9.1).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 2.1, ¿en qué consiste la prestación económica por incapacidad laboral transitoria y sobre qué base se calcula?",
+      "options": [
+        "En una cantidad a tanto alzado equivalente a 18 mensualidades de su base de cotización.",
+        "En un subsidio del 100% del salario real del mes anterior, siempre.",
+        "En un subsidio del 55% de la base reguladora, calculado sobre los últimos 12 meses.",
+        "En un subsidio equivalente al 75% de la base de cotización del trabajador en la fecha de inicio legal de la incapacidad."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 2.1 dice literalmente que la prestación \"consistirá en un subsidio equivalente al setenta y cinco por ciento de la base de cotización del trabajador\" en la fecha de inicio legal de la incapacidad. Las demás opciones mezclan reglas de otras prestaciones (art. 12) o inventan porcentajes/base.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 1.1, ¿qué determina la cuantía de las prestaciones económicas del Régimen General para cada contingencia y situación protegida?",
+      "options": [
+        "La que se fije exclusivamente en disposiciones de aplicación y desarrollo posteriores.",
+        "La que se fija en la Ley de la Seguridad Social de 21/04/1966 y en el propio Reglamento.",
+        "La que resulte de la negociación colectiva de cada sector, sin remisión a Ley o Reglamento.",
+        "La que determine el Ministerio de Trabajo caso por caso mediante resoluciones individuales."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 1.1 establece como norma general que \"la cuantía de las prestaciones económicas del Régimen General será la que se fija en la citada Ley y en el presente Reglamento\". Las otras opciones contradicen esa doble fuente (Ley + Reglamento) o inventan vías no previstas.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 19, ¿cuándo puede solicitarse la primera revisión y las posteriores, y qué excepción se establece?",
+      "options": [
+        "La primera solo tras 2 años desde la declaración de incapacidad; las posteriores tras 1 año desde el acuerdo firme anterior; y esos plazos no se aplican en caso de revisión por muerte.",
+        "La primera tras 6 meses; las posteriores cada 6 meses; sin excepciones.",
+        "La primera tras 24 meses y las posteriores cada 2 años; y se aplican también en caso de muerte.",
+        "La revisión es libre en cualquier momento sin plazos."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 19 establece que \"la primera revisión sólo se podrá solicitar después de transcurridos dos años\" y las posteriores \"después de transcurridos un año\" desde el acuerdo firme anterior, y añade: \"Los plazos precedentes no serán aplicables en el caso de revisión por muerte\". Las otras opciones no coinciden con el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 12.1.b), ¿cómo se determina la cuantía del subsidio de asistencia en incapacidad permanente?",
+      "options": [
+        "Es una cantidad fija de 5.000 pesetas.",
+        "Es siempre el 75% de la base de cotización.",
+        "Es igual a la del subsidio de espera que corresponda al trabajador.",
+        "Depende de si el trabajador tiene cargas familiares."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 12.1.b) dispone que el subsidio de asistencia \"cuya cuantía será igual a la del subsidio de espera\". Las otras opciones corresponden a otros artículos: 75% (art. 2/10), 5.000 pesetas (art. 30) o cargas familiares (art. 31.2).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el art. 26.3, ¿qué caracteriza al tercer grado de silicosis y en qué supuesto se equiparan el primero y segundo grado al tercero?",
+      "options": [
+        "El tercer grado exige 500 días de cotización; y el primero y segundo se equiparan al tercero si hay bronconeumopatía crónica.",
+        "El tercer grado implica siempre una indemnización a tanto alzado; y el primero y segundo se equiparan al tercero solo por error de diagnóstico.",
+        "El tercer grado se manifiesta al menor esfuerzo físico y es incompatible con todo trabajo; y el primero y segundo grado se equiparan al tercero mientras concurran con afecciones tuberculosas activas.",
+        "El tercer grado se define por 24 meses de baja; y el primero y segundo se equiparan al tercero si hay cargas familiares."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 26.3 define el tercer grado: \"la enfermedad se manifieste al menor esfuerzo físico\" y resulte \"incompatible con todo trabajo\"; y añade que el primero y segundo se equipararán al tercero \"mientras\" concurra con tuberculosis \"activa\". Las demás opciones mezclan requisitos de otros artículos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 29.2, además de las situaciones asimiladas del art. 28.2, ¿qué situación se considera asimilada al alta para causar prestaciones de muerte y supervivencia?",
+      "options": [
+        "La percepción de becas y salarios de estímulo en procesos de recuperación.",
+        "La realización de trabajos por cuenta ajena sin autorización previa del Servicio Común.",
+        "La permanencia en incapacidad laboral transitoria por enfermedad común durante 6 meses.",
+        "La permanencia en filas para el cumplimiento del servicio militar, obligatorio o voluntario para anticiparlo."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 29.2 dice que se considerará situación asimilada al alta, a estos efectos, \"la de permanencia en filas para el cumplimiento del servicio militar\", obligatorio o voluntario para anticiparlo. Las otras opciones no están previstas como asimiladas.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 5, si el día del alta fuera víspera de festivo (o festivos), ¿qué derecho mantiene el trabajador respecto del subsidio?",
+      "options": [
+        "Tiene derecho a percibir subsidio por los días no laborales (festivos), con cargo a las mismas Entidades o Empresas.",
+        "Pierde el derecho al subsidio desde el día del alta, incluso en festivos.",
+        "Percibe subsidio solo si el festivo es domingo, no en otros festivos.",
+        "Percibe subsidio únicamente si lo autoriza expresamente el Ministerio de Trabajo."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 5 añade: \"Si el día del alta fuera víspera de festivo, o festivos, el trabajador tendrá derecho a percibir subsidio por tales días no laborales\". Las otras opciones introducen restricciones inexistentes.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 21.e), si un trabajador que había percibido una cantidad a tanto alzado pasa, tras revisión, a un grado que da derecho a pensión, ¿cuándo se devenga y cuándo empieza a percibirse la pensión?",
+      "options": [
+        "Se devenga y se percibe íntegramente desde el día siguiente, sin deducciones.",
+        "Se devenga desde el día siguiente a la resolución definitiva, pero no se empieza a percibir hasta deducir el importe correspondiente a las mensualidades del alzado que excedan de las transcurridas desde que se reconoció el derecho.",
+        "Se devenga desde el primer día del mes siguiente, y se percibe desde el año siguiente.",
+        "Se devenga desde la solicitud y se percibe solo si devuelve íntegramente el alzado."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 21.e) establece que la pensión \"se devengará a partir del día siguiente\" a la resolución definitiva, pero \"no comenzará a percibirse hasta\" que se deduzca el importe de las mensualidades del alzado que \"excedan\" de las transcurridas desde el reconocimiento. Las otras opciones suprimen o deforman la regla de deducción.",
+      "difficulty": "hard"
+    }
+  ]
+}

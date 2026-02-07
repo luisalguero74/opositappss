@@ -85,6 +85,76 @@ interface PreguntaGenerada {
   dificultad: 'facil' | 'media' | 'dificil'
 }
 
+function normalizarRespuestaCorrecta(valor: unknown): number {
+  // Esperado: 0..3. A veces viene 1..4 o como letra ("A", "b)").
+  if (typeof valor === 'number' && Number.isFinite(valor)) {
+    if (valor >= 0 && valor <= 3) return Math.trunc(valor)
+    if (valor >= 1 && valor <= 4) return Math.trunc(valor - 1)
+    return 0
+  }
+
+  if (typeof valor === 'string') {
+    const v = valor.trim().toUpperCase()
+    if (!v) return 0
+    if (/^[0-4]$/.test(v)) {
+      const n = Number.parseInt(v, 10)
+      if (n >= 0 && n <= 3) return n
+      if (n >= 1 && n <= 4) return n - 1
+    }
+
+    const m = v.match(/^([ABCD])\s*[)\].\-:]?/) // A, A), A.
+    if (m) {
+      return { A: 0, B: 1, C: 2, D: 3 }[m[1] as 'A' | 'B' | 'C' | 'D']
+    }
+  }
+
+  return 0
+}
+
+function normalizarOpciones(valor: unknown): string[] {
+  if (Array.isArray(valor)) {
+    return valor
+      .filter((x): x is string => typeof x === 'string')
+      .map(s => s.trim())
+      .filter(Boolean)
+      .slice(0, 4)
+  }
+
+  if (valor && typeof valor === 'object') {
+    const obj = valor as Record<string, unknown>
+    const a = typeof obj.a === 'string' ? obj.a : typeof obj.A === 'string' ? obj.A : undefined
+    const b = typeof obj.b === 'string' ? obj.b : typeof obj.B === 'string' ? obj.B : undefined
+    const c = typeof obj.c === 'string' ? obj.c : typeof obj.C === 'string' ? obj.C : undefined
+    const d = typeof obj.d === 'string' ? obj.d : typeof obj.D === 'string' ? obj.D : undefined
+    const arr = [a, b, c, d]
+      .filter((x): x is string => typeof x === 'string')
+      .map(s => s.trim())
+      .filter(Boolean)
+      .slice(0, 4)
+    return arr
+  }
+
+  return []
+}
+
+function extraerArrayPreguntas(parsed: any): any[] {
+  if (Array.isArray(parsed)) return parsed
+  if (parsed && typeof parsed === 'object') {
+    const candidates = [
+      (parsed as any).preguntas,
+      (parsed as any).questions,
+      (parsed as any).items,
+      (parsed as any).data,
+      (parsed as any).result
+    ]
+    const fromKnown = candidates.find(v => Array.isArray(v))
+    if (Array.isArray(fromKnown)) return fromKnown
+    const firstArray = Object.values(parsed).find(v => Array.isArray(v))
+    if (Array.isArray(firstArray)) return firstArray
+  }
+  return []
+}
+
 // Función para calcular similitud entre textos (Jaccard Index)
 function calculateSimilarity(text1: string, text2: string): number {
   const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9áéíóúñü\s]/g, '').trim()
@@ -222,9 +292,13 @@ export async function POST(req: NextRequest) {
       
       if (preguntasLGSS.length === 0) {
         console.error('[POST] ❌ No se generaron preguntas sobre LGSS')
-        return NextResponse.json({ 
-          error: 'No se pudo generar preguntas sobre LGSS. Verifica que la API key de Groq esté configurada correctamente.' 
-        }, { status: 500 })
+        return NextResponse.json(
+          {
+            error: 'No se pudo generar preguntas sobre LGSS',
+            details: 'Groq devolvió 0 preguntas o la respuesta no pasó validación/parseo.'
+          },
+          { status: 500 }
+        )
       }
 
       // Guardar preguntas
@@ -500,7 +574,7 @@ async function generarPreguntasLGSS(
   // Validar que Groq API Key esté disponible
   if (!process.env.GROQ_API_KEY) {
     console.error('[LGSS] ❌ GROQ_API_KEY no está definida en variables de entorno')
-    return []
+    throw new Error('GROQ_API_KEY no está configurada')
   }
   
   // 🔍 SISTEMA RAG: Consultar documentos legales de la biblioteca
@@ -519,13 +593,17 @@ async function generarPreguntasLGSS(
     console.warn('[LGSS] ⚠️ No se encontraron documentos de LGSS en la biblioteca')
   }
 
+  const systemContentLGSS = documentosLegales.length > 0
+    ? 'Eres un experto jurídico en Seguridad Social, especializado en la preparación de oposiciones del Cuerpo Administrativo de la Seguridad Social (C1). La base jurídica (artículos, números, plazos, órganos, requisitos) debe salir EXCLUSIVAMENTE de la información contenida en los documentos legales proporcionados como contexto. Puedes usar tu conocimiento general solo para mejorar la redacción y la claridad de las preguntas y explicaciones, sin añadir datos jurídicos nuevos que no aparezcan en esos documentos. Cita de forma muy fiel (preferentemente de manera textual) los artículos relevantes. Respondes siempre en formato JSON válido y bien formado.'
+    : 'Eres un experto jurídico en Seguridad Social (C1). No se ha proporcionado contexto documental (RAG). Genera preguntas en formato JSON válido, basándote en normativa vigente de forma prudente: si no estás seguro de un número de artículo o de una cita literal, evita afirmaciones numéricas o citas textuales inventadas y prioriza formulaciones verificables. Responde SOLO con JSON.'
+
   try {
     console.log('[LGSS] Llamando a Groq API con prompt mejorado y RAG...')
     const completion = await callGroqWithRetry(
       [
         {
           role: 'system',
-          content: 'Eres un experto jurídico en Seguridad Social, especializado en la preparación de oposiciones del Cuerpo Administrativo de la Seguridad Social (C1). La base jurídica (artículos, números, plazos, órganos, requisitos) debe salir EXCLUSIVAMENTE de la información contenida en los documentos legales proporcionados como contexto. Puedes usar tu conocimiento general solo para mejorar la redacción y la claridad de las preguntas y explicaciones, sin añadir datos jurídicos nuevos que no aparezcan en esos documentos. Cita de forma muy fiel (preferentemente de manera textual) los artículos relevantes. Respondes siempre en formato JSON válido y bien formado.'
+          content: systemContentLGSS
         },
         {
           role: 'user',
@@ -545,18 +623,42 @@ async function generarPreguntasLGSS(
       return []
     }
 
-    // Intentar parsear la respuesta JSON
-    let preguntas: PreguntaGenerada[] = []
+    // Intentar parsear la respuesta JSON (tolerante a ```json, texto extra, wrappers)
+    let parsed: any
     try {
-      // Limpiar la respuesta de caracteres no deseados
-      const cleanedResponse = responseText.trim()
-      preguntas = JSON.parse(cleanedResponse) as PreguntaGenerada[]
-      console.log(`[LGSS] ✅ Parseadas ${preguntas.length} preguntas sobre LGSS`)
-    } catch (parseError) {
-      console.error('[LGSS] Error parseando JSON:', parseError)
-      console.log('[LGSS] Respuesta recibida (primeros 500 caracteres):', responseText.substring(0, 500))
-      return []
+      parsed = JSON.parse(responseText.trim())
+    } catch (e) {
+      const arrayMatch = responseText.match(/\[[\s\S]*\]/)
+      if (arrayMatch) {
+        parsed = JSON.parse(arrayMatch[0])
+      } else {
+        const objMatch = responseText.match(/\{[\s\S]*\}/)
+        if (objMatch) {
+          parsed = JSON.parse(objMatch[0])
+        } else {
+          console.error('[LGSS] Error parseando JSON:', e)
+          console.log('[LGSS] Respuesta recibida (primeros 500 caracteres):', responseText.substring(0, 500))
+          throw new Error('La respuesta de Groq no contiene JSON parseable (array/obj).')
+        }
+      }
     }
+
+    const items = extraerArrayPreguntas(parsed)
+    const preguntas = items
+      .map((p: any) => {
+        const opciones = normalizarOpciones(p?.opciones ?? p?.options ?? p?.answers)
+        const respuestaCorrecta = normalizarRespuestaCorrecta(p?.respuestaCorrecta ?? p?.correctAnswer ?? p?.correct ?? p?.answer)
+        return {
+          pregunta: String(p?.pregunta ?? p?.question ?? p?.text ?? '').trim(),
+          opciones,
+          respuestaCorrecta,
+          explicacion: String(p?.explicacion ?? p?.explanation ?? '').trim(),
+          dificultad: normalizarDificultad((p?.dificultad ?? p?.difficulty ?? 'media') as string)
+        } satisfies PreguntaGenerada
+      })
+      .filter((p: PreguntaGenerada) => p.pregunta && p.opciones.length === 4)
+
+    console.log(`[LGSS] ✅ Parseadas ${preguntas.length} preguntas sobre LGSS`)
 
     if (!Array.isArray(preguntas) || preguntas.length === 0) {
       console.error('[LGSS] Respuesta no es un array válido o está vacía')
@@ -617,7 +719,7 @@ async function generarPreguntasLGSS(
       console.error('[LGSS] Failed to log error:', logErr)
     })
     
-    return []
+    throw new Error(errorMessage)
   }
 }
 
@@ -677,13 +779,17 @@ Genera preguntas COMPLETAMENTE NUEVAS sobre aspectos diferentes del tema.
     console.log(`[Tema ${temaNumero}] ⚠️ No se encontraron documentos legales relevantes en biblioteca`)
   }
 
+  const systemContentTema = documentosRAG.length > 0
+    ? 'Eres un experto jurídico en oposiciones del Cuerpo Administrativo de la Seguridad Social (C1). La base jurídica (artículos, números, plazos, órganos, requisitos) debe salir EXCLUSIVAMENTE de la información contenida en los documentos legales oficiales proporcionados (BOE, textos consolidados, Aranzadi, Universidad de Deusto, etc.). Puedes usar tu conocimiento general solo para mejorar la redacción y la claridad de las preguntas y explicaciones, sin añadir datos jurídicos nuevos que no aparezcan en esos documentos. Cita de forma muy fiel (preferentemente de manera textual) los artículos relevantes. Responde siempre en JSON válido.'
+    : 'Eres un experto en crear preguntas de examen C1. No se ha proporcionado contexto documental (RAG). Genera preguntas en JSON válido y bien formado. Evita inventar citas textuales o números de artículo si no estás seguro; prioriza formulaciones verificables y consistentes. Responde siempre en JSON válido.'
+
   try {
     console.log(`[Tema ${temaNumero}] Llamando a Groq API con RAG...`)
     const completion = await callGroqWithRetry(
       [
         {
           role: 'system',
-          content: 'Eres un experto jurídico en oposiciones del Cuerpo Administrativo de la Seguridad Social (C1). La base jurídica (artículos, números, plazos, órganos, requisitos) debe salir EXCLUSIVAMENTE de la información contenida en los documentos legales oficiales proporcionados (BOE, textos consolidados, Aranzadi, Universidad de Deusto, etc.). Puedes usar tu conocimiento general solo para mejorar la redacción y la claridad de las preguntas y explicaciones, sin añadir datos jurídicos nuevos que no aparezcan en esos documentos. Cita de forma muy fiel (preferentemente de manera textual) los artículos relevantes. Responde siempre en JSON válido.'
+          content: systemContentTema
         },
         {
           role: 'user',
@@ -717,32 +823,20 @@ Genera preguntas COMPLETAMENTE NUEVAS sobre aspectos diferentes del tema.
       }
     }
 
-    // Normalizar formato
-    let preguntas: any = Array.isArray(parsed)
-      ? parsed
-      : (parsed.preguntas || parsed.questions || parsed.items || parsed.data || parsed.result || [])
-
-    // Algunos proveedores fuerzan json_object y envuelven el array en claves arbitrarias.
-    // Si no encontramos un array en las claves esperadas, buscamos el primer valor que sea array.
-    if (!Array.isArray(preguntas) && parsed && typeof parsed === 'object') {
-      const firstArray = Object.values(parsed).find(v => Array.isArray(v))
-      if (Array.isArray(firstArray)) {
-        preguntas = firstArray
-      }
-    }
-
-    if (!Array.isArray(preguntas)) {
-      preguntas = []
-    }
-    
-    return preguntas.map((p: any) => ({
-      pregunta: p.pregunta || p.question || p.text,
-      opciones: p.opciones || p.options || [],
-      respuestaCorrecta: typeof p.respuestaCorrecta === 'number' ? p.respuestaCorrecta : 
-                         (p.correctAnswer || p.correct || 0),
-      explicacion: p.explicacion || p.explanation || '',
-      dificultad: normalizarDificultad((p.dificultad || p.difficulty || 'media') as string)
-    }))
+    const preguntas = extraerArrayPreguntas(parsed)
+    return preguntas
+      .map((p: any) => {
+        const opciones = normalizarOpciones(p?.opciones ?? p?.options ?? p?.answers)
+        const respuestaCorrecta = normalizarRespuestaCorrecta(p?.respuestaCorrecta ?? p?.correctAnswer ?? p?.correct ?? p?.answer)
+        return {
+          pregunta: String(p?.pregunta ?? p?.question ?? p?.text ?? '').trim(),
+          opciones,
+          respuestaCorrecta,
+          explicacion: String(p?.explicacion ?? p?.explanation ?? '').trim(),
+          dificultad: normalizarDificultad((p?.dificultad ?? p?.difficulty ?? 'media') as string)
+        } satisfies PreguntaGenerada
+      })
+        .filter((p: PreguntaGenerada) => p.pregunta && p.opciones.length === 4)
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     const errorStack = error instanceof Error ? error.stack : undefined

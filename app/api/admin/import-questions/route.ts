@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { normalizeCorrectAnswerToUpperLetter } from '@/lib/answer-normalization'
 
 function normalizeTemaParte(value: unknown): string | null {
   if (!value) return null
@@ -53,10 +54,21 @@ export async function POST(req: NextRequest) {
             type: q.type || 'theory',
             published: true,
             questions: {
-              create: q.questions.map((question: any) => ({
-                text: question.text,
-                options: JSON.stringify(question.options),
-                correctAnswer: question.correctAnswer,
+              create: q.questions.map((question: any, idx: number) => {
+                const opts = Array.isArray(question.options) ? question.options.map((o: any) => String(o ?? '').trim()) : []
+                if (opts.length !== 4) {
+                  throw new Error(`Pregunta ${idx + 1}: opciones inválidas (se requieren 4)`)
+                }
+
+                const normalizedCorrect = normalizeCorrectAnswerToUpperLetter(question.correctAnswer, opts)
+                if (!normalizedCorrect) {
+                  throw new Error(`Pregunta ${idx + 1}: correctAnswer inválida; debe ser A/B/C/D, índice 0-3/1-4, o texto exacto de una opción`)
+                }
+
+                return {
+                  text: String(question.text ?? '').trim(),
+                  options: JSON.stringify(opts),
+                  correctAnswer: normalizedCorrect,
                 explanation: question.explanation || '',
                 temaCodigo: question.temaCodigo || null,
                 temaNumero: question.temaNumero || null,
@@ -64,7 +76,8 @@ export async function POST(req: NextRequest) {
                 temaTitulo: question.temaTitulo || null,
                 difficulty: question.difficulty || 'media',
                 legalBasis: question.legalBasis || null
-              }))
+                }
+              })
             }
           }
         })

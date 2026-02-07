@@ -169,25 +169,27 @@ function extractQuestionsFromText(text: string) {
       new RegExp(`${number}[.:)]*\\s*([a-dA-D])`, 'i')
     ]
 
-    let correctAnswer = 'a'
+    let correctAnswer = 'A'
     let explanation = 'Revise el material de estudio para esta pregunta'
 
     for (const solPattern of solutionPatterns) {
       const solutionMatch = solutionsSection.match(solPattern)
       if (solutionMatch) {
-        correctAnswer = solutionMatch[1].toLowerCase()
+        correctAnswer = String(solutionMatch[1] || '').toUpperCase()
         explanation = solutionMatch[2]?.trim().replace(/\s+/g, ' ').substring(0, 400) || explanation
         console.log(`[PDF Extract] Pregunta ${number}: solución encontrada - ${correctAnswer}`)
         break
       }
     }
 
-    const letterIndex = correctAnswer.charCodeAt(0) - 'a'.charCodeAt(0)
-    const correctAnswerLetter = letterIndex >= 0 && letterIndex < 4 ? correctAnswer : 'a'
+    const letterIndex = correctAnswer.charCodeAt(0) - 'A'.charCodeAt(0)
+    const correctAnswerLetter = letterIndex >= 0 && letterIndex < 4 ? correctAnswer : 'A'
+
+    const trimmedOptions = options.map(o => String(o || '').trim())
 
     questions.push({
       text: questionText.includes('?') ? questionText : `${questionText}?`,
-      options,
+      options: trimmedOptions,
       correctAnswer: correctAnswerLetter,
       explanation
     })

@@ -1,0 +1,1810 @@
+{
+  "generatedAt": "2026-02-05T00:10:35.616Z",
+  "totals": {
+    "candidateQuestions": 1170,
+    "candidateQuestionnaires": 30,
+    "exportedQuestionnaires": 30
+  },
+  "questionnaires": [
+    {
+      "questionnaireId": "imported-1770073152464",
+      "title": "Importado - 120 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:59:12.815Z",
+      "counts": {
+        "missingTemaCodigo": 120,
+        "missingTemaParte": 120,
+        "missingTemaTitulo": 120
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rwj1l00dbl204d066tlm3",
+          "createdAt": "2026-02-02T23:00:37.353Z",
+          "textSnippet": "Según el art. 10.1.a), ¿en qué supuestos NO se exige el plazo de un año inmediatamente anterior de residencia?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rwii200d9l204oddkgy0q",
+          "createdAt": "2026-02-02T23:00:36.650Z",
+          "textSnippet": "Según el art. 11.5, ¿qué prestaciones NO se tendrán en cuenta para el cómputo de rentas del año en curso en ciertos supuestos?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rwhyl00d7l204zacuzup0",
+          "createdAt": "2026-02-02T23:00:35.949Z",
+          "textSnippet": "Según el art. 12, ¿qué naturaleza y periodicidad tiene la prestación del ingreso mínimo vital?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rwhf300d5l2041lo67jnq",
+          "createdAt": "2026-02-02T23:00:35.248Z",
+          "textSnippet": "Conforme al art. 13.1, ¿cómo se determina la cuantía mensual de la prestación del IMV?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rwgvn00d3l204lvfnndov",
+          "createdAt": "2026-02-02T23:00:34.547Z",
+          "textSnippet": "Según el art. 6.2, ¿qué se considera respecto de la separación transitoria por estudios o trabajo?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770158884448",
+      "title": "Importado - 80 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-03T22:48:04.799Z",
+      "counts": {
+        "missingTemaCodigo": 80,
+        "missingTemaParte": 80,
+        "missingTemaTitulo": 80
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml76xgll004fjv04o50y4fzu",
+          "createdAt": "2026-02-03T22:49:01.257Z",
+          "textSnippet": "Según el art. 15.6 del RD 1221/1992, la comunicación al solicitante del propósito de vender un inmueble (con precio y términos) ¿qué efecto tiene sobre un eventual derecho del sol…",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cml76xg23004djv0443g9rjcy",
+          "createdAt": "2026-02-03T22:49:00.555Z",
+          "textSnippet": "Conforme a la disposición adicional cuarta del RD 1221/1992, ¿en qué plazo deben las Mutuas remitir certificación detallada y valorada de bienes inventariables?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cml76xfik004bjv04693txv2e",
+          "createdAt": "2026-02-03T22:48:59.852Z",
+          "textSnippet": "Según el art. 12 bis.7 del RD 1221/1992, ¿cuál de las siguientes NO es una causa de desadscripción de oficio de bienes inmuebles adscritos a otras administraciones?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cml76xez20049jv04eofyohim",
+          "createdAt": "2026-02-03T22:48:59.150Z",
+          "textSnippet": "Según el art. 9.1 del RD 1221/1992, ¿qué debe acreditarse y describirse en el expediente de adquisición onerosa de un inmueble?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cml76xefi0047jv04hdglp2ig",
+          "createdAt": "2026-02-03T22:48:58.446Z",
+          "textSnippet": "Según el art. 28.1.2 de la Orden de 22/02/1996, ¿qué tipo de órdenes se utilizan para pagar prestaciones del síndrome tóxico y cómo deben presentarse los documentos a la TGSS?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770073310997",
+      "title": "Importado - 80 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T23:01:51.348Z",
+      "counts": {
+        "missingTemaCodigo": 80,
+        "missingTemaParte": 80,
+        "missingTemaTitulo": 80
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rzboo00jzl20404q9jrc7",
+          "createdAt": "2026-02-02T23:02:47.784Z",
+          "textSnippet": "Según el art. 15.6 del RD 1221/1992, la comunicación al solicitante del propósito de vender un inmueble (con precio y términos) ¿qué efecto tiene sobre un eventual derecho del sol…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rzb5c00jxl2045mk0ivir",
+          "createdAt": "2026-02-02T23:02:47.089Z",
+          "textSnippet": "Conforme a la disposición adicional cuarta del RD 1221/1992, ¿en qué plazo deben las Mutuas remitir certificación detallada y valorada de bienes inventariables?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rzaly00jvl204w0lqdh5d",
+          "createdAt": "2026-02-02T23:02:46.390Z",
+          "textSnippet": "Según el art. 12 bis.7 del RD 1221/1992, ¿cuál de las siguientes NO es una causa de desadscripción de oficio de bienes inmuebles adscritos a otras administraciones?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rza2m00jtl204rnwbexol",
+          "createdAt": "2026-02-02T23:02:45.694Z",
+          "textSnippet": "Según el art. 9.1 del RD 1221/1992, ¿qué debe acreditarse y describirse en el expediente de adquisición onerosa de un inmueble?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rz9ja00jrl204vb1zk5i3",
+          "createdAt": "2026-02-02T23:02:44.998Z",
+          "textSnippet": "Según el art. 28.1.2 de la Orden de 22/02/1996, ¿qué tipo de órdenes se utilizan para pagar prestaciones del síndrome tóxico y cómo deben presentarse los documentos a la TGSS?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1768919405315",
+      "title": "Importado - 60 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-01-20T14:30:05.670Z",
+      "counts": {
+        "missingTemaCodigo": 60,
+        "missingTemaParte": 60,
+        "missingTemaTitulo": 60
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmkmoyt2e003bie04sv7kjpbr",
+          "createdAt": "2026-01-20T14:30:47.463Z",
+          "textSnippet": "Desde el punto de vista del legislador, ¿qué justifica que determinados colectivos como los empleados de hogar o los trabajadores agrarios dispongan de sistemas especiales en luga…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkmoysj90039ie04kv8n14rt",
+          "createdAt": "2026-01-20T14:30:46.774Z",
+          "textSnippet": "A la luz del conjunto de preceptos analizados (arts. 11, 250 a 256 y 323 a 326 TRLGSS), ¿qué rasgo común comparten los sistemas especiales de empleados de hogar y agrarios?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkmoys030037ie04wrpuyo66",
+          "createdAt": "2026-01-20T14:30:46.083Z",
+          "textSnippet": "En el Sistema Especial de Empleados de Hogar, ¿qué justificación tiene la existencia de bonificaciones o reducciones de cuotas para determinados empleadores, como las familias num…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkmoyrgw0035ie04yopulht3",
+          "createdAt": "2026-01-20T14:30:45.392Z",
+          "textSnippet": "Desde la perspectiva de la técnica legislativa, ¿qué ventaja ofrece la utilización de sistemas especiales frente a la proliferación de regímenes especiales completamente separados?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkmoyqxm0033ie04yyf8ktk4",
+          "createdAt": "2026-01-20T14:30:44.699Z",
+          "textSnippet": "¿Qué impacto general tiene la creación del Sistema Especial Agrario por Cuenta Propia sobre la protección social de los pequeños y medianos agricultores según la filosofía del TRL…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072256859",
+      "title": "Importado - 50 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:44:17.226Z",
+      "counts": {
+        "missingTemaCodigo": 50,
+        "missingTemaParte": 50,
+        "missingTemaTitulo": 50
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rc9o8002rjv049t3cwlbn",
+          "createdAt": "2026-02-02T22:44:52.088Z",
+          "textSnippet": "Conforme al artículo 99 del RD 1415/2004, además de las participaciones o acciones, ¿qué comprende también el embargo (según el propio precepto)?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rc94z002pjv04zan5uwyg",
+          "createdAt": "2026-02-02T22:44:51.395Z",
+          "textSnippet": "Según el artículo 99 del RD 1415/2004, al embargarse acciones no cotizadas o participaciones, ¿qué deben comunicar los administradores de la sociedad a la URE?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rc8lp002njv04vlvj7ksh",
+          "createdAt": "2026-02-02T22:44:50.702Z",
+          "textSnippet": "Conforme al artículo 98.1.b del RD 1415/2004, ¿cómo se realiza la enajenación de títulos o activos admitidos a negociación en un mercado secundario oficial?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rc82g002ljv048sxim2ot",
+          "createdAt": "2026-02-02T22:44:50.009Z",
+          "textSnippet": "Según el artículo 98.1.a del RD 1415/2004, cuando los activos financieros están depositados o anotados en una entidad, ¿cómo se efectúa el embargo?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rc7j8002jjv04ip9231jl",
+          "createdAt": "2026-02-02T22:44:49.316Z",
+          "textSnippet": "Conforme al artículo 97.1 del RD 1415/2004, si el crédito o derecho consiste en pagos sucesivos, ¿qué se ordenará al pagador?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1768945675202",
+      "title": "Importado - 50 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-01-20T21:47:55.556Z",
+      "counts": {
+        "missingTemaCodigo": 50,
+        "missingTemaParte": 50,
+        "missingTemaTitulo": 50
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmkn4lpv4002rl104qngqut8d",
+          "createdAt": "2026-01-20T21:48:30.641Z",
+          "textSnippet": "Conforme al art. 10.2.e), cuando el convenio se extingue por decisión del interesado, ¿desde cuándo produce efectos dicha extinción?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkn4lpbt002pl104p3fh0ava",
+          "createdAt": "2026-01-20T21:48:29.945Z",
+          "textSnippet": "Según el art. 10.2.b), ¿qué efecto tiene la adquisición de la condición de pensionista de jubilación o de incapacidad permanente sobre el convenio especial?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkn4losg002nl104xk8kyso9",
+          "createdAt": "2026-01-20T21:48:29.249Z",
+          "textSnippet": "De acuerdo con el art. 8.2, ¿qué norma determina el plazo reglamentario de ingreso de las cuotas del convenio especial?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkn4lo92002ll1046bbmhf5m",
+          "createdAt": "2026-01-20T21:48:28.482Z",
+          "textSnippet": "Según el art. 7.2.c), cuando los efectos iniciales o finales del convenio especial no coinciden con el primero o el último día del mes, ¿cómo se calcula la cuota a ingresar?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkn4lnnr002jl104vmzv32nk",
+          "createdAt": "2026-01-20T21:48:27.783Z",
+          "textSnippet": "Conforme al art. 6.2.7, ¿en qué plazo deben ejercitarse las opciones para modificar la base de cotización del convenio especial, y desde cuándo surten efectos?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1768944203630",
+      "title": "Importado - 50 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-01-20T21:23:24.140Z",
+      "counts": {
+        "missingTemaCodigo": 50,
+        "missingTemaParte": 50,
+        "missingTemaTitulo": 50
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmkn3q6mm002rjl04scympdla",
+          "createdAt": "2026-01-20T21:23:59.374Z",
+          "textSnippet": "En relación con el art. 29.1, cuando la empresa incumple la obligación de solicitar el alta del trabajador por cuenta ajena, ¿qué mecanismo prevé el Reglamento para garantizar la …",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkn3q635002pjl04dcjktdf6",
+          "createdAt": "2026-01-20T21:23:58.673Z",
+          "textSnippet": "Según el art. 61.2, cuando la baja indebida se ha producido respecto de un trabajador que debía seguir incluido en el Régimen correspondiente, ¿qué puede implicar la revisión de l…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkn3q5jo002njl045bv31bgy",
+          "createdAt": "2026-01-20T21:23:57.972Z",
+          "textSnippet": "Conforme al art. 60.2, cuando una afiliación indebida ha servido de base para reconocer prestaciones a favor de una persona que no debía estar incluida en el campo de aplicación d…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkn3q506002ljl04lk15kdhl",
+          "createdAt": "2026-01-20T21:23:57.270Z",
+          "textSnippet": "Según el art. 36.1, dentro del catálogo de situaciones asimiladas a la de alta, ¿cuál de las siguientes se incluye expresamente?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkn3q4gp002jjl04j7i5k0yt",
+          "createdAt": "2026-01-20T21:23:56.570Z",
+          "textSnippet": "De acuerdo con el art. 35.3, en los Regímenes en que la cotización se realice por meses completos, ¿cómo se computan los días de alta cuando el alta o la baja no coinciden con el …",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "tema-sin-codigo-1768952087940",
+      "title": "TEMA ESPECÍFICO_CONVENI0_ESPECIAL.json",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-01-20T23:34:48.201Z",
+      "counts": {
+        "missingTemaCodigo": 50,
+        "missingTemaParte": 50,
+        "missingTemaTitulo": 0
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmkn8ezz9015lknn1b783ldnt",
+          "createdAt": "2026-01-20T23:35:15.621Z",
+          "textSnippet": "Conforme al art. 10.2.e), cuando el convenio se extingue por decisión del interesado, ¿desde cuándo produce efectos dicha extinción?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": "TEMA ESPECÍFICO_CONVENI0_ESPECIAL.json"
+        },
+        {
+          "id": "cmkn8ezkn015jknn1n3rlr3qg",
+          "createdAt": "2026-01-20T23:35:15.095Z",
+          "textSnippet": "Según el art. 10.2.b), ¿qué efecto tiene la adquisición de la condición de pensionista de jubilación o de incapacidad permanente sobre el convenio especial?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": "TEMA ESPECÍFICO_CONVENI0_ESPECIAL.json"
+        },
+        {
+          "id": "cmkn8ez5j015hknn1xbrxug5e",
+          "createdAt": "2026-01-20T23:35:14.552Z",
+          "textSnippet": "De acuerdo con el art. 8.2, ¿qué norma determina el plazo reglamentario de ingreso de las cuotas del convenio especial?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": "TEMA ESPECÍFICO_CONVENI0_ESPECIAL.json"
+        },
+        {
+          "id": "cmkn8eyq9015fknn1vc5obdgt",
+          "createdAt": "2026-01-20T23:35:14.002Z",
+          "textSnippet": "Según el art. 7.2.c), cuando los efectos iniciales o finales del convenio especial no coinciden con el primero o el último día del mes, ¿cómo se calcula la cuota a ingresar?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": "TEMA ESPECÍFICO_CONVENI0_ESPECIAL.json"
+        },
+        {
+          "id": "cmkn8eybo015dknn143x5jq5m",
+          "createdAt": "2026-01-20T23:35:13.477Z",
+          "textSnippet": "Conforme al art. 6.2.7, ¿en qué plazo deben ejercitarse las opciones para modificar la base de cotización del convenio especial, y desde cuándo surten efectos?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": "TEMA ESPECÍFICO_CONVENI0_ESPECIAL.json"
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770073257893",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T23:00:58.244Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rxkwr00fjl204g02zndif",
+          "createdAt": "2026-02-02T23:01:26.428Z",
+          "textSnippet": "Según la Guía resumen PNC 2025 (carencia de rentas), ¿cuándo se entiende cumplido el requisito de carencia si el solicitante está integrado en una unidad económica?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rxkdb00fhl204qi27by3r",
+          "createdAt": "2026-02-02T23:01:25.727Z",
+          "textSnippet": "Según la Guía resumen PNC 2025 (límite de acumulación), ¿cómo se expresa la regla de cálculo base para la unidad económica?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rxjtt00ffl204w23fzkta",
+          "createdAt": "2026-02-02T23:01:25.026Z",
+          "textSnippet": "Según el art. 3.1.f) del RD 8/2008, ¿qué requisito se establece respecto de donaciones previas a la solicitud?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rxjac00fdl204k4r7laar",
+          "createdAt": "2026-02-02T23:01:24.324Z",
+          "textSnippet": "Según el art. 25.4 del RD 8/2008, ¿qué órgano asume la instrucción, reconocimiento y pago de las pensiones asistenciales por ancianidad para retornados?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rxiqr00fbl204ft7ua1b8",
+          "createdAt": "2026-02-02T23:01:23.620Z",
+          "textSnippet": "Según el art. 1 del RD 8/2008, ¿qué doble anclaje normativo se menciona para la prestación por razón de necesidad (además de regularse por el real decreto)?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770073102490",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:58:22.842Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5ru8ym006nl2040yishsza",
+          "createdAt": "2026-02-02T22:58:50.975Z",
+          "textSnippet": "Conforme al art. 21.e), si un trabajador que había percibido una cantidad a tanto alzado pasa, tras revisión, a un grado que da derecho a pensión, ¿cuándo se devenga y cuándo empi…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5ru8f5006ll204orvz5nz5",
+          "createdAt": "2026-02-02T22:58:50.274Z",
+          "textSnippet": "Conforme al art. 5, si el día del alta fuera víspera de festivo (o festivos), ¿qué derecho mantiene el trabajador respecto del subsidio?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5ru7vo006jl2042hcu38df",
+          "createdAt": "2026-02-02T22:58:49.572Z",
+          "textSnippet": "Conforme al art. 29.2, además de las situaciones asimiladas del art. 28.2, ¿qué situación se considera asimilada al alta para causar prestaciones de muerte y supervivencia?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5ru7c8006hl204acwksr26",
+          "createdAt": "2026-02-02T22:58:48.872Z",
+          "textSnippet": "De acuerdo con el art. 26.3, ¿qué caracteriza al tercer grado de silicosis y en qué supuesto se equiparan el primero y segundo grado al tercero?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5ru6sr006fl204a6nl24ad",
+          "createdAt": "2026-02-02T22:58:48.172Z",
+          "textSnippet": "De acuerdo con el art. 12.1.b), ¿cómo se determina la cuantía del subsidio de asistencia en incapacidad permanente?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770073056499",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:57:36.850Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rt9gm004fl204xqebhka4",
+          "createdAt": "2026-02-02T22:58:04.966Z",
+          "textSnippet": "Conforme al art. 22.1.1 (efectos de suspensión), ¿desde cuándo tiene efectos la suspensión por superar el límite de ingresos en el caso general de mayores de 18 años?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rt8x4004dl204i32um2ll",
+          "createdAt": "2026-02-02T22:58:04.265Z",
+          "textSnippet": "Conforme al art. 33.a), en pluriempleo y muerte por enfermedad común o accidente no laboral, ¿qué criterio reproduce el texto para determinar la entidad que reconoce y paga?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rt8dn004bl2048mcdku0i",
+          "createdAt": "2026-02-02T22:58:03.564Z",
+          "textSnippet": "Conforme al art. 22.1.1 (abono por tiempo no percibido), si al finalizar el ejercicio los ingresos fueron inferiores al límite, ¿desde qué fecha se abona lo no percibido si se sol…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rt7u70049l2047zw7fwvw",
+          "createdAt": "2026-02-02T22:58:02.863Z",
+          "textSnippet": "Según el art. 2.4.d), ¿qué situación se considera asimilada a la de alta en materia de desempleo?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rt7aq0047l2046ojhnp7f",
+          "createdAt": "2026-02-02T22:58:02.162Z",
+          "textSnippet": "Según el art. 2.4.f), ¿qué situación militar se considera asimilada a la de alta y qué extensión temporal se menciona?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770073014429",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:56:54.780Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rsd1o0027l2041tb4fjkj",
+          "createdAt": "2026-02-02T22:57:22.957Z",
+          "textSnippet": "Conforme al art. 22.1.1 (suspensión), ¿qué ocurre con la pensión en favor de familiares reconocida a beneficiarios mayores de 18 años si conciertan contrato laboral o realizan tra…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rsci70025l204bbi9vau9",
+          "createdAt": "2026-02-02T22:57:22.256Z",
+          "textSnippet": "Conforme al art. 24.b), ¿cuáles son las causas de extinción de la pensión a favor de familiares de ascendientes?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rsbyr0023l2046e4eguv6",
+          "createdAt": "2026-02-02T22:57:21.555Z",
+          "textSnippet": "Según el art. 24.a), ¿cómo se extingue la pensión a favor de familiares de nietos y hermanos?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rsbf90021l204g8oq9w84",
+          "createdAt": "2026-02-02T22:57:20.854Z",
+          "textSnippet": "Según el art. 22.1.1 (supuesto de percepción antes de los 18), si el pensionista ya venía percibiendo la pensión y había trabajado antes de cumplir 18, ¿cuándo produce efectos la …",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rsavr001zl204t2fii2xa",
+          "createdAt": "2026-02-02T22:57:20.151Z",
+          "textSnippet": "Conforme al art. 22.1.1 (definición), ¿cuándo se entiende que el nieto o hermano carece de medios de subsistencia?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072971917",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:56:12.262Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rrfud00d1i904t7zfrr1d",
+          "createdAt": "2026-02-02T22:56:39.926Z",
+          "textSnippet": "De acuerdo con el art. 9.1.b), si el causante fuese pensionista de jubilación o incapacidad permanente, ¿qué se toma como base reguladora y qué se excluye expresamente?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rrfb900czi904r05sxthj",
+          "createdAt": "2026-02-02T22:56:39.237Z",
+          "textSnippet": "De acuerdo con el art. 3, ¿cuál es la regla general sobre la fecha del hecho causante de las prestaciones del art. 1?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rres300cxi904ssllc7oj",
+          "createdAt": "2026-02-02T22:56:38.548Z",
+          "textSnippet": "Conforme al art. 11.1 (párrafos finales), si existen varias pensiones de viudedad y procede minoración para no superar el límite, ¿cómo se realiza dicha minoración?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rre8z00cvi9048rpag5sh",
+          "createdAt": "2026-02-02T22:56:37.859Z",
+          "textSnippet": "Según el art. 2.1, ¿cuál de los siguientes puede ser sujeto causante de las prestaciones de muerte y supervivencia enumeradas en el art. 1?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rrdpu00cti90476e3qxc3",
+          "createdAt": "2026-02-02T22:56:37.171Z",
+          "textSnippet": "Según el art. 8.1, ¿a qué porcentaje de la base reguladora equivale la pensión vitalicia de viudedad en el texto de la Orden?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072929781",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:55:30.125Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rqjax00ati904wuh20g1y",
+          "createdAt": "2026-02-02T22:55:57.753Z",
+          "textSnippet": "Según el art. 3.4 del RD 1132/2002, ¿qué efecto tienen los años exonerados de cotización del art. 112 bis LGSS para el incremento del art. 3.1?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rqirs00ari90492sk94ay",
+          "createdAt": "2026-02-02T22:55:57.065Z",
+          "textSnippet": "Según el art. 7.1 del RD 1132/2002, la pensión de jubilación flexible será incompatible con qué tipo de pensiones y en qué condición temporal respecto de la actividad?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rqi8o00api9044tbxoqx9",
+          "createdAt": "2026-02-02T22:55:56.376Z",
+          "textSnippet": "Conforme al art. 2.2.b) del RD 1132/2002, al computar años de cotización para determinar el coeficiente reductor, ¿cómo se trata la fracción de año?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rqhpj00ani9040v32yo0u",
+          "createdAt": "2026-02-02T22:55:55.687Z",
+          "textSnippet": "Conforme al art. 3.1 del RD 1132/2002, si se accede a la jubilación con edad superior a 65, ¿qué incremento porcentual puede añadirse al 100% y bajo qué condición de cotización pr…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rqh6e00ali904szxpkfda",
+          "createdAt": "2026-02-02T22:55:54.999Z",
+          "textSnippet": "Conforme al art. 1.1.3 (párrafo segundo) del RD 1132/2002, ¿la inscripción como demandante de empleo es incompatible con realizar una actividad por cuenta propia o ajena?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072886063",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:54:46.408Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rpllg008li904snobdoo9",
+          "createdAt": "2026-02-02T22:55:14.068Z",
+          "textSnippet": "Según el art. 7.2 del RD 1131/2002, ¿cómo se integran las lagunas de cotización en jubilación e incapacidad permanente derivadas de enfermedad común o accidente no laboral, y qué …",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rpl29008ji904e6ipgy0n",
+          "createdAt": "2026-02-02T22:55:13.377Z",
+          "textSnippet": "Conforme al art. 18.4 del RD 1131/2002, si no puede aplicarse el incremento al 100% por no existir contrato de relevo, ¿qué alternativa se reconoce para el cálculo de la base regu…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rpkj1008hi904si62uay2",
+          "createdAt": "2026-02-02T22:55:12.685Z",
+          "textSnippet": "Según el art. 12.2 del RD 1131/2002, si la jornada del relevista ya fuese superior a la jornada dejada vacante, ¿qué límite tiene la ampliación?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rpjzv008fi904aknuu8v0",
+          "createdAt": "2026-02-02T22:55:11.995Z",
+          "textSnippet": "Según el art. 18.3 del RD 1131/2002, a efectos de determinar el porcentaje aplicable a la base reguladora, ¿cómo se trata el periodo entre jubilación parcial y jubilación ordinari…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rpjgq008di904da2cr20e",
+          "createdAt": "2026-02-02T22:55:11.306Z",
+          "textSnippet": "Conforme al art. 2.1 del RD 1131/2002, ¿qué alcance tiene la acción protectora para los trabajadores incluidos en el art. 1.1?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072792651",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:53:12.996Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rnlin004fi904320n1dmh",
+          "createdAt": "2026-02-02T22:53:40.655Z",
+          "textSnippet": "Según el anexo del RD 1148/2011 (apartado I. Oncología), ¿qué previsión se incluye para enfermedades oncológicas graves no enumeradas expresamente?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rnkzi004di904a1zrx8v9",
+          "createdAt": "2026-02-02T22:53:39.967Z",
+          "textSnippet": "Según el art. 8.9 del RD 295/2009, en caso de fallecimiento de la madre, ¿qué facultad se reconoce al otro progenitor respecto a la interrupción del permiso?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rnkge004bi904nxrm3h8y",
+          "createdAt": "2026-02-02T22:53:39.278Z",
+          "textSnippet": "Según el art. 8.9 del RD 295/2009, ¿desde cuándo puede reanudarse el permiso interrumpido?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rnjx90049i904ksfq3nej",
+          "createdAt": "2026-02-02T22:53:38.590Z",
+          "textSnippet": "Conforme al art. 8.4 del RD 295/2009, en caso de fallecimiento del hijo, ¿qué regla general se aplica a la duración de la prestación económica?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rnje30047i904yau5vzmc",
+          "createdAt": "2026-02-02T22:53:37.900Z",
+          "textSnippet": "Conforme al art. 2.1 del RD 1148/2011, ¿qué exigencia vincula el cáncer o enfermedad grave del menor con el ingreso hospitalario?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072735794",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:52:16.140Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rmdne0027i9043eg5ylds",
+          "createdAt": "2026-02-02T22:52:43.802Z",
+          "textSnippet": "Conforme al art. 170.2 de la LGSS (RDL 8/2015), una vez agotados los 365 días, ¿cuál es el catálogo de altas que puede emitir la inspección médica del INSS como única competente?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rmd480025i90448glalt0",
+          "createdAt": "2026-02-02T22:52:43.113Z",
+          "textSnippet": "Según el art. 193.1 de la LGSS (RDL 8/2015), ¿qué elemento NO impide por sí solo la calificación de incapacidad permanente contributiva?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rmcl20023i904rgfmxlty",
+          "createdAt": "2026-02-02T22:52:42.423Z",
+          "textSnippet": "Conforme al art. 169.1.a) (párrafo 3.º) de la LGSS (RDL 8/2015), ¿desde cuándo se considera situación especial de IT por contingencias comunes la gestación de la mujer trabajadora?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rmc1x0021i904r7qtiy17",
+          "createdAt": "2026-02-02T22:52:41.734Z",
+          "textSnippet": "Según el art. 201 de la LGSS (RDL 8/2015), ¿cuál es el criterio de origen (contingencia) para que unas lesiones permanentes no incapacitantes sean indemnizables por baremo?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rmbis001zi9049lf9hger",
+          "createdAt": "2026-02-02T22:52:41.045Z",
+          "textSnippet": "Conforme al art. 174.1 de la LGSS (RDL 8/2015), ¿cuál de las siguientes NO es una causa de extinción del derecho al subsidio de IT enumerada en el precepto?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072599053",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:49:59.404Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rjgg2008bjv04az5cwqb6",
+          "createdAt": "2026-02-02T22:50:27.459Z",
+          "textSnippet": "Conforme al art. 170.2 de la LGSS (RDL 8/2015), una vez agotados los 365 días, ¿cuál es el catálogo de altas que puede emitir la inspección médica del INSS como única competente?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rjfwm0089jv04sztnxnz0",
+          "createdAt": "2026-02-02T22:50:26.758Z",
+          "textSnippet": "Según el art. 193.1 de la LGSS (RDL 8/2015), ¿qué elemento NO impide por sí solo la calificación de incapacidad permanente contributiva?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rjfd60087jv04z73heull",
+          "createdAt": "2026-02-02T22:50:26.058Z",
+          "textSnippet": "Conforme al art. 169.1.a) (párrafo 3.º) de la LGSS (RDL 8/2015), ¿desde cuándo se considera situación especial de IT por contingencias comunes la gestación de la mujer trabajadora?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rjetr0085jv044ooea2y9",
+          "createdAt": "2026-02-02T22:50:25.359Z",
+          "textSnippet": "Según el art. 201 de la LGSS (RDL 8/2015), ¿cuál es el criterio de origen (contingencia) para que unas lesiones permanentes no incapacitantes sean indemnizables por baremo?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rjeaa0083jv04s7c7e7mh",
+          "createdAt": "2026-02-02T22:50:24.658Z",
+          "textSnippet": "Conforme al art. 174.1 de la LGSS (RDL 8/2015), ¿cuál de las siguientes NO es una causa de extinción del derecho al subsidio de IT enumerada en el precepto?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072521879",
+      "title": "Importado - 40 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:48:42.229Z",
+      "counts": {
+        "missingTemaCodigo": 40,
+        "missingTemaParte": 40,
+        "missingTemaTitulo": 40
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rhswe0063jv04jpgnkfas",
+          "createdAt": "2026-02-02T22:49:10.286Z",
+          "textSnippet": "Conforme al art. 4.4 de la Orden de 18 de enero de 1996, si faltan datos o documentos preceptivos en la solicitud, ¿qué consecuencia prevé el precepto si el interesado no subsana …",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rhscy0061jv048f89pqgn",
+          "createdAt": "2026-02-02T22:49:09.586Z",
+          "textSnippet": "Según el art. 2.1 de la Orden de 18 de enero de 1996, ¿qué órgano resulta competente para iniciar, instruir y resolver los procedimientos para el reconocimiento de derechos por in…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rhrtg005zjv04xanp3kox",
+          "createdAt": "2026-02-02T22:49:08.885Z",
+          "textSnippet": "Conforme al art. 2.3.b).3.º del Real Decreto 1300/1995, ¿cuál de los siguientes es uno de los Vocales del Equipo de Valoración de Incapacidades?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rhra1005xjv04wn72wdm9",
+          "createdAt": "2026-02-02T22:49:08.185Z",
+          "textSnippet": "Según el art. 2.1 del Real Decreto 1300/1995, ¿qué estructura se constituye en cada Dirección Provincial del INSS?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rhqqn005vjv04ptmtj1ze",
+          "createdAt": "2026-02-02T22:49:07.487Z",
+          "textSnippet": "Conforme al art. 1.1.a) del Real Decreto 1300/1995, ¿cuál de las siguientes funciones se atribuye como competencia del INSS, cualquiera que sea la Entidad gestora o colaboradora q…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072849750",
+      "title": "Importado - 35 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:54:10.095Z",
+      "counts": {
+        "missingTemaCodigo": 35,
+        "missingTemaParte": 35,
+        "missingTemaTitulo": 35
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5roqws006di904pmefvl83",
+          "createdAt": "2026-02-02T22:54:34.300Z",
+          "textSnippet": "Según el art. 10.4 del RD 1335/2005, en los supuestos de los apartados 2 y 3, ¿qué efecto tiene el matrimonio del minusválido (≥65%) sobre el derecho a la asignación?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5roqdm006bi90485n80da9",
+          "createdAt": "2026-02-02T22:54:33.610Z",
+          "textSnippet": "Según el art. 14.3 del RD 1335/2005, ¿de qué periodo temporal se tienen en cuenta los ingresos para el cómputo del límite?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5ropuf0069i904ls39ox3i",
+          "createdAt": "2026-02-02T22:54:32.920Z",
+          "textSnippet": "Conforme al art. 2 del RD 1335/2005, ¿qué periodo de excedencia con reserva de puesto se considera como periodo de cotización efectiva con carácter general?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5ropb70067i9042noo7n94",
+          "createdAt": "2026-02-02T22:54:32.228Z",
+          "textSnippet": "Conforme al art. 14.4 del RD 1335/2005, en el caso de menores abandonados o huérfanos de ambos progenitores (sin acogimiento permanente o preadoptivo), ¿qué ingresos se computan?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5roos20065i9043yr4ag2p",
+          "createdAt": "2026-02-02T22:54:31.538Z",
+          "textSnippet": "Conforme al art. 9.4 del RD 1335/2005, ¿cuándo se considera que el hijo o menor acogido NO está a cargo del beneficiario?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1770072439173",
+      "title": "Importado - 20 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-02-02T22:47:19.524Z",
+      "counts": {
+        "missingTemaCodigo": 20,
+        "missingTemaParte": 20,
+        "missingTemaTitulo": 20
+      },
+      "sampleQuestions": [
+        {
+          "id": "cml5rfqaf003vjv04k1iv8dip",
+          "createdAt": "2026-02-02T22:47:33.522Z",
+          "textSnippet": "Según el art. 84.1 y 84.2, ¿qué caracteriza correctamente a la providencia de apremio y una consecuencia expresa de su omisión?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rfpp2003tjv04epnfxhh5",
+          "createdAt": "2026-02-02T22:47:32.823Z",
+          "textSnippet": "En el art. 33.4.b) se prevé un supuesto de exención de garantías y se incluye una nota sobre la Resolución de 6 de abril de 2020. Según esa nota (efectos desde 10/04/2020), ¿qué u…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rfp5m003rjv044uoop3od",
+          "createdAt": "2026-02-02T22:47:32.122Z",
+          "textSnippet": "Según el art. 31.2, ¿cuál es el límite general de duración total de un aplazamiento y cuál es la excepción?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rfom7003pjv04e8kl3ehh",
+          "createdAt": "2026-02-02T22:47:31.423Z",
+          "textSnippet": "Conforme al art. 13.4, antes de emitir una reclamación de deuda por derivación a un responsable solidario (regla general), ¿qué trámite previo debe realizarse y con qué plazo?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cml5rfo2q003njv04hjcs1mcg",
+          "createdAt": "2026-02-02T22:47:30.723Z",
+          "textSnippet": "Según el art. 13.3, salvo limitación legal, ¿qué comprende la reclamación de deuda por derivación al responsable solidario?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1768762191360",
+      "title": "Importado - 18 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-01-18T18:49:52.185Z",
+      "counts": {
+        "missingTemaCodigo": 18,
+        "missingTemaParte": 18,
+        "missingTemaTitulo": 18
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmkk3cjwj000zlb04smiwzls2",
+          "createdAt": "2026-01-18T18:50:04.867Z",
+          "textSnippet": "Conforme al art. 10.1 de la Ley 47/2015, ¿cuál de las siguientes personas trabajadoras se incluye en el grupo primero de cotización del Régimen Especial del Mar?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkk3cjd1000xlb04byrk03f0",
+          "createdAt": "2026-01-18T18:50:04.166Z",
+          "textSnippet": "En el art. 9.1.a) de la Ley 47/2015, ¿quién determina anualmente las remuneraciones que se consideran retribuciones efectivamente percibidas para las personas trabajadoras de los …",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkk3cite000vlb042ne7exa7",
+          "createdAt": "2026-01-18T18:50:03.459Z",
+          "textSnippet": "Según el art. 9.1 de la Ley 47/2015, ¿cuál es la regla general para determinar la base de cotización de las personas trabajadoras del Régimen Especial del Mar?",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkk3ci9u000tlb0409gubvjd",
+          "createdAt": "2026-01-18T18:50:02.755Z",
+          "textSnippet": "De acuerdo con el art. 8.2 de la Ley 47/2015, ¿a qué grupo de cotización se aplica la cotización en función de los rendimientos de la actividad económica o profesional regulada en…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmkk3chq7000rlb04u8n5qo5c",
+          "createdAt": "2026-01-18T18:50:02.047Z",
+          "textSnippet": "En virtud del art. 7.b) de la Ley 47/2015, ¿qué efecto tiene la presentación fuera de plazo reglamentario de las altas de personas trabajadoras por cuenta propia en el Régimen Esp…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "cmkn4yiel0000l104f4izavus",
+      "title": "SUPUESTO PRÁCTICO COTIZACIÓN-Nº1",
+      "theme": "Contenido personalizado",
+      "type": "practical",
+      "category": null,
+      "createdAt": "2026-01-20T21:58:27.501Z",
+      "counts": {
+        "missingTemaCodigo": 15,
+        "missingTemaParte": 15,
+        "missingTemaTitulo": 15
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmkn4yiel0003l104y125nj17",
+          "createdAt": "2026-01-20T21:58:27.501Z",
+          "textSnippet": "3. ¿Cuál es la base máxima de cotización para el año 2023?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmkn4yiem000fl1041qbfr74h",
+          "createdAt": "2026-01-20T21:58:27.501Z",
+          "textSnippet": "15. ¿Cuál es el período de cotización para Juan Pérez?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmkn4yiel000el104lpak7ftd",
+          "createdAt": "2026-01-20T21:58:27.501Z",
+          "textSnippet": "14. ¿Cuál es la base de cotización para María García?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmkn4yiel000dl104s0in52f5",
+          "createdAt": "2026-01-20T21:58:27.501Z",
+          "textSnippet": "13. ¿Cuál es el tipo de cotización reducido para María García?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmkn4yiel000cl104i0h813l2",
+          "createdAt": "2026-01-20T21:58:27.501Z",
+          "textSnippet": "12. ¿Cuál es el grado de discapacidad que tiene María García?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        }
+      ]
+    },
+    {
+      "questionnaireId": "cmkab70210000jx04q4yqzaum",
+      "title": "SUPUESTO PRESTACION IT Nº1",
+      "theme": null,
+      "type": "practical",
+      "category": "supuesto",
+      "createdAt": "2026-01-11T22:32:01.032Z",
+      "counts": {
+        "missingTemaCodigo": 15,
+        "missingTemaParte": 15,
+        "missingTemaTitulo": 15
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmkab70220002jx04n46ondej",
+          "createdAt": "2026-01-11T22:32:01.032Z",
+          "textSnippet": "2. Indique la cuantía diaria de la prestación:",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmkab7023000ajx04i71x2iko",
+          "createdAt": "2026-01-11T22:32:01.032Z",
+          "textSnippet": "En caso de que sí tuviese derecho a la prestación por IT, ¿cuál será el valor de la misma?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmkab70230009jx04xtr6ywx8",
+          "createdAt": "2026-01-11T22:32:01.032Z",
+          "textSnippet": "Señale si tal persona tendría derecho a la nombrada protección por incapacidad temporal derivada de contingencias comunes, cuando no tiene que ver este proceso con ningún otro pre…",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmkab7023000cjx04b9zae725",
+          "createdAt": "2026-01-11T22:32:01.032Z",
+          "textSnippet": "¿Es posible que Ibrahim, según la situación descrita, acceda a una prestación de IT?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmkab7023000djx04w1ql3stb",
+          "createdAt": "2026-01-11T22:32:01.032Z",
+          "textSnippet": "Señale a través de qué mecanismo podrá reclamar la Seguridad Social a José la responsabilidad en que haya incurrido por las actuaciones comentadas:",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        }
+      ]
+    },
+    {
+      "questionnaireId": "cmk8x7znc0000jo04me4o7q9z",
+      "title": "TEMA 5 VER 8",
+      "theme": "Contenido personalizado",
+      "type": "practical",
+      "category": null,
+      "createdAt": "2026-01-10T23:13:06.358Z",
+      "counts": {
+        "missingTemaCodigo": 15,
+        "missingTemaParte": 15,
+        "missingTemaTitulo": 15
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmk8x7znc0009jo040ujl44ue",
+          "createdAt": "2026-01-10T23:13:06.358Z",
+          "textSnippet": "9. ¿Cuál es el porcentaje de cotización del trabajador?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmk8x7znc0008jo04pwblw8e2",
+          "createdAt": "2026-01-10T23:13:06.358Z",
+          "textSnippet": "8. ¿Cuál es el plazo para realizar el pago de las cuotas de la Seguridad Social?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmk8x7znc0007jo047nfiniva",
+          "createdAt": "2026-01-10T23:13:06.358Z",
+          "textSnippet": "7. ¿Cuál es el saldo deudor con la Seguridad Social?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmk8x7znc0002jo04vnv61iwz",
+          "createdAt": "2026-01-10T23:13:06.358Z",
+          "textSnippet": "2. ¿Cuál es el porcentaje de recargo por el retraso en el pago de las cuotas?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmk8x7znc0003jo04axznuv73",
+          "createdAt": "2026-01-10T23:13:06.358Z",
+          "textSnippet": "3. ¿Cuál es el plazo para realizar el pago de las sanciones y recargos?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        }
+      ]
+    },
+    {
+      "questionnaireId": "cmk8tomo10000jv04o1bgau06",
+      "title": "TEMA 5 RECAUDACIÓN ",
+      "theme": "Contenido personalizado",
+      "type": "practical",
+      "category": null,
+      "createdAt": "2026-01-10T21:34:04.226Z",
+      "counts": {
+        "missingTemaCodigo": 15,
+        "missingTemaParte": 15,
+        "missingTemaTitulo": 15
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmk8tomo20002jv04e6try6yl",
+          "createdAt": "2026-01-10T21:34:04.226Z",
+          "textSnippet": "2. ¿Cuál es el importe que la empresa 'Servicios Generales S.L.' debe pagar al mes para cancelar la deuda pendiente?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmk8tomo20001jv04cjmm666o",
+          "createdAt": "2026-01-10T21:34:04.226Z",
+          "textSnippet": "1. ¿Cuál es el plazo máximo para que la empresa 'Servicios Generales S.L.' pueda solicitar el aplazamiento de pago de las cuotas adeudadas a la Seguridad Social?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmk8tomo2000fjv048luzrjml",
+          "createdAt": "2026-01-10T21:34:04.226Z",
+          "textSnippet": "15. ¿Cuál es el procedimiento que debe seguir la empresa 'Servicios Generales S.L.' para pagar los intereses por la falta de pago de las cuotas adeudadas?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmk8tomo2000cjv04fhdma5il",
+          "createdAt": "2026-01-10T21:34:04.226Z",
+          "textSnippet": "12. ¿Cuál es el procedimiento que debe seguir la empresa 'Servicios Generales S.L.' para pagar los recargos por la falta de pago de las cuotas adeudadas?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        },
+        {
+          "id": "cmk8tomo20003jv04fn1nkrgx",
+          "createdAt": "2026-01-10T21:34:04.226Z",
+          "textSnippet": "3. ¿Cuál es el plazo durante el cual la empresa 'Servicios Generales S.L.' debe realizar los pagos para cancelar la deuda pendiente?",
+          "temaCodigo": null,
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": null
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1768859904427",
+      "title": "Importado - 10 preguntas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-01-19T21:58:24.852Z",
+      "counts": {
+        "missingTemaCodigo": 10,
+        "missingTemaParte": 10,
+        "missingTemaTitulo": 10
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmklpir1e000jk004m3tf66hh",
+          "createdAt": "2026-01-19T21:58:31.778Z",
+          "textSnippet": "Según el artículo 9.5 del Real Decreto-ley 16/2025, en relación con las personas trabajadoras autónomas en situación de pluriactividad en 2026, ¿en qué términos se reconoce el der…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmklpiqia000hk004h4wg4pq6",
+          "createdAt": "2026-01-19T21:58:31.091Z",
+          "textSnippet": "De acuerdo con el artículo 9.2 del Real Decreto-ley 16/2025, ¿cuál es el tipo de cotización correspondiente al Mecanismo de Equidad Intergeneracional (MEI) en 2026 y cómo se distr…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmklpipz5000fk004yrli8jhn",
+          "createdAt": "2026-01-19T21:58:30.401Z",
+          "textSnippet": "Según el artículo 8.7 del Real Decreto-ley 16/2025, ¿en qué supuestos se reconoce en 2026 la prestación por nacimiento o adopción de hijo o hija y cuál es su cuantía, teniendo en …",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmklpipfz000dk004qhndajeq",
+          "createdAt": "2026-01-19T21:58:29.712Z",
+          "textSnippet": "Conforme al artículo 8.6.b) del Real Decreto-ley 16/2025, ¿qué cuantía anual corresponde en 2026 al supuesto de hijo o hija a cargo mayor de 18 años con discapacidad igual o super…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmklpiowu000bk004popxx6w6",
+          "createdAt": "2026-01-19T21:58:29.022Z",
+          "textSnippet": "En el marco del artículo 8.6 del Real Decreto-ley 16/2025, ¿qué combinación de situación y cuantía anual es correcta para las asignaciones económicas por hijo o hija con discapaci…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": null,
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "imported-1768857507717",
+      "title": "CUESTIONARIO RD 16/2025 19-01-2026",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-01-19T21:18:28.141Z",
+      "counts": {
+        "missingTemaCodigo": 10,
+        "missingTemaParte": 0,
+        "missingTemaTitulo": 10
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmklo3dsw000jjx04hi9h94u9",
+          "createdAt": "2026-01-19T21:18:35.169Z",
+          "textSnippet": "Según el artículo 9.5 del Real Decreto-ley 16/2025, en relación con las personas trabajadoras autónomas en situación de pluriactividad en 2026, ¿en qué términos se reconoce el der…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmklo3d9h000hjx04g6bcvglg",
+          "createdAt": "2026-01-19T21:18:34.469Z",
+          "textSnippet": "De acuerdo con el artículo 9.2 del Real Decreto-ley 16/2025, ¿cuál es el tipo de cotización correspondiente al Mecanismo de Equidad Intergeneracional (MEI) en 2026 y cómo se distr…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmklo3cq1000fjx04izp2ddcd",
+          "createdAt": "2026-01-19T21:18:33.770Z",
+          "textSnippet": "Según el artículo 8.7 del Real Decreto-ley 16/2025, ¿en qué supuestos se reconoce en 2026 la prestación por nacimiento o adopción de hijo o hija y cuál es su cuantía, teniendo en …",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmklo3c6m000djx04om9za1zt",
+          "createdAt": "2026-01-19T21:18:33.071Z",
+          "textSnippet": "Conforme al artículo 8.6.b) del Real Decreto-ley 16/2025, ¿qué cuantía anual corresponde en 2026 al supuesto de hijo o hija a cargo mayor de 18 años con discapacidad igual o super…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": ""
+        },
+        {
+          "id": "cmklo3bn8000bjx04f9hkgq7d",
+          "createdAt": "2026-01-19T21:18:32.372Z",
+          "textSnippet": "En el marco del artículo 8.6 del Real Decreto-ley 16/2025, ¿qué combinación de situación y cuantía anual es correcta para las asignaciones económicas por hijo o hija con discapaci…",
+          "temaCodigo": "",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": ""
+        }
+      ]
+    },
+    {
+      "questionnaireId": "cmku1r0qw0000js04z47ms50z",
+      "title": "test de pruebas",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-01-25T18:03:02.407Z",
+      "counts": {
+        "missingTemaCodigo": 0,
+        "missingTemaParte": 0,
+        "missingTemaTitulo": 20
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmku1r0qy0006js0422knm2lq",
+          "createdAt": "2026-01-25T18:03:02.407Z",
+          "textSnippet": "¿Cuál es el plazo para la solicitud de la devolución de las cotizaciones a la Seguridad Social indebidamente pagadas?",
+          "temaCodigo": "La cotización a la Seguridad Social: normas comunes del sistema. La liquidación de cuotas. El régimen general de la Seguridad Social. Bases y tipos de cotización.",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        },
+        {
+          "id": "cmku1r0qy0009js04wt55tb6w",
+          "createdAt": "2026-01-25T18:03:02.407Z",
+          "textSnippet": "¿Cuál es el tipo de cotización para la contingencia de accidentes de trabajo y enfermedades profesionales en el régimen general de la Seguridad Social?",
+          "temaCodigo": "La cotización a la Seguridad Social: normas comunes del sistema. La liquidación de cuotas. El régimen general de la Seguridad Social. Bases y tipos de cotización.",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        },
+        {
+          "id": "cmku1r0qy0001js047cb5psl9",
+          "createdAt": "2026-01-25T18:03:02.407Z",
+          "textSnippet": "Según el Real Decreto 2064/1995, de 22 de diciembre, por el que se establecen las bases y tipos de cotización a la Seguridad Social, ¿cuál es el tipo de cotización para la conting…",
+          "temaCodigo": "La cotización a la Seguridad Social: normas comunes del sistema. La liquidación de cuotas. El régimen general de la Seguridad Social. Bases y tipos de cotización.",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        },
+        {
+          "id": "cmku1r0qy000ijs04bj9ng6w2",
+          "createdAt": "2026-01-25T18:03:02.407Z",
+          "textSnippet": "Cuando un trabajador desarrolla simultáneamente dos actividades encuadradas en el mismo Régimen General para distintos empleadores, ¿cómo se configura la obligación de cotizar?",
+          "temaCodigo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        },
+        {
+          "id": "cmku1r0qy000fjs043bx6ppop",
+          "createdAt": "2026-01-25T18:03:02.407Z",
+          "textSnippet": "En el Régimen General, ¿qué efecto tiene, a efectos de cotización, la declaración administrativa de responsabilidad empresarial por falta de medidas de seguridad e higiene en el t…",
+          "temaCodigo": "TEMA 04-ESPECÍFICO COTIZACIÓN Nº1",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        }
+      ]
+    },
+    {
+      "questionnaireId": "cmktm0sr30015l1047z10i6r8",
+      "title": "prueba 23",
+      "theme": null,
+      "type": "theory",
+      "category": null,
+      "createdAt": "2026-01-25T10:42:44.751Z",
+      "counts": {
+        "missingTemaCodigo": 0,
+        "missingTemaParte": 0,
+        "missingTemaTitulo": 17
+      },
+      "sampleQuestions": [
+        {
+          "id": "cmktm0sr3001gl104cyxoesbb",
+          "createdAt": "2026-01-25T10:42:44.751Z",
+          "textSnippet": "A efectos probatorios, ¿por qué son relevantes para el trabajador los partes mensuales en los que constan cambios de categoría y faltas de asistencia en la Minería del Carbón?",
+          "temaCodigo": "Campo de aplicación y composición del sistema de la Seguridad Social. Régimen general: ámbito subjetivo de aplicación, inclusiones y exclusiones. Regímenes especiales y sistemas especiales.",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        },
+        {
+          "id": "cmktm0sr3001ll104tvxd5498",
+          "createdAt": "2026-01-25T10:42:44.751Z",
+          "textSnippet": "De acuerdo con lo establecido en el artículo 16 del texto refundido de la Ley General de la Seguridad Social, aprobado por el Real Decreto Legislativo 8/2015, de 30 de octubre, re…",
+          "temaCodigo": "Normas sobre afiliación. Altas y bajas en el régimen general. Procedimiento y efectos. El convenio especial y otras situaciones asimiladas a la del alta. Encuadramiento e inscripción.",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        },
+        {
+          "id": "cmktm0sr3001kl1048z3jejvt",
+          "createdAt": "2026-01-25T10:42:44.751Z",
+          "textSnippet": "Una persona trabajadora por cuenta ajena en el sector de la construcción, ¿a qué régimen de la Seguridad Social está sujeta?",
+          "temaCodigo": "Campo de aplicación del sistema de Seguridad Social",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        },
+        {
+          "id": "cmktm0sr3001el104iz7le4lk",
+          "createdAt": "2026-01-25T10:42:44.751Z",
+          "textSnippet": "Un trabajador que presta servicios en una empresa de minería del carbón, ¿a qué régimen de la Seguridad Social está sujeto?",
+          "temaCodigo": "Campo de aplicación del sistema de Seguridad Social",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        },
+        {
+          "id": "cmktm0sr3001cl104p2ixfjxd",
+          "createdAt": "2026-01-25T10:42:44.751Z",
+          "textSnippet": "El artículo 29 del Real Decreto 84/1996, de 26 de enero, por el que se aprueba el Reglamento General sobre inscripción de empresas y afiliación, altas, bajas y variaciones de dato…",
+          "temaCodigo": "Normas sobre afiliación. Altas y bajas en el régimen general. Procedimiento y efectos. El convenio especial y otras situaciones asimiladas a la del alta. Encuadramiento e inscripción.",
+          "temaNumero": null,
+          "temaParte": "especifico",
+          "temaTitulo": null
+        }
+      ]
+    }
+  ]
+}

@@ -242,7 +242,7 @@ export default function Dashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <Link href="/admin" className="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
               <div className="bg-gradient-to-r from-red-500 to-orange-600 p-4 flex items-center justify-between">
-                <h2 className="text-lg font-bold text-white">Panel de Administrador</h2>
+                <h2 className="text-lg font-bold text-white">Panel de Administración</h2>
                 <div className="text-white text-3xl">⚙️</div>
               </div>
               <div className="p-4">

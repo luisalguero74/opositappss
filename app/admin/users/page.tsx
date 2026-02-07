@@ -132,7 +132,20 @@ export default function UsersManagement() {
   }
 
   const handleRoleChange = async (userId: string, newRole: string) => {
-    if (!confirm(`¿Cambiar rol a ${newRole}?`)) return
+    const roleLabel = (role: string) => {
+      switch (String(role || '').toLowerCase()) {
+        case 'admin':
+          return 'Administrador'
+        case 'editor':
+          return 'Editor'
+        case 'user':
+          return 'Usuario'
+        default:
+          return role
+      }
+    }
+
+    if (!confirm(`¿Cambiar rol a ${roleLabel(newRole)}?`)) return
 
     try {
       const res = await fetch(`/api/admin/users/${userId}`, {
@@ -330,7 +343,7 @@ export default function UsersManagement() {
           <div className="flex items-center justify-between">
             <div>
               <Link href="/admin" className="text-orange-600 hover:text-orange-700 font-semibold mb-2 inline-block">
-                ← Volver al Panel de Administrador
+                ← Volver al Panel de Administración
               </Link>
               <h1 className="text-3xl font-bold text-gray-900 mt-2">👥 Gestión de Usuarios</h1>
               <p className="text-gray-600 mt-1">Administra usuarios y visualiza su historial de actividad</p>
@@ -341,7 +354,7 @@ export default function UsersManagement() {
             </div>
           </div>
 
-          {/* Cambiar mi contraseña (admin) */}
+          {/* Cambiar mi contraseña (administración) */}
           <div id="change-password" className="mt-6 border-t pt-6">
             <h2 className="text-lg font-bold text-gray-900 mb-3">🔐 Cambiar mi contraseña</h2>
             <p className="text-sm text-gray-600 mb-4">
@@ -428,7 +441,7 @@ export default function UsersManagement() {
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                Admins ({users.filter(u => u.role === 'admin').length})
+                Administradores ({users.filter(u => u.role === 'admin').length})
               </button>
               <button
                 onClick={() => setFilter('editor')}
@@ -479,7 +492,7 @@ export default function UsersManagement() {
                         <div className="flex items-center gap-2 mt-1 flex-wrap">
                           {user.role === 'admin' ? (
                             <span className="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded">
-                              👑 Admin
+                              👑 Administrador
                             </span>
                           ) : user.role === 'editor' ? (
                             <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-semibold rounded">
@@ -553,7 +566,7 @@ export default function UsersManagement() {
                       >
                         <option value="user">👤 Usuario</option>
                         <option value="editor">✏️ Editor</option>
-                        <option value="admin">👑 Admin</option>
+                        <option value="admin">👑 Administrador</option>
                       </select>
                       
                       {selectedUser.active ? (

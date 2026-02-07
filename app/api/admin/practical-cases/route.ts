@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { normalizeCorrectAnswerToUpperLetter } from '@/lib/answer-normalization'
 
 export async function GET(req: NextRequest) {
   try {
@@ -145,8 +146,12 @@ export async function POST(req: NextRequest) {
         questions: {
           create: parsed.data.questions.map((q: any, index: number) => ({
             text: q.text,
-            options: JSON.stringify(q.options),
-            correctAnswer: q.correctAnswer,
+            options: JSON.stringify((Array.isArray(q.options) ? q.options : []).map((o: any) => String(o ?? '').trim()).filter(Boolean)),
+            correctAnswer:
+              normalizeCorrectAnswerToUpperLetter(
+                q.correctAnswer,
+                (Array.isArray(q.options) ? q.options : []).map((o: any) => String(o ?? '').trim()).filter(Boolean)
+              ) ?? 'A',
             explanation: q.explanation || 'Pendiente de añadir motivación técnica'
           }))
         }

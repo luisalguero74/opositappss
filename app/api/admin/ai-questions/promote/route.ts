@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { rebalanceQuestionsABCD } from '../../../../../src/lib/answer-alternation'
+import { normalizeCorrectAnswerToUpperLetter, safeParseOptions } from '@/lib/answer-normalization'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -82,12 +83,19 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    const rebalanced = rebalanceQuestionsABCD(
-      aiQuestions.map(q => ({
+    const preparedForRebalance = aiQuestions.map(q => {
+      const optionsArr = safeParseOptions(q.options)
+      const trimmedOptions = optionsArr.map(o => String(o ?? '').trim()).filter(Boolean)
+      const normalizedCorrect = normalizeCorrectAnswerToUpperLetter(q.correctAnswer, trimmedOptions) ?? 'A'
+      return {
         id: q.id,
-        options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options,
-        correctAnswer: q.correctAnswer
-      })),
+        options: trimmedOptions,
+        correctAnswer: normalizedCorrect
+      }
+    })
+
+    const rebalanced = rebalanceQuestionsABCD(
+      preparedForRebalance,
       2
     )
     const rebalanceById = new Map<string, { options: string[]; correctAnswer: string }>(
@@ -100,8 +108,12 @@ export async function POST(req: NextRequest) {
           data: {
             questionnaireId: questionnaire.id,
             text: q.text,
-            options: JSON.stringify(rebalanceById.get(q.id)?.options ?? (typeof q.options === 'string' ? JSON.parse(q.options) : q.options)),
-            correctAnswer: rebalanceById.get(q.id)?.correctAnswer ?? q.correctAnswer,
+            options: JSON.stringify((rebalanceById.get(q.id)?.options ?? safeParseOptions(q.options)).map(o => String(o ?? '').trim()).filter(Boolean)),
+            correctAnswer:
+              normalizeCorrectAnswerToUpperLetter(
+                rebalanceById.get(q.id)?.correctAnswer ?? q.correctAnswer,
+                (rebalanceById.get(q.id)?.options ?? safeParseOptions(q.options)).map(o => String(o ?? '').trim()).filter(Boolean)
+              ) ?? 'A',
             explanation: q.explanation || 'Explicación pendiente',
             difficulty: mapDifficulty(q.difficulty),
             aiReviewed: true,

@@ -65,7 +65,7 @@ export default function Admin() {
           <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl p-8 shadow-2xl">
             <div className="text-center">
               <div className="text-6xl mb-4">⚙️</div>
-              <h1 className="text-4xl font-bold text-white">Panel de Administrador</h1>
+              <h1 className="text-4xl font-bold text-white">Panel de Administración</h1>
               <p className="text-red-100 mt-2">Gestiona los cuestionarios de la plataforma</p>
 
                     {/* Tarjetas de acceso rápido */}

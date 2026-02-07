@@ -3,6 +3,10 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { generateQuestions } from '@/lib/groq'
+import {
+  normalizeCorrectAnswerToUpperLetter,
+  safeParseOptions
+} from '@/lib/answer-normalization'
 
 // POST - Generar preguntas desde un documento o sección
 export async function POST(req: NextRequest) {
@@ -134,20 +138,27 @@ export async function POST(req: NextRequest) {
     // Guardar preguntas con el topic del documento
     const savedQuestions = await Promise.all(
       finalQuestions.map(q => 
-        prisma.generatedQuestion.create({
-          data: {
-            documentId,
-            sectionId: sectionId || null,
-            text: q.text,
-            options: JSON.stringify(q.options),
-            correctAnswer: q.correctAnswer,
-            explanation: q.explanation || null,
-            difficulty: difficulty,
-            topic: docTopic,
-            reviewed: false,
-            approved: false
-          }
-        })
+        (() => {
+          const parsedOptions = Array.isArray(q.options) ? q.options : safeParseOptions(q.options)
+          const options = (parsedOptions || []).map((o: unknown) => String(o ?? '').trim())
+          const correctAnswer =
+            normalizeCorrectAnswerToUpperLetter(q.correctAnswer, options) || 'A'
+
+          return prisma.generatedQuestion.create({
+            data: {
+              documentId,
+              sectionId: sectionId || null,
+              text: q.text,
+              options: JSON.stringify(options),
+              correctAnswer,
+              explanation: q.explanation || null,
+              difficulty: difficulty,
+              topic: docTopic,
+              reviewed: false,
+              approved: false
+            }
+          })
+        })()
       )
     )
 

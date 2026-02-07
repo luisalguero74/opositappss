@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { normalizeCorrectAnswerToUpperLetter } from '@/lib/answer-normalization'
 import * as fs from 'fs/promises'
 import * as path from 'path'
 import { processDocument } from '@/lib/document-processor'
@@ -480,8 +481,12 @@ export async function POST(req: NextRequest) {
         questions: {
           create: practicalCase.questions.map((q: any, index: number) => ({
             text: q.text,
-            options: JSON.stringify(q.options),
-            correctAnswer: q.correctAnswer,
+            options: JSON.stringify((Array.isArray(q.options) ? q.options : []).map((o: any) => String(o ?? '').trim()).filter(Boolean)),
+            correctAnswer:
+              normalizeCorrectAnswerToUpperLetter(
+                q.correctAnswer,
+                (Array.isArray(q.options) ? q.options : []).map((o: any) => String(o ?? '').trim()).filter(Boolean)
+              ) ?? 'A',
             explanation: q.explanation || 'Pendiente de añadir motivación técnica'
           }))
         }
@@ -731,7 +736,10 @@ ${strictNotes}
         parsed.statement = await rewriteStatementIfNeeded(parsed.statement, attempt)
       }
       parsed.questions = parsed.questions.map((q: any, idx: number) => {
-        const optionsArr = Array.isArray(q?.options) ? q.options.map((o: any) => String(o)) : []
+        const optionsArrRaw = Array.isArray(q?.options) ? q.options.map((o: any) => String(o ?? '')) : []
+        const optionsArr = optionsArrRaw
+          .map((o: string) => o.replace(/^\s*[A-Da-d]\s*[\)\.\:\-]\s*/g, '').trim())
+          .filter(Boolean)
         const withCitations = ensureLegalCitations(String(q?.explanation || ''), baseArticleRef, baseNormRef)
         const withGroundedQuote = ensureGroundedMandatoryQuote(
           withCitations,
@@ -739,10 +747,14 @@ ${strictNotes}
           mandatoryQuotes,
           idx
         )
+
+        const normalizedCorrect =
+          normalizeCorrectAnswerToUpperLetter(String(q?.correctAnswer ?? ''), optionsArr) ?? 'A'
+
         return {
           ...q,
           options: optionsArr,
-          correctAnswer: String(q?.correctAnswer || '').toUpperCase(),
+          correctAnswer: normalizedCorrect,
           explanation: ensureQuotedLiteral(withGroundedQuote, mandatoryQuotes, idx)
         }
       })

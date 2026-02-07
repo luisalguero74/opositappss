@@ -158,7 +158,7 @@ export default function MonetizationSettings() {
           <div className="flex items-center justify-between">
             <div>
               <Link href="/admin" className="text-orange-600 hover:text-orange-700 font-semibold mb-2 inline-block">
-                ← Volver al Panel de Administrador
+                ← Volver al Panel de Administración
               </Link>
               <h1 className="text-3xl font-bold text-gray-900 mt-2">💰 Sistema de Monetización</h1>
               <p className="text-gray-600 mt-1">Configura planes y gestiona suscripciones</p>

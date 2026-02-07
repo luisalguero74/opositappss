@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { createClient } from '@supabase/supabase-js'
 import { getB2RepositoryS3ConfigFromEnv, putB2Object } from '@/lib/external-file'
 import { Readable } from 'node:stream'
+import { reportForbiddenRepositoryAction } from '@/lib/repository-security'
 
 export const runtime = 'nodejs'
 
@@ -24,6 +25,15 @@ export async function POST(req: NextRequest) {
     const repoRole = String(session?.user?.repoRole || '').toUpperCase()
     const canEdit = role === 'admin' || repoRole === 'EDITOR'
     if (!session?.user || !canEdit) {
+      if (session?.user) {
+        await reportForbiddenRepositoryAction({
+          req,
+          session,
+          attemptedAction: 'upload',
+          reason: 'not-editor',
+          statusCode: 403,
+        })
+      }
       return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
     }
 

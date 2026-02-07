@@ -11,9 +11,16 @@ interface Question {
   options: string[]
   correctAnswer: string
   explanation?: string
+  createdAt?: string
+  updatedAt?: string
+  questionnaireId?: string
+  questionnairePublished?: boolean | null
+  questionnaireUpdatedAt?: string | null
   questionnaireName: string
   temaCodigo?: string | null
   temaNumero?: number | null
+  temaTitulo?: string | null
+  temaParte?: string | null
   difficulty?: string | null
   aiReviewed?: boolean
   aiReviewedAt?: string | null
@@ -25,6 +32,7 @@ export default function QuestionsDatabase() {
   const [questions, setQuestions] = useState<Question[]>([])
   const [filter, setFilter] = useState('')
   const [typeFilter, setTypeFilter] = useState<'all' | 'theory' | 'practical'>('all')
+  const [dateFilter, setDateFilter] = useState<'all' | 'today' | 'last7'>('all')
   const [loading, setLoading] = useState(true)
   const [selectedQuestions, setSelectedQuestions] = useState<Set<string>>(new Set())
   const [correcting, setCorrecting] = useState(false)
@@ -157,10 +165,31 @@ export default function QuestionsDatabase() {
     }
   }
 
+  const now = new Date()
+  const startOfToday = new Date(now)
+  startOfToday.setHours(0, 0, 0, 0)
+  const startOfTomorrow = new Date(startOfToday)
+  startOfTomorrow.setDate(startOfTomorrow.getDate() + 1)
+  const sevenDaysAgo = new Date(now)
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+
   const filteredQuestions = questions.filter(q => {
     const matchesSearch =
-      q.text.toLowerCase().includes(filter.toLowerCase()) ||
-      q.questionnaireName.toLowerCase().includes(filter.toLowerCase())
+        q.text.toLowerCase().includes(filter.toLowerCase()) ||
+        q.questionnaireName.toLowerCase().includes(filter.toLowerCase()) ||
+        (q.explanation || '').toLowerCase().includes(filter.toLowerCase()) ||
+        (q.temaCodigo || '').toLowerCase().includes(filter.toLowerCase()) ||
+        (q.temaTitulo || '').toLowerCase().includes(filter.toLowerCase())
+
+    const createdAt = q.createdAt ? new Date(q.createdAt) : null
+    const matchesDate =
+      dateFilter === 'all'
+        ? true
+        : createdAt
+          ? dateFilter === 'today'
+            ? createdAt >= startOfToday && createdAt < startOfTomorrow
+            : createdAt >= sevenDaysAgo
+          : false
 
     const name = q.questionnaireName.toLowerCase()
     const isTheoryByName = name.includes('tema')
@@ -173,7 +202,7 @@ export default function QuestionsDatabase() {
       (typeFilter === 'theory' && (isTheoryByName || isTheoryByTemaMeta)) ||
       (typeFilter === 'practical' && isPracticalByName)
 
-    return matchesSearch && matchesType
+    return matchesSearch && matchesType && matchesDate
   })
 
   if (loading) {
@@ -190,7 +219,7 @@ export default function QuestionsDatabase() {
         {/* Header */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
           <Link href="/admin" className="text-orange-600 hover:text-orange-700 font-semibold mb-2 inline-block">
-            ← Volver al Panel de Administrador
+            ← Volver al Panel de Administración
           </Link>
           <div className="flex items-center justify-between mt-2">
             <div>
@@ -214,13 +243,13 @@ export default function QuestionsDatabase() {
           </div>
           <div className="bg-white rounded-xl shadow-lg p-6">
             <div className="text-3xl font-bold text-green-600">
-              {questions.filter(q => q.questionnaireName.toLowerCase().includes('tema')).length}
+              {questions.filter(q => !!(q.temaCodigo || q.temaNumero || q.temaTitulo)).length}
             </div>
             <div className="text-sm text-gray-600">Test de Temario</div>
           </div>
           <div className="bg-white rounded-xl shadow-lg p-6">
             <div className="text-3xl font-bold text-purple-600">
-              {questions.filter(q => q.questionnaireName.toLowerCase().includes('práctico')).length}
+              {questions.filter(q => q.questionnaireName.toLowerCase().includes('práctico') || q.questionnaireName.toLowerCase().includes('practico')).length}
             </div>
             <div className="text-sm text-gray-600">Supuestos Prácticos</div>
           </div>
@@ -228,14 +257,14 @@ export default function QuestionsDatabase() {
 
         {/* Filters */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-gray-700 font-semibold mb-2">Buscar</label>
               <input
                 type="text"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                placeholder="Buscar por pregunta o cuestionario..."
+                placeholder="Buscar por pregunta, explicación, tema o cuestionario..."
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
               />
             </div>
@@ -251,6 +280,33 @@ export default function QuestionsDatabase() {
                 <option value="practical">Supuestos Prácticos</option>
               </select>
             </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-2">Fecha</label>
+              <select
+                value={dateFilter}
+                onChange={(e) => setDateFilter(e.target.value as any)}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500"
+              >
+                <option value="all">Todas</option>
+                <option value="today">Hoy</option>
+                <option value="last7">Últimos 7 días</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="mt-4 flex justify-end">
+            <button
+              type="button"
+              onClick={() => {
+                setFilter('')
+                setTypeFilter('all')
+                setDateFilter('all')
+                setSelectedQuestions(new Set())
+              }}
+              className="px-4 py-2 border-2 border-gray-200 rounded-lg bg-white hover:bg-gray-50 text-sm font-semibold text-gray-700"
+            >
+              Limpiar filtros
+            </button>
           </div>
         </div>
 
@@ -328,6 +384,7 @@ export default function QuestionsDatabase() {
                       title="Seleccionar todas"
                     />
                   </th>
+                  <th className="text-left py-4 px-6 font-semibold">Fecha</th>
                   <th className="text-left py-4 px-6 font-semibold">Cuestionario</th>
                   <th className="text-left py-4 px-6 font-semibold">Pregunta</th>
                   <th className="text-left py-4 px-6 font-semibold">Opciones</th>
@@ -352,8 +409,30 @@ export default function QuestionsDatabase() {
                         className="w-5 h-5 rounded cursor-pointer"
                       />
                     </td>
+                    <td className="py-4 px-6 whitespace-nowrap">
+                      <div className="text-sm text-gray-800 font-medium">
+                        {q.createdAt
+                          ? new Date(q.createdAt).toLocaleDateString('es-ES', {
+                              day: '2-digit',
+                              month: 'short',
+                              year: 'numeric'
+                            })
+                          : '—'}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {q.createdAt
+                          ? new Date(q.createdAt).toLocaleTimeString('es-ES', {
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })
+                          : ''}
+                      </div>
+                    </td>
                     <td className="py-4 px-6">
                       <span className="font-semibold text-purple-600">{q.questionnaireName}</span>
+                      {q.questionnairePublished === false && (
+                        <div className="text-xs text-gray-500 mt-1">No publicado</div>
+                      )}
                       {q.temaCodigo && (
                         <div className="text-xs text-gray-500 mt-1">
                           {q.temaCodigo} - Tema {q.temaNumero}
@@ -393,7 +472,14 @@ export default function QuestionsDatabase() {
                     <td className="py-4 px-6">
                       <ul className="text-sm text-gray-600 space-y-1">
                         {q.options.map((opt, i) => (
-                          <li key={i} className={opt === q.correctAnswer ? 'text-green-600 font-semibold' : ''}>
+                          <li
+                            key={i}
+                            className={
+                              opt === q.correctAnswer
+                                ? 'px-2 py-1 rounded border border-green-200 bg-green-50 text-green-800 font-semibold'
+                                : 'px-2 py-1 rounded'
+                            }
+                          >
                             {String.fromCharCode(65 + i)}) {opt}
                           </li>
                         ))}

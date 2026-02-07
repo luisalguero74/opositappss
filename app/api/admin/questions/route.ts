@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { safeParseOptions } from '@/lib/answer-normalization'
+import { normalizeCorrectAnswerToUpperLetter, safeParseOptions } from '@/lib/answer-normalization'
 
 export async function GET(req: NextRequest) {
   try {
@@ -15,13 +15,18 @@ export async function GET(req: NextRequest) {
       include: {
         questionnaire: {
           select: {
-            title: true
+            id: true,
+            title: true,
+            published: true,
+            updatedAt: true
           }
         }
       },
-      orderBy: {
-        createdAt: 'desc'
-      }
+      orderBy: [
+        { temaParte: { sort: 'asc', nulls: 'last' } },
+        { temaNumero: { sort: 'asc', nulls: 'last' } },
+        { createdAt: 'desc' }
+      ]
     })
 
     const formattedQuestions = questions.map(q => ({
@@ -30,7 +35,12 @@ export async function GET(req: NextRequest) {
       options: safeParseOptions((q as any).options),
       correctAnswer: q.correctAnswer,
       explanation: q.explanation,
+      createdAt: q.createdAt.toISOString(),
+      updatedAt: q.updatedAt.toISOString(),
+      questionnaireId: q.questionnaireId,
       questionnaireName: q.questionnaire?.title ?? 'Sin cuestionario',
+      questionnairePublished: q.questionnaire?.published ?? null,
+      questionnaireUpdatedAt: q.questionnaire?.updatedAt?.toISOString?.() ?? null,
       temaCodigo: q.temaCodigo,
       temaNumero: q.temaNumero,
       difficulty: q.difficulty,
@@ -75,12 +85,10 @@ export async function POST(req: NextRequest) {
     }
 
     const trimmedOptions = options.map((opt: string) => String(opt || '').trim())
-    const rawCorrect = String(correctAnswer).trim()
-    const isLetterAnswer = ['A', 'B', 'C', 'D'].includes(rawCorrect.toUpperCase())
-
-    if (!isLetterAnswer && !trimmedOptions.includes(rawCorrect)) {
+    const normalizedCorrect = normalizeCorrectAnswerToUpperLetter(correctAnswer, trimmedOptions)
+    if (!normalizedCorrect) {
       return NextResponse.json(
-        { error: 'La respuesta correcta debe estar entre las opciones o ser A/B/C/D' },
+        { error: 'La respuesta correcta debe poder normalizarse a A, B, C o D (letra, índice 0-3/1-4, o texto exacto de una opción)' },
         { status: 400 }
       )
     }
@@ -96,7 +104,7 @@ export async function POST(req: NextRequest) {
         questionnaireId,
         text: String(text).trim(),
         options: JSON.stringify(trimmedOptions),
-        correctAnswer: rawCorrect,
+        correctAnswer: normalizedCorrect,
         explanation: String(explanation || '').trim() || 'Explicación pendiente',
         temaCodigo: temaCodigo || null,
         temaNumero: typeof temaNumero === 'number' ? temaNumero : null,

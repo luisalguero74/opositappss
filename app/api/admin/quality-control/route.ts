@@ -116,7 +116,26 @@ async function runQualityChecks() {
           questionText: q.text,
           details: 'No tiene respuesta correcta definida'
         })
-      } else if (!options.includes(q.correctAnswer)) {
+      } else {
+        const raw = String(q.correctAnswer ?? '').trim()
+        const asLetter = ['A', 'B', 'C', 'D'].includes(raw.toUpperCase())
+
+        // Si es letra, asegurarnos de que hay 4 opciones para que la letra sea interpretable
+        if (asLetter) {
+          if (options.length < 4) {
+            issues.push({
+              id: `invalid_corr_${q.id}`,
+              type: 'no_correct',
+              severity: 'high',
+              questionId: q.id,
+              questionText: q.text,
+              details: `La respuesta correcta "${q.correctAnswer}" es letra, pero hay menos de 4 opciones`
+            })
+          }
+          return
+        }
+
+        if (!options.includes(raw)) {
         issues.push({
           id: `invalid_corr_${q.id}`,
           type: 'no_correct',
@@ -125,6 +144,7 @@ async function runQualityChecks() {
           questionText: q.text,
           details: `La respuesta correcta "${q.correctAnswer}" no está entre las opciones`
         })
+        }
       }
     } catch (error) {
       issues.push({

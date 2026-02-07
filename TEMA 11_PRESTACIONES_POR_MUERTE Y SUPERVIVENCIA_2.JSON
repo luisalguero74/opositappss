@@ -1,0 +1,484 @@
+{
+  "questions": [
+    {
+      "question": "Conforme al art. 23.1, ¿cuál es la cuantía de la pensión en favor de familiares para cada beneficiario, en términos de remisión?",
+      "options": [
+        "Es igual al 45% de la base reguladora del causante.",
+        "Es igual a la señalada para la prestación de orfandad del art. 17.1.",
+        "Es igual al auxilio por defunción.",
+        "Es una cuantía fija de cinco mil pesetas para todos los casos."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 23.1 remite: \"será... igual a la señalada para la prestación de orfandad\" del art. 17.1. B, C y D no son la remisión del precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 22.1.1.a), ¿qué condición de edad o incapacidad se exige a nietos y hermanos para ser beneficiarios de la pensión en favor de familiares?",
+      "options": [
+        "Ser mayores de 18 años y estar casados.",
+        "Ser menores de 22 años en todo caso, sin referencia a incapacidad.",
+        "Ser menores de 18 años o tener reducida su capacidad en un porcentaje valorado como incapacidad permanente absoluta o gran invalidez.",
+        "Tener 60 años cumplidos o estar incapacitados para el trabajo."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 22.1.1.a) exige que sean \"menores de dieciocho años\" o con capacidad reducida valorada en \"incapacidad permanente absoluta o gran invalidez\". B elimina el criterio principal; C es lo contrario; D corresponde a ascendientes (art. 22.1.3).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 27, ¿qué otras dos causas (además del agotamiento del período) se enumeran para extinguir el subsidio temporal en favor de familiares?",
+      "options": [
+        "Observar una conducta deshonesta o inmoral y fallecimiento.",
+        "Constituir pareja de hecho y fallecimiento.",
+        "Contraer nuevo matrimonio y culpabilidad en sentencia.",
+        "Adopción y cumplir edad límite."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 27 enumera: b) \"Observar una conducta deshonesta o inmoral\" y c) \"Fallecimiento\". B, C y D mezclan causas de otros artículos (art. 11 o art. 21).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 26, ¿a qué cuantía equivale el subsidio temporal en favor de familiares?",
+      "options": [
+        "A la señalada para la pensión en el art. 23.1.",
+        "A cinco mil pesetas.",
+        "A seis mensualidades de la base reguladora.",
+        "Al 45% de la base reguladora."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 26 establece que la cuantía del subsidio \"será igual a la señalada para la pensión\" del art. 23.1. B, C y D pertenecen a otras prestaciones del texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 31.2, si existe duda acerca de la contingencia que originó la muerte, ¿qué regla especial se fija para el auxilio por defunción?",
+      "options": [
+        "Se paga por el Servicio común en todo caso.",
+        "Se suspende el auxilio hasta que se aclare la contingencia.",
+        "Se paga solo si se acredita accidente de trabajo.",
+        "Se satisface de forma inmediata por la Mutualidad laboral de encuadramiento, sin perjuicio de repetición contra la entidad obligada al pago."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 31.2 ordena que, si hay duda, el auxilio por defunción sea satisfecho \"de forma inmediata\" por la Mutualidad laboral, \"sin perjuicio\" de que repita contra la entidad obligada. B, C y D contradicen el artículo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 22.1.3.a), ¿qué requisito alternativo se exige a padre y abuelos para ser beneficiarios?",
+      "options": [
+        "Ser huérfanos de padre y madre.",
+        "Ser menores de 18 años.",
+        "Tener 60 años cumplidos o hallarse incapacitados para el trabajo.",
+        "Tener 40 años cumplidos."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 22.1.3.a) exige \"sesenta años\" o estar \"incapacitados para el trabajo\". B, C y D no se ajustan a ese punto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.2, ¿cómo define el texto la 'incapacidad para el trabajo' a efectos de los supuestos de ascendientes y nietos/hermanos?",
+      "options": [
+        "Cualquier incapacidad temporal.",
+        "La de carácter permanente y absoluta que inhabilite por completo para toda profesión u oficio.",
+        "La incapacidad parcial para la profesión habitual.",
+        "La incapacidad que permita trabajar a tiempo parcial."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 22.2 define la incapacidad como \"permanente y absoluta\" que \"inhabilite por completo\". B, C y D no corresponden a esa definición.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 28.1, ¿quiénes pueden ser beneficiarios de la indemnización especial a tanto alzado en caso de muerte por accidente de trabajo o enfermedad profesional?",
+      "options": [
+        "Solo el causante, en vida.",
+        "Cualquier familiar consanguíneo del causante sin más requisitos.",
+        "Solo los nietos y hermanos menores de 18 años.",
+        "La viuda o el viudo que se encuentre en las condiciones del art. 7.2 y reúna las condiciones de viudedad del capítulo III."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 28.1 reconoce el derecho a \"la viuda o el viudo\" en las condiciones del art. 7.2 y con requisitos de viudedad del cap. III, para muerte por AT/EP. B, C y D no corresponden a ese supuesto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 31.1, ¿quién asume el pago de las prestaciones reguladas en la Orden?",
+      "options": [
+        "Siempre el INSS, con independencia del reconocimiento.",
+        "La Mutualidad laboral, Mutua de Accidentes de Trabajo y Enfermedades Profesionales o Servicio común que haya reconocido el derecho según el art. 30.",
+        "Siempre la empresa del causante.",
+        "Siempre el beneficiario mediante autoliquidación."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 31.1 dispone que el pago correrá a cargo de la entidad que haya \"reconocido el derecho\" según art. 30 (Mutualidad/Mutua/Servicio común). B, C y D no son la regla del art. 31.1.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 33.b), en pluriempleo y muerte debida a accidente de trabajo, ¿qué entidad reconoce y paga, y cómo se reparte el coste entre entidades?",
+      "options": [
+        "Reconoce y paga siempre una sola Mutualidad: la de mayor base del mes anterior, sin prorrateo.",
+        "Reconoce y paga la Mutualidad laboral o Mutua que cubría la contingencia en la empresa del accidente; el importe se prorratea entre todas en proporción a las bases por las que se cotizaba.",
+        "Reconoce el Servicio común y no hay prorrateo.",
+        "Reconoce y paga la empresa y no hay prorrateo."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 33.b) fija que en accidente de trabajo reconoce/paga la entidad que cubría la contingencia en la empresa donde ocurrió el accidente, y que el importe \"se prorrateará\" entre todas \"en proporción\" a las bases. B recoge el criterio del art. 32.2/33.a), C corresponde a enfermedad profesional, y D no aparece.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 22.1.1 (solicitud tardía), si no se solicita la recuperación dentro de los 3 meses, ¿qué límite de retroactividad máxima establece el texto?",
+      "options": [
+        "No hay recuperación posible.",
+        "Una retroactividad máxima de 12 meses.",
+        "Retroactividad ilimitada.",
+        "Una retroactividad máxima de 3 meses, a contar desde la solicitud."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 22.1.1 prevé que, si no se solicita en tres meses, la pensión recuperada tendrá una \"retroactividad máxima de tres meses\" desde la solicitud. B, C y D contradicen el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1.1 (recuperación), ¿desde cuándo tiene efectos la recuperación de la pensión cuando se extingue el contrato de trabajo o cesa la actividad por cuenta propia?",
+      "options": [
+        "Desde la fecha del fallecimiento del causante.",
+        "Desde el primer día del mes siguiente, siempre.",
+        "Desde el día siguiente a la fecha de extinción del contrato o del cese de la actividad (si se solicita dentro de 3 meses).",
+        "Desde la fecha de la primera solicitud, sin condiciones."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 22.1.1 indica que la recuperación tendrá efectos \"desde el día siguiente\" a la extinción del contrato o cese de actividad, siempre que se solicite dentro de \"tres meses\". B, C y D no coinciden con la regla.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 30.b), ¿quién reconoce el derecho cuando la muerte se debe a accidente de trabajo?",
+      "options": [
+        "La Mutualidad laboral o Mutua de Accidentes de Trabajo y Enfermedades Profesionales de la Seguridad Social que tenga a su cargo la protección.",
+        "Siempre el Servicio común de la Seguridad Social.",
+        "Siempre la empresa.",
+        "Siempre el beneficiario que pagó el sepelio."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 30.b) atribuye el reconocimiento a la \"Mutualidad laboral o Mutua\" que tenga a su cargo la protección de contingencias cuando la muerte sea por accidente de trabajo. B, C y D no son el criterio del artículo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 30.c), ¿quién reconoce el derecho cuando la muerte se debe a enfermedad profesional?",
+      "options": [
+        "La Mutualidad laboral.",
+        "El correspondiente Servicio común de la Seguridad Social.",
+        "La empresa.",
+        "El Fondo de Garantía Salarial."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 30.c) señala que el reconocimiento corresponde al \"Servicio común de la Seguridad Social\" cuando la muerte sea por enfermedad profesional. B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 27, ¿cuál de las siguientes es causa de extinción del subsidio temporal en favor de familiares?",
+      "options": [
+        "Agotamiento del período de duración fijado como máximo.",
+        "Contraer matrimonio del causante.",
+        "Pluriempleo del causante.",
+        "Tener ingresos inferiores al SMI."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 27.a) prevé la extinción por \"Agotamiento del período\" máximo. B, C y D no son causas del art. 27.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1.1 (regularización anual), si al finalizar el ejercicio los ingresos anuales fueron inferiores al límite, ¿qué regla de abono retroactivo se prevé y qué plazo de solicitud se fija?",
+      "options": [
+        "Se abona siempre automáticamente sin necesidad de solicitud.",
+        "Se abona la pensión por el tiempo no percibido desde el 1 de enero del ejercicio o desde la suspensión (si posterior), si se solicita en los 3 primeros meses del año siguiente.",
+        "Solo se abona desde la fecha de solicitud, sin retroactividad.",
+        "Se pierde definitivamente el tiempo no percibido."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 22.1.1 establece el abono por tiempo no percibido desde \"el día primero de enero\" o desde la suspensión (si posterior), siempre que se solicite en \"los tres primeros meses del año siguiente\". B, C y D no reflejan el régimen del texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1.2.b), además de la condición del art. 22.1.2.a), ¿qué remisión de requisitos se hace para madre y abuelas?",
+      "options": [
+        "Deben reunir los requisitos de la pensión de viudedad.",
+        "Deben reunir solo la condición de ser menores de 18 años.",
+        "Deben reunir las condiciones de los apartados c), d) y e) del punto 1).",
+        "No se exige ninguna otra condición."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 22.1.2.b) remite a que reúnan las condiciones de los apartados \"c), d) y e)\" del punto 1). B, C y D contradicen la remisión expresa.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 23.2 (segundo supuesto), si no quedan cónyuge sobreviviente, ni hijos, nietos o hermanos con derecho a pensión, ¿qué regla se establece para ascendientes y reparto del incremento?",
+      "options": [
+        "Se incrementa solo para el ascendiente de mayor edad.",
+        "No se incrementa nunca la pensión de ascendientes.",
+        "El porcentaje para la pensión de ascendientes se incrementa igual, repartiéndose por partes iguales entre todos los ascendientes con derecho.",
+        "Se incrementa proporcionalmente a las bases de cotización."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 23.2 establece que, en ausencia de cónyuge e hijos/nietos/hermanos con derecho, el porcentaje de ascendientes \"se incrementará\" y se distribuirá \"por partes iguales\" entre los ascendientes con derecho. B, C y D contradicen el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 26, ¿cuál es la duración máxima del subsidio temporal en favor de familiares?",
+      "options": [
+        "Seis mensualidades.",
+        "Doce mensualidades como máximo.",
+        "Veinticuatro mensualidades.",
+        "No tiene límite de duración."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 26 establece que tendrá \"una duración máxima de doce mensualidades\". B y C no son el límite y D contradice el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1 (párrafo inicial), además de las condiciones del beneficiario, ¿qué requisito de cotización puede exigirse al causante para la pensión en favor de familiares cuando fallece en activo o asimilado al alta, y en qué ventana temporal?",
+      "options": [
+        "No se exige ningún requisito de cotización en ningún caso.",
+        "Haber cubierto 15 años dentro de los 10 años anteriores, sin excepciones.",
+        "Haber cubierto 30 años completos, día a día.",
+        "Haber cubierto 500 días dentro de los 5 años anteriores al fallecimiento, salvo accidente de trabajo o enfermedad profesional."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 22.1 exige que el causante en activo o asimilado haya cubierto \"quinientos días dentro de los cinco años anteriores\" salvo que la causa sea \"accidente de trabajo o enfermedad profesional\". B y C no aparecen en el art. 22.1 y D contradice el requisito.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 22.1.1.b), ¿qué requisito adicional se exige a nietos y hermanos para ser beneficiarios (distinto de edad/incapacidad)?",
+      "options": [
+        "Tener derecho a pensión de viudedad.",
+        "Ser hijos póstumos del causante.",
+        "Ser huérfanos de padre y madre.",
+        "Estar inscritos como demandantes de empleo durante 6 meses."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 22.1.1.b) exige que sean \"huérfanos de padre y madre\". B es un supuesto de orfandad del art. 3; C corresponde a otra prestación; D no se menciona en la Orden.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 22.1.2.a), ¿qué condición específica se exige para que madre y abuelas sean beneficiarias de la pensión en favor de familiares?",
+      "options": [
+        "Ser huérfanas de padre y madre.",
+        "Ser siempre casadas y convivir con el causante dos años.",
+        "Tener 60 años cumplidos en todo caso.",
+        "Ser viudas, casadas cuyo marido esté incapacitado para el trabajo, o solteras."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 22.1.2.a) exige que sean \"viudas, casadas cuyo marido esté incapacitado... o solteras\". B y C no reflejan el requisito de estado civil del artículo, y D corresponde a nietos/hermanos.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 23.2, ¿cuándo se incrementa la pensión correspondiente a nietos o hermanos y a qué artículo remite el mecanismo del incremento?",
+      "options": [
+        "Solo cuando el causante era pensionista, incrementándose según el art. 9.1.b).",
+        "Siempre que haya cónyuge sobreviviente, incrementándose según el art. 8.1.",
+        "Solo en caso de pluriempleo, incrementándose según el art. 32.",
+        "Cuando no quede cónyuge sobreviviente o fallezca el cónyuge con derecho a viudedad; se incrementa en la forma del art. 17.2."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 23.2 prevé el incremento si no queda \"cónyuge sobreviviente\" o si éste fallece estando en disfrute, y remite a \"la forma prevista\" en el art. 17.2. B, C y D no coinciden con el art. 23.2.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 29.2.a), existiendo también viuda/viudo con derecho a indemnización, ¿qué cuantía corresponde a cada huérfano beneficiario?",
+      "options": [
+        "Una mensualidad de la base reguladora para cada huérfano.",
+        "Seis mensualidades para cada huérfano.",
+        "Una cuantía fija de 250 pesetas mensuales.",
+        "La mitad de la indemnización de la viuda/viudo."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 29.2.a) establece \"Una mensualidad\" de la base reguladora para cada huérfano cuando exista viuda/viudo con derecho. B, C y D no coinciden con el art. 29.2.a).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1.1.c), ¿qué duración mínima de convivencia y dependencia económica se exige respecto del causante?",
+      "options": [
+        "Convivir con el causante al menos 6 meses antes del fallecimiento.",
+        "Convivir con el causante y a sus expensas al menos con 2 años de antelación al fallecimiento.",
+        "Haber convivido con el causante solo en el último mes.",
+        "No se exige convivencia previa."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 22.1.1.c) exige convivencia \"al menos con dos años de antelación\" y \"a sus expensas\". B y C reducen el plazo y D elimina un requisito expreso.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1.1.e), ¿qué doble condición material se exige sobre medios de subsistencia y familiares obligados a prestar alimentos?",
+      "options": [
+        "Carecer de medios, aunque existan familiares obligados y con posibilidad.",
+        "Tener medios de subsistencia suficientes y quedar familiares obligados.",
+        "Carecer de medios de subsistencia y no quedar familiares con obligación y posibilidad de prestar alimentos.",
+        "Tener cualquier ingreso, aunque mínimo, y no se analiza alimentos."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 22.1.1.e) exige \"que carezcan de medios de subsistencia\" y además \"no queden familiares con obligación y posibilidad de prestarles alimentos\". B, C y D no cumplen ambas condiciones.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 25, ¿quiénes tienen derecho al subsidio temporal en favor de familiares (edad/estado civil) y a qué condiciones remite?",
+      "options": [
+        "Hijos y hermanos mayores de 22, solteros o viudos, que reúnan las condiciones c), d) y e) del art. 22.1.",
+        "Nietos y hermanos menores de 18, siempre.",
+        "Madre y abuelas viudas, sin más condiciones.",
+        "Padre y abuelos mayores de 60, sin remisiones."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 25 exige que sean \"hijos y hermanos\" mayores de \"veintidós\" años, \"solteros o viudos\" y que reúnan las condiciones de los párrafos \"c), d) y e)\" del art. 22.1. B, C y D no son el supuesto del art. 25.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1.1 (párrafo sobre menores de 22), ¿cuándo puede mantenerse la condición de beneficiario hasta los 22 años por la regla de ingresos?",
+      "options": [
+        "Cuando tenga a su cargo hijos con derecho a orfandad.",
+        "Cuando, aunque supere el 75% del SMI, siga estudiando.",
+        "Cuando tenga siempre ingresos inferiores al 100% del SMI anual.",
+        "Cuando no efectúe trabajo lucrativo o, realizándolo, sus ingresos anuales sean inferiores al 75% del SMI anual, y al fallecer sea menor de 22."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 22.1.1 permite ser beneficiario hasta 22 años si no hay trabajo lucrativo o si los ingresos anuales son \"inferiores al 75 por 100\" del SMI anual, y si al fallecer es \"menor de veintidós años\". B, C y D no están en ese párrafo.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 28.2, además de la viuda/viudo, ¿quiénes pueden tener derecho a una indemnización especial por una sola vez en muerte por accidente de trabajo o enfermedad profesional?",
+      "options": [
+        "Los parientes que paguen el sepelio.",
+        "Los ascendientes mayores de 60 años automáticamente.",
+        "Los huérfanos que reúnan condiciones para ser beneficiarios de la pensión de orfandad.",
+        "Los beneficiarios del subsidio temporal en favor de familiares."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 28.2 indica que los \"huérfanos\" con condiciones para la pensión de orfandad tendrán derecho a indemnización especial por una sola vez. B, C y D no aparecen en el art. 28.2.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 29.1, ¿a cuánto equivale la indemnización especial para la viuda/viudo prevista en el art. 28.1?",
+      "options": [
+        "A cinco mil pesetas.",
+        "Al importe de una mensualidad de la base reguladora.",
+        "Al importe de seis mensualidades de la base reguladora calculada como en el art. 9.",
+        "Al 45% de la base reguladora."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 29.1 fija que será igual al importe de \"seis mensualidades\" de la base reguladora calculada como en viudedad (art. 9). B, C y D no son lo previsto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 22.1.1.d), ¿qué requisito se fija respecto al acceso a pensión pública?",
+      "options": [
+        "Tener derecho a pensión pública solo si es inferior al SMI.",
+        "Tener ya reconocida una pensión pública.",
+        "Tener derecho a cualquier prestación, sea pública o privada.",
+        "No tener derecho a pensión pública."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 22.1.1.d) exige expresamente \"que no tengan derecho a pensión pública\". B, C y D contradicen o alteran el requisito.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 32.1, en caso de pluriempleo del causante, ¿cómo se computan las bases de cotización para determinar la base reguladora y qué límite se aplica?",
+      "options": [
+        "Solo se computa la base de la empresa en la que llevaba más antigüedad.",
+        "Se computan todas las bases de cotización en las distintas empresas y se aplica el tope máximo establecido a efectos de cotización.",
+        "Solo se computa la base de la empresa con salario más bajo.",
+        "Se promedian las bases pero sin aplicar ningún tope."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 32.1 establece que se computarán \"todas sus bases\" y se aplicará el \"tope máximo\" de cotización. B, C y D no reflejan el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 22.1.1 (regla de ingresos antes de 18), ¿qué ingresos se excluyen expresamente al determinar ingresos del beneficiario en esos supuestos?",
+      "options": [
+        "Los obtenidos por el beneficiario después de los 18 años.",
+        "Los obtenidos por el huérfano antes de que se cumplan los 18 años.",
+        "Todos los ingresos del capital.",
+        "Las pensiones públicas, siempre."
+      ],
+      "correctAnswer": "B",
+      "explanation": "El art. 22.1.1 dice: \"Para la determinación de los ingresos, en ningún caso se tendrán en cuenta los obtenidos... antes de que se cumplan los dieciocho años\". B invierte la regla; C y D no se establecen.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1.1 (mayores de 18 con trabajo), además de la regla general, ¿qué requisito adicional se exige sobre el tope de ingresos cuando realizan trabajo por cuenta ajena o actividad por cuenta propia?",
+      "options": [
+        "Que los ingresos anuales del trabajo/actividad no superen el 75% del SMI anual vigente.",
+        "Que los ingresos no superen el 100% del SMI anual.",
+        "Que los ingresos no superen 2 veces el SMI.",
+        "Que no haya ingresos del capital."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 22.1.1 establece que, con 18 o más años y trabajo/actividad, los ingresos anuales \"no superen el 75 por 100\" del SMI anual. B, C y D no son el umbral previsto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 30.a), ¿quién reconoce el derecho a las prestaciones cuando la muerte se debe a enfermedad común o accidente no laboral, según el texto?",
+      "options": [
+        "El Servicio común de la Seguridad Social.",
+        "La Mutua de Accidentes de Trabajo y Enfermedades Profesionales.",
+        "La correspondiente Mutualidad laboral.",
+        "El beneficiario, por declaración responsable."
+      ],
+      "correctAnswer": "C",
+      "explanation": "El art. 30.a) dispone que el reconocimiento se realiza \"por la correspondiente Mutualidad laboral\" cuando la muerte sea por enfermedad común o accidente no laboral. B y C son otras contingencias del art. 30, y D no aparece.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 22.1.1 (definición), ¿cuándo se entiende que el nieto o hermano carece de medios de subsistencia?",
+      "options": [
+        "Cuando sus ingresos superen el SMI anual.",
+        "Cuando sus ingresos anuales sean inferiores al 75% del SMI anual.",
+        "Cuando no tenga ingresos mensuales.",
+        "Cuando sus ingresos anuales sean iguales o inferiores al SMI anual para trabajadores con 18 años."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 22.1.1 precisa que carece de medios cuando los ingresos anuales sean \"iguales o inferiores\" al SMI anual para trabajadores con 18 años. B se refiere al límite del 75% en otro párrafo; C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 22.1.1 (supuesto de percepción antes de los 18), si el pensionista ya venía percibiendo la pensión y había trabajado antes de cumplir 18, ¿cuándo produce efectos la suspensión por superar ingresos?",
+      "options": [
+        "En la fecha del cumplimiento de los 18 años, si en ese momento los ingresos superan el límite previsto.",
+        "Desde el fallecimiento del causante.",
+        "Desde la fecha de solicitud inicial de la pensión.",
+        "Nunca: lo trabajado antes de los 18 siempre se computa para suspender inmediatamente."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 22.1.1 prevé que, si se venía percibiendo antes de 18 y el pensionista trabajaba, la suspensión tendrá efectos \"en la fecha del cumplimiento de los dieciocho años\" cuando se superen ingresos. B y C no aparecen y D contradice la frase sobre ingresos antes de 18.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 24.a), ¿cómo se extingue la pensión a favor de familiares de nietos y hermanos?",
+      "options": [
+        "Por las mismas causas señaladas para la pensión de orfandad en el art. 21.",
+        "Solo por contraer matrimonio.",
+        "Solo por fallecimiento del causante.",
+        "Nunca se extingue."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 24.a) remite expresamente a las causas \"señaladas para la pensión de orfandad\" en el art. 21. B y C reducen indebidamente las causas, y D es falso.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 24.b), ¿cuáles son las causas de extinción de la pensión a favor de familiares de ascendientes?",
+      "options": [
+        "Constituir una pareja de hecho.",
+        "Cumplir la edad mínima fijada para orfandad.",
+        "Ser adoptado.",
+        "Contraer matrimonio y fallecimiento."
+      ],
+      "correctAnswer": "D",
+      "explanation": "El art. 24.b) enumera para ascendientes: \"Contraer matrimonio\" y \"Fallecimiento\". B y C son causas del art. 21 para orfandad; D no está en el art. 24.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 22.1.1 (suspensión), ¿qué ocurre con la pensión en favor de familiares reconocida a beneficiarios mayores de 18 años si conciertan contrato laboral o realizan trabajo por cuenta propia y superan el límite de ingresos?",
+      "options": [
+        "Queda en suspenso desde el día siguiente a aquel en que concurra la causa de la suspensión.",
+        "Se extingue automáticamente, sin posibilidad de recuperación.",
+        "Se mantiene siempre, porque el trabajo no afecta.",
+        "Se reduce al 50% mientras dure el contrato."
+      ],
+      "correctAnswer": "A",
+      "explanation": "El art. 22.1.1 indica que, reconocida la pensión, \"quedará en suspenso\" si mayores de 18 conciertan contrato o trabajan por cuenta propia y superan el límite, con efectos \"desde el día siguiente\". B, C y D no se ajustan al régimen de suspensión del artículo.",
+      "difficulty": "hard"
+    }
+  ]
+}

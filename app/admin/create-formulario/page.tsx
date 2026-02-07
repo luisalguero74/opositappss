@@ -67,6 +67,14 @@ export default function CreateFormulario() {
   const [showPreview, setShowPreview] = useState(false)
   const [loadError, setLoadError] = useState<string>('')
 
+  const getCorrectOptionIndex = (q: UnifiedQuestion): number => {
+    const ca = String(q.correctAnswer || '').trim()
+    if (/^[A-D]$/i.test(ca)) return ca.toUpperCase().charCodeAt(0) - 65
+    if (/^[a-d]$/.test(ca)) return ca.toLowerCase().charCodeAt(0) - 97
+    const byValue = q.options.findIndex((opt) => String(opt).trim() === ca)
+    return byValue
+  }
+
   useEffect(() => {
     if (status === 'authenticated' && String(session?.user?.role || '').toLowerCase() === 'admin') {
       loadQuestions()
@@ -624,7 +632,14 @@ export default function CreateFormulario() {
                       </div>
                       <div className="space-y-2 ml-8">
                         {q.options.map((option: string, i: number) => (
-                          <div key={i} className="flex items-center gap-2 p-3 bg-white rounded border border-gray-200">
+                          <div
+                            key={i}
+                            className={`flex items-center gap-2 p-3 rounded border ${
+                              i === getCorrectOptionIndex(q)
+                                ? 'bg-green-50 border-green-200 text-green-800 font-semibold'
+                                : 'bg-white border-gray-200'
+                            }`}
+                          >
                             <span className="font-semibold text-gray-600">{String.fromCharCode(65 + i)})</span>
                             <span className="text-gray-700">{option}</span>
                           </div>

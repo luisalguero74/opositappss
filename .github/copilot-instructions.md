@@ -4,64 +4,49 @@
 
 - [x] Scaffold the Project
 
-- [x] Customize the Project
+# Copilot instructions (opositAPP)
 
-- [x] Install Required Extensions
+## Big picture
+- Next.js App Router app: pages and APIs live under `app/` (routes in `app/api/**/route.ts`).
+- Data layer is PostgreSQL via Prisma (`prisma/schema.prisma`, client in `src/lib/prisma.ts`).
+- Auth is NextAuth Credentials (`src/lib/auth.ts`) and is enforced in `middleware.ts`.
+- Key subsystems: monetization/Stripe, RAG/AI (Groq), document repository (Backblaze B2/Supabase).
 
-- [x] Compile the Project
+## Local workflows
+- Dev: `npm install` then `npm run dev`.
+- Build/lint: `npm run lint`, `npm run build`.
+- Useful VS Code tasks: `Run Development Server`, `Build (Production)`, plus “safe” DB ops in `.vscode/tasks.json`.
 
-- [x] Create and Run Task
+## Critical data convention: `Question.correctAnswer`
+- Canonical storage is ALWAYS a single uppercase letter: `A|B|C|D`.
+- Canonical `Question.options` storage is a JSON stringified array of 4 non-empty strings.
+- When reading legacy data, parse with `safeParseOptions(...)` (`src/lib/answer-normalization.ts`).
+- Before any DB write (API routes, scripts, imports), normalize via `normalizeCorrectAnswerToUpperLetter(correctAnswer, options)`.
+- If options are invalid or correct answer can’t be inferred, fail fast with `400` (don’t persist mixed formats).
 
-- [x] Launch the Project
+## Auth & access patterns
+- API routes typically use `getServerSession(authOptions)`; see `app/api/ai/chat/route.ts`.
+- “Allowed phones only” is enforced during registration and in the JWT callback; do not bypass it (`app/api/auth/register/route.ts`, `src/lib/auth.ts`).
+- Admin checks use `String(session.user.role).toLowerCase() === 'admin'`.
+- Repository editing uses `user.repoRole` (`READER|EDITOR`) in addition to admin; see `app/api/repository/upload/route.ts` and `src/lib/repository-security.ts`.
 
-- [x] Ensure Documentation is Complete
+## Prisma/Postgres notes (Supabase/PgBouncer)
+- Always import the shared Prisma instance from `src/lib/prisma.ts`.
+- That wrapper forces PgBouncer-safe params (`statement_cache_size=0`) to avoid prepared-statement collisions.
 
-## Execution Guidelines
-PROGRESS TRACKING:
-- If any tools are available to manage the above todo list, use it to track progress through this checklist.
-- After completing each step, mark it complete and add a summary.
-- Read current todo list status before starting each new step.
+## Storage: repository + temario
+- Repository documents upload to Backblaze B2 if configured; otherwise fallback to Supabase Storage (`app/api/repository/upload/route.ts`).
+- B2 S3 config helpers live in `src/lib/external-file.ts` and `src/lib/b2.ts`.
 
-COMMUNICATION RULES:
-- Avoid verbose explanations or printing full command outputs.
-- If a step is skipped, state that briefly (e.g. "No extensions needed").
-- Do not explain project structure unless asked.
-- Keep explanations concise and focused.
+## AI/RAG
+- RAG context search is keyword-based with optional embeddings (`src/lib/rag-system.ts`).
+- Groq calls use fetch and require `GROQ_API_KEY` (`src/lib/groq.ts`).
 
-DEVELOPMENT RULES:
-- Use '.' as the working directory unless user specifies otherwise.
-- Avoid adding media or external links unless explicitly requested.
-- Use placeholders only with a note that they should be replaced.
-- Use VS Code API tool only for VS Code extension projects.
-- Once the project is created, it is already opened in Visual Studio Code—do not suggest commands to open this project in Visual Studio again.
-- If the project setup information has additional rules, follow them strictly.
+## Security & observability
+- `middleware.ts` sets CSP/security headers and implements API rate limiting.
+- Central error logging writes to DB and can email admins (`src/lib/error-logger.ts`, endpoint `app/api/admin/log-error/route.ts`).
 
-FOLDER CREATION RULES:
-- Always use the current directory as the project root.
-- If you are running any terminal commands, use the '.' argument to ensure that the current working directory is used ALWAYS.
-- Do not create a new folder unless the user explicitly requests it besides a .vscode folder for a tasks.json file.
-- If any of the scaffolding commands mention that the folder name is not correct, let the user know to create a new folder with the correct name and then reopen it again in vscode.
-
-EXTENSION INSTALLATION RULES:
-- Only install extension specified by the get_project_setup_info tool. DO NOT INSTALL any other extensions.
-
-PROJECT CONTENT RULES:
-- If the user has not specified project details, assume they want a "Hello World" project as a starting point.
-- Avoid adding links of any type (URLs, files, folders, etc.) or integrations that are not explicitly required.
-- Avoid generating images, videos, or any other media files unless explicitly requested.
-- If you need to use any media assets as placeholders, let the user know that these are placeholders and should be replaced with the actual assets later.
-- Ensure all generated components serve a clear purpose within the user's requested workflow.
-- If a feature is assumed but not confirmed, prompt the user for clarification before including it.
-- If you are working on a VS Code extension, use the VS Code API tool with a query to find relevant VS Code API references and samples related to that query.
-
-TASK COMPLETION RULES:
-- Your task is complete when:
-  - Project is successfully scaffolded and compiled without errors
-  - copilot-instructions.md file in the .github directory exists in the project
-  - README.md file exists and is up to date
-  - User is provided with clear instructions to debug/launch the project
-
-Before starting a new task in the above plan, update progress in the plan.
-- Work through each checklist item systematically.
-- Keep communication concise and focused.
-- Follow development best practices.
+## Env configuration
+- Use `.env.example` as the source of truth for required env vars.
+- Email prefers Resend (`RESEND_API_KEY`, `EMAIL_FROM`) with SMTP/Gmail fallbacks (`src/lib/email.ts`).
+- Email verification enforcement is gated by `ENFORCE_EMAIL_VERIFICATION` + `EMAIL_VERIFICATION_ENFORCE_AFTER`.

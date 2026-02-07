@@ -10,6 +10,24 @@ import { readFileSync } from 'fs'
 
 const prisma = new PrismaClient()
 
+function normalizeCorrectAnswerToLetter(rawCorrectAnswer, options) {
+  const value = String(rawCorrectAnswer ?? '').trim()
+  const upper = value.toUpperCase()
+  if (['A', 'B', 'C', 'D'].includes(upper)) return upper
+
+  if (/^\d+$/.test(value)) {
+    const n = Number.parseInt(value, 10)
+    if (n >= 0 && n <= 3) return ['A', 'B', 'C', 'D'][n]
+    if (n >= 1 && n <= 4) return ['A', 'B', 'C', 'D'][n - 1]
+  }
+
+  const normalizedOptions = (options || []).map(o => String(o ?? '').trim())
+  const idx = normalizedOptions.findIndex(o => o === value)
+  if (idx >= 0 && idx < 4) return ['A', 'B', 'C', 'D'][idx]
+
+  return null
+}
+
 async function main() {
   console.log('🚀 Importando preguntas a producción (método directo)...\n')
   
@@ -48,13 +66,19 @@ async function main() {
       // Crear preguntas una por una para mejor control de errores
       for (const q of qGroup.questions) {
         const options = typeof q.options === 'string' ? JSON.parse(q.options) : q.options
+
+        const normalizedOptions = (Array.isArray(options) ? options : []).map(o => String(o ?? '').trim())
+        const correctAnswer = normalizeCorrectAnswerToLetter(q.correctAnswer, normalizedOptions)
+        if (!correctAnswer) {
+          throw new Error(`correctAnswer inválido para pregunta: ${String(q.text || '').slice(0, 60)}...`)
+        }
         
         await prisma.question.create({
           data: {
             questionnaireId: questionnaire.id,
             text: q.text,
-            options: JSON.stringify(options),
-            correctAnswer: q.correctAnswer,
+            options: JSON.stringify(normalizedOptions),
+            correctAnswer,
             explanation: q.explanation || '',
             temaCodigo: q.temaCodigo || null,
             temaNumero: q.temaNumero || null,

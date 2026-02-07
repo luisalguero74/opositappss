@@ -1,0 +1,620 @@
+{
+  "questions": [
+    {
+      "question": "Según el artículo 84.1 del RD 1415/2004 (Reglamento General de Recaudación de la Seguridad Social), ¿qué naturaleza tiene la providencia de apremio?",
+      "options": [
+        "Constituye el título ejecutivo suficiente para iniciar el procedimiento de apremio y tiene la misma fuerza ejecutiva que las sentencias judiciales.",
+        "Es un acto de trámite sin fuerza ejecutiva propia.",
+        "Es una propuesta interna que requiere homologación judicial.",
+        "Es un acto que únicamente abre la vía de deducción."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 84.1 RD 1415/2004: \"La providencia de apremio constituye el título ejecutivo suficiente para el inicio del procedimiento de apremio... y tiene la misma fuerza ejecutiva que las sentencias judiciales\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 84.1 del RD 1415/2004, ¿qué efecto produce la omisión de la providencia de apremio?",
+      "options": [
+        "La nulidad de la reclamación de deuda.",
+        "La improcedencia de la vía de apremio.",
+        "La suspensión automática del plazo reglamentario de ingreso.",
+        "La caducidad del expediente de apremio."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 84.1 RD 1415/2004: \"Su omisión determinará la improcedencia de la vía de apremio\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 84.2.b del RD 1415/2004, ¿qué debe identificarse expresamente en la providencia de apremio respecto de la deuda?",
+      "options": [
+        "Únicamente el principal, sin recargo ni período.",
+        "Concepto e importe de la deuda pendiente de ingreso por principal y recargo, así como el período a que corresponde.",
+        "Solo el recargo aplicable, sin principal.",
+        "El detalle de bienes embargables del deudor."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 84.2.b RD 1415/2004: \"Concepto e importe de la deuda pendiente de ingreso por principal y recargo, así como período a que corresponde\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 84.2.e del RD 1415/2004, ¿qué plazo se menciona para pagar tras la notificación antes de que sean exigibles intereses de demora?",
+      "options": [
+        "10 días naturales.",
+        "15 días hábiles.",
+        "15 días naturales.",
+        "30 días naturales."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 84.2.e RD 1415/2004: \"si el pago no se efectúa dentro del plazo de los 15 días naturales siguientes a la notificación\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 84.2.f del RD 1415/2004, una vez firme en vía administrativa la providencia sin ingreso, ¿qué advierte la providencia que se hará?",
+      "options": [
+        "Se archivará el expediente por insolvencia.",
+        "Se abrirá automáticamente un concurso.",
+        "Se procederá a la ejecución administrativa de garantías y, en su caso, al embargo en cuantía suficiente para cubrir principal, recargos, intereses y costas.",
+        "Se solicitará necesariamente autorización judicial para embargar."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 84.2.f RD 1415/2004: \"se procederá a la ejecución administrativa de las garantías existentes y, en su caso, al embargo... en cuantía suficiente para cubrir el principal... los recargos y los intereses y costas del procedimiento\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el artículo 84.2.g del RD 1415/2004, ¿qué recurso es admisible contra la providencia de apremio?",
+      "options": [
+        "Recurso de reposición, por cualquier motivo.",
+        "Recurso de alzada basado en los motivos del artículo 86, debidamente justificados.",
+        "Recurso extraordinario de revisión en todo caso.",
+        "Recurso contencioso-administrativo directo sin vía administrativa previa."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 84.2.g RD 1415/2004: \"contra la providencia de apremio solamente será admisible recurso de alzada basado en los motivos enumerados en el artículo 86, debidamente justificados\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 86.1 del RD 1415/2004, ¿cuál de los siguientes motivos NO es un motivo admisible (expreso) de recurso de alzada contra la providencia de apremio?",
+      "options": [
+        "Pago.",
+        "Prescripción.",
+        "Error material o aritmético en la determinación de la deuda.",
+        "Disconformidad con la valoración de bienes embargados."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Art. 86.1 RD 1415/2004 enumera como motivos: \"Pago\", \"Prescripción\", \"Error material...\", \"Condonación, aplazamiento... o suspensión\" y \"Falta de notificación...\"; no incluye la valoración de bienes.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 86.1 del RD 1415/2004, ¿qué motivo se menciona expresamente para recurrir la providencia de apremio?",
+      "options": [
+        "Pago.",
+        "Falta de motivación del recargo.",
+        "Preterición del orden de embargo.",
+        "Conveniencia de otra forma de enajenación."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 86.1.a RD 1415/2004: \"Pago\". Es un motivo tasado de oposición/impugnación de la providencia de apremio expresamente previsto en el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 86.1.b del RD 1415/2004, ¿qué motivo se admite para recurrir la providencia de apremio?",
+      "options": [
+        "Prescripción.",
+        "Error de hecho en la adjudicación.",
+        "Nulidad por falta de publicación en BOE.",
+        "Caducidad por inactividad de la mesa de subasta."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 86.1.b RD 1415/2004: \"Prescripción\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el artículo 86.1.d del RD 1415/2004, ¿qué combinación aparece literalmente como motivo admisible de recurso contra la providencia de apremio?",
+      "options": [
+        "Condonación, aplazamiento de la deuda o suspensión del procedimiento.",
+        "Liquidación indebida del recargo en periodo voluntario.",
+        "Falta de anotación preventiva en el Registro.",
+        "Inexistencia de bienes embargables."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 86.1.d RD 1415/2004: \"Condonación, aplazamiento de la deuda o suspensión del procedimiento\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 86.1.e del RD 1415/2004, ¿qué falta de notificación puede fundamentar el recurso contra la providencia de apremio?",
+      "options": [
+        "Falta de notificación de la providencia de subasta.",
+        "Falta de notificación de la reclamación de deuda (cuando proceda), del acta de liquidación o de las resoluciones que éstas o las autoliquidaciones originen.",
+        "Falta de notificación del mandamiento de cancelación registral.",
+        "Falta de notificación del acuerdo de tanteo."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 86.1.e RD 1415/2004: \"Falta de notificación de la reclamación de deuda... del acta de liquidación o de las resoluciones que éstas o las autoliquidaciones de cuotas originen\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 86.2 del RD 1415/2004, ¿qué efecto tiene la interposición del recurso sobre el procedimiento de apremio?",
+      "options": [
+        "Suspende el procedimiento de apremio sin necesidad de presentar garantía, hasta la notificación de su resolución.",
+        "No suspende nunca el procedimiento.",
+        "Suspende únicamente si se consigna el principal.",
+        "Suspende solo con aval bancario inscrito."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 86.2 RD 1415/2004: \"La interposición de recurso suspenderá el procedimiento de apremio, sin necesidad de la presentación de garantía, hasta la notificación de su resolución\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 38.2 del TRLGSS (incluido en el tema), ¿qué naturaleza atribuye a la providencia de apremio?",
+      "options": [
+        "Es un acto de trámite sin fuerza ejecutiva.",
+        "Constituye el título ejecutivo suficiente para el inicio del procedimiento de apremio por la TGSS y tiene la misma fuerza ejecutiva que las sentencias judiciales.",
+        "Es un acto judicial del Letrado de la Administración de Justicia.",
+        "Es una resolución dictada por el juzgado competente."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 38.2 TRLGSS: \"constituye el título ejecutivo suficiente... y tiene la misma fuerza ejecutiva que las sentencias judiciales\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 38.4 del TRLGSS, si se recurre un acto del procedimiento ejecutivo distinto de la providencia de apremio, ¿cuándo NO se suspende el procedimiento de apremio?",
+      "options": [
+        "No se suspende si no se realiza el pago, se garantiza con aval suficiente o se consigna el importe (incluidos recargo, intereses y un 3% del principal como cantidad a cuenta de costas).",
+        "Siempre se suspende por la mera interposición del recurso.",
+        "Solo se suspende si lo solicita el deudor sin más.",
+        "Solo se suspende si se embargan bienes inmuebles."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 38.4 TRLGSS: \"el procedimiento de apremio no se suspenderá si no se realiza el pago... se garantiza con aval suficiente o se consigna su importe, incluidos el recargo, los intereses devengados y un 3 por ciento del principal como cantidad a cuenta de las costas\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 87.1 del RD 1415/2004, una vez firme la providencia sin ingreso, ¿qué actuación corresponde instar al recaudador ejecutivo?",
+      "options": [
+        "Declarar incobrable automáticamente el crédito.",
+        "Instar la ejecución de garantías existentes y, en su caso, proceder al embargo para el cobro forzoso mediante enajenación o adjudicación a la TGSS.",
+        "Remitir el expediente al juzgado civil para ejecución.",
+        "Abrir un trámite de audiencia obligatorio de 30 días antes de embargar."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 87.1 RD 1415/2004: \"el recaudador ejecutivo instará la ejecución de las garantías existentes y, en su caso, procederá al embargo... mediante su enajenación o adjudicación a la Tesorería General de la Seguridad Social\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 87.2 del RD 1415/2004, ¿qué regla general se establece sobre las providencias de apremio dictadas contra un mismo responsable?",
+      "options": [
+        "No pueden acumularse en ningún caso.",
+        "Se acumularán en un solo procedimiento, con posible segregación si lo exigen las circunstancias.",
+        "Solo se acumulan previa autorización judicial.",
+        "Se acumulan únicamente si el deudor lo solicita."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 87.2 RD 1415/2004: \"se acumularán en un solo procedimiento... sin perjuicio de que... se proceda a la segregación\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 87.3 del RD 1415/2004, ¿qué incremento máximo puede preverse sobre la cuantía exigible por previsión de costas e intereses?",
+      "options": [
+        "Hasta un 3%.",
+        "Hasta un 5%.",
+        "Hasta un 10%.",
+        "Hasta un 20%."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 87.3 RD 1415/2004: \"podrán prever un incremento... de hasta un 10 por ciento\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 87.4 del RD 1415/2004, si se produce un exceso de cobro respecto de la deuda apremiada, ¿qué procede?",
+      "options": [
+        "Aplicar el exceso a futuras deudas automáticamente.",
+        "Ingresarlo en una cuenta de depósitos por seis meses.",
+        "Restituir inmediatamente el sobrante al apremiado o al titular del bien o derecho, salvo embargo u orden de retención.",
+        "Repartirlo entre los licitadores de la subasta."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 87.4 RD 1415/2004: \"procederá a la inmediata restitución del sobrante al apremiado... salvo que medie embargo u orden de retención\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 88.1 del RD 1415/2004, cuando el cumplimiento de la deuda esté garantizado (aval, prenda, hipoteca u otra garantía), ¿qué debe hacerse de forma inmediata?",
+      "options": [
+        "Proceder inmediatamente a exigir el pago al garante o a ejecutar la garantía por el procedimiento administrativo de apremio.",
+        "Embargar primero bienes distintos y dejar la garantía para el final.",
+        "Suspender el procedimiento hasta que prescriba.",
+        "Solicitar siempre autorización judicial para ejecutar la garantía."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 88.1 RD 1415/2004: \"se procederá inmediatamente a exigir el pago al garante o a ejecutar la garantía dada por el procedimiento administrativo de apremio\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 88.1 del RD 1415/2004, si el recaudador ejecutivo estima insuficiente o desproporcionada la garantía constituida, ¿qué puede hacer?",
+      "options": [
+        "Esperar obligatoriamente a ejecutar la garantía antes de cualquier otra actuación.",
+        "Levantar el embargo y archivar el expediente.",
+        "Proceder, sin esperar a su ejecución, al embargo de otros bienes del deudor.",
+        "Declarar incobrable el crédito sin más."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 88.1 RD 1415/2004: \"podrá proceder, sin esperar a su ejecución, al embargo de otros bienes del deudor\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 88.2 del RD 1415/2004, si la garantía consiste en aval, fianza u otra garantía personal, ¿qué se requiere al garante?",
+      "options": [
+        "Que pague solo los intereses, quedando el principal para el deudor.",
+        "Que pague hasta el límite garantizado y se le advierta que, si no paga en plazo, se procederá contra sus bienes.",
+        "Que consigne judicialmente el importe completo.",
+        "Que pida aplazamiento en nombre del deudor."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 88.2 RD 1415/2004: \"se instará del garante el pago de la deuda hasta el límite del importe garantizado\" y \"se le prevendrá... que de no realizar el pago... se procederá contra sus bienes\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "De acuerdo con el artículo 88.4 del RD 1415/2004, si la garantía consiste en dinero consignado o depositado en efectivo, ¿qué plazo se fija para requerir el ingreso al depositario?",
+      "options": [
+        "24 horas.",
+        "48 horas.",
+        "5 días naturales.",
+        "10 días hábiles."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 88.4 RD 1415/2004: \"se requerirá al depositario el ingreso en el plazo de 24 horas\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 89.1 del RD 1415/2004, ¿quiénes deben facilitar información sobre los bienes y paradero del responsable de la deuda a requerimiento de la URE?",
+      "options": [
+        "Solo la entidad empleadora del deudor.",
+        "La Administración de la Seguridad Social y demás Administraciones públicas, los registros públicos, las entidades obligadas por ley y el propio responsable del pago.",
+        "Únicamente los registros de la propiedad.",
+        "Solo el propio deudor y sus familiares."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 89.1 RD 1415/2004: \"deberán facilitar información...\" incluyendo \"La Administración...\", \"Los registros públicos\" y \"El propio responsable del pago\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 89.2 del RD 1415/2004, si el deudor no manifiesta sus bienes, ¿qué no podrá alegarse como causa de impugnación del apremio (respecto de bienes no señalados)?",
+      "options": [
+        "Pago.",
+        "Prescripción.",
+        "La preterición u alteración del orden de prelación.",
+        "Error aritmético en la deuda."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 89.2 RD 1415/2004: \"no podrá estimarse como causa de impugnación... la preterición o alteración del orden de prelación... en relación con los bienes y derechos no señalados\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 90.1 del RD 1415/2004, ¿qué requisito exige la solicitud de información sobre movimientos de cuentas y operaciones bancarias?",
+      "options": [
+        "Autorización previa del Director Provincial de la TGSS competente.",
+        "Autorización previa del Consejo de Ministros.",
+        "Mandamiento judicial en todo caso.",
+        "Autorización previa de la Agencia Tributaria."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 90.1 RD 1415/2004: \"exigirá la autorización previa del Director Provincial de la Tesorería General de la Seguridad Social competente\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 90.3 del RD 1415/2004, ¿en qué plazo máximo deben cumplimentarse los informes y requerimientos de información?",
+      "options": [
+        "5 días.",
+        "10 días.",
+        "15 días.",
+        "30 días."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 90.3 RD 1415/2004: \"deberán ser cumplimentados en el plazo máximo de 10 días\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 91.1 del RD 1415/2004, ¿qué criterios rigen el orden de embargo de bienes por la URE?",
+      "options": [
+        "El orden estricto del artículo 592 LEC en todo caso.",
+        "El orden determinado por la mayor facilidad de enajenación y la menor onerosidad para el apremiado.",
+        "El orden que proponga siempre el deudor.",
+        "El orden alfabético de los bienes."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 91.1 RD 1415/2004: \"embargará los bienes... en el orden determinado por la mayor facilidad de su enajenación y la menor onerosidad\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 91.2 del RD 1415/2004, ¿cuándo se entiende que un crédito, efecto, valor o derecho es realizable en el acto o a corto plazo?",
+      "options": [
+        "Cuando puede ser realizado en un plazo no superior a tres meses.",
+        "Cuando puede ser realizado en un plazo no superior a un año.",
+        "Solo si es inmediatamente cobrable el mismo día.",
+        "Cuando puede ser realizado en un plazo no superior a seis meses."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 91.2 RD 1415/2004: \"puede ser realizado en un plazo no superior a tres meses\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 91.3 del RD 1415/2004, aunque se altere el orden de prelación a solicitud del deudor, ¿qué embargo no puede posponerse en ningún caso?",
+      "options": [
+        "El embargo de bienes inmuebles.",
+        "El embargo de dinero efectivo o en cuentas abiertas en entidades de depósito.",
+        "El embargo de joyas y objetos de arte.",
+        "El embargo de créditos a medio y largo plazo."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 91.3 RD 1415/2004: \"sin que en ningún caso pueda posponerse el embargo de dinero efectivo o en cuentas abiertas en entidades de depósito\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 592.2 (1.º) de la Ley de Enjuiciamiento Civil, ¿qué bien ocupa el primer lugar en el orden de embargo cuando no es posible aplicar los criterios del apartado 1?",
+      "options": [
+        "Bienes inmuebles.",
+        "Sueldos, salarios, pensiones e ingresos profesionales.",
+        "Dinero o cuentas corrientes de cualquier clase.",
+        "Joyas y objetos de arte."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 592.2.1.º LEC: \"Dinero o cuentas corrientes de cualquier clase\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 592.2 (2.º) de la Ley de Enjuiciamiento Civil, ¿qué engloba el segundo lugar del orden de embargo?",
+      "options": [
+        "Rentas en dinero, cualquiera que sea su origen.",
+        "Créditos y derechos realizables en el acto o a corto plazo, y títulos, valores u otros instrumentos financieros admitidos a negociación en un mercado secundario oficial de valores.",
+        "Bienes muebles o semovientes, acciones no admitidas a cotización oficial y participaciones sociales.",
+        "Créditos, derechos y valores realizables a medio y largo plazo."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 592.2.2.º LEC: \"Créditos y derechos realizables en el acto o a corto plazo, y títulos, valores u otros instrumentos financieros admitidos a negociación en un mercado secundario oficial de valores\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 92.1 del RD 1415/2004, ¿qué bienes no podrán ser objeto de embargo?",
+      "options": [
+        "Los bienes exceptuados por los artículos 605 y 606 de la LEC, u otras disposiciones con rango de ley.",
+        "Los bienes inmuebles en todo caso.",
+        "Los bienes muebles en todo caso.",
+        "Los bienes del deudor que no estén inscritos en registro público."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 92.1 RD 1415/2004: \"No podrán ser objeto de embargo los bienes exceptuados por los artículos 605 y 606...\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 92.2 del RD 1415/2004, para el embargo de salarios y prestaciones reconocidas por la Seguridad Social, ¿a qué preceptos remite expresamente?",
+      "options": [
+        "A los artículos 605 y 606 LEC.",
+        "Al artículo 592 LEC.",
+        "A los artículos 27.2 del Estatuto de los Trabajadores y 607 de la LEC.",
+        "A la Ley Hipotecaria, título VI."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 92.2 RD 1415/2004: \"se estará a lo dispuesto en los artículos 27.2... del... Estatuto de los Trabajadores y 607... de... Enjuiciamiento Civil\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 93 del RD 1415/2004, ¿a quién se notifica la diligencia de embargo cuando se trate de bienes que formen parte de la sociedad de gananciales?",
+      "options": [
+        "Solo al apremiado.",
+        "Solo al cónyuge.",
+        "Al apremiado y al cónyuge.",
+        "Al apremiado y siempre al Registro Civil."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 93 RD 1415/2004: \"se notificará al apremiado, y al cónyuge cuando se trate de bienes que formen parte de la sociedad de gananciales\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 93 del RD 1415/2004, en caso de cuotas de participación de bienes poseídos pro indiviso, ¿a qué se limita la diligencia de embargo y a quién se notifica?",
+      "options": [
+        "Se limita a la cuota del deudor y se notifica a los condóminos.",
+        "Abarca todo el bien y se notifica solo al apremiado.",
+        "Se limita al 50% del bien y se notifica al cónyuge.",
+        "Se limita a los frutos del bien y se notifica al depositario."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 93 RD 1415/2004: \"se limitará a la cuota de participación del deudor y se notificará a los condóminos\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 94.1 del RD 1415/2004, ante el incumplimiento u obstrucción de las órdenes de embargo, ¿qué puede hacer la Dirección Provincial de la TGSS?",
+      "options": [
+        "Archivar el expediente.",
+        "Realizar o promover actuaciones pertinentes, incluido el ejercicio de acciones penales.",
+        "Suspender indefinidamente la vía ejecutiva.",
+        "Convertir el procedimiento en deducción."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 94.1 RD 1415/2004: \"realizará o promoverá las actuaciones pertinentes, incluido en su caso el ejercicio de las acciones penales que procedan\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 94.2 del RD 1415/2004, ¿qué responsabilidad se impone a depositarios que consientan el incumplimiento de órdenes de embargo y qué consideración tiene el pagador de sueldos o créditos embargados?",
+      "options": [
+        "Responsabilidad subsidiaria sin límite y el pagador no es depositario.",
+        "Responsabilidad solidaria hasta el valor de los bienes embargables; el pagador tiene la consideración de depositario.",
+        "Responsabilidad penal automática; el pagador es siempre tercero poseedor.",
+        "Responsabilidad administrativa únicamente; el pagador es perito tasador."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 94.2 RD 1415/2004: \"serán responsables solidarios... hasta el importe del valor de los bienes\" y \"el pagador de sueldos... tendrá la consideración de depositario\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 95 del RD 1415/2004, una vez satisfecha totalmente la deuda, ¿qué debe hacer el recaudador ejecutivo respecto de embargos y anotaciones registrales?",
+      "options": [
+        "Mantenerlos hasta que prescriban las acciones.",
+        "Alzar los embargos, acordar la entrega del bien o derecho y dirigir mandamientos de cancelación de anotaciones de embargo.",
+        "Convertirlos en medidas cautelares definitivas.",
+        "Solicitar convalidación judicial para levantar el embargo."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 95 RD 1415/2004: \"alzará los embargos...\" y \"dirigirá los oportunos mandamientos de cancelación de las anotaciones de embargo\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 96.1.a del RD 1415/2004, cuando lo embargado sea dinero efectivo, ¿qué debe hacerse con el dinero?",
+      "options": [
+        "Ingresarlo inmediatamente en la cuenta determinada por la TGSS.",
+        "Custodiarlo en el expediente hasta la subasta.",
+        "Depositarlo en el juzgado competente.",
+        "Devolverlo al deudor con requerimiento de ingreso en 10 días."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 96.1.a RD 1415/2004: \"el dinero será inmediatamente ingresado en la cuenta determinada al efecto por la Tesorería General de la Seguridad Social\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 96.1.b (1.ª) del RD 1415/2004, al comunicarse la diligencia de embargo a la entidad de depósito, ¿qué debe hacer la entidad?",
+      "options": [
+        "Solicitar autorización judicial previa.",
+        "Esperar 10 días antes de retener.",
+        "Proceder inmediatamente a la retención del importe embargado si existiese saldo.",
+        "Retener solo si el deudor consiente por escrito."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 96.1.b.1.ª RD 1415/2004: \"procederá inmediatamente a la retención del importe embargado si existiese saldo\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 96.1.b (2.ª) del RD 1415/2004, en cuentas a la vista a nombre de varios titulares, ¿cómo se entiende la parte del saldo correspondiente al deudor (regla general)?",
+      "options": [
+        "Corresponde al 100% del saldo.",
+        "Corresponde a partes iguales a los titulares, salvo contrato o prueba de titularidad material distinta.",
+        "Corresponde siempre al 50% del saldo.",
+        "Corresponde al titular que figure primero en el contrato."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 96.1.b.2.ª RD 1415/2004: \"entendiéndose que corresponde a partes iguales a los titulares de la cuenta, salvo que...\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 96.1.b (3.ª) del RD 1415/2004, si no hay comunicación en contrario del recaudador, ¿cuándo se ingresa en la cuenta de la TGSS el importe retenido tras la traba?",
+      "options": [
+        "A las 24 horas.",
+        "Una vez transcurridos 10 días naturales, a contar desde el día siguiente a la fecha de la traba.",
+        "A los 10 días hábiles desde la traba.",
+        "El mismo día de la retención."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 96.1.b.3.ª RD 1415/2004: \"será ingresado... una vez transcurridos 10 días naturales, a contar desde el día siguiente a la fecha de la traba\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 97.1 del RD 1415/2004, tras notificarse el embargo de créditos y derechos sin garantía a la persona deudora del apremiado, ¿qué ocurre con el pago que ésta haga al apremiado?",
+      "options": [
+        "Sigue teniendo carácter liberatorio si se realiza en 10 días.",
+        "No tendrá carácter liberatorio a partir de la fecha de la notificación.",
+        "Será liberatorio solo si se realiza por transferencia.",
+        "Queda liberado si el apremiado firma un recibo."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 97.1 RD 1415/2004: \"a partir de la fecha de la notificación, no tendrá carácter liberatorio el pago efectuado a su deudor\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 97.1 del RD 1415/2004, cuando el crédito o derecho embargado haya vencido, ¿qué debe hacer la persona o entidad deudora del apremiado?",
+      "options": [
+        "Ingresar en la cuenta determinada por la TGSS el importe hasta cubrir la deuda.",
+        "Pagar al apremiado y notificar a la URE.",
+        "Consignar judicialmente el importe en todo caso.",
+        "Esperar a una segunda notificación."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 97.1 RD 1415/2004: \"deberá ingresar en la cuenta determinada al efecto... el importe hasta cubrir la deuda\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el artículo 97.1 del RD 1415/2004, si el crédito embargado no ha vencido y la deuda no queda solventada antes, ¿qué efecto se establece?",
+      "options": [
+        "El crédito queda liberado y no puede afectarse.",
+        "El crédito quedará afectado a la deuda hasta su vencimiento.",
+        "Se sustituye automáticamente por embargo de inmuebles.",
+        "Debe ejecutarse necesariamente una garantía real."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 97.1 RD 1415/2004: \"En otro caso, el crédito quedará afectado a dicha deuda hasta su vencimiento, si antes no resulta solventada\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 97.1 del RD 1415/2004, si el crédito o derecho consiste en pagos sucesivos, ¿qué se ordenará al pagador?",
+      "options": [
+        "Ingresar su importe hasta el límite de lo adeudado, sin esperar a posibles devengos sucesivos.",
+        "Ingresar solo el primer pago y esperar al vencimiento del resto.",
+        "Ingresar únicamente un porcentaje fijo del 3%.",
+        "Retener el pago pero sin ingresarlo hasta orden judicial."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 97.1 RD 1415/2004: \"se ordenará al pagador ingresar... su importe hasta el límite de la cantidad adeudada... sin esperar a posibles devengos sucesivos\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 98.1.a del RD 1415/2004, cuando los activos financieros están depositados o anotados en una entidad, ¿cómo se efectúa el embargo?",
+      "options": [
+        "Mediante la comunicación de la diligencia de embargo a la entidad donde se encuentren anotados o depositados.",
+        "Mediante subasta directa sin diligencia.",
+        "Mediante anotación preventiva en el Registro de la Propiedad.",
+        "Mediante intervención judicial del mercado."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Art. 98.1.a RD 1415/2004: \"El embargo se efectuará mediante la comunicación de la diligencia de embargo a la entidad donde se encuentren anotados o depositados\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 98.1.b del RD 1415/2004, ¿cómo se realiza la enajenación de títulos o activos admitidos a negociación en un mercado secundario oficial?",
+      "options": [
+        "Se realiza siempre por adjudicación directa al mejor postor en la Dirección Provincial.",
+        "Se realiza a través del mercado oficial en las mejores condiciones posibles, según las prácticas usuales de buena gestión.",
+        "Se realiza mediante sorteo entre licitadores.",
+        "Se realiza por venta privada autorizada por el deudor."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 98.1.b RD 1415/2004: \"se realizará a través del mercado oficial en las mejores condiciones posibles, según las prácticas usuales de buena gestión\".",
+      "difficulty": "hard"
+    },
+
+    {
+      "question": "Según el artículo 99 del RD 1415/2004, al embargarse acciones no cotizadas o participaciones, ¿qué deben comunicar los administradores de la sociedad a la URE?",
+      "options": [
+        "Únicamente el valor nominal.",
+        "La existencia de pactos de limitación a la libre transmisión o cualquier otra causa estatutaria o contractual que afecte a las acciones embargadas.",
+        "La contabilidad completa de los últimos diez años.",
+        "La nómina de todos los trabajadores."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Art. 99 RD 1415/2004: \"deberán poner en conocimiento... la existencia de pactos de limitación a la libre transmisión... o cualquier otra causa estatutaria o contractual\".",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al artículo 99 del RD 1415/2004, además de las participaciones o acciones, ¿qué comprende también el embargo (según el propio precepto)?",
+      "options": [
+        "Solo los derechos políticos, nunca los económicos.",
+        "Únicamente los dividendos devengados con anterioridad al embargo.",
+        "Los derechos económicos devengados a partir de la fecha de realización.",
+        "Los bienes inmuebles de los administradores."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Art. 99 RD 1415/2004: \"El embargo también comprenderá los derechos económicos devengados a partir de la fecha de realización\".",
+      "difficulty": "hard"
+    }
+  ]
+}

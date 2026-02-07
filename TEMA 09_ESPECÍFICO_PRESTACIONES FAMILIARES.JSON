@@ -1,0 +1,424 @@
+{
+  "questions": [
+    {
+      "question": "Conforme al art. 10.1.c) (párrafo quinto) del RD 1335/2005, ¿se exige límite de recursos económicos para el reconocimiento de asignación por hijo o menor acogido a cargo minusválido?",
+      "options": [
+        "Sí: un límite específico del 75% del SMI.",
+        "Sí: el mismo límite de la LPGE.",
+        "No: no se exigirá límite de recursos económicos.",
+        "Solo se exige si el minusválido es mayor de 18 años."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: A. El art. 10.1.c) dice: \"no se exigirá límite de recursos económicos\" para el reconocimiento por hijo a cargo minusválido. B, C y D no están en el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 26 del RD 1335/2005, ¿dónde se establece la cuantía de la prestación por parto o adopción múltiples?",
+      "options": [
+        "En el SMI vigente.",
+        "En el propio art. 26 con importe fijo.",
+        "En la LPGE únicamente.",
+        "En el art. 188 del TRLGSS."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: A. El art. 26 remite a la cuantía \"establecida en el artículo 188\" del TRLGSS. B, C y D no son lo que dice el art. 26.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 4 del RD 1335/2005, ¿a qué colectivo se aplica lo previsto en el art. 2?",
+      "options": [
+        "A todos los trabajadores por cuenta ajena que disfruten excedencia con reserva del puesto en los supuestos previstos.",
+        "Solo a trabajadores autónomos.",
+        "Solo a empleados públicos incluidos en el EBEP.",
+        "Solo a trabajadores a tiempo parcial."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 4 dice: \"Será de aplicación (...) a todos los trabajadores por cuenta ajena\" que disfruten los periodos de excedencia con reserva. B, C y D restringen sin apoyo en el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 27 del RD 1335/2005, ¿a qué entidad corresponde la gestión y el reconocimiento del derecho a las prestaciones familiares reguladas?",
+      "options": [
+        "A la Tesorería General de la Seguridad Social.",
+        "Al Instituto Nacional de la Seguridad Social.",
+        "Al Instituto Social de la Marina en todos los casos.",
+        "A las empresas mediante pago delegado."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: A. El art. 27 atribuye la gestión y reconocimiento al \"Instituto Nacional de la Seguridad Social\". B, C y D no se ajustan (el ISM aparece en disposición transitoria segunda para gestión transitoria).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 28.2 del RD 1335/2005, ¿qué tipo de hechos/datos no pueden exigirse al solicitante por ser de conocimiento de la Administración?",
+      "options": [
+        "El empadronamiento siempre.",
+        "Hechos como la situación del beneficiario en el sistema, percepción de otra prestación familiar (art. 30.2) y condición del hijo como perceptor de pensiones/subsidios del art. 30.3, y sus cuantías.",
+        "La identidad del solicitante siempre.",
+        "La certificación médica siempre."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: A. El art. 28.2 dice: \"En ningún caso\" será exigible acreditar hechos que la Administración deba conocer, citando expresamente situación en el sistema, percepción de otra prestación (art. 30.2) y condición del hijo (art. 30.3) y cuantías. B, C y D contradicen el tenor del art. 28.2.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 17.2 del RD 1335/2005, cuando deba producirse extinción o reducción por variaciones, ¿cuándo surten efectos dichas variaciones?",
+      "options": [
+        "Hasta el último día del trimestre natural en el que se haya producido la variación.",
+        "De forma inmediata el mismo día de la variación.",
+        "Desde el primer día del mes siguiente.",
+        "Desde el primer día del trimestre anterior."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 17.2 establece que no surtirán efectos hasta \"el último día del trimestre natural\" en que se produjo la variación. B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 5.4 del RD 1335/2005, ¿cuándo se inicia el cómputo de un nuevo periodo de cotización efectiva?",
+      "options": [
+        "Solo cuando la excedencia sea por cuidado de un hijo natural.",
+        "Solo una vez por trabajador en toda su vida laboral.",
+        "Por cada disfrute de excedencia laboral a que puedan dar lugar los sucesivos hijos, menores u otros familiares.",
+        "Únicamente cuando la empresa lo comunique a la TGSS."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: A. El art. 5.4 dispone: \"Se iniciará el cómputo de un nuevo período (...) por cada disfrute\" que pueda darse por sucesivos hijos/menores/otros familiares. B, C y D no figuran.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 16.4 del RD 1335/2005, si por variaciones se produce extinción o reducción del derecho, ¿desde cuándo se consideran indebidamente percibidas las cantidades abonadas de más?",
+      "options": [
+        "Desde el día siguiente a aquel en que se hubieran debido producir los efectos económicos de la variación.",
+        "Desde el día de la solicitud inicial.",
+        "Desde el 1 de enero del año en curso.",
+        "Desde el último día del trimestre natural."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 16.4 dice que las cantidades abonadas de más serán indebidamente percibidas \"desde el día siguiente\" a aquel en que debieron producirse efectos económicos de la variación. B, C y D no son lo que dice el precepto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 5.3 del RD 1335/2005, si no se completan los periodos máximos computables, ¿qué se computa como cotizado?",
+      "options": [
+        "No se computa nada si no se completa.",
+        "Solo el periodo mínimo legal.",
+        "El periodo solicitado inicialmente aunque no se disfrute.",
+        "El periodo efectivamente disfrutado."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: A. El art. 5.3 señala: \"se computará como cotizado el período efectivamente disfrutado\". B, C y D contradicen esa regla.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 13.1.b) del RD 1335/2005, ¿qué constituye la cuantía anual de la asignación en el supuesto especial?",
+      "options": [
+        "El importe anual íntegro de la asignación.",
+        "La diferencia entre la cifra resultante de aplicar la regla a) y los ingresos computables del beneficiario.",
+        "El 75% del SMI anual.",
+        "Un tercio del límite de ingresos aplicable."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: A. El art. 13.1.b) establece que la cuantía anual es \"La diferencia\" entre la cifra de la regla a) y los ingresos computables (art. 14). B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 11.2 del RD 1335/2005, tras separación/nulidad/divorcio, ¿quién conserva el derecho al percibo de la asignación?",
+      "options": [
+        "Siempre el progenitor que la tenía reconocida antes.",
+        "Quien tenga a su cargo al hijo o menor acogido, aunque sea persona distinta a la que la tenía reconocida antes, y siempre que sus ingresos no superen los límites exigidos.",
+        "Siempre la madre.",
+        "Solo el progenitor con mayor renta."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: A. El art. 11.2 dice que el derecho se conserva para quien tenga \"a su cargo\" al hijo/menor, aunque sea distinto del que la tenía reconocida antes, si sus ingresos no superan límites. B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 11.2 del RD 1335/2005, cuando por resolución judicial se acuerda ejercicio compartido de la guarda y custodia, ¿cómo se reconoce la prestación?",
+      "options": [
+        "Se suspende hasta nuevo acuerdo.",
+        "Solo a uno, al que la solicite primero.",
+        "A cada uno, en proporción al tiempo en que le haya sido reconocida la custodia, previa solicitud.",
+        "Se reconoce siempre al menor."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: A. El art. 11.2 establece que, con guarda y custodia compartida por resolución judicial, la prestación se reconocerá \"a cada uno\" en \"proporción al tiempo\" de custodia, previa solicitud. B, C y D no figuran.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 11.1 del RD 1335/2005, si ambos posibles beneficiarios conviven y reúnen requisitos respecto de un mismo causante, ¿qué regla general se aplica?",
+      "options": [
+        "El derecho se reconoce al que tenga la patria potestad en exclusiva, siempre.",
+        "El derecho se reconoce siempre a ambos por partes iguales.",
+        "El derecho se reconoce al progenitor con mayor base de cotización.",
+        "El derecho solo puede reconocerse a favor de uno, determinado de común acuerdo; se presume acuerdo si solicita uno."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: A. El art. 11.1 establece que \"solamente podrá ser reconocido\" en favor de uno, de \"común acuerdo\", presumiéndose acuerdo cuando la solicite uno. B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 7 del RD 1335/2005, ¿cómo se determina la base de cotización a considerar para los efectos del art. 6?",
+      "options": [
+        "Por un promedio de doce meses posteriores al inicio de la excedencia.",
+        "Por la última base de cotización del mes anterior.",
+        "Por la base mínima del grupo de cotización.",
+        "Por el promedio de las bases de cotización de los seis meses inmediatamente anteriores al inicio de la excedencia."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: A. El art. 7 fija la base como \"promedio\" de los \"seis meses inmediatamente anteriores\" al inicio de la excedencia. B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 7 (párrafo segundo) del RD 1335/2005, si el beneficiario no acredita seis meses de cotización, ¿qué promedio se computa?",
+      "options": [
+        "La base mínima interprofesional vigente.",
+        "El promedio de las bases del mismo periodo del año anterior.",
+        "El promedio de las bases correspondientes al periodo inmediatamente anterior al inicio de la excedencia que resulten acreditadas.",
+        "No se puede computar ninguna base."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: A. El art. 7 dice que si no hay seis meses, se computa el promedio del \"período inmediatamente anterior\" al inicio de la excedencia \"que resulten acreditadas\". B, C y D no figuran.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 17.1 del RD 1335/2005, ¿desde cuándo surte efectos el reconocimiento del derecho a la asignación económica?",
+      "options": [
+        "Desde el día primero del mes siguiente.",
+        "Desde el día de la presentación de la solicitud.",
+        "Desde el día primero del trimestre natural inmediatamente siguiente al de la presentación de la solicitud.",
+        "Desde el día primero del año siguiente."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: A. El art. 17.1 fija efectos desde \"el día primero del trimestre natural inmediatamente siguiente\" al de la solicitud. B, C y D no figuran.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 20.1 del RD 1335/2005, ¿qué requisito territorial se exige para causar derecho a la prestación y qué se reputa producido en España?",
+      "options": [
+        "Nacimiento o formalización de adopción en España; se reputa producido en España si ocurre en el extranjero pero se acredita integración inmediata en núcleo familiar residente en España.",
+        "Obligatoriamente nacimiento en España; la adopción en el extranjero no puede causar derecho.",
+        "Basta con residencia legal del beneficiario, sin requisito territorial del nacimiento/adopción.",
+        "Solo se exige empadronamiento del hijo."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 20.1 exige que el nacimiento o la formalización de la adopción se produzca en España y añade que se reputará producido en España si fue en el extranjero pero el hijo se integró \"de manera inmediata\" en un núcleo familiar con residencia en España. B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 8 (párrafo segundo) del RD 1335/2005, ¿qué consecuencia se prevé por la omisión de la comunicación empresarial a la TGSS?",
+      "options": [
+        "Conversión de la excedencia en despido.",
+        "Extinción automática del derecho del trabajador a las prestaciones.",
+        "Suspensión obligatoria del procedimiento administrativo por 90 días.",
+        "Puede ser objeto de la sanción correspondiente, conforme a la gravedad de la infracción, según el texto refundido de la Ley sobre infracciones y sanciones en el orden social (RDL 5/2000)."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: A. El art. 8 dice que la omisión \"podrá ser objeto de la sanción correspondiente\" según la gravedad, conforme al RDL 5/2000. B, C y D no están en el texto.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 29.1 del RD 1335/2005, ¿qué compatibilidades se declaran entre prestaciones económicas por nacimiento/adopción del tercer o sucesivos hijos y por parto/adopción múltiples?",
+      "options": [
+        "Solo son compatibles si no hay asignación por hijo a cargo.",
+        "Son incompatibles entre sí en todo caso.",
+        "Son compatibles entre sí cuando son causadas por un mismo sujeto.",
+        "Solo son compatibles si el beneficiario es familia numerosa."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: A. El art. 29.1 establece que las prestaciones por tercer o sucesivos y por múltiples, \"causadas por un mismo sujeto\", \"serán compatibles entre sí\". B, C y D no figuran.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 17.3 del RD 1335/2005, si la extinción/modificación viene motivada por variación de los ingresos anuales computables, ¿desde cuándo surte efectos?",
+      "options": [
+        "El último día del mes de la variación.",
+        "El día 1 del trimestre siguiente.",
+        "El día de la solicitud.",
+        "El día 1 de enero del año siguiente a aquel al que correspondan dichos ingresos."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: A. El art. 17.3 fija efectos el \"día 1 de enero del año siguiente\" al que correspondan los ingresos. B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 14.2.a) del RD 1335/2005, ¿cómo se computan los ingresos procedentes de actividades económicas por cuenta propia?",
+      "options": [
+        "Solo se computan las cotizaciones sociales.",
+        "En su valor bruto, sin excepciones.",
+        "En su valor neto, al que se añadirá el importe de las cotizaciones sociales.",
+        "No se computan nunca."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: A. El art. 14.2.a) establece que, para actividades por cuenta propia, se computa el valor \"neto\" y se añade el importe de \"cotizaciones sociales\". B, C y D contradicen.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 10.2 (párrafo segundo) del RD 1335/2005, ¿qué presunción se establece sobre la capacidad de obrar del hijo minusválido mayor de 18 años?",
+      "options": [
+        "Se presume que conserva su capacidad de obrar, salvo que se acredite incapacitación judicial.",
+        "Se presume incapacitación judicial.",
+        "No existe presunción; siempre se exige sentencia.",
+        "Se presume incapacidad solo si está casado."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 10.2 establece: \"Se presumirá que (...) conserva su capacidad de obrar\" salvo que se acredite incapacitación judicial. B, C y D no figuran.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 10.1.d) del RD 1335/2005, ¿qué requisito de no concurrencia se establece respecto de otras prestaciones de la misma naturaleza?",
+      "options": [
+        "Que no perciban asistencia sanitaria.",
+        "Que no perciban ninguna prestación contributiva.",
+        "Que no tengan derecho a pensión de orfandad.",
+        "Que no tengan derecho los progenitores/adoptantes/acogedores a prestaciones de esta misma naturaleza en cualquier otro régimen público de protección social."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: A. El art. 10.1.d) exige no tener derecho a prestaciones \"de esta misma naturaleza\" en cualquier otro régimen público. B, C y D no son el requisito del apartado d).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 11.3 del RD 1335/2005, en supuestos de huérfanos de ambos o abandonados (art. 10.3), ¿a quién se hace efectiva la asignación?",
+      "options": [
+        "Directamente al menor en todo caso.",
+        "A los representantes legales o a quienes tengan a su cargo al menor o minusválido, mientras cumplan la obligación de mantenerlo y educarlo.",
+        "A la TGSS para su depósito.",
+        "Al INSS como administración gestora."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: A. El art. 11.3 dice que la asignación se hará efectiva a \"los representantes legales\" o a quienes tengan a su cargo al menor/minusválido, mientras cumplan la obligación de mantenerlo y educarlo. B, C y D no figuran.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 19.2 del RD 1335/2005, para determinar el límite de ingresos del art. 10.1.c) en esta prestación, ¿qué ingresos se tienen en cuenta?",
+      "options": [
+        "Los ingresos del trimestre anterior al nacimiento.",
+        "Los ingresos obtenidos durante el año anterior al nacimiento o a la adopción.",
+        "Los ingresos del mismo año natural del nacimiento.",
+        "Los ingresos previstos para el año siguiente."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: A. El art. 19.2 dice expresamente: \"se tendrán en cuenta los ingresos obtenidos (...) durante el año anterior al nacimiento o a la adopción\". B, C y D no figuran.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 9.2 del RD 1335/2005, ¿qué regla de presunción se establece sobre la dependencia económica?",
+      "options": [
+        "No existe ninguna presunción; siempre debe probarse.",
+        "Se presume dependencia económica cuando no convive con el beneficiario.",
+        "Se presume dependencia económica cuando convive con el beneficiario, salvo prueba en contrario.",
+        "Se presume dependencia económica si el menor está escolarizado."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: A. El art. 9.2 dice: \"Se entenderá, salvo prueba en contrario, que existe dependencia económica\" cuando conviva con el beneficiario. B, C y D contradicen o inventan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 20.3 del RD 1335/2005, ¿cómo computan los hijos con minusvalía igual o superior al 33% a efectos del número de hijos?",
+      "options": [
+        "Computan por la mitad.",
+        "Computan el doble.",
+        "No computan.",
+        "Computan como uno más adicional fijo, independientemente del número."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: A. El art. 20.3 establece que los hijos con minusvalía \"computarán el doble\". B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 19.1 del RD 1335/2005, ¿qué condición relativa al número de hijos deben alcanzar los beneficiarios con motivo del nacimiento o adopción?",
+      "options": [
+        "Llegar a tener dos o más hijos.",
+        "Llegar a tener tres o más hijos.",
+        "Tener exactamente tres hijos.",
+        "Tener al menos cuatro hijos."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: A. El art. 19.1 exige \"tres o más hijos\" con motivo del nacimiento o adopción, además de requisitos del art. 10.1.a), c) y d). B, C y D no coinciden.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 1 del RD 1335/2005, ¿qué parte concreta del TRLGSS desarrolla reglamentariamente este real decreto?",
+      "options": [
+        "El capítulo IX del título II del texto refundido de la Ley General de la Seguridad Social, relativo a las prestaciones familiares.",
+        "El capítulo VIII del título I del TRLGSS, relativo a la incapacidad temporal.",
+        "El título III completo del TRLGSS, relativo a la recaudación.",
+        "La disposición adicional vigésima quinta del TRLGSS, sobre procedimientos administrativos."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 1 indica que el objeto es el desarrollo reglamentario del \"capítulo IX del título II\" del TRLGSS \"relativo a las prestaciones familiares\". B, C y D se refieren a materias distintas o a una disposición citada en art. 27, no al objeto del art. 1.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 28.1 del RD 1335/2005, ¿qué efecto tiene aportar la solicitud de reconocimiento de grado de minusvalía ante el órgano competente en el procedimiento?",
+      "options": [
+        "Puede iniciarse el procedimiento y se suspende para incorporar la resolución de minusvalía, según el art. 42.5.d) de la Ley 30/1992.",
+        "Impide iniciar el procedimiento hasta que haya resolución.",
+        "Obliga a resolver en 15 días.",
+        "Sustituye la solicitud de prestación."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 28.1 permite iniciar con la solicitud de minusvalía y señala que \"se suspenderá el procedimiento\" conforme al art. 42.5.d) de la Ley 30/1992 hasta incorporar la resolución. B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 9.4 del RD 1335/2005, ¿cuándo se considera que el hijo o menor acogido NO está a cargo del beneficiario?",
+      "options": [
+        "Cuando conviva con el beneficiario pero estudie fuera.",
+        "Cuando sea perceptor de pensión de orfandad.",
+        "Cuando sea perceptor de una pensión contributiva, distinta de la pensión de orfandad o de la pensión en favor de familiares de nietos y hermanos.",
+        "Cuando tenga ingresos inferiores al 75% del SMI."
+      ],
+      "correctAnswer": "C",
+      "explanation": "Correcta: A. El art. 9.4 dice que no está a cargo cuando sea perceptor de \"una pensión contributiva\" distinta de la de orfandad o la de favor de familiares de nietos y hermanos. B contradice la excepción; C y D no son criterios del art. 9.4.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 14.4 del RD 1335/2005, en el caso de menores abandonados o huérfanos de ambos progenitores (sin acogimiento permanente o preadoptivo), ¿qué ingresos se computan?",
+      "options": [
+        "Exclusivamente los ingresos que aquellos perciban.",
+        "Los ingresos conjuntos de los progenitores.",
+        "Los ingresos de la unidad familiar del representante legal.",
+        "No se computa ningún ingreso."
+      ],
+      "correctAnswer": "A",
+      "explanation": "Correcta: A. El art. 14.4 dice: \"se computarán exclusivamente los ingresos que aquellos perciban\". B, C y D no se ajustan.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Conforme al art. 2 del RD 1335/2005, ¿qué periodo de excedencia con reserva de puesto se considera como periodo de cotización efectiva con carácter general?",
+      "options": [
+        "Todo el periodo de excedencia, cualquiera que sea su duración.",
+        "Los primeros dos años de excedencia con reserva del puesto.",
+        "Los primeros seis meses de excedencia con reserva del puesto.",
+        "El primer año de excedencia con reserva del puesto de trabajo."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: A. El art. 2 dispone que tendrá la consideración de periodo de cotización efectiva \"el primer año de excedencia con reserva del puesto de trabajo\". B, C y D no coinciden con la literalidad.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 14.3 del RD 1335/2005, ¿de qué periodo temporal se tienen en cuenta los ingresos para el cómputo del límite?",
+      "options": [
+        "Los previstos para el ejercicio siguiente.",
+        "Los del trimestre anterior.",
+        "Los del mes anterior.",
+        "Los obtenidos durante el ejercicio anterior a la solicitud."
+      ],
+      "correctAnswer": "D",
+      "explanation": "Correcta: A. El art. 14.3 indica que se tendrán en cuenta los ingresos \"durante el ejercicio anterior a la solicitud\". B, C y D no figuran.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Según el art. 10.4 del RD 1335/2005, en los supuestos de los apartados 2 y 3, ¿qué efecto tiene el matrimonio del minusválido (≥65%) sobre el derecho a la asignación?",
+      "options": [
+        "Extingue automáticamente el derecho.",
+        "No determina la extinción del derecho.",
+        "Suspende el derecho hasta resolución judicial.",
+        "Convierte la asignación en pago único."
+      ],
+      "correctAnswer": "B",
+      "explanation": "Correcta: A. El art. 10.4 dice que el matrimonio del minusválido \"no determinará la extinción\" del derecho. B, C y D no están previstos.",
+      "difficulty": "hard"
+    }
+  ]
+}
