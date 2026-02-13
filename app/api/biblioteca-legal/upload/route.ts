@@ -8,13 +8,18 @@ import mammoth from 'mammoth'
 import { prisma } from '@/lib/prisma'
 import { processDocument } from '@/lib/document-processor'
 
-const BIBLIOTECA_DIR = join(process.cwd(), 'documentos-temario', 'biblioteca')
+function isAdminRole(role: unknown): boolean {
+  return typeof role === 'string' && role.toLowerCase() === 'admin'
+}
+
+const STORAGE_ROOT = process.env.VERCEL ? '/tmp' : process.cwd()
+const BIBLIOTECA_DIR = join(STORAGE_ROOT, 'documentos-temario', 'biblioteca')
 
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || (session.user && session.user.role !== 'admin')) {
+    if (!session || !isAdminRole(session.user?.role)) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
@@ -111,6 +116,6 @@ export async function POST(req: NextRequest) {
     })
   } catch (error) {
     console.error('Error al subir archivo:', error)
-    return NextResponse.json({ error: 'Error al subir archivo' }, { status: 500 })
+    return NextResponse.json({ error: `Error al subir archivo: ${error instanceof Error ? error.message : String(error)}` }, { status: 500 })
   }
 }

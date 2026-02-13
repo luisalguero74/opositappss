@@ -8,11 +8,34 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || session.user.role !== 'admin') {
+    if (!session || String(session.user.role || '').toLowerCase() !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
-    const { title, type, questions } = await req.json()
+    const body = await req.json()
+
+    // Mode A: publish/unpublish an existing questionnaire (used by /admin/questions-review)
+    if (body?.questionnaireId) {
+      const questionnaireId = String(body.questionnaireId)
+      const published = body?.published === undefined ? true : Boolean(body.published)
+
+      const updated = await prisma.questionnaire.update({
+        where: { id: questionnaireId },
+        data: { published }
+      })
+
+      return NextResponse.json({
+        success: true,
+        questionnaire: {
+          id: updated.id,
+          title: updated.title,
+          published: updated.published
+        }
+      })
+    }
+
+    // Mode B: create and publish a new questionnaire from a question list (used by test generator)
+    const { title, type, questions } = body ?? {}
 
     if (!title || !questions || !Array.isArray(questions) || questions.length === 0) {
       return NextResponse.json({ 

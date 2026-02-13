@@ -17,6 +17,14 @@ export async function GET(req: NextRequest) {
       }, { status: 401 })
     }
 
+    // Admins always have access (avoid subscription/monetization checks)
+    if (String(session.user.role || '').toLowerCase() === 'admin') {
+      return NextResponse.json({
+        hasAccess: true,
+        reason: 'Acceso de administrador'
+      })
+    }
+
     console.log('[Check Access] Checking access for user:', session.user.id, 'role:', session.user.role)
     const access = await checkUserAccess(session.user.id)
     console.log('[Check Access] Access result:', JSON.stringify(access))
@@ -24,9 +32,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(access)
   } catch (error) {
     console.error('[Check Access] Error:', error)
-    return NextResponse.json({ 
-      hasAccess: false, 
-      reason: 'Error al verificar acceso' 
-    }, { status: 500 })
+    // While monetization is not in use, failing open avoids blocking the product.
+    return NextResponse.json(
+      {
+        hasAccess: true,
+        reason: 'Monetización desactivada'
+      },
+      { status: 200 }
+    )
   }
 }

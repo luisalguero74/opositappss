@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
-import { stripe } from '@/lib/stripe'
+import { getStripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
 import Stripe from 'stripe'
 
@@ -15,10 +15,19 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event
 
   try {
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+    if (!webhookSecret) {
+      return NextResponse.json(
+        { error: 'STRIPE_WEBHOOK_SECRET no está configurado' },
+        { status: 500 }
+      )
+    }
+
+    const stripe = getStripe()
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      webhookSecret
     )
   } catch (err) {
     console.error('[Stripe Webhook] Error al verificar firma:', err)
@@ -28,6 +37,7 @@ export async function POST(req: NextRequest) {
   console.log(`[Stripe Webhook] Evento recibido: ${event.type}`)
 
   try {
+    const stripe = getStripe()
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session

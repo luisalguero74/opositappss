@@ -33,14 +33,65 @@ export default function QuestionsReview() {
   const [editData, setEditData] = useState<any>({})
   const [filter, setFilter] = useState<'all' | 'general' | 'especifico'>('all')
   const [difficultyFilter, setDifficultyFilter] = useState<'all' | 'facil' | 'media' | 'dificil'>('all')
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([])
+  const [selectedQuestionIds, setSelectedQuestionIds] = useState<Set<string>>(new Set())
+  const [publishTitle, setPublishTitle] = useState('')
+  const [publishingSelection, setPublishingSelection] = useState(false)
+
+  const normalizeText = (value: unknown) =>
+    String(value ?? '')
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+
+  const normalizeTemarioParte = (value: unknown): 'general' | 'especifico' | null => {
+    const normalized = normalizeText(value)
+    if (!normalized) return null
+    if (normalized === 'general' || normalized === 'temario general') return 'general'
+    if (normalized === 'especifico' || normalized === 'temario especifico') return 'especifico'
+    // Common variants
+    if (normalized.includes('general')) return 'general'
+    if (normalized.includes('especifico')) return 'especifico'
+    return null
+  }
+
+  const normalizeDifficulty = (value: unknown): 'facil' | 'media' | 'dificil' | null => {
+    const normalized = normalizeText(value)
+    if (!normalized) return null
+    if (normalized === 'facil' || normalized === 'fcil') return 'facil'
+    if (normalized === 'media') return 'media'
+    if (normalized === 'dificil') return 'dificil'
+    return null
+  }
+
+  const getTopicKey = (q: Question): string | null => {
+    if (q.temaCodigo) return q.temaCodigo
+    const parte = normalizeTemarioParte(q.temaParte)
+    if (!parte || !q.temaNumero) return null
+    return `${parte}:${q.temaNumero}`
+  }
+
+  const getTopicLabel = (q: Question): string => {
+    const parte = normalizeTemarioParte(q.temaParte)
+    const numero = q.temaNumero ? `Tema ${q.temaNumero}` : 'Tema'
+    const titulo = q.temaTitulo ? ` - ${q.temaTitulo}` : ''
+    const prefix = parte === 'general' ? 'General' : parte === 'especifico' ? 'Específico' : 'Temario'
+    return `${prefix}: ${numero}${titulo}`
+  }
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
+    if (status === 'unauthenticated' || (session && session.user.role?.toLowerCase() !== 'admin')) {
       router.push('/dashboard')
     } else if (status === 'authenticated') {
       loadQuestions()
     }
   }, [status, session, router])
+
+  useEffect(() => {
+    // Reset topic selection when changing temario filter
+    setSelectedTopics([])
+  }, [filter])
 
   const loadQuestions = async () => {
     try {
@@ -51,6 +102,50 @@ export default function QuestionsReview() {
       console.error('Error cargando preguntas:', error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const toggleQuestionSelection = (questionId: string) => {
+    setSelectedQuestionIds(prev => {
+      const next = new Set(prev)
+      if (next.has(questionId)) next.delete(questionId)
+      else next.add(questionId)
+      return next
+    })
+  }
+
+  const publishSelectedQuestions = async () => {
+    const ids = Array.from(selectedQuestionIds)
+    if (ids.length === 0) return
+
+    if (!confirm(`¿Crear y publicar un cuestionario nuevo con ${ids.length} pregunta(s) seleccionada(s)?`)) return
+
+    setPublishingSelection(true)
+    try {
+      const res = await fetch('/api/admin/questions-review/publish-selected', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds: ids,
+          title: publishTitle
+        })
+      })
+
+      const data = await res.json().catch(() => null)
+      if (!res.ok) {
+        alert(data?.error || 'Error al publicar la selección')
+        return
+      }
+
+      setSelectedQuestionIds(new Set())
+      setPublishTitle('')
+      await loadQuestions()
+      alert(`✅ Cuestionario publicado: ${data?.questionnaire?.title || 'OK'}`)
+    } catch (error) {
+      console.error('Error publicando selección:', error)
+      alert('Error al publicar la selección')
+    } finally {
+      setPublishingSelection(false)
     }
   }
 
@@ -123,9 +218,36 @@ export default function QuestionsReview() {
     }
   }
 
-  const filteredQuestions = questions.filter(q => {
-    if (filter !== 'all' && q.temaParte?.toLowerCase() !== filter) return false
-    if (difficultyFilter !== 'all' && q.difficulty !== difficultyFilter) return false
+  const availableTopics = (() => {
+    const candidates = questions.filter((q) => {
+      if (filter === 'all') return true
+      return normalizeTemarioParte(q.temaParte) === filter
+    })
+
+    const map = new Map<string, { key: string; label: string; numero: number | null }>()
+    for (const q of candidates) {
+      const key = getTopicKey(q)
+      if (!key) continue
+      if (!map.has(key)) {
+        map.set(key, { key, label: getTopicLabel(q), numero: q.temaNumero ?? null })
+      }
+    }
+    return Array.from(map.values()).sort((a, b) => (a.numero ?? 0) - (b.numero ?? 0))
+  })()
+
+  const filteredQuestions = questions.filter((q) => {
+    if (filter !== 'all') {
+      if (normalizeTemarioParte(q.temaParte) !== filter) return false
+    }
+
+    if (selectedTopics.length > 0) {
+      const key = getTopicKey(q)
+      if (!key || !selectedTopics.includes(key)) return false
+    }
+
+    if (difficultyFilter !== 'all') {
+      if (normalizeDifficulty(q.difficulty) !== difficultyFilter) return false
+    }
     return true
   })
 
@@ -140,7 +262,7 @@ export default function QuestionsReview() {
     return acc
   }, {} as Record<string, { questionnaire: any, questions: Question[] }>)
 
-  if (!session || !session.user || session.user.role !== 'ADMIN') {
+  if (!session || !session.user || session.user.role?.toLowerCase() !== 'admin') {
     return null
   }
 
@@ -169,7 +291,32 @@ export default function QuestionsReview() {
 
         {/* Filtros */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex flex-col md:flex-row md:items-end gap-3 mb-5 pb-5 border-b">
+            <div className="flex-1">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Nombre del nuevo cuestionario (opcional):</label>
+              <input
+                value={publishTitle}
+                onChange={(e) => setPublishTitle(e.target.value)}
+                placeholder="Si lo dejas vacío se generará automáticamente"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <button
+              onClick={publishSelectedQuestions}
+              disabled={selectedQuestionIds.size === 0 || publishingSelection}
+              className={`px-6 py-2 rounded-lg font-semibold transition ${
+                selectedQuestionIds.size === 0 || publishingSelection
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  : 'bg-green-600 text-white hover:bg-green-700'
+              }`}
+            >
+              {publishingSelection
+                ? 'Publicando…'
+                : `✅ Publicar selección (${selectedQuestionIds.size})`}
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Filtrar por Categoría:</label>
               <select
@@ -182,6 +329,38 @@ export default function QuestionsReview() {
                 <option value="especifico">Temario Específico</option>
               </select>
             </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Filtrar por Tema(s):</label>
+              <select
+                multiple
+                value={selectedTopics}
+                disabled={filter === 'all'}
+                onChange={(e) => {
+                  const values = Array.from(e.target.selectedOptions).map((o) => o.value)
+                  setSelectedTopics(values)
+                }}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-500"
+              >
+                {filter === 'all' ? (
+                  <option value="" disabled>
+                    Selecciona primero un temario
+                  </option>
+                ) : availableTopics.length === 0 ? (
+                  <option value="" disabled>
+                    No hay temas disponibles
+                  </option>
+                ) : (
+                  availableTopics.map((t) => (
+                    <option key={t.key} value={t.key}>
+                      {t.label}
+                    </option>
+                  ))
+                )}
+              </select>
+              <p className="text-xs text-gray-500 mt-1">Puedes seleccionar varios manteniendo pulsado Ctrl/Cmd</p>
+            </div>
+
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Filtrar por Dificultad:</label>
               <select
@@ -226,6 +405,21 @@ export default function QuestionsReview() {
             <div className="space-y-4">
               {questions.map((q, index) => (
                 <div key={q.id} className="border-2 border-gray-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 select-none">
+                      <input
+                        type="checkbox"
+                        checked={selectedQuestionIds.has(q.id)}
+                        onChange={() => toggleQuestionSelection(q.id)}
+                        className="h-4 w-4"
+                      />
+                      Seleccionar
+                    </label>
+                    <div className="text-xs text-gray-500">
+                      {q.temaParte ? `${q.temaParte}` : ''}{q.temaNumero ? ` · Tema ${q.temaNumero}` : ''}
+                    </div>
+                  </div>
+
                   {editingId === q.id ? (
                     /* Modo Edición */
                     <div className="space-y-4">

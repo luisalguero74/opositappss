@@ -15,7 +15,7 @@ async function createTransporter() {
   return transporter
 }
 
-export async function sendVerificationEmail(email: string, token: string) {
+export async function sendVerificationEmail(email: string, token: string): Promise<boolean> {
   const transporter = await createTransporter()
   const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify-email?token=${token}`
   const mailOptions = {
@@ -30,8 +30,10 @@ export async function sendVerificationEmail(email: string, token: string) {
     const info = await transporter.sendMail(mailOptions)
     console.log('Email sent:', info.messageId)
     console.log('Preview URL:', nodemailer.getTestMessageUrl(info))
+    return true
   } catch (error) {
     console.error('Error sending email:', error)
+    return false
   }
 }
 

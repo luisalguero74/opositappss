@@ -5,6 +5,7 @@ import { unlink } from 'fs/promises'
 import { join } from 'path'
 import { existsSync } from 'fs'
 import { prisma } from '@/lib/prisma'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
 
 export async function DELETE(req: NextRequest) {
   try {
@@ -29,21 +30,15 @@ export async function DELETE(req: NextRequest) {
       )
     }
 
-    // Construir ruta del archivo
-    const filePath = join(process.cwd(), 'documentos-temario', categoria, fileName)
+    await ensureDbSchemaSelfHeal()
 
-    // Verificar que el archivo existe
-    if (!existsSync(filePath)) {
-      return NextResponse.json(
-        { error: 'Archivo no encontrado' },
-        { status: 404 }
-      )
+    // Intentar borrar del filesystem (solo si existe; en Vercel suele no existir)
+    const filePath = join(process.cwd(), 'documentos-temario', categoria, fileName)
+    if (existsSync(filePath)) {
+      await unlink(filePath)
     }
 
-    // Eliminar el archivo del sistema de archivos
-    await unlink(filePath)
-
-    // Eliminar el registro de la base de datos
+    // Eliminar el registro de la base de datos (y el blob por FK cascade)
     if (temaId) {
       await prisma.temaArchivo.deleteMany({
         where: {
@@ -51,6 +46,16 @@ export async function DELETE(req: NextRequest) {
           nombre: fileName
         }
       })
+    } else {
+      // Si no se proporciona temaId, intentamos borrar por (categoria + nombre)
+      const archivo = await prisma.temaArchivo.findFirst({
+        where: { nombre: fileName, tema: { categoria } },
+        select: { id: true }
+      })
+
+      if (archivo?.id) {
+        await prisma.temaArchivo.delete({ where: { id: archivo.id } })
+      }
     }
 
     return NextResponse.json({

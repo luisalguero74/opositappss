@@ -4,6 +4,8 @@ import { authOptions } from '@/lib/auth'
 import { readFile } from 'fs/promises'
 import { join } from 'path'
 import { existsSync } from 'fs'
+import { prisma } from '@/lib/prisma'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
 
 export async function GET(req: NextRequest) {
   try {
@@ -25,6 +27,41 @@ export async function GET(req: NextRequest) {
         { error: 'Faltan parametros requeridos' },
         { status: 400 }
       )
+    }
+
+    // Try DB first (Vercel serverless).
+    try {
+      await ensureDbSchemaSelfHeal()
+
+      const archivo = await prisma.temaArchivo.findFirst({
+        where: {
+          nombre: fileName,
+          tema: { categoria }
+        },
+        select: { id: true }
+      })
+
+      if (archivo?.id) {
+        const rows = await prisma.$queryRaw<
+          { data_base64: string; mime_type: string | null }[]
+        >`SELECT data_base64, mime_type FROM tema_archivo_blobs WHERE tema_archivo_id = ${archivo.id} LIMIT 1`
+
+        const row = rows?.[0]
+        if (row?.data_base64) {
+          const fileBuffer = Buffer.from(row.data_base64, 'base64')
+          const contentType = row.mime_type || 'application/octet-stream'
+
+          return new NextResponse(fileBuffer, {
+            headers: {
+              'Content-Type': contentType,
+              'Content-Disposition': `attachment; filename="${encodeURIComponent(fileName)}"`,
+              'Content-Length': fileBuffer.length.toString(),
+            },
+          })
+        }
+      }
+    } catch {
+      // fall back to filesystem
     }
 
     // Construir ruta del archivo

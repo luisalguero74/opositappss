@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
 
 // GET - Listar documentos
 export async function GET(req: NextRequest) {
@@ -10,6 +11,8 @@ export async function GET(req: NextRequest) {
     if (!session || session.user.role !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
+
+    await ensureDbSchemaSelfHeal()
 
     const documents = await prisma.legalDocument.findMany({
       orderBy: { createdAt: 'desc' },
@@ -37,6 +40,8 @@ export async function POST(req: NextRequest) {
     if (!session || session.user.role !== 'admin') {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
+
+    await ensureDbSchemaSelfHeal()
 
     const formData = await req.formData()
     const file = formData.get('file') as File

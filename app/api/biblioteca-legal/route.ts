@@ -1,52 +1,80 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { readFile, writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { prisma } from '@/lib/prisma'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
 
-const BIBLIOTECA_PATH = join(process.cwd(), 'data', 'biblioteca-legal.json')
-
-async function loadBiblioteca() {
-  if (!existsSync(BIBLIOTECA_PATH)) {
-    return { documentos: [], relaciones: {} }
-  }
-  const data = await readFile(BIBLIOTECA_PATH, 'utf-8')
-  return JSON.parse(data)
+function isAdminRole(role: unknown): boolean {
+  return typeof role === 'string' && role.toLowerCase() === 'admin'
 }
 
-async function saveBiblioteca(data: any) {
-  const dataDir = join(process.cwd(), 'data')
-  if (!existsSync(dataDir)) {
-    await mkdir(dataDir, { recursive: true })
-  }
-  await writeFile(BIBLIOTECA_PATH, JSON.stringify(data, null, 2))
+function toDateString(date: Date): string {
+  return date.toISOString().split('T')[0]
 }
 
 // GET - Obtener biblioteca completa o por tema
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
-    if (!session || (session.user && session.user.role !== 'ADMIN')) {
+
+    if (!session || !isAdminRole(session.user?.role)) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
+
+    await ensureDbSchemaSelfHeal()
 
     const { searchParams } = new URL(req.url)
     const temaId = searchParams.get('temaId')
 
-    const biblioteca = await loadBiblioteca()
-
     if (temaId) {
-      // Devolver solo los documentos asociados a este tema
-      const documentosIds = biblioteca.relaciones[temaId] || []
-      const documentos = biblioteca.documentos.filter((doc: any) => 
-        documentosIds.includes(doc.id)
-      )
+      const relaciones = await prisma.temaLegalDocument.findMany({
+        where: { temaId },
+        select: { documentId: true }
+      })
+
+      const documentosIds = relaciones.map(r => r.documentId)
+      const documentosDb = await prisma.legalDocument.findMany({
+        where: { id: { in: documentosIds }, active: true },
+        orderBy: { updatedAt: 'desc' }
+      })
+
+      const documentos = documentosDb.map(d => ({
+        id: d.id,
+        nombre: d.title,
+        archivo: d.fileName ?? '',
+        tipo: d.type,
+        numeroPaginas: 0,
+        fechaActualizacion: toDateString(d.updatedAt)
+      }))
+
       return NextResponse.json({ documentos })
     }
 
-    return NextResponse.json(biblioteca)
+    const documentosDb = await prisma.legalDocument.findMany({
+      where: { active: true },
+      orderBy: { updatedAt: 'desc' }
+    })
+
+    const relacionesDb = await prisma.temaLegalDocument.findMany({
+      select: { temaId: true, documentId: true }
+    })
+
+    const relaciones: Record<string, string[]> = {}
+    for (const r of relacionesDb) {
+      if (!relaciones[r.temaId]) relaciones[r.temaId] = []
+      relaciones[r.temaId].push(r.documentId)
+    }
+
+    const documentos = documentosDb.map(d => ({
+      id: d.id,
+      nombre: d.title,
+      archivo: d.fileName ?? '',
+      tipo: d.type,
+      numeroPaginas: 0,
+      fechaActualizacion: toDateString(d.updatedAt)
+    }))
+
+    return NextResponse.json({ documentos, relaciones })
   } catch (error) {
     console.error('Error al leer biblioteca:', error)
     return NextResponse.json({ documentos: [], relaciones: {} })
@@ -57,47 +85,73 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
-    if (!session || (session.user && session.user.role !== 'admin')) {
+    if (!session || !isAdminRole(session.user?.role)) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
-    const body = await req.json()
-    const biblioteca = await loadBiblioteca()
+    await ensureDbSchemaSelfHeal()
 
+    const body = await req.json()
     if (body.action === 'add-documento') {
-      // Agregar nuevo documento
-      const nuevoDoc = {
-        id: body.id || `doc_${Date.now()}`,
-        nombre: body.nombre,
-        archivo: body.archivo,
-        tipo: body.tipo,
-        numeroPaginas: body.numeroPaginas,
-        fechaActualizacion: body.fechaActualizacion || new Date().toISOString().split('T')[0]
+      // Compatibilidad: algunos clientes antiguos hacen POST tras /upload.
+      // Si ya existe un LegalDocument con el mismo fileName, no duplicamos.
+      const fileName = typeof body.archivo === 'string' ? body.archivo : null
+      const title = typeof body.nombre === 'string' ? body.nombre : null
+      const type = typeof body.tipo === 'string' ? body.tipo : 'ley'
+
+      if (fileName) {
+        const existing = await prisma.legalDocument.findFirst({
+          where: { fileName, active: true }
+        })
+        if (existing) return NextResponse.json({ success: true, documentoId: existing.id })
       }
-      biblioteca.documentos.push(nuevoDoc)
-      await saveBiblioteca(biblioteca)
-      return NextResponse.json({ success: true, documento: nuevoDoc })
+
+      const created = await prisma.legalDocument.create({
+        data: {
+          title: title ?? `Documento ${new Date().toISOString()}`,
+          type,
+          reference: title ?? undefined,
+          fileName: fileName ?? undefined,
+          fileSize: typeof body.fileSize === 'number' ? body.fileSize : undefined,
+          content: '',
+          processedAt: null
+        }
+      })
+
+      return NextResponse.json({ success: true, documentoId: created.id })
     }
 
     if (body.action === 'asociar-tema') {
       // Asociar documentos a un tema
       const { temaId, documentosIds } = body
-      biblioteca.relaciones[temaId] = documentosIds
-      await saveBiblioteca(biblioteca)
+      if (typeof temaId !== 'string' || !Array.isArray(documentosIds)) {
+        return NextResponse.json({ error: 'Datos inválidos' }, { status: 400 })
+      }
+
+      await prisma.$transaction([
+        prisma.temaLegalDocument.deleteMany({ where: { temaId } }),
+        prisma.temaLegalDocument.createMany({
+          data: documentosIds
+            .filter((id: unknown): id is string => typeof id === 'string')
+            .map((documentId: string) => ({ temaId, documentId })),
+          skipDuplicates: true
+        })
+      ])
+
       return NextResponse.json({ success: true })
     }
 
     if (body.action === 'delete-documento') {
-      // Eliminar documento
-      biblioteca.documentos = biblioteca.documentos.filter((doc: any) => doc.id !== body.id)
-      // Limpiar relaciones
-      Object.keys(biblioteca.relaciones).forEach(temaId => {
-        biblioteca.relaciones[temaId] = biblioteca.relaciones[temaId].filter(
-          (docId: string) => docId !== body.id
-        )
-      })
-      await saveBiblioteca(biblioteca)
+      const id = body.id
+      if (typeof id !== 'string') {
+        return NextResponse.json({ error: 'Datos inválidos' }, { status: 400 })
+      }
+
+      await prisma.$transaction([
+        prisma.temaLegalDocument.deleteMany({ where: { documentId: id } }),
+        prisma.legalDocument.update({ where: { id }, data: { active: false } })
+      ])
+
       return NextResponse.json({ success: true })
     }
 

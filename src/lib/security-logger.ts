@@ -54,15 +54,25 @@ export interface SecurityEvent {
 
 class SecurityLogger {
   private logsDir: string
+  private fsLoggingEnabled: boolean
 
   constructor() {
-    this.logsDir = path.join(process.cwd(), 'logs', 'security')
-    this.ensureLogsDirectory()
+    const isVercel = Boolean(process.env.VERCEL)
+    this.logsDir = isVercel
+      ? path.join('/tmp', 'logs', 'security')
+      : path.join(process.cwd(), 'logs', 'security')
+    this.fsLoggingEnabled = this.ensureLogsDirectory()
   }
 
-  private ensureLogsDirectory() {
-    if (!fs.existsSync(this.logsDir)) {
-      fs.mkdirSync(this.logsDir, { recursive: true })
+  private ensureLogsDirectory(): boolean {
+    try {
+      if (!fs.existsSync(this.logsDir)) {
+        fs.mkdirSync(this.logsDir, { recursive: true })
+      }
+      return true
+    } catch (error) {
+      console.warn('[SecurityLogger] Filesystem logging disabled:', error)
+      return false
     }
   }
 
@@ -84,14 +94,16 @@ class SecurityLogger {
     const logFile = this.getLogFilePath()
 
     try {
-      fs.appendFileSync(logFile, logEntry, 'utf8')
-      
+      if (this.fsLoggingEnabled) {
+        fs.appendFileSync(logFile, logEntry, 'utf8')
+      }
+
       // Si es crítico, también lo registramos en consola
       if (event.severity === 'critical') {
         console.error('🚨 CRITICAL SECURITY EVENT:', fullEvent)
       }
     } catch (error) {
-      console.error('Error writing security log:', error)
+      console.error('[SecurityLogger] Error writing security log:', error)
     }
   }
 

@@ -2,9 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
+import { Prisma } from '@prisma/client'
 
 export async function GET(req: NextRequest) {
   try {
+    await ensureDbSchemaSelfHeal()
+
     const session = await getServerSession(authOptions)
     if (!session || session.user.role !== 'admin') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -15,6 +19,7 @@ export async function GET(req: NextRequest) {
       select: {
         id: true,
         email: true,
+        phoneNumber: true,
         role: true,
         active: true,
         emailVerified: true,
@@ -32,6 +37,32 @@ export async function GET(req: NextRequest) {
         createdAt: 'desc'
       }
     })
+
+    const userIds = users.map((u) => u.id)
+    const metaRows = userIds.length
+      ? await prisma.$queryRaw<
+          Array<{
+            user_id: string
+            registration_email_sent: boolean | null
+            registration_email_sent_at: Date | null
+            last_password_reset_at: Date | null
+            last_password_reset_email_sent: boolean | null
+            last_password_reset_email_sent_at: Date | null
+          }>
+        >(Prisma.sql`
+          SELECT
+            user_id,
+            registration_email_sent,
+            registration_email_sent_at,
+            last_password_reset_at,
+            last_password_reset_email_sent,
+            last_password_reset_email_sent_at
+          FROM user_registration_meta
+          WHERE user_id IN (${Prisma.join(userIds)});
+        `)
+      : []
+
+    const metaByUserId = new Map(metaRows.map((m) => [m.user_id, m]))
 
     // Para cada usuario, obtener estadísticas detalladas
     const usersWithStats = await Promise.all(
@@ -66,12 +97,18 @@ export async function GET(req: NextRequest) {
         return {
           id: user.id,
           email: user.email,
+          phoneNumber: user.phoneNumber,
           role: user.role,
           active: user.active,
           emailVerified: user.emailVerified,
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
           lastActivity,
+          registrationEmailSent: metaByUserId.get(user.id)?.registration_email_sent ?? null,
+          registrationEmailSentAt: metaByUserId.get(user.id)?.registration_email_sent_at ?? null,
+          lastPasswordResetAt: metaByUserId.get(user.id)?.last_password_reset_at ?? null,
+          lastPasswordResetEmailSent: metaByUserId.get(user.id)?.last_password_reset_email_sent ?? null,
+          lastPasswordResetEmailSentAt: metaByUserId.get(user.id)?.last_password_reset_email_sent_at ?? null,
           stats: {
             totalAnswers,
             correctAnswers,

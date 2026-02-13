@@ -4,6 +4,8 @@ import { authOptions } from '@/lib/auth'
 import { readdir } from 'fs/promises'
 import { join } from 'path'
 import { existsSync } from 'fs'
+import { prisma } from '@/lib/prisma'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
 
 export async function GET(req: NextRequest) {
   try {
@@ -24,6 +26,27 @@ export async function GET(req: NextRequest) {
         { error: 'Falta parametro categoria' },
         { status: 400 }
       )
+    }
+
+    // Prefer DB-backed listing (serverless filesystem is ephemeral on Vercel).
+    try {
+      await ensureDbSchemaSelfHeal()
+      const temas = await prisma.temaOficial.findMany({
+        where: { categoria },
+        include: { archivos: true }
+      })
+
+      const archivos = Array.from(
+        new Set(
+          temas.flatMap(t => t.archivos.map(a => a.nombre)).filter(Boolean)
+        )
+      )
+
+      if (archivos.length > 0) {
+        return NextResponse.json({ archivos })
+      }
+    } catch {
+      // Fall back to FS (useful in local dev)
     }
 
     // Ruta del directorio

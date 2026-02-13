@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { stripe } from '@/lib/stripe'
+import { getStripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
 
 export async function POST(req: NextRequest) {
@@ -9,6 +9,19 @@ export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions)
     if (!session?.user) {
       return NextResponse.json({ error: 'No autenticado' }, { status: 401 })
+    }
+
+    let stripe
+    try {
+      stripe = getStripe()
+    } catch (e) {
+      return NextResponse.json(
+        {
+          error: 'Stripe no está configurado en el servidor',
+          details: e instanceof Error ? e.message : String(e)
+        },
+        { status: 500 }
+      )
     }
 
     // Verificar si la monetización está activada

@@ -6,6 +6,7 @@ import { join } from 'path'
 import { existsSync } from 'fs'
 import { prisma } from '@/lib/prisma'
 import { TEMARIO_OFICIAL } from '@/lib/temario-oficial'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,15 +35,20 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
-    // Crear directorio si no existe
-    const uploadDir = join(process.cwd(), 'documentos-temario', categoria)
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true })
-    }
+    await ensureDbSchemaSelfHeal()
 
-    // Guardar archivo
-    const filePath = join(uploadDir, file.name)
-    await writeFile(filePath, buffer)
+    // En Vercel el filesystem es efímero: persistimos el archivo en BD.
+    // En local mantenemos el comportamiento antiguo para compatibilidad.
+    const isVercel = Boolean(process.env.VERCEL)
+    if (!isVercel) {
+      const uploadDir = join(process.cwd(), 'documentos-temario', categoria)
+      if (!existsSync(uploadDir)) {
+        await mkdir(uploadDir, { recursive: true })
+      }
+
+      const filePath = join(uploadDir, file.name)
+      await writeFile(filePath, buffer)
+    }
 
     // Contar páginas según tipo de archivo
     let numeroPaginas = 0
@@ -104,13 +110,51 @@ export async function POST(req: NextRequest) {
 
     if (!archivoExistente) {
       // Crear registro del archivo
-      await prisma.temaArchivo.create({
+      const createdArchivo = await prisma.temaArchivo.create({
         data: {
           temaId: temaId,
           nombre: file.name,
           numeroPaginas: numeroPaginas
         }
       })
+
+      // Guardar bytes en tabla auxiliar (base64)
+      const extension = file.name.split('.').pop()?.toLowerCase()
+      let mimeType = 'application/octet-stream'
+      if (extension === 'pdf') mimeType = 'application/pdf'
+      else if (extension === 'txt') mimeType = 'text/plain; charset=utf-8'
+      else if (extension === 'doc') mimeType = 'application/msword'
+      else if (extension === 'docx') mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      else if (extension === 'epub') mimeType = 'application/epub+zip'
+
+      await prisma.$executeRaw`
+        INSERT INTO tema_archivo_blobs (tema_archivo_id, mime_type, data_base64, size_bytes)
+        VALUES (${createdArchivo.id}, ${mimeType}, ${buffer.toString('base64')}, ${buffer.length})
+        ON CONFLICT (tema_archivo_id)
+        DO UPDATE SET
+          mime_type = EXCLUDED.mime_type,
+          data_base64 = EXCLUDED.data_base64,
+          size_bytes = EXCLUDED.size_bytes;
+      `
+    } else {
+      // Si ya existe registro, actualizamos el blob igualmente (por si se re-sube)
+      const extension = file.name.split('.').pop()?.toLowerCase()
+      let mimeType = 'application/octet-stream'
+      if (extension === 'pdf') mimeType = 'application/pdf'
+      else if (extension === 'txt') mimeType = 'text/plain; charset=utf-8'
+      else if (extension === 'doc') mimeType = 'application/msword'
+      else if (extension === 'docx') mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      else if (extension === 'epub') mimeType = 'application/epub+zip'
+
+      await prisma.$executeRaw`
+        INSERT INTO tema_archivo_blobs (tema_archivo_id, mime_type, data_base64, size_bytes)
+        VALUES (${archivoExistente.id}, ${mimeType}, ${buffer.toString('base64')}, ${buffer.length})
+        ON CONFLICT (tema_archivo_id)
+        DO UPDATE SET
+          mime_type = EXCLUDED.mime_type,
+          data_base64 = EXCLUDED.data_base64,
+          size_bytes = EXCLUDED.size_bytes;
+      `
     }
 
     return NextResponse.json({

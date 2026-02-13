@@ -1,0 +1,23 @@
+# Prevent huge local assets/dumps from being uploaded on `vercel` CLI deploys
+# (Vercel doesn't need DB dumps or local document folders)
+
+# Environment files
+.env
+.env.*
+
+# Large DB dumps / scripts
+*.sql
+
+# Bulk exports
+*.csv
+
+# Local generated folders
+node_modules/
+.next/
+logs/
+
+# Local document storage (serverless runtime isn't persistent)
+documentos-temario/
+
+test-*.js
+*.log

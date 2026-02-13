@@ -32,7 +32,8 @@ function LoginForm() {
     if (result?.error) {
       setError('Credenciales inválidas')
     } else {
-      router.push('/dashboard')
+      // Forzar recarga completa para refrescar sesión y rol
+      window.location.href = '/dashboard'
     }
   }
 

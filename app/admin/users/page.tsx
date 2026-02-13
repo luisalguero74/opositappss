@@ -18,12 +18,18 @@ interface UserStats {
 interface User {
   id: string
   email: string
+  phoneNumber?: string | null
   role: string
   active: boolean
   emailVerified: Date | null
   createdAt: Date
   updatedAt: Date
   lastActivity: Date
+  registrationEmailSent?: boolean | null
+  registrationEmailSentAt?: Date | null
+  lastPasswordResetAt?: Date | null
+  lastPasswordResetEmailSent?: boolean | null
+  lastPasswordResetEmailSentAt?: Date | null
   stats: UserStats
 }
 
@@ -72,7 +78,7 @@ export default function UsersManagement() {
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
+    if (status === 'unauthenticated' || (session && session.user.role?.toLowerCase() !== 'admin')) {
       router.push('/dashboard')
     }
   }, [session, status, router])
@@ -209,6 +215,40 @@ export default function UsersManagement() {
     }
   }
 
+  const handleResetPassword = async (userId: string, email: string) => {
+    if (!confirm(`¿Generar una nueva contraseña temporal para ${email}?`)) return
+
+    try {
+      const res = await fetch(`/api/admin/users/${userId}/reset-password`, {
+        method: 'POST'
+      })
+
+      const text = await res.text()
+      const payload = (() => {
+        try {
+          return JSON.parse(text)
+        } catch {
+          return null
+        }
+      })()
+
+      if (!res.ok) {
+        alert(payload?.error || 'Error al resetear la contraseña')
+        return
+      }
+
+      alert(
+        `Contraseña temporal: ${payload?.temporaryPassword || '(no disponible)'}\n` +
+          `Email enviado: ${payload?.emailSent ? 'Sí' : 'No'}`
+      )
+
+      await loadUsers()
+    } catch (error) {
+      console.error('Error resetting password:', error)
+      alert('Error al resetear la contraseña')
+    }
+  }
+
   const filteredUsers = users.filter(user => {
     const matchesFilter = filter === 'all' || user.role === filter
     const matchesSearch = user.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -339,8 +379,16 @@ export default function UsersManagement() {
                       <div>✅ {user.stats.successRate.toFixed(1)}% aciertos</div>
                       <div>📚 {user.stats.questionnairesCompleted} cuestionarios</div>
                       <div className="text-gray-500 mt-2">
-                        Registro: {new Date(user.createdAt).toLocaleDateString('es-ES')}
+                        Registro: {new Date(user.createdAt).toLocaleString('es-ES')}
                       </div>
+                      {user.phoneNumber && (
+                        <div className="text-gray-500">📞 {user.phoneNumber}</div>
+                      )}
+                      {user.registrationEmailSent !== undefined && user.registrationEmailSent !== null && (
+                        <div className="text-gray-500">
+                          ✉️ Email registro: {user.registrationEmailSent ? 'Sí' : 'No'}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -369,12 +417,33 @@ export default function UsersManagement() {
                         )}
                       </div>
                       <p className="text-gray-600 mt-1">
-                        Miembro desde {new Date(selectedUser.createdAt).toLocaleDateString('es-ES', {
+                        Miembro desde{' '}
+                        {new Date(selectedUser.createdAt).toLocaleString('es-ES', {
                           day: 'numeric',
                           month: 'long',
-                          year: 'numeric'
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
                         })}
                       </p>
+                      {selectedUser.phoneNumber && (
+                        <p className="text-gray-600 mt-1">📞 {selectedUser.phoneNumber}</p>
+                      )}
+                      {selectedUser.registrationEmailSent !== undefined && (
+                        <p className="text-gray-600 mt-1">
+                          ✉️ Email de verificación en registro:{' '}
+                          {selectedUser.registrationEmailSent ? 'Sí' : 'No'}
+                          {selectedUser.registrationEmailSentAt
+                            ? ` (${new Date(selectedUser.registrationEmailSentAt).toLocaleString('es-ES')})`
+                            : ''}
+                        </p>
+                      )}
+                      {selectedUser.lastPasswordResetAt && (
+                        <p className="text-gray-600 mt-1">
+                          🔑 Último reset password:{' '}
+                          {new Date(selectedUser.lastPasswordResetAt).toLocaleString('es-ES')}
+                        </p>
+                      )}
                     </div>
                     <div className="flex gap-2 flex-wrap justify-end">
                       <select
@@ -405,6 +474,14 @@ export default function UsersManagement() {
                         </button>
                       )}
                       
+                      <button
+                        onClick={() => handleResetPassword(selectedUser.id, selectedUser.email)}
+                        className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition"
+                        title="Generar una nueva contraseña temporal y enviarla por email"
+                      >
+                        🔑 Reset Password
+                      </button>
+
                       <button
                         onClick={() => handleExportHistory(selectedUser.id, selectedUser.email)}
                         className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"

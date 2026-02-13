@@ -144,7 +144,13 @@ export async function middleware(request: NextRequest) {
   }
 
   // Permitir rutas públicas sin autenticación
-  if (publicRoutes.some(route => pathname.startsWith(route))) {
+  // Nota: '/' no puede usar startsWith porque matchea TODO.
+  const isPublicRoute = publicRoutes.some((route) => {
+    if (route === '/') return pathname === '/'
+    return pathname.startsWith(route)
+  })
+
+  if (isPublicRoute) {
     return response
   }
 

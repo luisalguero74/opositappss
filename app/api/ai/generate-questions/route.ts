@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
 import { generateQuestionsFromContent, generateQuestionsWithOllama } from '@/lib/ai-question-generator'
 import { chunkText } from '@/lib/document-processor'
 import { prisma } from '@/lib/prisma'
@@ -14,6 +15,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
+    await ensureDbSchemaSelfHeal()
     const {
       documentId,
       sectionId,

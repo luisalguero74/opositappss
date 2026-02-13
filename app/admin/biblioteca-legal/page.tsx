@@ -29,7 +29,7 @@ export default function BibliotecaLegalPage() {
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login')
-    } else if (session?.user?.role !== 'ADMIN') {
+    } else if (session?.user?.role?.toLowerCase() !== 'admin') {
       router.push('/')
     } else {
       cargarBiblioteca()
@@ -79,28 +79,6 @@ export default function BibliotecaLegalPage() {
           throw new Error(uploadData?.error ? `Error al subir ${file.name}: ${uploadData.error}` : `Error al subir ${file.name}`)
         }
 
-        // Agregar a la biblioteca
-        const addRes = await fetch('/api/biblioteca-legal', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            action: 'add-documento',
-            nombre: uploadData.nombre,
-            archivo: uploadData.archivo,
-            tipo: uploadData.tipo,
-            numeroPaginas: uploadData.numeroPaginas,
-            fechaActualizacion: new Date().toISOString().split('T')[0]
-          })
-        })
-
-        if (!addRes.ok) {
-          let addData = null;
-          try {
-            addData = await addRes.json();
-          } catch (e) {}
-          throw new Error(addData?.error ? `Error al registrar ${file.name}: ${addData.error}` : `Error al registrar ${file.name}`)
-        }
-
         setUploadProgress(Math.round(((i + 1) / files.length) * 100))
       }
 
@@ -123,6 +101,7 @@ export default function BibliotecaLegalPage() {
       const res = await fetch('/api/biblioteca-legal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           action: 'delete-documento',
           id: docId

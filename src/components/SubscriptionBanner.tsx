@@ -23,13 +23,20 @@ export default function SubscriptionBanner() {
     if (!session?.user?.id) return
 
     fetch('/api/check-access')
-      .then(res => res.json())
-      .then(data => {
+      .then(async (res) => {
+        if (!res.ok) {
+          // If the server cannot verify access, do not block the UI with a red banner.
+          setAccessInfo({ hasAccess: true, reason: 'Acceso no verificable' })
+          setLoading(false)
+          return
+        }
+        const data = await res.json()
         setAccessInfo(data)
         setLoading(false)
       })
       .catch(err => {
         console.error('Error checking access:', err)
+        setAccessInfo({ hasAccess: true, reason: 'Acceso no verificable' })
         setLoading(false)
       })
   }, [session])

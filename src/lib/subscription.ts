@@ -9,10 +9,15 @@ export async function checkUserAccess(userId: string): Promise<{
   reason: string
   subscription?: any
 }> {
-  // Obtener usuario primero para verificar si es admin
+  // Get minimal user info first.
+  // Do NOT join subscription here: production environments may not have the Subscription table yet.
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    include: { subscription: true }
+    select: {
+      id: true,
+      role: true,
+      createdAt: true
+    }
   })
 
   if (!user) {
@@ -23,7 +28,7 @@ export async function checkUserAccess(userId: string): Promise<{
   }
 
   // Los admins siempre tienen acceso
-  if (user.role === 'ADMIN') {
+  if (String(user.role || '').toLowerCase() === 'admin') {
     return {
       hasAccess: true,
       reason: 'Acceso de administrador'
@@ -31,19 +36,22 @@ export async function checkUserAccess(userId: string): Promise<{
   }
 
   // Verificar si la monetización está activada
-  const settings = await prisma.appSettings.findFirst()
+  let settings: any = null
+  try {
+    settings = await prisma.appSettings.findFirst()
+  } catch (err) {
+    // If settings table/columns drifted in production, fail open (monetization disabled)
+    console.error('[Subscription] Error loading AppSettings, allowing access:', err)
+    return {
+      hasAccess: true,
+      reason: 'Monetización no disponible - acceso permitido'
+    }
+  }
   
   if (!settings || !settings.monetizationEnabled) {
     return {
       hasAccess: true,
       reason: 'Monetización desactivada - acceso gratuito para todos'
-    }
-  }
-
-  if (!user) {
-    return {
-      hasAccess: false,
-      reason: 'Usuario no encontrado'
     }
   }
 
@@ -59,39 +67,53 @@ export async function checkUserAccess(userId: string): Promise<{
     const daysLeft = Math.ceil((trialEndDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
     return {
       hasAccess: true,
-      reason: `Período de prueba - ${daysLeft} día(s) restante(s)`,
-      subscription: user.subscription
+      reason: `Período de prueba - ${daysLeft} día(s) restante(s)`
+    }
+  }
+
+  // Load subscription only if monetization is enabled and trial is over.
+  let subscription: any = null
+  try {
+    subscription = await prisma.subscription.findUnique({
+      where: { userId: user.id }
+    })
+  } catch (err) {
+    // If subscription system is not deployed yet, fail open (monetization effectively disabled).
+    console.error('[Subscription] Error loading Subscription, allowing access:', err)
+    return {
+      hasAccess: true,
+      reason: 'Suscripciones no disponibles - acceso permitido'
     }
   }
 
   // Verificar suscripción activa
-  if (!user.subscription) {
+  if (!subscription) {
     return {
       hasAccess: false,
       reason: 'No hay suscripción activa. Periodo de prueba expirado.'
     }
   }
 
-  if (user.subscription.status !== 'active') {
+  if (subscription.status !== 'active') {
     return {
       hasAccess: false,
-      reason: `Suscripción ${user.subscription.status}. Se requiere suscripción activa.`
+      reason: `Suscripción ${subscription.status}. Se requiere suscripción activa.`
     }
   }
 
   // Verificar que no haya expirado
-  if (user.subscription.currentPeriodEnd && new Date(user.subscription.currentPeriodEnd) < now) {
+  if (subscription.currentPeriodEnd && new Date(subscription.currentPeriodEnd) < now) {
     return {
       hasAccess: false,
       reason: 'Suscripción expirada. Renueva tu plan para continuar.',
-      subscription: user.subscription
+      subscription
     }
   }
 
   return {
     hasAccess: true,
-    reason: `Suscripción ${user.subscription.plan} activa`,
-    subscription: user.subscription
+    reason: `Suscripción ${subscription.plan} activa`,
+    subscription
   }
 }
 

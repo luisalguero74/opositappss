@@ -21,6 +21,7 @@ export default function ExamModePage() {
   const router = useRouter()
   const [questions, setQuestions] = useState<Question[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState<string>('')
   const [started, setStarted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<{ [key: number]: string }>({})
@@ -54,22 +55,51 @@ export default function ExamModePage() {
 
   const fetchQuestions = async () => {
     try {
+      setLoadError('')
       // Obtener 85 preguntas aleatorias (70 generales + 15 específicas)
       const res = await fetch('/api/questions/random?count=85')
-      if (res.ok) {
-        const data = await res.json()
-        setQuestions(data.questions || [])
+      if (!res.ok) {
+        setLoadError('No se pudieron cargar las preguntas del examen.')
+        return
       }
+      const data = await res.json()
+      const qs = Array.isArray(data?.questions) ? data.questions : []
+      // Ensure options is always an array (defensive)
+      const normalized: Question[] = qs.map((q: any) => ({
+        ...q,
+        options: Array.isArray(q?.options)
+          ? q.options
+          : typeof q?.options === 'string'
+            ? (() => {
+                try {
+                  const parsed = JSON.parse(q.options)
+                  return Array.isArray(parsed) ? parsed : []
+                } catch {
+                  return []
+                }
+              })()
+            : []
+      }))
+      setQuestions(normalized)
     } catch (err) {
       console.error(err)
+      setLoadError('Error de conexión al cargar el examen.')
     } finally {
       setLoading(false)
     }
   }
 
   const startExam = () => {
+    if (!questions || questions.length === 0) {
+      alert(loadError || 'No hay preguntas cargadas para iniciar el examen.')
+      return
+    }
     setStarted(true)
     setTimeLeft(120 * 60)
+    setCurrentIndex(0)
+    setAnswers({})
+    setFinished(false)
+    setScore(0)
   }
 
   const handleAnswer = (answer: string) => {
@@ -136,11 +166,22 @@ export default function ExamModePage() {
             </Link>
             <button
               onClick={startExam}
-              className="flex-1 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold py-4 rounded-lg hover:shadow-lg transition-all"
+              disabled={loading || !!loadError || questions.length === 0}
+              className={`flex-1 font-bold py-4 rounded-lg transition-all ${
+                loading || !!loadError || questions.length === 0
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-orange-600 to-red-600 text-white hover:shadow-lg'
+              }`}
             >
               Comenzar Examen
             </button>
           </div>
+
+          {loadError && (
+            <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+              {loadError}
+            </div>
+          )}
         </div>
       </div>
     )
@@ -201,6 +242,35 @@ export default function ExamModePage() {
 
   const currentQuestion = questions[currentIndex]
   const progress = ((currentIndex + 1) / questions.length) * 100
+
+  if (!currentQuestion) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-100 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-xl text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">No hay preguntas para mostrar</h1>
+          <p className="text-gray-600 mb-6">Vuelve atrás e inténtalo de nuevo.</p>
+          <div className="flex gap-4">
+            <button
+              onClick={() => {
+                setStarted(false)
+                setFinished(false)
+                setCurrentIndex(0)
+              }}
+              className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 rounded-lg"
+            >
+              Volver
+            </button>
+            <Link
+              href="/dashboard"
+              className="flex-1 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold py-3 rounded-lg text-center"
+            >
+              Dashboard
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-100 p-4">

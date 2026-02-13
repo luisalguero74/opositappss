@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { normalizeSpanishPhone } from '@/lib/phone'
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,50 +18,42 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Se requiere un array de números' }, { status: 400 })
     }
 
-    // Normalizar números (quitar espacios, guiones, +)
-    const normalizedNumbers = numbers
-      .map(num => {
-        // Quitar espacios, guiones, paréntesis
-        let clean = num.replace(/[\s\-\(\)]/g, '')
-        // Quitar + al inicio
-        if (clean.startsWith('+')) {
-          clean = clean.substring(1)
-        }
-        return clean
-      })
-      .filter(num => num.length >= 9 && /^\d+$/.test(num))
+    const normalized = numbers
+      .map((num) => normalizeSpanishPhone(String(num ?? '')))
+      .filter((n): n is NonNullable<typeof n> => Boolean(n))
 
-    if (normalizedNumbers.length === 0) {
+    if (normalized.length === 0) {
       return NextResponse.json({ 
         error: 'Ningún número válido después de normalizar' 
       }, { status: 400 })
     }
 
-    // Obtener números existentes
-    const existingNumbers = await prisma.allowedPhoneNumber.findMany({
-      select: { phoneNumber: true }
-    })
+    const canonicalSet = new Set(normalized.map(n => n.canonical))
+    const canonicals = Array.from(canonicalSet)
 
-    const existingSet = new Set(existingNumbers.map(p => p.phoneNumber))
+    // Eliminar representaciones antiguas para evitar duplicados entre formatos
+    const allVariants = Array.from(new Set(normalized.flatMap(n => n.variants)))
 
-    // Separar nuevos de duplicados
-    const toAdd = normalizedNumbers.filter(num => !existingSet.has(num))
-    const duplicates = normalizedNumbers.filter(num => existingSet.has(num))
+    const created = await prisma.$transaction(async (tx) => {
+      await tx.allowedPhoneNumber.deleteMany({
+        where: { phoneNumber: { in: allVariants } }
+      })
 
-    // Crear nuevos registros
-    const created = await prisma.allowedPhoneNumber.createMany({
-      data: toAdd.map(phoneNumber => ({
-        phoneNumber,
-        groupName: groupName || null
-      }))
+      return tx.allowedPhoneNumber.createMany({
+        data: canonicals.map((phoneNumber) => ({
+          phoneNumber,
+          groupName: groupName || null
+        })),
+        skipDuplicates: true
+      })
     })
 
     return NextResponse.json({
       success: true,
       added: created.count,
-      duplicates: duplicates.length,
-      total: normalizedNumbers.length,
-      message: `Se añadieron ${created.count} números. ${duplicates.length} eran duplicados.`
+      duplicates: normalized.length - created.count,
+      total: normalized.length,
+      message: `Se añadieron ${created.count} números (formato canónico +34).`
     })
   } catch (error) {
     console.error('Error en bulk import:', error)

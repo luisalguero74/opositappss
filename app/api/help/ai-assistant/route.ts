@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
 import { searchRelevantContext, generateRAGResponse, ChatMessage } from '@/lib/rag-system'
 import { searchOfficialSources, generateLegalCitations, enrichWithWebSources } from '@/lib/web-search'
 
@@ -23,6 +24,8 @@ export async function POST(req: NextRequest) {
 
     console.log('[AI Assistant PRO] Query:', query)
     console.log('[AI Assistant PRO] Iniciando búsqueda en fuentes internas y externas...')
+
+    await ensureDbSchemaSelfHeal()
 
     // 1. Obtener TODOS los documentos internos (leyes + temas)
     const allDocuments = await prisma.legalDocument.findMany({

@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { searchRelevantContext, generateRAGResponse, explainConcept, generateDocumentSummary } from '@/lib/rag-system'
 import { prisma } from '@/lib/prisma'
+import { ensureDbSchemaSelfHeal } from '@/lib/db-self-heal'
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,6 +15,8 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json()
     const { query, conversationHistory = [], topic, action = 'chat' } = body
+
+    await ensureDbSchemaSelfHeal()
 
     if (!query) {
       return NextResponse.json({ error: 'Se requiere query' }, { status: 400 })

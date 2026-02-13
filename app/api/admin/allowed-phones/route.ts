@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '../../../../src/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import { normalizeSpanishPhone } from '@/lib/phone'
 
 export async function GET(request: NextRequest) {
   try {
@@ -36,21 +37,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Número de teléfono requerido' }, { status: 400 })
     }
 
-    // Normalizar número
-    const normalizedPhone = phoneNumber.replace(/[\s-]/g, '')
-
-    // Validar formato
-    if (!/^\+34\d{9}$/.test(normalizedPhone)) {
-      return NextResponse.json({ 
-        error: 'El número debe tener formato +34 seguido de 9 dígitos' 
-      }, { status: 400 })
+    const normalized = normalizeSpanishPhone(phoneNumber)
+    if (!normalized) {
+      return NextResponse.json(
+        { error: 'El número debe ser español (9 dígitos) con o sin +34' },
+        { status: 400 }
+      )
     }
 
-    // Crear o actualizar
-    const phone = await prisma.allowedPhoneNumber.upsert({
-      where: { phoneNumber: normalizedPhone },
-      update: { groupName },
-      create: { phoneNumber: normalizedPhone, groupName }
+    // Evitar duplicados históricos en distintos formatos
+    await prisma.allowedPhoneNumber.deleteMany({
+      where: { phoneNumber: { in: normalized.variants } }
+    })
+
+    const phone = await prisma.allowedPhoneNumber.create({
+      data: { phoneNumber: normalized.canonical, groupName: groupName || null }
     })
 
     return NextResponse.json(phone)

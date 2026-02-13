@@ -24,7 +24,7 @@ export default function TemarioManager() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {
+    if (status === 'unauthenticated' || (session && session.user.role?.toLowerCase() !== 'admin')) {
       router.push('/dashboard')
     }
   }, [status, session, router])
@@ -104,6 +104,7 @@ export default function TemarioManager() {
       const res = await fetch('/api/biblioteca-legal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           action: 'asociar-tema',
           temaId,

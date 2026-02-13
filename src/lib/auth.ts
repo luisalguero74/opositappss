@@ -14,7 +14,10 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials: Record<'email' | 'password', string> | undefined, req: any): Promise<User | null> {
+      async authorize(
+        credentials: Record<'email' | 'password', string> | undefined,
+        req?: { headers?: Record<string, string | string[] | undefined> }
+      ): Promise<User | null> {
         if (!credentials?.email || !credentials?.password) {
           securityLogger.logLoginFailed(credentials?.email || 'unknown', getClientIp(req?.headers))
           return null
@@ -51,7 +54,7 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           name: user.email,
           email: user.email,
-          role: user.role
+          role: typeof user.role === 'string' ? user.role.toLowerCase() : 'user'
         } as User
         
         console.log('[AUTH] User returned from authorize:', result)
@@ -63,7 +66,7 @@ export const authOptions: NextAuthOptions = {
     jwt: ({ token, user }: { token: JWT & { role?: string }; user?: User }) => {
       console.log('[JWT Callback] user:', user, 'token before:', token)
       if (user && 'role' in user) {
-        token.role = (user as unknown as { role?: string }).role
+        token.role = String((user as unknown as { role?: string }).role ?? '').toLowerCase()
         console.log('[JWT Callback] token role set to:', token.role)
       }
       console.log('[JWT Callback] token after:', token)
@@ -74,7 +77,7 @@ export const authOptions: NextAuthOptions = {
       // Solo añadimos id y rol cuando existe un usuario en sesión (evita errores en estado no autenticado)
       if (session.user) {
         session.user.id = token.sub ?? session.user.id
-        session.user.role = token.role ?? session.user.role ?? 'user'
+        session.user.role = String(token.role ?? session.user.role ?? 'user').toLowerCase()
       }
       console.log('[Session Callback] session after:', session)
       return session
@@ -84,5 +87,3 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login'
   }
 }
-
-export default NextAuth(authOptions)
