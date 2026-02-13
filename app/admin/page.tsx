@@ -104,6 +104,19 @@ export default function Admin() {
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-slate-600 to-gray-800 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🗄️</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Backups</h2>
+              <p className="text-gray-600 mb-4 text-sm">Crea y descarga copias de seguridad para mantener la base de datos protegida.</p>
+              <Link href="/admin/backups" className="inline-block bg-gradient-to-r from-slate-600 to-gray-800 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-700 hover:to-gray-900 transition text-sm">
+                Abrir Backups →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
             <div className="bg-gradient-to-r from-slate-600 to-slate-800 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">📚</div>
             </div>

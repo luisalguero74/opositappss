@@ -112,6 +112,13 @@ export default function UserMenu() {
                   ⚙️ Panel Admin
                 </Link>
                 <Link
+                  href="/admin/backups"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  🗄️ Backups
+                </Link>
+                <Link
                   href="/admin/repositorio"
                   onClick={() => setIsOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
