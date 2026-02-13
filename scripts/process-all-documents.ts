@@ -115,7 +115,7 @@ async function main() {
         data: {
           title: doc.fileName,
           content: result.content,
-          type: doc.category,
+          documentType: doc.category,
           topic: doc.topic,
           fileName: doc.fileName,
           fileSize: result.content.length,

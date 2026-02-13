@@ -6,6 +6,8 @@ import { securityLogger, getClientIp } from './security-logger'
 import type { JWT } from 'next-auth/jwt'
 import type { User, Session, NextAuthOptions } from 'next-auth'
 
+type AppToken = JWT & { role?: string; repoRole?: string | null }
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -27,7 +29,7 @@ export const authOptions: NextAuthOptions = {
         const email = credentials.email.toLowerCase()
 
         const user = await prisma.user.findUnique({
-          where: { email }
+          where: { email },
         })
 
         if (!user) {
@@ -54,7 +56,8 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           name: user.email,
           email: user.email,
-          role: typeof user.role === 'string' ? user.role.toLowerCase() : 'user'
+          role: typeof user.role === 'string' ? user.role.toLowerCase() : 'user',
+          repoRole: (user as unknown as { repoRole?: string }).repoRole,
         } as User
         
         console.log('[AUTH] User returned from authorize:', result)
@@ -63,25 +66,38 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    jwt: ({ token, user }: { token: JWT & { role?: string }; user?: User }) => {
+    jwt: (params) => {
+      const token = params.token as AppToken
+      const user = params.user as User | undefined
+
       console.log('[JWT Callback] user:', user, 'token before:', token)
+
       if (user && 'role' in user) {
         token.role = String((user as unknown as { role?: string }).role ?? '').toLowerCase()
         console.log('[JWT Callback] token role set to:', token.role)
       }
+
+      if (user && 'repoRole' in user) {
+        const rawRepoRole = (user as unknown as { repoRole?: string | null }).repoRole
+        token.repoRole = rawRepoRole == null ? null : String(rawRepoRole)
+      }
+
       console.log('[JWT Callback] token after:', token)
       return token
     },
-    session: ({ session, token }: { session: Session; token: JWT & { role?: string } }) => {
+    session: (params) => {
+      const session = params.session as Session
+      const token = params.token as AppToken
+
       console.log('[Session Callback] token:', token, 'session before:', session)
-      // Solo añadimos id y rol cuando existe un usuario en sesión (evita errores en estado no autenticado)
       if (session.user) {
         session.user.id = token.sub ?? session.user.id
         session.user.role = String(token.role ?? session.user.role ?? 'user').toLowerCase()
+        ;(session.user as unknown as { repoRole?: string | null }).repoRole = token.repoRole == null ? null : String(token.repoRole)
       }
       console.log('[Session Callback] session after:', session)
       return session
-    }
+    },
   },
   pages: {
     signIn: '/login'

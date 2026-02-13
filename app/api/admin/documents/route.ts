@@ -128,7 +128,7 @@ export async function POST(req: NextRequest) {
     const document = await prisma.legalDocument.create({
       data: {
         title,
-        type,
+        documentType: type,
         topic: topic || null,
         reference: reference || null,
         fileName: file.name,

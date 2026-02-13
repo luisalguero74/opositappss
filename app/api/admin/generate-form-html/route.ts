@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       include: {
         document: {
           select: {
-            type: true
+            documentType: true
           }
         }
       }

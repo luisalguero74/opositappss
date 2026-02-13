@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 interface Document {
   id: string
   title: string
-  type: string
+  documentType: string
   reference: string | null
   fileName: string | null
   fileSize: number | null
@@ -31,7 +31,7 @@ interface GeneratedQuestion {
   document: {
     id: string
     title: string
-    type: string
+    documentType: string
   }
 }
 
@@ -282,7 +282,7 @@ export default function AIDocumentsPage() {
                         <div className="flex-1">
                           <h3 className="font-bold text-lg">{doc.title}</h3>
                           <p className="text-sm text-gray-600">
-                            Tipo: {doc.type} | {doc.reference || 'Sin referencia'}
+                            Tipo: {doc.documentType} | {doc.reference || 'Sin referencia'}
                           </p>
                           <p className="text-sm text-gray-500">
                             {doc._count.sections} secciones | {doc._count.questions} preguntas generadas

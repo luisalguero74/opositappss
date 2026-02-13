@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
         title: true,
         content: true,
         topic: true,
-        type: true
+        documentType: true
       }
     })
 
@@ -94,13 +94,17 @@ export async function POST(req: NextRequest) {
     }
     
     const combinedDocuments = [...allDocuments, ...additionalDocuments]
+    const normalizedDocuments = combinedDocuments.map((doc: any) => ({
+      ...doc,
+      documentType: doc.documentType ?? doc.type,
+    }))
     console.log(`[AI Assistant PRO] Total documentos para búsqueda: ${combinedDocuments.length}`)
 
     // 2. Buscar contexto relevante en documentación interna
-    const relevantContext = combinedDocuments.length > 0
+    const relevantContext = normalizedDocuments.length > 0
       ? await searchRelevantContext(
           query, 
-          combinedDocuments.map(doc => ({ ...doc, topic: doc.topic ?? undefined })), 
+          normalizedDocuments.map(doc => ({ ...doc, topic: doc.topic ?? undefined })), 
           5 // Top 5 documentos más relevantes
         )
       : []

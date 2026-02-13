@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
         id: d.id,
         nombre: d.title,
         archivo: d.fileName ?? '',
-        tipo: d.type,
+        tipo: d.documentType,
         numeroPaginas: 0,
         fechaActualizacion: toDateString(d.updatedAt)
       }))
@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
       id: d.id,
       nombre: d.title,
       archivo: d.fileName ?? '',
-      tipo: d.type,
+      tipo: d.documentType,
       numeroPaginas: 0,
       fechaActualizacion: toDateString(d.updatedAt)
     }))
@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
       const created = await prisma.legalDocument.create({
         data: {
           title: title ?? `Documento ${new Date().toISOString()}`,
-          type,
+          documentType: type,
           reference: title ?? undefined,
           fileName: fileName ?? undefined,
           fileSize: typeof body.fileSize === 'number' ? body.fileSize : undefined,

@@ -186,9 +186,9 @@ async function main() {
   const documents = await prisma.legalDocument.findMany({
     where: {
       OR: [
-        { type: 'temario_especifico' },
+        { documentType: 'temario_especifico' },
         { 
-          type: 'temario_general',
+          documentType: 'temario_general',
           topic: {
             in: ['Tema 1', 'Tema 2', 'Tema 8', 'Tema 13', 'Tema 14'] // Temas relevantes del general
           }

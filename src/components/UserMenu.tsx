@@ -70,6 +70,14 @@ export default function UserMenu() {
             >
               📊 Dashboard
             </Link>
+
+            <Link
+              href="/repositorio"
+              onClick={() => setIsOpen(false)}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+            >
+              📚 Repositorio
+            </Link>
             <Link
               href="/dashboard/account"
               onClick={() => setIsOpen(false)}
@@ -104,6 +112,20 @@ export default function UserMenu() {
                   ⚙️ Panel Admin
                 </Link>
                 <Link
+                  href="/admin/repositorio"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  📚 Admin Repositorio
+                </Link>
+                <Link
+                  href="/admin/import-questions"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  📥 Importar JSON
+                </Link>
+                <Link
                   href="/admin/questions-review"
                   onClick={() => setIsOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
@@ -116,6 +138,13 @@ export default function UserMenu() {
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
                 >
                   🧩 Gestionar Preguntas
+                </Link>
+                <Link
+                  href="/admin/subscriptions"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  💳 Suscripciones
                 </Link>
                 <Link
                   href="/admin/users"

@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 interface Document {
   id: string
   title: string
-  type: string
+  documentType: string
   topic: string | null
   reference: string | null
   fileName: string | null
@@ -33,7 +33,7 @@ interface GeneratedQuestion {
   document: {
     id: string
     title: string
-    type: string
+    documentType: string
     topic: string | null
   }
 }
@@ -208,7 +208,7 @@ export default function AIDocumentsPage() {
       correctAnswer: question.correctAnswer,
       explanation: question.explanation || '',
       difficulty: question.difficulty,
-      type: question.document.type,
+      type: question.document.documentType,
       topic: question.topic || ''
     })
   }
@@ -289,7 +289,7 @@ export default function AIDocumentsPage() {
 
   // Filtros
   const filteredQuestions = questions.filter(q => {
-    if (filterType !== 'all' && q.document.type !== filterType) return false
+    if (filterType !== 'all' && q.document.documentType !== filterType) return false
     if (filterTopic !== 'all' && q.document.topic !== filterTopic) return false
     if (filterStatus === 'approved' && !q.approved) return false
     if (filterStatus === 'pending' && q.approved) return false
@@ -491,7 +491,7 @@ export default function AIDocumentsPage() {
                         <div className="flex-1">
                           <h3 className="font-bold text-lg">{doc.title}</h3>
                           <p className="text-sm text-gray-600">
-                            Tipo: {doc.type} {doc.topic && `| Tema: ${doc.topic}`} {doc.reference && `| ${doc.reference}`}
+                            Tipo: {doc.documentType} {doc.topic && `| Tema: ${doc.topic}`} {doc.reference && `| ${doc.reference}`}
                           </p>
                           <p className="text-sm text-gray-500">
                             {doc._count.sections} secciones | {doc._count.questions} preguntas generadas

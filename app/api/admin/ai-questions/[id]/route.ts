@@ -37,7 +37,7 @@ export async function PATCH(
       if (question?.documentId) {
         await prisma.legalDocument.update({
           where: { id: question.documentId },
-          data: { type }
+          data: { documentType: String(type) }
         })
       }
     }

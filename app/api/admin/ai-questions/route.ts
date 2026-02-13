@@ -180,7 +180,7 @@ export async function GET(req: NextRequest) {
           select: {
             id: true,
             title: true,
-            type: true
+            documentType: true
           }
         },
         section: {

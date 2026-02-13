@@ -153,7 +153,7 @@ async function verifyLegalFoundations() {
         id: true,
         reference: true,
         title: true,
-        type: true,
+        documentType: true,
       }
     })
 
@@ -165,7 +165,7 @@ async function verifyLegalFoundations() {
     if (legalDocuments.length > 0) {
       const docsByType = new Map<string, number>()
       legalDocuments.forEach(doc => {
-        docsByType.set(doc.type, (docsByType.get(doc.type) || 0) + 1)
+        docsByType.set(doc.documentType, (docsByType.get(doc.documentType) || 0) + 1)
       })
 
       console.log('Por tipo:')
@@ -176,7 +176,7 @@ async function verifyLegalFoundations() {
 
       console.log('Ejemplos de documentos:')
       legalDocuments.slice(0, 5).forEach(doc => {
-        console.log(`  - [${doc.type}] ${doc.reference || doc.title}`)
+        console.log(`  - [${doc.documentType}] ${doc.reference || doc.title}`)
       })
     } else {
       console.log('⚠️  No hay documentos legales en la base de datos.')

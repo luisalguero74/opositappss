@@ -83,14 +83,14 @@ export async function POST(req: NextRequest) {
       const documents = await prisma.legalDocument.findMany({
         where: {
           OR: [
-            { type: 'temario_general' },
-            { type: 'temario_especifico' }
+            { documentType: 'temario_general' },
+            { documentType: 'temario_especifico' }
           ]
         },
         select: {
           title: true,
           content: true,
-          type: true
+          documentType: true
         }
       })
 

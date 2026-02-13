@@ -140,7 +140,7 @@ async function findRelatedLegalDocument(questionText: string, temaCodigo: string
         reference: true,
         title: true,
         content: true,
-        type: true
+        documentType: true
       },
       take: 3
     })
