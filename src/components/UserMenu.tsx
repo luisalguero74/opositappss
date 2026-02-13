@@ -72,6 +72,14 @@ export default function UserMenu() {
             </Link>
 
             <Link
+              href="/help"
+              onClick={() => setIsOpen(false)}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+            >
+              ❓ Ayuda
+            </Link>
+
+            <Link
               href="/repositorio"
               onClick={() => setIsOpen(false)}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
@@ -91,6 +99,14 @@ export default function UserMenu() {
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
             >
               💳 Suscripción
+            </Link>
+
+            <Link
+              href="/dashboard/subscription"
+              onClick={() => setIsOpen(false)}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+            >
+              💳 Mi suscripción
             </Link>
 
             <Link
@@ -119,6 +135,13 @@ export default function UserMenu() {
                   🗄️ Backups
                 </Link>
                 <Link
+                  href="/admin/settings"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  ⚙️ Ajustes
+                </Link>
+                <Link
                   href="/admin/repositorio"
                   onClick={() => setIsOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
@@ -126,11 +149,46 @@ export default function UserMenu() {
                   📚 Admin Repositorio
                 </Link>
                 <Link
+                  href="/admin/ai-prompt-helper"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  🧠 Prompt Helper
+                </Link>
+                <Link
+                  href="/admin/diagnostics"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  🩺 Diagnóstico
+                </Link>
+                <Link
+                  href="/admin/analytics"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  📈 Analytics
+                </Link>
+                <Link
+                  href="/admin/audit-logs"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  🧾 Audit logs
+                </Link>
+                <Link
                   href="/admin/import-questions"
                   onClick={() => setIsOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
                 >
                   📥 Importar JSON
+                </Link>
+                <Link
+                  href="/admin/questions-create"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  ➕ Crear preguntas
                 </Link>
                 <Link
                   href="/admin/questions-review"
@@ -145,6 +203,69 @@ export default function UserMenu() {
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
                 >
                   🧩 Gestionar Preguntas
+                </Link>
+                <Link
+                  href="/admin/questions-quality"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  ⭐ Calidad preguntas
+                </Link>
+                <Link
+                  href="/admin/quality-control"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  🧹 Control de calidad
+                </Link>
+                <Link
+                  href="/admin/tema-metadata-review"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  🏷️ Revisar temas
+                </Link>
+                <Link
+                  href="/admin/exam-official"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  📝 Exámenes oficiales
+                </Link>
+                <Link
+                  href="/admin/test-email"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  ✉️ Test email
+                </Link>
+                <Link
+                  href="/admin/test-planner"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  🗓️ Planificador tests
+                </Link>
+                <Link
+                  href="/admin/update-pdf-content"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  🧾 Actualizar PDF
+                </Link>
+                <Link
+                  href="/admin/contact-leads"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  📇 Leads contacto
+                </Link>
+                <Link
+                  href="/admin/recover-password"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                >
+                  🔐 Recover password
                 </Link>
                 <Link
                   href="/admin/subscriptions"

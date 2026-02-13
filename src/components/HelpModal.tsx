@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 
-interface HelpTopic {
+export interface HelpTopic {
   id: string
   category: string
   keywords: string[]
@@ -14,7 +14,7 @@ interface HelpTopic {
   video?: string
 }
 
-const HELP_TOPICS: HelpTopic[] = [
+export const HELP_TOPICS: HelpTopic[] = [
   {
     id: 'classroom-join',
     category: '🎓 Aulas Virtuales',

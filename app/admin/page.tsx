@@ -461,6 +461,201 @@ export default function Admin() {
               </Link>
             </div>
           </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-indigo-500 to-blue-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">📈</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Analytics</h2>
+              <p className="text-gray-600 mb-4 text-sm">Métricas y analítica del sistema.</p>
+              <Link href="/admin/analytics" className="inline-block bg-gradient-to-r from-indigo-500 to-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-blue-700 transition text-sm">
+                Ver analytics →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-emerald-500 to-teal-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🧾</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Audit logs</h2>
+              <p className="text-gray-600 mb-4 text-sm">Eventos de auditoría y trazabilidad.</p>
+              <Link href="/admin/audit-logs" className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition text-sm">
+                Ver logs →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-fuchsia-500 to-purple-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🩺</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Diagnóstico</h2>
+              <p className="text-gray-600 mb-4 text-sm">Herramientas de diagnóstico y verificación.</p>
+              <Link href="/admin/diagnostics" className="inline-block bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-fuchsia-600 hover:to-purple-700 transition text-sm">
+                Abrir diagnóstico →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-amber-500 to-orange-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">📝</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Exámenes oficiales</h2>
+              <p className="text-gray-600 mb-4 text-sm">Herramientas y flujos para exámenes oficiales.</p>
+              <Link href="/admin/exam-official" className="inline-block bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-600 hover:to-orange-700 transition text-sm">
+                Gestionar exámenes →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-gray-700 to-slate-800 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">⚙️</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Ajustes</h2>
+              <p className="text-gray-600 mb-4 text-sm">Ajustes y configuración de administración.</p>
+              <Link href="/admin/settings" className="inline-block bg-gradient-to-r from-gray-700 to-slate-800 text-white font-semibold px-5 py-2 rounded-lg hover:from-gray-800 hover:to-slate-900 transition text-sm">
+                Abrir ajustes →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-rose-500 to-pink-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">⭐</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Calidad preguntas</h2>
+              <p className="text-gray-600 mb-4 text-sm">Control de calidad y señalización de preguntas.</p>
+              <Link href="/admin/questions-quality" className="inline-block bg-gradient-to-r from-rose-500 to-pink-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-rose-600 hover:to-pink-700 transition text-sm">
+                Revisar calidad →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-slate-700 to-gray-900 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🧹</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Control de calidad</h2>
+              <p className="text-gray-600 mb-4 text-sm">Herramientas avanzadas de control y limpieza.</p>
+              <Link href="/admin/quality-control" className="inline-block bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-sm">
+                Abrir control →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-cyan-500 to-sky-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🏷️</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Revisar temas</h2>
+              <p className="text-gray-600 mb-4 text-sm">Validación y revisión de metadatos de temario.</p>
+              <Link href="/admin/tema-metadata-review" className="inline-block bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-cyan-600 hover:to-sky-700 transition text-sm">
+                Abrir revisión →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-violet-500 to-purple-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🧠</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Prompt Helper</h2>
+              <p className="text-gray-600 mb-4 text-sm">Herramientas de prompts para IA y generación.</p>
+              <Link href="/admin/ai-prompt-helper" className="inline-block bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-violet-600 hover:to-purple-700 transition text-sm">
+                Abrir helper →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-slate-600 to-gray-800 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">✉️</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Test email</h2>
+              <p className="text-gray-600 mb-4 text-sm">Pruebas y verificación de envío de emails.</p>
+              <Link href="/admin/test-email" className="inline-block bg-gradient-to-r from-slate-600 to-gray-800 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-700 hover:to-gray-900 transition text-sm">
+                Probar email →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🗓️</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Planificador tests</h2>
+              <p className="text-gray-600 mb-4 text-sm">Planificación y utilidades de testing.</p>
+              <Link href="/admin/test-planner" className="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition text-sm">
+                Abrir planner →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-stone-600 to-zinc-700 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🧾</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Actualizar PDF</h2>
+              <p className="text-gray-600 mb-4 text-sm">Actualización y mantenimiento de contenido PDF.</p>
+              <Link href="/admin/update-pdf-content" className="inline-block bg-gradient-to-r from-stone-600 to-zinc-700 text-white font-semibold px-5 py-2 rounded-lg hover:from-stone-700 hover:to-zinc-800 transition text-sm">
+                Abrir herramienta →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-indigo-500 to-violet-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">➕</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Crear preguntas</h2>
+              <p className="text-gray-600 mb-4 text-sm">Alta manual de preguntas y utilidades de creación.</p>
+              <Link href="/admin/questions-create" className="inline-block bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-violet-700 transition text-sm">
+                Crear preguntas →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-amber-500 to-yellow-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">📇</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Leads contacto</h2>
+              <p className="text-gray-600 mb-4 text-sm">Gestión de leads recibidos desde formularios de contacto.</p>
+              <Link href="/admin/contact-leads" className="inline-block bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition text-sm">
+                Ver leads →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-red-500 to-orange-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🔐</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Recover password</h2>
+              <p className="text-gray-600 mb-4 text-sm">Recuperación y gestión de contraseñas.</p>
+              <Link href="/admin/recover-password" className="inline-block bg-gradient-to-r from-red-500 to-orange-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-red-600 hover:to-orange-700 transition text-sm">
+                Abrir herramienta →
+              </Link>
+            </div>
+          </div>
         </div>
 
         {message.text && (

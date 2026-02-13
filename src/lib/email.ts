@@ -41,6 +41,7 @@ export async function sendEmail(options: {
   to: string
   subject: string
   html: string
+  text?: string
 }) {
   const transporter = await createTransporter()
   const mailOptions = {
@@ -48,6 +49,7 @@ export async function sendEmail(options: {
     to: options.to,
     subject: options.subject,
     html: options.html,
+    text: options.text,
   }
 
   try {
