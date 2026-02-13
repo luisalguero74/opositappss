@@ -85,6 +85,14 @@ export default function UserMenu() {
               💳 Suscripción
             </Link>
 
+            <Link
+              href="/pricing#becas"
+              onClick={() => setIsOpen(false)}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+            >
+              🎓 Becas
+            </Link>
+
             {isAdmin && (
               <>
                 <div className="my-2 border-t border-gray-100" />

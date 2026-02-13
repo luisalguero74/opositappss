@@ -267,6 +267,18 @@ export default function PricingPage() {
           </div>
         </div>
 
+        {/* Becas / Acceso patrocinado */}
+        <div id="becas" className="mt-16 max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">🎓 Becas y acceso patrocinado</h2>
+          <p className="text-gray-600">
+            Si tienes acceso por beca/patrocinio (por ejemplo, alumnos matriculados en ECAP u otra academia), no necesitas pagar una suscripción.
+            Inicia sesión con el correo registrado y tu acceso se aplicará según tu alta.
+          </p>
+          <p className="text-gray-600 mt-3">
+            Si crees que deberías tener beca y no la ves reflejada, contacta con administración para que revisen tu alta.
+          </p>
+        </div>
+
         {/* Garantía */}
         <div className="mt-12 text-center">
           <div className="inline-block bg-green-50 border-2 border-green-200 rounded-full px-8 py-4">
