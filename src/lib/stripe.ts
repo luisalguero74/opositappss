@@ -10,8 +10,10 @@ export function getStripe(): Stripe {
     throw new Error('STRIPE_SECRET_KEY no está configurado en las variables de entorno')
   }
 
+  const apiVersion = process.env.STRIPE_API_VERSION
+
   stripeSingleton = new Stripe(key, {
-    apiVersion: '2026-01-28.clover',
+    ...(apiVersion ? { apiVersion: apiVersion as Stripe.LatestApiVersion } : {}),
     typescript: true,
   })
 
