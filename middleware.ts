@@ -32,7 +32,7 @@ const CSP = `
   font-src 'self' data: https://fonts.gstatic.com;
   connect-src 'self' https://api.groq.com https://api.stripe.com https://vercel.live wss:;
   media-src 'self' data: blob:;
-  frame-src 'self' https://js.stripe.com;
+  frame-src 'self' https://js.stripe.com https://vercel.live;
   base-uri 'self';
   form-action 'self';
   frame-ancestors 'self';

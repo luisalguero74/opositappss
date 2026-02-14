@@ -551,7 +551,7 @@ export default function QuestionsReview() {
                             {index + 1}. {q.text}
                           </p>
                           <div className="space-y-2 mb-3">
-                            {JSON.parse(q.options).map((opt: string, i: number) => (
+                            {safeParseOptions(q.options).map((opt: string, i: number) => (
                               <div 
                                 key={i}
                                 className={`px-3 py-2 rounded ${
