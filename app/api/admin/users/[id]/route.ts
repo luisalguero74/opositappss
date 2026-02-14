@@ -22,6 +22,7 @@ export async function GET(
       select: {
         id: true,
         email: true,
+        repoRole: true,
         role: true,
         active: true,
         emailVerified: true,
@@ -148,7 +149,7 @@ export async function PATCH(
     }
 
     const { id } = await context.params
-    const { role, active } = await req.json()
+    const { role, active, repoRole } = await req.json()
 
     const updateData: any = {}
     
@@ -163,6 +164,14 @@ export async function PATCH(
       updateData.active = active
     }
 
+    if (repoRole !== undefined) {
+      const allowed = ['NONE', 'READER', 'EDITOR']
+      if (!allowed.includes(String(repoRole))) {
+        return NextResponse.json({ error: 'RepoRole inválido' }, { status: 400 })
+      }
+      updateData.repoRole = repoRole
+    }
+
     const user = await prisma.user.update({
       where: { id },
       data: updateData
@@ -173,6 +182,9 @@ export async function PATCH(
     }
     if (active !== undefined) {
       console.log(`[Admin] Usuario ${user.email} ${active ? 'activado' : 'desactivado'}`)
+    }
+    if (repoRole !== undefined) {
+      console.log(`[Admin] RepoRole de ${user.email} cambiado a ${repoRole}`)
     }
 
     return NextResponse.json({ success: true, user })

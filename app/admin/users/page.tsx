@@ -20,6 +20,7 @@ interface User {
   email: string
   phoneNumber?: string | null
   role: string
+  repoRole: 'NONE' | 'READER' | 'EDITOR' | string
   active: boolean
   emailVerified: Date | null
   createdAt: Date
@@ -66,12 +67,27 @@ interface UserHistory {
   }>
 }
 
+interface SubscriptionInfo {
+  id: string
+  userId: string
+  plan: string
+  status: string
+  currentPeriodEnd: Date | null
+  cancelAtPeriodEnd: boolean
+  source?: string | null
+  label?: string | null
+  createdAt: Date
+  updatedAt: Date
+}
+
 export default function UsersManagement() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [users, setUsers] = useState<User[]>([])
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [userHistory, setUserHistory] = useState<UserHistory | null>(null)
+  const [userSubscription, setUserSubscription] = useState<SubscriptionInfo | null>(null)
+  const [loadingSubscription, setLoadingSubscription] = useState(false)
   const [loading, setLoading] = useState(true)
   const [loadingHistory, setLoadingHistory] = useState(false)
   const [filter, setFilter] = useState<'all' | 'admin' | 'user'>('all')
@@ -121,9 +137,29 @@ export default function UsersManagement() {
     }
   }
 
+  const loadUserSubscription = async (userId: string) => {
+    setLoadingSubscription(true)
+    try {
+      const res = await fetch(`/api/admin/subscriptions/${userId}`)
+      if (!res.ok) {
+        setUserSubscription(null)
+        return
+      }
+      const data = await res.json()
+      setUserSubscription(data?.subscription ?? null)
+    } catch (error) {
+      console.error('Error loading user subscription:', error)
+      setUserSubscription(null)
+    } finally {
+      setLoadingSubscription(false)
+    }
+  }
+
   const handleUserSelect = (user: User) => {
     setSelectedUser(user)
+    setUserSubscription(null)
     loadUserHistory(user.id)
+    loadUserSubscription(user.id)
   }
 
   const handleRoleChange = async (userId: string, newRole: string) => {
@@ -144,6 +180,72 @@ export default function UsersManagement() {
       }
     } catch (error) {
       console.error('Error updating role:', error)
+    }
+  }
+
+  const handleRepoRoleChange = async (userId: string, newRepoRole: string) => {
+    const label =
+      newRepoRole === 'NONE' ? 'Sin acceso' : newRepoRole === 'READER' ? 'Lector' : 'Editor'
+    if (!confirm(`¿Cambiar permisos del repositorio a: ${label}?`)) return
+
+    try {
+      const res = await fetch(`/api/admin/users/${userId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ repoRole: newRepoRole })
+      })
+
+      if (!res.ok) {
+        const text = await res.text()
+        const payload = (() => {
+          try {
+            return JSON.parse(text)
+          } catch {
+            return null
+          }
+        })()
+        alert(payload?.error || 'Error al actualizar permisos del repositorio')
+        return
+      }
+
+      await loadUsers()
+      if (selectedUser?.id === userId) {
+        setSelectedUser({ ...selectedUser, repoRole: newRepoRole })
+      }
+    } catch (error) {
+      console.error('Error updating repoRole:', error)
+      alert('Error al actualizar permisos del repositorio')
+    }
+  }
+
+  const handleGrantBeca = async (email: string) => {
+    if (!confirm(`¿Conceder beca/acceso (suscripción activa) a ${email}?`)) return
+
+    try {
+      const res = await fetch('/api/admin/subscriptions/grant-free', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+
+      const text = await res.text()
+      const payload = (() => {
+        try {
+          return JSON.parse(text)
+        } catch {
+          return null
+        }
+      })()
+
+      if (!res.ok) {
+        alert(payload?.error || 'Error al conceder beca')
+        return
+      }
+
+      alert('Beca/acceso concedido correctamente (suscripción activada).')
+    } catch (error) {
+      console.error('Error granting beca:', error)
+      alert('Error al conceder beca')
     }
   }
 
@@ -416,6 +518,21 @@ export default function UsersManagement() {
                           </span>
                         )}
                       </div>
+                      <div className="mt-2 text-sm text-gray-700">
+                        {loadingSubscription ? (
+                          <span className="text-gray-500">💳 Cargando suscripción...</span>
+                        ) : userSubscription ? (
+                          <span>
+                            💳 Suscripción: <span className="font-semibold">{userSubscription.plan}</span> ·{' '}
+                            <span className="font-semibold">{userSubscription.status}</span>
+                            {userSubscription.currentPeriodEnd ? (
+                              <> · Fin: {new Date(userSubscription.currentPeriodEnd).toLocaleDateString('es-ES')}</>
+                            ) : null}
+                          </span>
+                        ) : (
+                          <span className="text-gray-500">💳 Sin suscripción</span>
+                        )}
+                      </div>
                       <p className="text-gray-600 mt-1">
                         Miembro desde{' '}
                         {new Date(selectedUser.createdAt).toLocaleString('es-ES', {
@@ -455,6 +572,49 @@ export default function UsersManagement() {
                         <option value="user">👤 Usuario</option>
                         <option value="admin">👑 Admin</option>
                       </select>
+
+                      <select
+                        value={selectedUser.repoRole}
+                        onChange={(e) => handleRepoRoleChange(selectedUser.id, e.target.value)}
+                        className="px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        title="Permisos del repositorio"
+                      >
+                        <option value="NONE">📚 Repo: Sin acceso</option>
+                        <option value="READER">📚 Repo: Lector</option>
+                        <option value="EDITOR">📚 Repo: Editor</option>
+                      </select>
+
+                      <Link
+                        href="/admin/repositorio/access-requests"
+                        className="px-4 py-2 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition"
+                        title="Gestionar solicitudes de acceso al repositorio"
+                      >
+                        📚 Solicitudes Repo
+                      </Link>
+
+                      <Link
+                        href="/admin/repositorio/access-logs"
+                        className="px-4 py-2 bg-slate-600 text-white font-semibold rounded-lg hover:bg-slate-700 transition"
+                        title="Ver logs de accesos al repositorio"
+                      >
+                        🧾 Logs Repo
+                      </Link>
+
+                      <button
+                        onClick={() => handleGrantBeca(selectedUser.email)}
+                        className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition"
+                        title="Conceder beca (activar suscripción)"
+                      >
+                        🎓 Dar beca
+                      </button>
+
+                      <Link
+                        href="/admin/monetization"
+                        className="px-4 py-2 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-700 transition"
+                        title="Gestionar suscripciones y monetización"
+                      >
+                        💳 Suscripciones
+                      </Link>
                       
                       {selectedUser.active ? (
                         <button

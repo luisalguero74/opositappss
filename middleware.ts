@@ -62,6 +62,9 @@ const publicRoutes = [
   '/register',
   '/pricing',
   '/',
+  '/robots.txt',
+  '/sitemap.xml',
+  '/ads.txt',
   '/api/auth',
   '/_next',
   '/favicon.ico',
@@ -154,22 +157,21 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  // Verificar autenticación para rutas protegidas
-  if (protectedRoutes.some(route => pathname.startsWith(route))) {
+  const isProtected = protectedRoutes.some((route) => pathname.startsWith(route))
+  const isAdminRoute = adminRoutes.some((route) => pathname.startsWith(route))
+
+  // Verificar autenticación para rutas protegidas (incluye /admin)
+  if (isProtected || isAdminRoute) {
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
 
     if (!token) {
-      // Redirigir a login si no está autenticado
       const loginUrl = new URL('/login', request.url)
       loginUrl.searchParams.set('callbackUrl', pathname)
       return NextResponse.redirect(loginUrl)
     }
 
-    // Verificar si es ruta de admin y si el usuario es admin
-    if (adminRoutes.some(route => pathname.startsWith(route))) {
-      if (token.role !== 'admin') {
-        return NextResponse.redirect(new URL('/dashboard', request.url))
-      }
+    if (isAdminRoute && String((token as any).role || '').toLowerCase() !== 'admin') {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
     }
 
     return response
