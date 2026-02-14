@@ -26,11 +26,11 @@ const securityHeaders = {
 // Content Security Policy
 const CSP = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net https://vercel.live;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' data: https: blob:;
   font-src 'self' data: https://fonts.gstatic.com;
-  connect-src 'self' https://api.groq.com https://api.stripe.com wss:;
+  connect-src 'self' https://api.groq.com https://api.stripe.com https://vercel.live wss:;
   media-src 'self' data: blob:;
   frame-src 'self' https://js.stripe.com;
   base-uri 'self';

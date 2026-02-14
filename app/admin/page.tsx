@@ -502,6 +502,19 @@ export default function Admin() {
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-red-600 to-rose-700 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🚨</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Error monitoring</h2>
+              <p className="text-gray-600 mb-4 text-sm">Panel de errores reportados y diagnóstico rápido.</p>
+              <Link href="/admin/error-monitoring" className="inline-block bg-gradient-to-r from-red-600 to-rose-700 text-white font-semibold px-5 py-2 rounded-lg hover:from-red-700 hover:to-rose-800 transition text-sm">
+                Ver errores →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
             <div className="bg-gradient-to-r from-amber-500 to-orange-600 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">📝</div>
             </div>
@@ -510,6 +523,19 @@ export default function Admin() {
               <p className="text-gray-600 mb-4 text-sm">Herramientas y flujos para exámenes oficiales.</p>
               <Link href="/admin/exam-official" className="inline-block bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-600 hover:to-orange-700 transition text-sm">
                 Gestionar exámenes →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-orange-500 to-red-600 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">➕</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Crear examen oficial</h2>
+              <p className="text-gray-600 mb-4 text-sm">Crea un examen oficial nuevo y súbelo al sistema.</p>
+              <Link href="/admin/exam-official/create" className="inline-block bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition text-sm">
+                Crear examen →
               </Link>
             </div>
           </div>
@@ -588,6 +614,32 @@ export default function Admin() {
               <p className="text-gray-600 mb-4 text-sm">Pruebas y verificación de envío de emails.</p>
               <Link href="/admin/test-email" className="inline-block bg-gradient-to-r from-slate-600 to-gray-800 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-700 hover:to-gray-900 transition text-sm">
                 Probar email →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-slate-700 to-gray-900 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">🧾</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Logs de acceso (Repositorio)</h2>
+              <p className="text-gray-600 mb-4 text-sm">Audita accesos y descargas del repositorio.</p>
+              <Link href="/admin/repositorio/access-logs" className="inline-block bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-sm">
+                Ver logs →
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+            <div className="bg-gradient-to-r from-slate-700 to-gray-900 h-32 flex items-center justify-center">
+              <div className="text-white text-5xl">✅</div>
+            </div>
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-3">Solicitudes de acceso (Repositorio)</h2>
+              <p className="text-gray-600 mb-4 text-sm">Aprueba o rechaza solicitudes de acceso al repositorio.</p>
+              <Link href="/admin/repositorio/access-requests" className="inline-block bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-sm">
+                Gestionar solicitudes →
               </Link>
             </div>
           </div>
