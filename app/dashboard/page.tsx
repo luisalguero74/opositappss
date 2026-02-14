@@ -126,6 +126,17 @@ export default function Dashboard() {
             </div>
           </Link>
 
+          {/* Repositorio */}
+          <Link href="/repositorio" className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group">
+            <div className="bg-gradient-to-r from-slate-600 to-gray-800 p-4 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-white">Repositorio</h2>
+              <div className="text-white text-3xl">📚</div>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-600 text-sm">Accede a documentos, PDFs y material del curso.</p>
+            </div>
+          </Link>
+
           {/* Estadísticas */}
           <Link href="/statistics" className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group">
             <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-4 flex items-center justify-between">

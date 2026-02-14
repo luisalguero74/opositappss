@@ -29,6 +29,7 @@ export default function QuestionsReview() {
   const router = useRouter()
   const [questions, setQuestions] = useState<Question[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState<any>({})
   const [filter, setFilter] = useState<'all' | 'general' | 'especifico'>('all')
@@ -44,6 +45,24 @@ export default function QuestionsReview() {
       .toLowerCase()
       .normalize('NFD')
       .replace(/\p{Diacritic}/gu, '')
+
+  const safeParseOptions = (raw: unknown): string[] => {
+    if (Array.isArray(raw)) return raw.map((v) => String(v))
+    const value = String(raw ?? '').trim()
+    if (!value) return []
+
+    try {
+      const parsed = JSON.parse(value)
+      if (Array.isArray(parsed)) return parsed.map((v) => String(v))
+    } catch {
+      // fall through
+    }
+
+    return value
+      .split(/\r?\n|\s*\|\s*|\s*;\s*/g)
+      .map((s) => s.trim())
+      .filter(Boolean)
+  }
 
   const normalizeTemarioParte = (value: unknown): 'general' | 'especifico' | null => {
     const normalized = normalizeText(value)
@@ -95,11 +114,19 @@ export default function QuestionsReview() {
 
   const loadQuestions = async () => {
     try {
+      setLoadError(null)
       const res = await fetch('/api/admin/questions-review')
-      const data = await res.json()
-      setQuestions(data.questions || [])
+      const data = await res.json().catch(() => null)
+      if (!res.ok) {
+        setQuestions([])
+        setLoadError(data?.error || 'Error al cargar preguntas')
+        return
+      }
+      setQuestions(data?.questions || [])
     } catch (error) {
       console.error('Error cargando preguntas:', error)
+      setQuestions([])
+      setLoadError('Error al cargar preguntas')
     } finally {
       setLoading(false)
     }
@@ -153,7 +180,7 @@ export default function QuestionsReview() {
     setEditingId(question.id)
     setEditData({
       text: question.text,
-      options: JSON.parse(question.options),
+      options: safeParseOptions(question.options),
       correctAnswer: question.correctAnswer,
       explanation: question.explanation,
       difficulty: question.difficulty
@@ -288,6 +315,12 @@ export default function QuestionsReview() {
           <h1 className="text-4xl font-bold text-gray-800 mb-2">📋 Revisar y Gestionar Preguntas</h1>
           <p className="text-gray-600">Edita, elimina y publica cuestionarios generados</p>
         </div>
+
+        {loadError && (
+          <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 mb-6">
+            {loadError}
+          </div>
+        )}
 
         {/* Filtros */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
