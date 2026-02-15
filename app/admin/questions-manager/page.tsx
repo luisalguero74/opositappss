@@ -142,6 +142,57 @@ export default function QuestionsManagerPage() {
     }
   }
 
+  const handleValidateOne = async (id: string, currentStatus: string) => {
+    const newStatus = currentStatus === 'VALIDATED' ? 'PENDING' : 'VALIDATED'
+    const action = newStatus === 'VALIDATED' ? 'VALIDAR' : 'DESVALIDAR'
+    
+    if (!confirm(`¿${action} esta pregunta?`)) return
+
+    try {
+      const res = await fetch('/api/admin/review-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds: [id],
+          action: newStatus === 'VALIDATED' ? 'validate' : 'quarantine'
+        })
+      })
+
+      if (res.ok) {
+        loadQuestions()
+        loadStats()
+        alert(`✅ Pregunta ${action === 'VALIDAR' ? 'validada' : 'marcada como pendiente'} correctamente`)
+      }
+    } catch (error) {
+      console.error('Error validating:', error)
+      alert('Error al cambiar el estado')
+    }
+  }
+
+  const handleQuarantineOne = async (id: string) => {
+    if (!confirm('¿Marcar esta pregunta como EN CUARENTENA?')) return
+
+    try {
+      const res = await fetch('/api/admin/review-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds: [id],
+          action: 'quarantine'
+        })
+      })
+
+      if (res.ok) {
+        loadQuestions()
+        loadStats()
+        alert('⚠️ Pregunta marcada como EN CUARENTENA')
+      }
+    } catch (error) {
+      console.error('Error quarantining:', error)
+      alert('Error al marcar en cuarentena')
+    }
+  }
+
   const handleBulkAction = async (action: 'validate' | 'quarantine' | 'delete' | 'regenerate') => {
     if (selectedIds.size === 0) {
       alert('Selecciona al menos una pregunta')
@@ -473,15 +524,41 @@ export default function QuestionsManagerPage() {
                         <div className="flex gap-2">
                           {editingId !== q.id && (
                             <>
+                              {q.reviewStatus === 'VALIDATED' ? (
+                                <button
+                                  onClick={() => handleValidateOne(q.id, q.reviewStatus)}
+                                  className="text-sm px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold shadow-sm"
+                                  title="Click para desvalidar"
+                                >
+                                  ✅ VALIDADA
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={() => handleValidateOne(q.id, q.reviewStatus)}
+                                  className="text-sm px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 font-semibold shadow-md"
+                                  title="Click para validar"
+                                >
+                                  ✓ Certificar
+                                </button>
+                              )}
+                              {q.reviewStatus !== 'QUARANTINED' && (
+                                <button
+                                  onClick={() => handleQuarantineOne(q.id)}
+                                  className="text-sm px-3 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                                  title="Marcar en cuarentena"
+                                >
+                                  ⚠️
+                                </button>
+                              )}
                               <button
                                 onClick={() => handleEdit(q)}
-                                className="text-sm px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                className="text-sm px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                               >
                                 ✏️ Editar
                               </button>
                               <button
                                 onClick={() => handleDelete(q.id)}
-                                className="text-sm px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                className="text-sm px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
                               >
                                 🗑️
                               </button>
@@ -559,6 +636,15 @@ export default function QuestionsManagerPage() {
                               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-semibold"
                             >
                               💾 Guardar
+                            </button>
+                            <button
+                              onClick={() => {
+                                handleSave(q.id)
+                                setTimeout(() => handleValidateOne(q.id, q.reviewStatus), 500)
+                              }}
+                              className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-emerald-700 font-semibold"
+                            >
+                              💾✅ Guardar y Certificar
                             </button>
                             <button
                               onClick={() => setEditingId(null)}
