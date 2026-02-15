@@ -20,6 +20,8 @@ interface PreguntaConProblemas {
   temaCodigo: string | null
   temaNumero: number | null
   temaTitulo: string | null
+  reviewStatus: string
+  aiReviewed: boolean | null
   puntuacion: number
   errores: string[]
   advertencias: string[]
@@ -43,12 +45,21 @@ export async function GET(req: NextRequest) {
     const onlyProblems = searchParams.get('onlyProblems') === 'true'
     const minScore = parseInt(searchParams.get('minScore') || '0')
     const maxScore = parseInt(searchParams.get('maxScore') || '100')
+    const reviewStatusFilter = searchParams.get('reviewStatus') // 'PENDING', 'VALIDATED', 'QUARANTINED', null = todos
 
     console.log(`\n📊 Iniciando análisis de calidad de preguntas...`)
     console.log(`   Límite: ${limit}, Offset: ${offset}, Solo problemas: ${onlyProblems}`)
+    console.log(`   Filtro reviewStatus: ${reviewStatusFilter || 'TODOS'}`)
+
+    // Construir where clause
+    const whereClause: any = {}
+    if (reviewStatusFilter) {
+      whereClause.reviewStatus = reviewStatusFilter
+    }
 
     // Obtener preguntas de la base de datos
     const preguntas = await prisma.question.findMany({
+      where: whereClause,
       take: limit,
       skip: offset,
       select: {
@@ -60,7 +71,9 @@ export async function GET(req: NextRequest) {
         difficulty: true,
         temaCodigo: true,
         temaNumero: true,
-        temaTitulo: true
+        temaTitulo: true,
+        reviewStatus: true,
+        aiReviewed: true
       },
       orderBy: {
         createdAt: 'desc'
@@ -113,6 +126,8 @@ export async function GET(req: NextRequest) {
         temaCodigo: pregunta.temaCodigo,
         temaNumero: pregunta.temaNumero,
         temaTitulo: pregunta.temaTitulo,
+        reviewStatus: pregunta.reviewStatus,
+        aiReviewed: pregunta.aiReviewed,
         puntuacion: validacion.puntuacion,
         errores: validacion.errores,
         advertencias: validacion.advertencias
@@ -178,7 +193,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const { 
       questionIds, 
-      action = 'regenerate', // 'regenerate', 'fix', 'delete'
+      action = 'regenerate', // 'regenerate', 'fix', 'delete', 'validate', 'quarantine'
       batchSize = 10 
     } = body
 
@@ -210,6 +225,42 @@ export async function POST(req: NextRequest) {
         success: true,
         message: `${deleted.count} preguntas eliminadas`,
         deleted: deleted.count
+      })
+    }
+
+    if (action === 'validate') {
+      // Marcar como VALIDATED
+      const updated = await prisma.question.updateMany({
+        where: {
+          id: { in: questionIds }
+        },
+        data: {
+          reviewStatus: 'VALIDATED'
+        }
+      })
+      
+      return NextResponse.json({
+        success: true,
+        message: `${updated.count} preguntas marcadas como VALIDADAS`,
+        updated: updated.count
+      })
+    }
+
+    if (action === 'quarantine') {
+      // Marcar como QUARANTINED
+      const updated = await prisma.question.updateMany({
+        where: {
+          id: { in: questionIds }
+        },
+        data: {
+          reviewStatus: 'QUARANTINED'
+        }
+      })
+      
+      return NextResponse.json({
+        success: true,
+        message: `${updated.count} preguntas marcadas como EN CUARENTENA`,
+        updated: updated.count
       })
     }
 

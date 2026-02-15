@@ -16,6 +16,8 @@ interface PreguntaConProblemas {
   temaCodigo: string | null
   temaNumero: number | null
   temaTitulo: string | null
+  reviewStatus: string
+  aiReviewed: boolean | null
   puntuacion: number
   errores: string[]
   advertencias: string[]
@@ -51,7 +53,8 @@ export default function QualityReviewPage() {
     offset: 0,
     onlyProblems: true,
     minScore: 0,
-    maxScore: 100
+    maxScore: 100,
+    reviewStatus: '' // '', 'PENDING', 'VALIDATED', 'QUARANTINED'
   })
 
   useEffect(() => {
@@ -85,7 +88,11 @@ export default function QualityReviewPage() {
       maxScore:
         typeof (source as any).maxScore === 'number' && !Number.isNaN((source as any).maxScore)
           ? (source as any).maxScore
-          : 100
+          : 100,
+      reviewStatus:
+        typeof (source as any).reviewStatus === 'string'
+          ? (source as any).reviewStatus
+          : ''
     }
     setAnalyzing(true)
     try {
@@ -96,6 +103,10 @@ export default function QualityReviewPage() {
         minScore: f.minScore.toString(),
         maxScore: f.maxScore.toString()
       })
+
+      if (f.reviewStatus) {
+        params.append('reviewStatus', f.reviewStatus)
+      }
 
       const response = await fetch(`/api/admin/review-questions?${params}`)
       const data = await response.json()
@@ -244,6 +255,80 @@ export default function QualityReviewPage() {
     }
   }
 
+  const marcarComoValidadas = async () => {
+    if (selectedQuestions.size === 0) {
+      alert('Selecciona al menos una pregunta')
+      return
+    }
+
+    if (!confirm(`✅ ¿Marcar ${selectedQuestions.size} preguntas como VALIDADAS?`)) {
+      return
+    }
+
+    setLoading(true)
+    try {
+      const response = await fetch('/api/admin/review-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds: Array.from(selectedQuestions),
+          action: 'validate'
+        })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        alert(`✅ ${data.updated} preguntas marcadas como VALIDADAS`)
+        setSelectedQuestions(new Set())
+        analizarPreguntas() // Reanalizar
+      } else {
+        alert('Error: ' + data.error)
+      }
+    } catch (error: any) {
+      alert('Error: ' + error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const marcarComoCuarentena = async () => {
+    if (selectedQuestions.size === 0) {
+      alert('Selecciona al menos una pregunta')
+      return
+    }
+
+    if (!confirm(`⚠️ ¿Marcar ${selectedQuestions.size} preguntas como EN CUARENTENA?`)) {
+      return
+    }
+
+    setLoading(true)
+    try {
+      const response = await fetch('/api/admin/review-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds: Array.from(selectedQuestions),
+          action: 'quarantine'
+        })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        alert(`⚠️ ${data.updated} preguntas marcadas como EN CUARENTENA`)
+        setSelectedQuestions(new Set())
+        analizarPreguntas() // Reanalizar
+      } else {
+        alert('Error: ' + data.error)
+      }
+    } catch (error: any) {
+      alert('Error: ' + error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const toggleQuestion = (id: string) => {
     const newSet = new Set(selectedQuestions)
     if (newSet.has(id)) {
@@ -340,6 +425,22 @@ export default function QualityReviewPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
+                Estado de Revisión
+              </label>
+              <select
+                value={filters.reviewStatus}
+                onChange={(e) => setFilters({ ...filters, reviewStatus: e.target.value })}
+                className="w-full px-3 py-2 border rounded-lg"
+              >
+                <option value="">Todas</option>
+                <option value="PENDING">⏳ Pendientes</option>
+                <option value="VALIDATED">✅ Validadas</option>
+                <option value="QUARANTINED">⚠️ En Cuarentena</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Puntuación mínima
               </label>
               <input
@@ -351,7 +452,9 @@ export default function QualityReviewPage() {
                 max="100"
               />
             </div>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Puntuación máxima
@@ -364,6 +467,17 @@ export default function QualityReviewPage() {
                 min="0"
                 max="100"
               />
+            </div>
+            <div className="flex items-end">
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={filters.onlyProblems}
+                  onChange={(e) => setFilters({ ...filters, onlyProblems: e.target.checked })}
+                  className="h-4 w-4"
+                />
+                <span className="text-sm font-medium text-gray-700">Solo preguntas problemáticas</span>
+              </label>
             </div>
           </div>
 
@@ -454,6 +568,20 @@ export default function QualityReviewPage() {
                   {selectedQuestions.size === preguntas.length ? 'Deseleccionar todas' : 'Seleccionar todas'}
                 </button>
                 <button
+                  onClick={marcarComoValidadas}
+                  disabled={loading || selectedQuestions.size === 0}
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
+                >
+                  ✅ Validar
+                </button>
+                <button
+                  onClick={marcarComoCuarentena}
+                  disabled={loading || selectedQuestions.size === 0}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 disabled:opacity-50"
+                >
+                  ⚠️ Cuarentena
+                </button>
+                <button
                   onClick={regenerarSeleccionadas}
                   disabled={loading || selectedQuestions.size === 0}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
@@ -491,6 +619,26 @@ export default function QualityReviewPage() {
                       <span className={`px-3 py-1 rounded-full text-sm font-medium ${getPuntuacionColor(pregunta.puntuacion)}`}>
                         {pregunta.puntuacion}/100
                       </span>
+                      {pregunta.reviewStatus === 'VALIDATED' && (
+                        <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">
+                          ✅ VALIDADA
+                        </span>
+                      )}
+                      {pregunta.reviewStatus === 'QUARANTINED' && (
+                        <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-xs font-semibold">
+                          ⚠️ CUARENTENA
+                        </span>
+                      )}
+                      {pregunta.reviewStatus === 'PENDING' && (
+                        <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs font-semibold">
+                          ⏳ PENDIENTE
+                        </span>
+                      )}
+                      {pregunta.aiReviewed && (
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">
+                          🤖 IA
+                        </span>
+                      )}
                       <span className="text-sm text-gray-600">
                         {pregunta.temaCodigo} - Tema {pregunta.temaNumero}
                       </span>
