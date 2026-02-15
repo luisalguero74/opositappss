@@ -433,8 +433,6 @@ export default function Admin() {
               </Link>
             </div>
           </div>
-
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
             <div className="bg-gradient-to-r from-orange-500 to-red-600 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">📋</div>
             </div>
