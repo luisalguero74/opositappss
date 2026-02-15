@@ -13,7 +13,7 @@ export default function Home() {
     if (session) {
       router.push('/dashboard')
     } else {
-      router.push('/login')
+      router.push('/landing')
     }
   }, [session, status, router])
 
