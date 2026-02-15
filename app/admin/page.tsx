@@ -75,8 +75,118 @@ export default function Admin() {
           </div>
         </div>
 
-        {/* Tarjetas de acceso rápido */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {/* 🎯 SECCIÓN: GESTIÓN DE PREGUNTAS (DESTACADA) */}
+        <div className="mb-8">
+          <div className="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-xl p-4 mb-4 border-l-4 border-indigo-600">
+            <h2 className="text-2xl font-bold text-indigo-900">🎯 Gestión de Preguntas</h2>
+            <p className="text-indigo-700">Sistema unificado para revisar, validar y crear cuestionarios perfectos</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {/* DESTACADO: Gestor Unificado */}
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden hover:shadow-3xl transition transform hover:scale-105 border-4 border-indigo-500">
+              <div className="bg-gradient-to-r from-indigo-600 to-purple-700 h-40 flex items-center justify-center relative">
+                <div className="absolute top-2 right-2 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold">
+                  ⭐ NUEVO
+                </div>
+                <div className="text-white text-6xl">🎯</div>
+              </div>
+              <div className="p-6 bg-gradient-to-b from-indigo-50 to-white">
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">Gestor Unificado de Preguntas</h2>
+                <p className="text-gray-700 mb-4 text-sm font-medium">
+                  ✨ Sistema TODO-EN-UNO para gestionar todas tus preguntas: explorar, filtrar, editar, validar y crear cuestionarios desde una sola interfaz potente.
+                </p>
+                <Link href="/admin/questions-manager" className="inline-block w-full text-center bg-gradient-to-r from-indigo-600 to-purple-700 text-white font-bold px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-800 transition text-sm shadow-lg">
+                  🚀 Abrir Gestor Unificado →
+                </Link>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+              <div className="bg-gradient-to-r from-blue-500 to-cyan-600 h-32 flex items-center justify-center">
+                <div className="text-white text-5xl">📋✏️</div>
+              </div>
+              <div className="p-6">
+                <h2 className="text-xl font-bold text-gray-800 mb-3">Revisar Preguntas</h2>
+                <p className="text-gray-600 mb-4 text-sm">Edita, revisa y publica preguntas por cuestionarios. Controla qué aparece en el menú de usuario.</p>
+                <Link href="/admin/questions-review" className="inline-block bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-cyan-700 transition text-sm">
+                  Revisar Preguntas →
+                </Link>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+              <div className="bg-gradient-to-r from-rose-500 to-pink-600 h-32 flex items-center justify-center">
+                <div className="text-white text-5xl">⭐</div>
+              </div>
+              <div className="p-6">
+                <h2 className="text-xl font-bold text-gray-800 mb-3">Control de Calidad</h2>
+                <p className="text-gray-600 mb-4 text-sm">Análisis de calidad con IA, validación en lote y detección automática de errores.</p>
+                <Link href="/admin/questions-quality" className="inline-block bg-gradient-to-r from-rose-500 to-pink-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-rose-600 hover:to-pink-700 transition text-sm">
+                  Analizar Calidad →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 🤖 SECCIÓN: GENERACIÓN CON IA */}
+        <div className="mb-8">
+          <div className="bg-gradient-to-r from-purple-100 to-fuchsia-100 rounded-xl p-4 mb-4 border-l-4 border-purple-600">
+            <h2 className="text-2xl font-bold text-purple-900">🤖 Generación con Inteligencia Artificial</h2>
+            <p className="text-purple-700">Crea preguntas automáticamente con IA</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+              <div className="bg-gradient-to-r from-indigo-500 to-purple-600 h-32 flex items-center justify-center">
+                <div className="text-white text-5xl">🚀📚</div>
+              </div>
+              <div className="p-6">
+                <h2 className="text-xl font-bold text-gray-800 mb-3">Generador Masivo de Preguntas</h2>
+                <p className="text-gray-600 mb-4 text-sm">Genera preguntas automáticamente para TODO el temario general o específico con un solo clic.</p>
+                <Link href="/admin/bulk-questions-generator" className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition text-sm">
+                  Generar Masivamente →
+                </Link>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+              <div className="bg-gradient-to-r from-violet-500 to-fuchsia-600 h-32 flex items-center justify-center">
+                <div className="text-white text-5xl">🤖</div>
+              </div>
+              <div className="p-6">
+                <h2 className="text-xl font-bold text-gray-800 mb-3">Generador de Preguntas IA</h2>
+                <p className="text-gray-600 mb-4 text-sm">Sube documentos legales y genera preguntas automáticamente con Ollama (IA local y gratuita).</p>
+                <Link href="/admin/ai-documents" className="inline-block bg-gradient-to-r from-violet-500 to-fuchsia-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-violet-600 hover:to-fuchsia-700 transition text-sm">
+                  Generar con IA →
+                </Link>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+              <div className="bg-gradient-to-r from-fuchsia-500 to-purple-600 h-32 flex items-center justify-center">
+                <div className="text-white text-5xl">🤖📋</div>
+              </div>
+              <div className="p-6">
+                <h2 className="text-xl font-bold text-gray-800 mb-3">Generador Supuestos IA</h2>
+                <p className="text-gray-600 mb-4 text-sm">Crea y gestiona supuestos prácticos mediante IA basados en exámenes reales.</p>
+                <Link href="/admin/generate-practical-ai" className="inline-block bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-fuchsia-600 hover:to-purple-700 transition text-sm">
+                  Generar Supuestos →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 📊 SECCIÓN: OTRAS HERRAMIENTAS */}
+        <div className="mb-8">
+          <div className="bg-gradient-to-r from-gray-100 to-slate-100 rounded-xl p-4 mb-4 border-l-4 border-gray-600">
+            <h2 className="text-2xl font-bold text-gray-900">📊 Otras Herramientas de Administración</h2>
+            <p className="text-gray-700">Gestión de contenido, usuarios y sistema</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
             <div className="bg-gradient-to-r from-teal-500 to-emerald-600 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">📄</div>
@@ -312,45 +422,6 @@ export default function Admin() {
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
-            <div className="bg-gradient-to-r from-violet-500 to-fuchsia-600 h-32 flex items-center justify-center">
-              <div className="text-white text-5xl">🤖</div>
-            </div>
-            <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-3">Generador de Preguntas IA</h2>
-              <p className="text-gray-600 mb-4 text-sm">Sube documentos legales y genera preguntas automáticamente con Ollama (IA local y gratuita).</p>
-              <Link href="/admin/ai-documents" className="inline-block bg-gradient-to-r from-violet-500 to-fuchsia-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-violet-600 hover:to-fuchsia-700 transition text-sm">
-                Generar con IA →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 h-32 flex items-center justify-center">
-              <div className="text-white text-5xl">🚀📚</div>
-            </div>
-            <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-3">Generador Masivo de Preguntas</h2>
-              <p className="text-gray-600 mb-4 text-sm">Genera preguntas automáticamente para TODO el temario general o específico con un solo clic.</p>
-              <Link href="/admin/bulk-questions-generator" className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition text-sm">
-                Generar Masivamente →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
-            <div className="bg-gradient-to-r from-blue-500 to-cyan-600 h-32 flex items-center justify-center">
-              <div className="text-white text-5xl">📋✏️</div>
-            </div>
-            <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-3">Revisar y Gestionar Preguntas</h2>
-              <p className="text-gray-600 mb-4 text-sm">Edita, revisa y publica preguntas generadas. Controla qué aparece en el menú de usuario.</p>
-              <Link href="/admin/questions-review" className="inline-block bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-cyan-700 transition text-sm">
-                Revisar Preguntas →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
             <div className="bg-gradient-to-r from-pink-500 to-rose-600 h-32 flex items-center justify-center">
               <div className="text-white text-5xl">📝</div>
             </div>
@@ -549,19 +620,6 @@ export default function Admin() {
               <p className="text-gray-600 mb-4 text-sm">Ajustes y configuración de administración.</p>
               <Link href="/admin/settings" className="inline-block bg-gradient-to-r from-gray-700 to-slate-800 text-white font-semibold px-5 py-2 rounded-lg hover:from-gray-800 hover:to-slate-900 transition text-sm">
                 Abrir ajustes →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
-            <div className="bg-gradient-to-r from-rose-500 to-pink-600 h-32 flex items-center justify-center">
-              <div className="text-white text-5xl">⭐</div>
-            </div>
-            <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-3">Calidad preguntas</h2>
-              <p className="text-gray-600 mb-4 text-sm">Control de calidad y señalización de preguntas.</p>
-              <Link href="/admin/questions-quality" className="inline-block bg-gradient-to-r from-rose-500 to-pink-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-rose-600 hover:to-pink-700 transition text-sm">
-                Revisar calidad →
               </Link>
             </div>
           </div>
