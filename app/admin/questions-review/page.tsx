@@ -295,6 +295,64 @@ export default function QuestionsReview() {
     }
   }
 
+  const handleBulkValidate = async () => {
+    if (selectedQuestionIds.size === 0) {
+      alert('Selecciona al menos una pregunta')
+      return
+    }
+    
+    if (!confirm(`¿VALIDAR ${selectedQuestionIds.size} pregunta(s) seleccionada(s)?`)) return
+
+    try {
+      const res = await fetch('/api/admin/review-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds: Array.from(selectedQuestionIds),
+          action: 'validate'
+        })
+      })
+
+      if (res.ok) {
+        alert(`✅ ${selectedQuestionIds.size} pregunta(s) validada(s)`)
+        setSelectedQuestionIds(new Set())
+        loadQuestions()
+      }
+    } catch (error) {
+      console.error('Error validating:', error)
+      alert('Error al validar preguntas')
+    }
+  }
+
+  const handleBulkQuarantine = async () => {
+    if (selectedQuestionIds.size === 0) {
+      alert('Selecciona al menos una pregunta')
+      return
+    }
+    
+    if (!confirm(`¿Poner EN CUARENTENA ${selectedQuestionIds.size} pregunta(s)?`)) return
+
+    try {
+      const res = await fetch('/api/admin/review-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds: Array.from(selectedQuestionIds),
+          action: 'quarantine'
+        })
+      })
+
+      if (res.ok) {
+        alert(`⚠️ ${selectedQuestionIds.size} pregunta(s) en cuarentena`)
+        setSelectedQuestionIds(new Set())
+        loadQuestions()
+      }
+    } catch (error) {
+      console.error('Error quarantining:', error)
+      alert('Error al poner en cuarentena')
+    }
+  }
+
   const availableTopics = (() => {
     const candidates = questions.filter((q) => {
       if (filter === 'all') return true
@@ -398,6 +456,37 @@ export default function QuestionsReview() {
                 : `✅ Publicar selección (${selectedQuestionIds.size})`}
             </button>
           </div>
+
+          {/* Acciones masivas */}
+          {selectedQuestionIds.size > 0 && (
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg shadow-lg p-4 mb-6">
+              <div className="flex items-center justify-between">
+                <div className="font-bold text-lg">
+                  ✓ {selectedQuestionIds.size} pregunta(s) seleccionada(s)
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleBulkValidate}
+                    className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-semibold shadow transition"
+                  >
+                    ✅ Validar Todas
+                  </button>
+                  <button
+                    onClick={handleBulkQuarantine}
+                    className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg font-semibold shadow transition"
+                  >
+                    ⚠️ Cuarentena
+                  </button>
+                  <button
+                    onClick={() => setSelectedQuestionIds(new Set())}
+                    className="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg font-semibold shadow transition"
+                  >
+                    ✕ Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
@@ -612,9 +701,17 @@ export default function QuestionsReview() {
                               </span>
                             )}
                           </div>
-                          <p className="text-lg font-bold text-gray-800 mb-3">
-                            {index + 1}. {q.text}
-                          </p>
+                          <div className="flex items-start gap-3 mb-3">
+                            <input
+                              type="checkbox"
+                              checked={selectedQuestionIds.has(q.id)}
+                              onChange={() => toggleQuestionSelection(q.id)}
+                              className="mt-1.5 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                            />
+                            <p className="text-lg font-bold text-gray-800 flex-1">
+                              {index + 1}. {q.text}
+                            </p>
+                          </div>
                           <div className="space-y-2 mb-3">
                             {safeParseOptions(q.options).map((opt: string, i: number) => (
                               <div 

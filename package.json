@@ -71,6 +71,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/archiver": "^7.0.0",
     "@types/node": "^20.19.27",
     "@types/nodemailer": "^7.0.4",
     "@types/pg": "^8.16.0",

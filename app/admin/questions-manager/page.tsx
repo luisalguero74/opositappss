@@ -45,7 +45,7 @@ export default function QuestionsManagerPage() {
   
   // Filtros
   const [filterTemario, setFilterTemario] = useState<'all' | 'general' | 'especifico'>('all')
-  const [filterTema, setFilterTema] = useState<string>('')
+  const [filterTema, setFilterTema] = useState<string[]>([])
   const [filterDifficulty, setFilterDifficulty] = useState<'all' | 'facil' | 'media' | 'dificil'>('all')
   const [filterStatus, setFilterStatus] = useState<'all' | 'PENDING' | 'VALIDATED' | 'QUARANTINED'>('all')
   const [searchText, setSearchText] = useState('')
@@ -65,6 +65,11 @@ export default function QuestionsManagerPage() {
       loadStats()
     }
   }, [status, session, router])
+
+  useEffect(() => {
+    // Reset tema selection when temario filter changes
+    setFilterTema([])
+  }, [filterTemario])
 
   const loadQuestions = async () => {
     setLoading(true)
@@ -292,16 +297,67 @@ export default function QuestionsManagerPage() {
     })
   }
 
+  const normalizeText = (value: unknown) =>
+    String(value ?? '')
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+
+  const normalizeTemarioParte = (value: unknown): 'general' | 'especifico' | null => {
+    const normalized = normalizeText(value)
+    if (!normalized) return null
+    if (normalized === 'general' || normalized === 'temario general') return 'general'
+    if (normalized === 'especifico' || normalized === 'temario especifico') return 'especifico'
+    if (normalized.includes('general')) return 'general'
+    if (normalized.includes('especifico')) return 'especifico'
+    return null
+  }
+
+  const getTopicKey = (q: Question): string | null => {
+    if (q.temaCodigo) return q.temaCodigo
+    const parte = normalizeTemarioParte(q.temaParte)
+    if (!parte || !q.temaNumero) return null
+    return `${parte}:${q.temaNumero}`
+  }
+
+  const getTopicLabel = (q: Question): string => {
+    const parte = normalizeTemarioParte(q.temaParte)
+    const numero = q.temaNumero ? `Tema ${q.temaNumero}` : 'Tema'
+    const titulo = q.temaTitulo ? ` - ${q.temaTitulo}` : ''
+    const prefix = parte === 'general' ? 'General' : parte === 'especifico' ? 'Específico' : 'Temario'
+    return `${prefix}: ${numero}${titulo}`
+  }
+
+  const availableTopics = (() => {
+    const candidates = questions.filter((q) => {
+      if (filterTemario === 'all') return true
+      return normalizeTemarioParte(q.temaParte) === filterTemario
+    })
+
+    const map = new Map<string, { key: string; label: string; numero: number | null }>()
+    for (const q of candidates) {
+      const key = getTopicKey(q)
+      if (!key) continue
+      if (!map.has(key)) {
+        map.set(key, { key, label: getTopicLabel(q), numero: q.temaNumero ?? null })
+      }
+    }
+    return Array.from(map.values()).sort((a, b) => (a.numero ?? 0) - (b.numero ?? 0))
+  })()
+
   const filteredQuestions = questions.filter(q => {
     // Filtro por temario
     if (filterTemario !== 'all') {
-      const parte = String(q.temaParte || '').toLowerCase()
-      if (filterTemario === 'general' && !parte.includes('general')) return false
-      if (filterTemario === 'especifico' && !parte.includes('especifico')) return false
+      const parte = normalizeTemarioParte(q.temaParte)
+      if (parte !== filterTemario) return false
     }
 
-    // Filtro por tema
-    if (filterTema && String(q.temaNumero) !== filterTema) return false
+    // Filtro por tema(s) específico(s)
+    if (filterTema.length > 0) {
+      const key = getTopicKey(q)
+      if (!key || !filterTema.includes(key)) return false
+    }
 
     // Filtro por dificultad
     if (filterDifficulty !== 'all') {
@@ -484,14 +540,35 @@ export default function QuestionsManagerPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">Tema</label>
-                  <input
-                    type="number"
+                  <label className="block text-sm font-medium mb-2">Tema(s)</label>
+                  <select
+                    multiple
                     value={filterTema}
-                    onChange={(e) => setFilterTema(e.target.value)}
-                    placeholder="Núm. tema"
-                    className="w-full px-3 py-2 border rounded-lg"
-                  />
+                    disabled={filterTemario === 'all'}
+                    onChange={(e) => {
+                      const values = Array.from(e.target.selectedOptions).map((o) => o.value)
+                      setFilterTema(values)
+                    }}
+                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-500"
+                    size={5}
+                  >
+                    {filterTemario === 'all' ? (
+                      <option value="" disabled>
+                        Selecciona primero un temario
+                      </option>
+                    ) : availableTopics.length === 0 ? (
+                      <option value="" disabled>
+                        No hay temas disponibles
+                      </option>
+                    ) : (
+                      availableTopics.map((t) => (
+                        <option key={t.key} value={t.key}>
+                          {t.label}
+                        </option>
+                      ))
+                    )}
+                  </select>
+                  <p className="text-xs text-gray-500 mt-1">Mantén Ctrl/Cmd para selección múltiple</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Dificultad</label>
