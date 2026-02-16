@@ -76,7 +76,7 @@ export default function Admin() {
         </div>
 
         {/* Tarjetas de acceso rápido */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 mb-8">
           <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
             <div className="bg-gradient-to-r from-teal-500 to-emerald-600 p-3 flex flex-col items-center justify-center">
               <div className="text-white text-3xl mb-1">📄</div>
@@ -711,7 +711,7 @@ export default function Admin() {
         </div>
 
         {message.text && (
-          <div className={`mb-6 px-6 py-4 rounded-lg ${
+          <div className={`mb-3 px-6 py-4 rounded-lg ${
             message.type === 'success' 
               ? 'bg-green-50 border border-green-200 text-green-700' 
               : 'bg-red-50 border border-red-200 text-red-700'
@@ -721,9 +721,9 @@ export default function Admin() {
         )}
 
         <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Crear Nuevo Cuestionario (Método Manual)</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-3">Crear Nuevo Cuestionario (Método Manual)</h2>
           
-          <div className="mb-6">
+          <div className="mb-3">
             <label className="block text-gray-700 font-semibold mb-2">Título del Cuestionario</label>
             <input
               type="text"
@@ -735,7 +735,7 @@ export default function Admin() {
             />
           </div>
 
-          <div className="mb-6">
+          <div className="mb-3">
             <label className="block text-gray-700 font-semibold mb-2">Tipo de Cuestionario</label>
             <select 
               value={type} 
@@ -747,7 +747,7 @@ export default function Admin() {
             </select>
           </div>
 
-          <div className="mb-6">
+          <div className="mb-3">
             <label className="block text-gray-700 font-semibold mb-2">Preguntas (Formato JSON)</label>
             <textarea
               value={questionsJson}
