@@ -246,17 +246,17 @@ export default function LandingPage() {
             <div>
               <h5 className="text-white font-semibold mb-4">Legal</h5>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Términos y Condiciones</a></li>
-                <li><a href="#" className="hover:text-white transition">Política de Privacidad</a></li>
+                <li><Link href="/terms" className="hover:text-white transition">Términos y Condiciones</Link></li>
+                <li><Link href="/privacy" className="hover:text-white transition">Política de Privacidad</Link></li>
                 <li><a href="#" className="hover:text-white transition">Cookies</a></li>
               </ul>
             </div>
             <div>
-              <h5 className="text-white font-semibold mb-4">Contacto</h5>
+              <h5 className="text-white font-semibold mb-4">Más</h5>
               <ul className="space-y-2 text-sm">
-                <li><a href="mailto:info@opositappss.com" className="hover:text-white transition">info@opositappss.com</a></li>
-                <li><a href="#" className="hover:text-white transition">Soporte</a></li>
-                <li><a href="#" className="hover:text-white transition">FAQ</a></li>
+                <li><Link href="/about" className="hover:text-white transition">Sobre Nosotros</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition">Contacto</Link></li>
+                <li><Link href="/help" className="hover:text-white transition">Ayuda</Link></li>
               </ul>
             </div>
           </div>
