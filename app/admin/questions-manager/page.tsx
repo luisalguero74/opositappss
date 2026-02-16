@@ -234,6 +234,55 @@ export default function QuestionsManagerPage() {
     }
   }
 
+  const handleAutoValidateHighQuality = async () => {
+    // Identificar preguntas de alta calidad (explicación completa, no cuarentena, pendientes)
+    const highQualityQuestions = questions.filter(q => 
+      q.reviewStatus === 'PENDING' &&
+      q.explanation && 
+      q.explanation.length >= 80 &&
+      q.text.length >= 30
+    )
+
+    if (highQualityQuestions.length === 0) {
+      alert('No hay preguntas pendientes con explicaciones completas para auto-validar')
+      return
+    }
+
+    const message = `¿Auto-validar ${highQualityQuestions.length} preguntas de alta calidad?\n\n` +
+      `Criterios aplicados:\n` +
+      `✓ Estado: PENDIENTE\n` +
+      `✓ Explicación completa (≥80 caracteres)\n` +
+      `✓ Pregunta completa (≥30 caracteres)\n` +
+      `✓ No en cuarentena\n\n` +
+      `Estas preguntas se marcarán como VALIDADAS automáticamente.`
+
+    if (!confirm(message)) return
+
+    setLoading(true)
+    try {
+      const questionIds = highQualityQuestions.map(q => q.id)
+      const res = await fetch('/api/admin/review-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds,
+          action: 'validate'
+        })
+      })
+
+      if (res.ok) {
+        alert(`✅ ${highQualityQuestions.length} preguntas validadas automáticamente`)
+        loadQuestions()
+        loadStats()
+      }
+    } catch (error) {
+      console.error('Error in auto-validation:', error)
+      alert('Error al auto-validar preguntas')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const toggleSelection = (id: string) => {
     setSelectedIds(prev => {
       const next = new Set(prev)
@@ -290,24 +339,93 @@ export default function QuestionsManagerPage() {
 
         {/* Stats Cards */}
         {stats && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="text-3xl font-bold text-gray-900">{stats.total.toLocaleString()}</div>
-              <div className="text-sm text-gray-600">Total Preguntas</div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="text-3xl font-bold text-gray-900">{stats.total.toLocaleString()}</div>
+                <div className="text-sm text-gray-600">Total Preguntas</div>
+              </div>
+              <div className="bg-green-50 rounded-lg shadow p-6">
+                <div className="text-3xl font-bold text-green-700">{stats.validated.toLocaleString()}</div>
+                <div className="text-sm text-green-600">✅ Validadas</div>
+              </div>
+              <div className="bg-yellow-50 rounded-lg shadow p-6">
+                <div className="text-3xl font-bold text-yellow-700">{stats.pending.toLocaleString()}</div>
+                <div className="text-sm text-yellow-600">⏳ Pendientes</div>
+              </div>
+              <div className="bg-red-50 rounded-lg shadow p-6">
+                <div className="text-3xl font-bold text-red-700">{stats.quarantined.toLocaleString()}</div>
+                <div className="text-sm text-red-600">⚠️ Cuarentena</div>
+              </div>
             </div>
-            <div className="bg-green-50 rounded-lg shadow p-6">
-              <div className="text-3xl font-bold text-green-700">{stats.validated.toLocaleString()}</div>
-              <div className="text-sm text-green-600">✅ Validadas</div>
+
+            {/* Progress Dashboard */}
+            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-2xl p-6 mb-8 text-white">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h2 className="text-2xl font-bold">🎯 Progreso de Validación</h2>
+                  <p className="text-indigo-100 text-sm mt-1">Camino hacia preguntas de calidad certificada</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-4xl font-bold">{Math.round((stats.validated / 500) * 100)}%</div>
+                  <div className="text-sm text-indigo-100">Completado</div>
+                </div>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="bg-indigo-800 rounded-full h-6 overflow-hidden mb-4">
+                <div
+                  className="bg-gradient-to-r from-green-400 to-emerald-500 h-full rounded-full transition-all duration-500 flex items-center justify-end pr-3"
+                  style={{ width: `${Math.min((stats.validated / 500) * 100, 100)}%` }}
+                >
+                  {stats.validated >= 25 && (
+                    <span className="text-xs font-bold text-white drop-shadow">
+                      {stats.validated} / 500
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Meta Info */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <div className="bg-white/10 rounded-lg p-4 backdrop-blur">
+                  <div className="text-2xl font-bold">{500 - stats.validated}</div>
+                  <div className="text-sm text-indigo-100">Preguntas hasta la meta</div>
+                </div>
+                <div className="bg-white/10 rounded-lg p-4 backdrop-blur">
+                  <div className="text-2xl font-bold">
+                    {stats.validated >= 500 ? '✅' : Math.ceil((500 - stats.validated) / 20)}
+                  </div>
+                  <div className="text-sm text-indigo-100">
+                    {stats.validated >= 500 ? '¡Meta alcanzada!' : 'Sesiones estimadas (20/sesión)'}
+                  </div>
+                </div>
+                <div className="bg-white/10 rounded-lg p-4 backdrop-blur">
+                  <div className="text-2xl font-bold">
+                    {stats.validated >= 500 ? '🚀' : '⏳'}
+                  </div>
+                  <div className="text-sm text-indigo-100">
+                    {stats.validated >= 500 
+                      ? 'Activar corte duro disponible' 
+                      : 'Sigue validando preguntas'}
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA cuando se alcance la meta */}
+              {stats.validated >= 500 && (
+                <div className="mt-4 bg-green-500 rounded-lg p-4 text-center">
+                  <p className="font-bold text-lg mb-2">🎉 ¡Has alcanzado la meta de 500 preguntas validadas!</p>
+                  <p className="text-sm text-green-100 mb-3">
+                    Ya puedes activar el "corte duro" para que los usuarios solo vean preguntas certificadas
+                  </p>
+                  <div className="text-xs text-green-100 bg-green-600 rounded p-2 font-mono">
+                    Configurar en Vercel: ENFORCE_ONLY_VALIDATED_QUESTIONS=true
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="bg-yellow-50 rounded-lg shadow p-6">
-              <div className="text-3xl font-bold text-yellow-700">{stats.pending.toLocaleString()}</div>
-              <div className="text-sm text-yellow-600">⏳ Pendientes</div>
-            </div>
-            <div className="bg-red-50 rounded-lg shadow p-6">
-              <div className="text-3xl font-bold text-red-700">{stats.quarantined.toLocaleString()}</div>
-              <div className="text-sm text-red-600">⚠️ Cuarentena</div>
-            </div>
-          </div>
+          </>
         )}
 
         {/* Tabs */}
@@ -412,8 +530,17 @@ export default function QuestionsManagerPage() {
                   />
                 </div>
               </div>
-              <div className="mt-4 text-sm text-gray-600">
-                Mostrando {filteredQuestions.length} de {questions.length} preguntas
+              <div className="mt-4 flex items-center justify-between">
+                <div className="text-sm text-gray-600">
+                  Mostrando {filteredQuestions.length} de {questions.length} preguntas
+                </div>
+                <button
+                  onClick={handleAutoValidateHighQuality}
+                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-lg font-bold shadow-lg transition-all transform hover:scale-105"
+                  title="Valida automáticamente preguntas con explicación completa"
+                >
+                  🚀 Auto-Validar Alta Calidad
+                </button>
               </div>
             </div>
 

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { getQuestionReviewWhere } from '@/lib/question-review-gating'
 
 // Crear nuevo simulacro
 export async function POST(req: NextRequest) {
@@ -23,9 +24,10 @@ export async function POST(req: NextRequest) {
     const difficultyFilter = difficulty && difficulty !== 'todas' ? { difficulty } : {}
 
     // Obtener 70 preguntas aleatorias de test de temario
-    // Incluir tanto preguntas manuales como preguntas IA aprobadas
+    // Incluir tanto preguntas manuales como preguntas IA aprobadas (excluyendo cuarentena)
     const manualQuestions = await prisma.question.findMany({
       where: {
+        ...getQuestionReviewWhere(),
         ...(hasTopicFilter ? { temaCodigo: { in: topicCodes } } : {}),
         ...difficultyFilter
       },

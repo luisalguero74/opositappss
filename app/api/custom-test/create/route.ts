@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { getQuestionReviewWhere } from '@/lib/question-review-gating'
 
 // POST - Crear test personalizado
 export async function POST(req: NextRequest) {
@@ -48,9 +49,10 @@ export async function POST(req: NextRequest) {
       specificQuestionsCount = questionCount
     }
 
-    // Obtener preguntas de temas generales
+    // Obtener preguntas de temas generales (excluyendo cuarentena)
     const generalQuestions = hasGeneral ? await prisma.question.findMany({
       where: {
+        ...getQuestionReviewWhere(),
         temaCodigo: { in: generalTopics.map((t: string) => t.toUpperCase()) },
         ...(difficulty && difficulty !== 'todas' ? { difficulty } : {})
       },
@@ -63,9 +65,10 @@ export async function POST(req: NextRequest) {
       }
     }) : []
 
-    // Obtener preguntas de temas específicos
+    // Obtener preguntas de temas específicos (excluyendo cuarentena)
     const specificQuestions = hasSpecific ? await prisma.question.findMany({
       where: {
+        ...getQuestionReviewWhere(),
         temaCodigo: { in: specificTopics.map((t: string) => t.toUpperCase()) },
         ...(difficulty && difficulty !== 'todas' ? { difficulty } : {})
       },

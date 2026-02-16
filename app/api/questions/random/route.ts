@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { getQuestionReviewWhere } from '@/lib/question-review-gating'
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
     const count = parseInt(searchParams.get('count') || '85')
 
-    // Obtener preguntas aleatorias
+    // Obtener preguntas aleatorias (excluyendo cuarentena)
     const questions = await prisma.question.findMany({
+      where: getQuestionReviewWhere(),
       take: count,
       orderBy: {
         id: 'asc'

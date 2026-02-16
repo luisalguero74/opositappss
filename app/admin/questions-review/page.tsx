@@ -16,6 +16,7 @@ interface Question {
   temaParte: string | null
   temaTitulo: string | null
   difficulty: string | null
+  reviewStatus: string
   questionnaireId: string
   questionnaire: {
     id: string
@@ -242,6 +243,55 @@ export default function QuestionsReview() {
       }
     } catch (error) {
       console.error('Error publicando:', error)
+    }
+  }
+
+  const handleValidateOne = async (id: string, currentStatus: string) => {
+    const action = currentStatus === 'VALIDATED' ? 'DESVALIDAR' : 'VALIDAR'
+    const newStatus = currentStatus === 'VALIDATED' ? 'PENDING' : 'VALIDATED'
+    
+    if (!confirm(`¿${action} esta pregunta?`)) return
+
+    try {
+      const res = await fetch('/api/admin/review-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds: [id],
+          action: newStatus === 'VALIDATED' ? 'validate' : 'unpublish'
+        })
+      })
+
+      if (res.ok) {
+        loadQuestions()
+        alert(`✅ Pregunta ${action === 'VALIDAR' ? 'validada' : 'marcada como pendiente'} correctamente`)
+      }
+    } catch (error) {
+      console.error('Error validating:', error)
+      alert('Error al cambiar el estado')
+    }
+  }
+
+  const handleQuarantineOne = async (id: string) => {
+    if (!confirm('¿Marcar esta pregunta como EN CUARENTENA?')) return
+
+    try {
+      const res = await fetch('/api/admin/review-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questionIds: [id],
+          action: 'quarantine'
+        })
+      })
+
+      if (res.ok) {
+        loadQuestions()
+        alert('⚠️ Pregunta marcada como EN CUARENTENA')
+      }
+    } catch (error) {
+      console.error('Error quarantining:', error)
+      alert('Error al marcar en cuarentena')
     }
   }
 
@@ -546,6 +596,21 @@ export default function QuestionsReview() {
                             }`}>
                               {q.difficulty}
                             </span>
+                            {q.reviewStatus === 'VALIDATED' && (
+                              <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded font-semibold">
+                                ✅ VALIDADA
+                              </span>
+                            )}
+                            {q.reviewStatus === 'QUARANTINED' && (
+                              <span className="text-xs px-2 py-1 bg-yellow-100 text-yellow-700 rounded font-semibold">
+                                ⚠️ CUARENTENA
+                              </span>
+                            )}
+                            {q.reviewStatus === 'PENDING' && (
+                              <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded font-semibold">
+                                ⏳ PENDIENTE
+                              </span>
+                            )}
                           </div>
                           <p className="text-lg font-bold text-gray-800 mb-3">
                             {index + 1}. {q.text}
@@ -570,16 +635,42 @@ export default function QuestionsReview() {
                             </p>
                           </div>
                         </div>
-                        <div className="flex gap-2 ml-4">
+                        <div className="flex gap-2 ml-4 flex-col">
+                          {q.reviewStatus === 'VALIDATED' ? (
+                            <button
+                              onClick={() => handleValidateOne(q.id, q.reviewStatus)}
+                              className="text-sm px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold shadow-sm whitespace-nowrap"
+                              title="Click para desvalidar"
+                            >
+                              ✅ VALIDADA
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleValidateOne(q.id, q.reviewStatus)}
+                              className="text-sm px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 font-semibold shadow-md whitespace-nowrap"
+                              title="Click para validar"
+                            >
+                              ✓ Certificar
+                            </button>
+                          )}
+                          {q.reviewStatus !== 'QUARANTINED' && (
+                            <button
+                              onClick={() => handleQuarantineOne(q.id)}
+                              className="text-sm px-3 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                              title="Marcar en cuarentena"
+                            >
+                              ⚠️
+                            </button>
+                          )}
                           <button
                             onClick={() => handleEdit(q)}
-                            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
+                            className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 text-sm"
                           >
                             ✏️ Editar
                           </button>
                           <button
                             onClick={() => handleDelete(q.id)}
-                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                            className="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 text-sm"
                           >
                             🗑️
                           </button>
