@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import archiver from 'archiver'
+import path from 'path'
 
-// Sistema de backups en memoria (en producción se usa tabla BackupLog)
 let backupHistory: Array<{
   id: string
   type: string
@@ -26,11 +27,46 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ backups: backupHistory })
   } catch (error) {
     console.error('[Backups GET Error]:', error)
-    return NextResponse.json(
-      { error: 'Error al obtener backups' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Error al obtener backups' }, { status: 500 })
   }
+}
+
+async function createFullBackup(backupData: any): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = []
+    const archive = archiver('zip', { zlib: { level: 9 } })
+
+    archive.on('data', (chunk) => chunks.push(chunk))
+    archive.on('end', () => resolve(Buffer.concat(chunks)))
+    archive.on('error', reject)
+
+    // Añadir datos de la BD
+    archive.append(JSON.stringify(backupData, null, 2), { name: 'database_backup.json' })
+
+    const projectRoot = process.cwd()
+    
+    // Añadir código fuente completo
+    const mainDirs = ['app', 'src', 'prisma', 'public']
+    for (const dir of mainDirs) {
+      try {
+        archive.directory(path.join(projectRoot, dir), dir)
+      } catch (e) {
+        console.warn(`[Backup] Could not add directory ${dir}:`, e)
+      }
+    }
+
+    // Añadir archivos de configuración críticos
+    const configFiles = ['package.json', 'tsconfig.json', 'next.config.ts', '.env.example']
+    for (const file of configFiles) {
+      try {
+        archive.file(path.join(projectRoot, file), { name: file })
+      } catch (e) {
+        console.warn(`[Backup] Could not add file ${file}:`, e)
+      }
+    }
+
+    archive.finalize()
+  })
 }
 
 export async function POST(req: NextRequest) {
@@ -47,8 +83,7 @@ export async function POST(req: NextRequest) {
 
     console.log('[Backup] Starting backup creation...', { backupType, user: session.user.email })
 
-    // Backup solo de datos (JSON) - optimizado para Vercel Pro
-    // Limitar cantidad de registros para evitar timeout
+    // Obtener todos los datos críticos
     const [users, questions, questionnaires, userAnswers, attempts] = await Promise.all([
       prisma.user.findMany({ 
         select: { id: true, email: true, name: true, role: true, phoneNumber: true, active: true, createdAt: true },
@@ -91,53 +126,62 @@ export async function POST(req: NextRequest) {
         totalAttempts: attempts.length,
         backupType
       },
-      data: {
-        users,
-        questions,
-        questionnaires,
-        userAnswers,
-        attempts
-      }
+      data: { users, questions, questionnaires, userAnswers, attempts }
     }
 
-    const jsonString = JSON.stringify(backupData, null, 2)
-    const buffer = Buffer.from(jsonString, 'utf-8')
-    const size = buffer.length
-    
-    // Comprimir para base64 más eficiente
-    const base64 = buffer.toString('base64')
-    const dataUrl = `data:application/json;base64,${base64}`
+    let finalBuffer: Buffer
+    let mimeType: string
+    let fileExtension: string
 
+    if (backupType === 'full') {
+      // BACKUP COMPLETO: Datos + Código para redeploy rápido
+      console.log('[Backup] Creating FULL backup (data + application code)...')
+      finalBuffer = await createFullBackup(backupData)
+      mimeType = 'application/zip'
+      fileExtension = 'zip'
+    } else {
+      // BACKUP DE DATOS: Solo base de datos
+      console.log('[Backup] Creating DATA backup (database only)...')
+      finalBuffer = Buffer.from(JSON.stringify(backupData, null, 2), 'utf-8')
+      mimeType = 'application/json'
+      fileExtension = 'json'
+    }
+    
+    const finalSize = finalBuffer.length
+    const base64 = finalBuffer.toString('base64')
+    const dataUrl = `data:${mimeType};base64,${base64}`
     const duration = Math.round((Date.now() - startTime) / 1000)
 
-    console.log('[Backup] Backup created:', { size: `${(size/1024/1024).toFixed(2)}MB`, duration: `${duration}s` })
+    console.log('[Backup] Backup created successfully:', { 
+      type: backupType, 
+      size: `${(finalSize/1024/1024).toFixed(2)}MB`, 
+      duration: `${duration}s` 
+    })
 
     const backup = {
       id: `backup_${Date.now()}`,
       type: 'manual',
       backupType,
       status: 'completed',
-      size,
+      size: finalSize,
       duration,
       timestamp: new Date().toISOString(),
       downloadUrl: dataUrl
     }
 
     backupHistory.unshift(backup)
-
-    // Mantener solo los últimos 20 backups
     if (backupHistory.length > 20) {
       backupHistory = backupHistory.slice(0, 20)
     }
 
-    const filename = `opositapp_backup_${backupType}_${new Date().toISOString().split('T')[0]}.json`
+    const filename = `opositapp_backup_${backupType}_${new Date().toISOString().split('T')[0]}.${fileExtension}`
 
     return NextResponse.json({
       success: true,
       backup,
       filename,
       downloadUrl: dataUrl,
-      message: `Backup ${backupType} completado exitosamente.`,
+      message: `Backup ${backupType === 'full' ? 'completo (datos + código)' : 'de datos'} completado exitosamente.`,
       stats: backupData.metadata
     })
   } catch (error) {
