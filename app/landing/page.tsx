@@ -150,6 +150,221 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Testimonios Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-gray-900 mb-4">
+              Lo que dicen nuestros usuarios
+            </h3>
+            <p className="text-xl text-gray-600">
+              Miles de opositores ya confían en OpositApp para su preparación
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl shadow-lg border border-blue-100">
+              <div className="flex items-center gap-1 text-yellow-500 text-xl mb-4">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <p className="text-gray-700 italic mb-4">
+                &quot;OpositApp me ha cambiado la forma de estudiar. El asistente IA resuelve todas mis dudas 
+                al instante y los tests personalizados me ayudan a centrarme en mis puntos débiles.&quot;
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                  MC
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">María Carmen R.</p>
+                  <p className="text-sm text-gray-600">Opositora 2025</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl shadow-lg border border-purple-100">
+              <div className="flex items-center gap-1 text-yellow-500 text-xl mb-4">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <p className="text-gray-700 italic mb-4">
+                &quot;Los simulacros son exactamente igual que el examen real. Gracias a practicar con ellos, 
+                el día del examen no tuve ningún nervio y conseguí mi plaza.&quot;
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                  JL
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">José Luis M.</p>
+                  <p className="text-sm text-gray-600">Plaza conseguida 2025</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl shadow-lg border border-green-100">
+              <div className="flex items-center gap-1 text-yellow-500 text-xl mb-4">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <p className="text-gray-700 italic mb-4">
+                &quot;El repositorio legal siempre actualizado es oro puro. Las estadísticas me muestran 
+                claramente mi progreso y qué temas necesito repasar más.&quot;
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
+                  AR
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">Ana R.</p>
+                  <p className="text-sm text-gray-600">Usuario Premium</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Cómo Funciona Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-gray-900 mb-4">
+              Empieza en 3 pasos simples
+            </h3>
+            <p className="text-xl text-gray-600">
+              Tu preparación organizada y efectiva en minutos
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="relative">
+              <div className="bg-white p-8 rounded-2xl shadow-xl text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-lg">
+                  1
+                </div>
+                <h4 className="text-2xl font-bold text-gray-900 mb-4">Crea tu cuenta</h4>
+                <p className="text-gray-600">
+                  Regístrate gratis en menos de 1 minuto. Sin tarjeta de crédito, sin compromisos.
+                </p>
+              </div>
+              <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-4xl text-blue-300">
+                →
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="bg-white p-8 rounded-2xl shadow-xl text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-lg">
+                  2
+                </div>
+                <h4 className="text-2xl font-bold text-gray-900 mb-4">Elige tu plan</h4>
+                <p className="text-gray-600">
+                  Empieza gratis o elige Premium para acceso completo a todas las funcionalidades.
+                </p>
+              </div>
+              <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-4xl text-indigo-300">
+                →
+              </div>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl shadow-xl text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-lg">
+                3
+              </div>
+              <h4 className="text-2xl font-bold text-gray-900 mb-4">Empieza a estudiar</h4>
+              <p className="text-gray-600">
+                Accede a tests, simulacros, asistente IA y todo el material para conseguir tu plaza.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link 
+              href="/register" 
+              className="inline-block bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-10 py-4 rounded-lg text-lg font-bold hover:from-blue-700 hover:to-indigo-800 transition shadow-2xl"
+            >
+              Empezar ahora gratis →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Comparación Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-gray-900 mb-4">
+              ¿Por qué elegir OpositApp?
+            </h3>
+            <p className="text-xl text-gray-600">
+              Comparamos con métodos tradicionales de estudio
+            </p>
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full bg-white shadow-2xl rounded-xl overflow-hidden">
+              <thead className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+                <tr>
+                  <th className="px-6 py-4 text-left text-lg font-bold">Característica</th>
+                  <th className="px-6 py-4 text-center text-lg font-bold">OpositApp</th>
+                  <th className="px-6 py-4 text-center text-lg font-bold">Academias tradicionales</th>
+                  <th className="px-6 py-4 text-center text-lg font-bold">Estudio por cuenta propia</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                <tr className="hover:bg-blue-50 transition">
+                  <td className="px-6 py-4 font-medium text-gray-900">Tests interactivos ilimitados</td>
+                  <td className="px-6 py-4 text-center text-2xl text-green-500">✓</td>
+                  <td className="px-6 py-4 text-center text-2xl text-red-500">✗</td>
+                  <td className="px-6 py-4 text-center text-2xl text-red-500">✗</td>
+                </tr>
+                <tr className="hover:bg-blue-50 transition">
+                  <td className="px-6 py-4 font-medium text-gray-900">Asistente IA 24/7</td>
+                  <td className="px-6 py-4 text-center text-2xl text-green-500">✓</td>
+                  <td className="px-6 py-4 text-center text-2xl text-red-500">✗</td>
+                  <td className="px-6 py-4 text-center text-2xl text-red-500">✗</td>
+                </tr>
+                <tr className="hover:bg-blue-50 transition">
+                  <td className="px-6 py-4 font-medium text-gray-900">Actualización automática contenido</td>
+                  <td className="px-6 py-4 text-center text-2xl text-green-500">✓</td>
+                  <td className="px-6 py-4 text-center text-2xl text-yellow-500">~</td>
+                  <td className="px-6 py-4 text-center text-2xl text-red-500">✗</td>
+                </tr>
+                <tr className="hover:bg-blue-50 transition">
+                  <td className="px-6 py-4 font-medium text-gray-900">Estudia desde cualquier lugar</td>
+                  <td className="px-6 py-4 text-center text-2xl text-green-500">✓</td>
+                  <td className="px-6 py-4 text-center text-2xl text-red-500">✗</td>
+                  <td className="px-6 py-4 text-center text-2xl text-green-500">✓</td>
+                </tr>
+                <tr className="hover:bg-blue-50 transition">
+                  <td className="px-6 py-4 font-medium text-gray-900">Estadísticas de progreso</td>
+                  <td className="px-6 py-4 text-center text-2xl text-green-500">✓</td>
+                  <td className="px-6 py-4 text-center text-2xl text-red-500">✗</td>
+                  <td className="px-6 py-4 text-center text-2xl text-red-500">✗</td>
+                </tr>
+                <tr className="hover:bg-blue-50 transition">
+                  <td className="px-6 py-4 font-medium text-gray-900">Precio mensual</td>
+                  <td className="px-6 py-4 text-center"><span className="text-green-600 font-bold">29€/mes</span></td>
+                  <td className="px-6 py-4 text-center"><span className="text-red-600 font-bold">150-300€/mes</span></td>
+                  <td className="px-6 py-4 text-center"><span className="text-blue-600 font-bold">Variable</span></td>
+                </tr>
+                <tr className="hover:bg-blue-50 transition">
+                  <td className="px-6 py-4 font-medium text-gray-900">Simulacros examen real</td>
+                  <td className="px-6 py-4 text-center text-2xl text-green-500">✓</td>
+                  <td className="px-6 py-4 text-center text-2xl text-green-500">✓</td>
+                  <td className="px-6 py-4 text-center text-2xl text-red-500">✗</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-500">
+              ✓ Incluido | ~ Parcialmente | ✗ No incluido
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Classroom Image Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4">
@@ -248,13 +463,14 @@ export default function LandingPage() {
               <ul className="space-y-2 text-sm">
                 <li><Link href="/terms" className="hover:text-white transition">Términos y Condiciones</Link></li>
                 <li><Link href="/privacy" className="hover:text-white transition">Política de Privacidad</Link></li>
-                <li><a href="#" className="hover:text-white transition">Cookies</a></li>
+                <li><Link href="/cookies" className="hover:text-white transition">Cookies</Link></li>
               </ul>
             </div>
             <div>
               <h5 className="text-white font-semibold mb-4">Más</h5>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/about" className="hover:text-white transition">Sobre Nosotros</Link></li>
+                <li><Link href="/faq" className="hover:text-white transition">Preguntas Frecuentes</Link></li>
                 <li><Link href="/contact" className="hover:text-white transition">Contacto</Link></li>
                 <li><Link href="/help" className="hover:text-white transition">Ayuda</Link></li>
               </ul>
