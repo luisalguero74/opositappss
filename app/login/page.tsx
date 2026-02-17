@@ -38,8 +38,19 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center p-4 relative">
+      {/* Fondo de biblioteca */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1920&h=1080&fit=crop&q=80)',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-indigo-900/80 to-purple-900/80 backdrop-blur-sm"></div>
+      </div>
+      
+      {/* Contenido */}
+      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-md relative z-10">
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center">
           <Logo variant="white" />
           <h1 className="text-3xl font-bold text-white mt-4">Iniciar Sesión</h1>

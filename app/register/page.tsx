@@ -56,8 +56,19 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-pink-50 to-red-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center p-4 relative">
+      {/* Fondo de biblioteca */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1920&h=1080&fit=crop&q=80)',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 via-pink-900/80 to-red-900/80 backdrop-blur-sm"></div>
+      </div>
+      
+      {/* Contenido */}
+      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-md relative z-10">
         <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-8 text-center">
           <Logo />
           <h1 className="text-3xl font-bold text-white mt-4">Crear Cuenta</h1>
