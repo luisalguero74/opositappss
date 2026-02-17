@@ -45,9 +45,10 @@ next-env.d.ts
 prisma/dev.db
 prisma/dev.db-journal
 
-# backups
-backups/
+# backups de base de datos
 *.sql.gz
+/backups/*.sql
+/backups/*.gz
 
 # logs
 logs/
