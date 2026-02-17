@@ -40,13 +40,11 @@ async function createFullBackup(backupData: any): Promise<Buffer> {
     archive.on('end', () => resolve(Buffer.concat(chunks)))
     archive.on('error', reject)
 
-    // Añadir datos de la BD
     archive.append(JSON.stringify(backupData, null, 2), { name: 'database_backup.json' })
 
     const projectRoot = process.cwd()
-    
-    // Añadir código fuente completo
     const mainDirs = ['app', 'src', 'prisma', 'public']
+    
     for (const dir of mainDirs) {
       try {
         archive.directory(path.join(projectRoot, dir), dir)
@@ -55,7 +53,6 @@ async function createFullBackup(backupData: any): Promise<Buffer> {
       }
     }
 
-    // Añadir archivos de configuración críticos
     const configFiles = ['package.json', 'tsconfig.json', 'next.config.ts', '.env.example']
     for (const file of configFiles) {
       try {
@@ -70,6 +67,8 @@ async function createFullBackup(backupData: any): Promise<Buffer> {
 }
 
 export async function POST(req: NextRequest) {
+  const startTime = Date.now()
+  
   try {
     const session = await getServerSession(authOptions)
     
@@ -79,24 +78,23 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json()
     const backupType = (body.backupType || 'data') as 'data' | 'full'
-    const startTime = Date.now()
 
-    console.log('[Backup] Starting backup creation...', { backupType, user: session.user.email })
+    console.log('[Backup] Starting:', { backupType, user: session.user.email })
 
-    // Obtener todos los datos críticos
+    // Obtener datos con manejo de errores robusto
     const [users, questions, questionnaires, userAnswers, attempts] = await Promise.all([
       prisma.user.findMany({ 
         select: { id: true, email: true, name: true, role: true, phoneNumber: true, active: true, createdAt: true },
         take: 10000 
-      }),
+      }).catch(() => []),
       prisma.question.findMany({ 
         select: { id: true, questionnaireId: true, text: true, options: true, correctAnswer: true, explanation: true, temaCodigo: true, temaNumero: true, temaParte: true, difficulty: true },
         take: 30000 
-      }),
+      }).catch(() => []),
       prisma.questionnaire.findMany({ 
         select: { id: true, title: true, type: true, theme: true, published: true, createdAt: true },
         take: 10000 
-      }),
+      }).catch(() => []),
       prisma.userAnswer.findMany({ 
         select: { id: true, userId: true, questionId: true, questionnaireId: true, isCorrect: true, createdAt: true },
         take: 100000 
@@ -104,10 +102,11 @@ export async function POST(req: NextRequest) {
       prisma.questionnaireAttempt.findMany({ 
         select: { id: true, userId: true, questionnaireId: true, score: true, correctAnswers: true, totalQuestions: true, timeSpent: true, completedAt: true },
         take: 50000 
-      })
+      }).catch(() => [])
     ])
 
-    console.log('[Backup] Data retrieved:', { 
+    const fetchTime = Math.round((Date.now() - startTime) / 1000)
+    console.log('[Backup] Data fetched in', fetchTime, 's:', { 
       users: users.length, 
       questions: questions.length, 
       questionnaires: questionnaires.length,
@@ -124,7 +123,8 @@ export async function POST(req: NextRequest) {
         totalQuestionnaires: questionnaires.length,
         totalAnswers: userAnswers.length,
         totalAttempts: attempts.length,
-        backupType
+        backupType,
+        createdBy: session.user.email
       },
       data: { users, questions, questionnaires, userAnswers, attempts }
     }
@@ -134,25 +134,37 @@ export async function POST(req: NextRequest) {
     let fileExtension: string
 
     if (backupType === 'full') {
-      // BACKUP COMPLETO: Datos + Código para redeploy rápido
-      console.log('[Backup] Creating FULL backup (data + application code)...')
-      finalBuffer = await createFullBackup(backupData)
-      mimeType = 'application/zip'
-      fileExtension = 'zip'
+      console.log('[Backup] Creating FULL backup...')
+      try {
+        finalBuffer = await Promise.race([
+          createFullBackup(backupData),
+          new Promise<Buffer>((_, reject) => 
+            setTimeout(() => reject(new Error('Timeout after 50s')), 50000)
+          )
+        ])
+        mimeType = 'application/zip'
+        fileExtension = 'zip'
+      } catch (err) {
+        throw new Error('Backup completo excedió tiempo límite. Usa Backup de Datos.')
+      }
     } else {
-      // BACKUP DE DATOS: Solo base de datos
-      console.log('[Backup] Creating DATA backup (database only)...')
+      console.log('[Backup] Creating DATA backup...')
       finalBuffer = Buffer.from(JSON.stringify(backupData, null, 2), 'utf-8')
       mimeType = 'application/json'
       fileExtension = 'json'
     }
     
     const finalSize = finalBuffer.length
+    
+    if (finalSize > 45 * 1024 * 1024) {
+      throw new Error('Backup demasiado grande (>45MB)')
+    }
+    
     const base64 = finalBuffer.toString('base64')
     const dataUrl = `data:${mimeType};base64,${base64}`
     const duration = Math.round((Date.now() - startTime) / 1000)
 
-    console.log('[Backup] Backup created successfully:', { 
+    console.log('[Backup] Success:', { 
       type: backupType, 
       size: `${(finalSize/1024/1024).toFixed(2)}MB`, 
       duration: `${duration}s` 
@@ -185,11 +197,14 @@ export async function POST(req: NextRequest) {
       stats: backupData.metadata
     })
   } catch (error) {
-    console.error('[Backup Creation Error]:', error)
+    const duration = Math.round((Date.now() - startTime) / 1000)
+    console.error('[Backup Error]:', error instanceof Error ? error.message : error)
+    
     return NextResponse.json(
       { 
         error: 'Error al crear backup',
-        details: error instanceof Error ? error.message : 'Error desconocido'
+        details: error instanceof Error ? error.message : 'Error desconocido',
+        duration: `${duration}s`
       },
       { status: 500 }
     )
