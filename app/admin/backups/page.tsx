@@ -149,6 +149,86 @@ export default function AdminBackups() {
           </div>
         )}
 
+        {/* Manual de Uso */}
+        <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border-l-4 border-amber-500 rounded-lg p-6 mb-6 shadow-md">
+          <div className="flex items-start gap-4">
+            <div className="text-4xl">📖</div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Manual de Backups</h3>
+              
+              <div className="space-y-4">
+                {/* Backup de Datos */}
+                <div className="bg-white rounded-lg p-4 shadow-sm">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">📊</span>
+                    <h4 className="font-bold text-blue-600 text-lg">Backup de Datos</h4>
+                  </div>
+                  <ul className="text-sm text-gray-700 space-y-1 ml-8">
+                    <li>• <strong>Contenido:</strong> Solo base de datos (usuarios, preguntas, respuestas, estadísticas)</li>
+                    <li>• <strong>Formato:</strong> JSON (.json)</li>
+                    <li>• <strong>Tamaño:</strong> ~5-15 MB</li>
+                    <li>• <strong>Tiempo:</strong> 5-15 segundos</li>
+                    <li>• <strong>Uso:</strong> Recuperar datos de usuarios o restaurar preguntas eliminadas</li>
+                    <li>• <strong>Frecuencia recomendada:</strong> Diaria o antes de cambios importantes</li>
+                  </ul>
+                </div>
+
+                {/* Backup Completo */}
+                <div className="bg-white rounded-lg p-4 shadow-sm">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">📦</span>
+                    <h4 className="font-bold text-purple-600 text-lg">Backup Completo</h4>
+                  </div>
+                  <ul className="text-sm text-gray-700 space-y-1 ml-8">
+                    <li>• <strong>Contenido:</strong> Base de datos + código fuente completo de la aplicación</li>
+                    <li>• <strong>Formato:</strong> ZIP (.zip)</li>
+                    <li>• <strong>Incluye:</strong> /app, /src, /prisma, /public, package.json, tsconfig, configs</li>
+                    <li>• <strong>Tamaño:</strong> ~50-100 MB</li>
+                    <li>• <strong>Tiempo:</strong> 20-40 segundos</li>
+                    <li>• <strong>Uso:</strong> Recuperación total si la app falla o para redeploy inmediato</li>
+                    <li>• <strong>Frecuencia recomendada:</strong> Semanal o después de actualizaciones importantes</li>
+                  </ul>
+                </div>
+
+                {/* Instrucciones de Recuperación */}
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">🚨</span>
+                    <h4 className="font-bold text-red-700 text-lg">Recuperación de Emergencia</h4>
+                  </div>
+                  <div className="text-sm text-gray-700 space-y-2 ml-8">
+                    <p><strong>Si la aplicación falla completamente:</strong></p>
+                    <ol className="list-decimal space-y-1 ml-4">
+                      <li>Descarga el último <strong>Backup Completo</strong> (.zip)</li>
+                      <li>Descomprime el archivo en tu Mac</li>
+                      <li>Abre Terminal y navega a la carpeta: <code className="bg-gray-200 px-1 rounded">cd /ruta/al/backup</code></li>
+                      <li>Instala dependencias: <code className="bg-gray-200 px-1 rounded">npm install</code></li>
+                      <li>Configura variables de entorno en archivo <code className="bg-gray-200 px-1 rounded">.env</code></li>
+                      <li>Restaura base de datos desde <code className="bg-gray-200 px-1 rounded">database_backup.json</code></li>
+                      <li>Redeploy a Vercel: <code className="bg-gray-200 px-1 rounded">vercel --prod</code></li>
+                    </ol>
+                  </div>
+                </div>
+
+                {/* Consejos */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">💡</span>
+                    <h4 className="font-bold text-blue-700 text-lg">Consejos Importantes</h4>
+                  </div>
+                  <ul className="text-sm text-gray-700 space-y-1 ml-8">
+                    <li>✓ Guarda backups en <strong>múltiples ubicaciones</strong> (Mac local, Google Drive, Dropbox)</li>
+                    <li>✓ Los backups en memoria se pierden al recargar la página (descárgalos inmediatamente)</li>
+                    <li>✓ Prueba ocasionalmente que puedes abrir y leer los archivos de backup</li>
+                    <li>✓ Mantén al menos los últimos 7 días de backups</li>
+                    <li>✓ Documenta la fecha y motivo de cada backup importante</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="bg-white rounded-2xl shadow-lg p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Historial de Backups</h2>
 
