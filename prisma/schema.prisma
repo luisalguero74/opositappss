@@ -5,9 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // For migrations/DDL, prefer a direct (non-pooler) connection when available.
-  // In Supabase: DATABASE_URL often points to PgBouncer (pooler), while DIRECT_URL should point to the direct host:5432.
-  directUrl = env("DIRECT_URL")
+  // Supabase con pooler (puerto 6xxx) - DIRECT_URL no necesario
 }
 
 enum RepoRole {
