@@ -105,46 +105,52 @@ model VerificationToken {
 }
 
 model Questionnaire {
-  id          String                 @id @default(cuid())
-  title       String
-  type        String
-  theme       String?
-  statement   String?
-  category    String?
-  published   Boolean                @default(false)
-  archived    Boolean                @default(false)
-  createdAt   DateTime               @default(now())
-  updatedAt   DateTime               @updatedAt
-  questions   Question[]
-  attempts    QuestionnaireAttempt[]
-  solutions   Solution?
-  userAnswers UserAnswer[]
+  id                     String                   @id @default(cuid())
+  title                  String
+  type                   String
+  theme                  String?
+  statement              String?
+  category               String?
+  published              Boolean                  @default(false)
+  archived               Boolean                  @default(false)
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+  questions              Question[]               // Relación legacy (mantener por compatibilidad)
+  questionnaireQuestions QuestionnaireQuestion[]  // Nueva relación N:N
+  attempts               QuestionnaireAttempt[]
+  solutions              Solution?
+  userAnswers            UserAnswer[]
 }
 
 model Question {
-  id              String                 @id @default(cuid())
-  questionnaireId String
-  text            String
-  options         String
-  correctAnswer   String
-  explanation     String
-  origin          QuestionOrigin         @default(UNKNOWN)
-  reviewStatus    QuestionReviewStatus   @default(PENDING)
-  temaCodigo      String?
-  temaNumero      Int?
-  temaParte       String?
-  temaTitulo      String?
-  difficulty      String?
-  aiReviewed      Boolean?               @default(false)
-  aiReviewedAt    DateTime?
-  createdAt       DateTime               @default(now())
-  updatedAt       DateTime               @updatedAt
-  markedBy        MarkedQuestion[]       @relation("MarkedQuestions")
-  questionnaire   Questionnaire          @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
-  spacedCards     SpacedRepetitionCard[] @relation("SpacedRepetitionCards")
-  userAnswers     UserAnswer[]
+  id                     String                   @id @default(cuid())
+  questionnaireId        String?                  // OPCIONAL: para compatibilidad legacy
+  temaId                 String?                  // NUEVO: vinculación a TemaOficial
+  text                   String
+  options                String
+  correctAnswer          String
+  explanation            String
+  origin                 QuestionOrigin           @default(UNKNOWN)
+  reviewStatus           QuestionReviewStatus     @default(PENDING)
+  temaCodigo             String?
+  temaNumero             Int?
+  temaParte              String?
+  temaTitulo             String?
+  difficulty             String?
+  aiReviewed             Boolean?                 @default(false)
+  aiReviewedAt           DateTime?
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+  markedBy               MarkedQuestion[]         @relation("MarkedQuestions")
+  questionnaire          Questionnaire?           @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  tema                   TemaOficial?             @relation(fields: [temaId], references: [id], onDelete: SetNull)
+  questionnaireQuestions QuestionnaireQuestion[]  // Nueva relación N:N
+  spacedCards            SpacedRepetitionCard[]   @relation("SpacedRepetitionCards")
+  userAnswers            UserAnswer[]
 
   @@index([reviewStatus, origin, createdAt])
+  @@index([temaId])
+  @@index([questionnaireId])
 }
 
 model Solution {
@@ -154,6 +160,22 @@ model Solution {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+}
+
+// NUEVO: Tabla intermedia para relación N:N entre Questionnaire y Question
+model QuestionnaireQuestion {
+  id              String        @id @default(cuid())
+  questionnaireId String
+  questionId      String
+  order           Int           // Orden de la pregunta en el cuestionario
+  createdAt       DateTime      @default(now())
+  questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  question        Question      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([questionnaireId, questionId])
+  @@index([questionnaireId])
+  @@index([questionId])
+  @@index([order])
 }
 
 model UserAnswer {
@@ -428,6 +450,7 @@ model TemaOficial {
   updatedAt     DateTime            @updatedAt
   archivos      TemaArchivo[]
   documentos    TemaLegalDocument[]
+  preguntas     Question[]          // NUEVO: Relación con preguntas
 
   @@unique([categoria, numero])
 }
