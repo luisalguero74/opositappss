@@ -229,6 +229,61 @@ export default function Dashboard() {
               <p className="text-gray-600 text-xs text-center">Desbloquea premios.</p>
             </div>
           </Link>
+
+          {/* Sesiones de Estudio */}
+          <Link href="/study-sessions" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group">
+            <div className="bg-gradient-to-r from-blue-500 to-cyan-600 p-3 flex flex-col items-center justify-center">
+              <div className="text-white text-3xl mb-1">🕒</div>
+              <h2 className="text-sm font-bold text-white text-center">Sesiones</h2>
+            </div>
+            <div className="p-3">
+              <p className="text-gray-600 text-xs text-center">Historial de estudio.</p>
+            </div>
+          </Link>
+
+          {/* Racha de Estudio */}
+          <Link href="/study-streak" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group">
+            <div className="bg-gradient-to-r from-orange-500 to-red-500 p-3 flex flex-col items-center justify-center">
+              <div className="text-white text-3xl mb-1">🔥</div>
+              <h2 className="text-sm font-bold text-white text-center">Mi Racha</h2>
+            </div>
+            <div className="p-3">
+              <p className="text-gray-600 text-xs text-center">Días consecutivos.</p>
+            </div>
+          </Link>
+
+          {/* Progreso por Tema */}
+          <Link href="/theme-progress" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group">
+            <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-3 flex flex-col items-center justify-center">
+              <div className="text-white text-3xl mb-1">📈</div>
+              <h2 className="text-sm font-bold text-white text-center">Progreso Tema</h2>
+            </div>
+            <div className="p-3">
+              <p className="text-gray-600 text-xs text-center">Análisis detallado.</p>
+            </div>
+          </Link>
+
+          {/* Recomendaciones */}
+          <Link href="/study-recommendations" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group">
+            <div className="bg-gradient-to-r from-green-500 to-teal-600 p-3 flex flex-col items-center justify-center">
+              <div className="text-white text-3xl mb-1">🎯</div>
+              <h2 className="text-sm font-bold text-white text-center">Qué Estudiar</h2>
+            </div>
+            <div className="p-3">
+              <p className="text-gray-600 text-xs text-center">Recomendaciones IA.</p>
+            </div>
+          </Link>
+
+          {/* Historial de Intentos */}
+          <Link href="/attempt-history" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group">
+            <div className="bg-gradient-to-r from-slate-600 to-blue-600 p-3 flex flex-col items-center justify-center">
+              <div className="text-white text-3xl mb-1">📜</div>
+              <h2 className="text-sm font-bold text-white text-center">Historial</h2>
+            </div>
+            <div className="p-3">
+              <p className="text-gray-600 text-xs text-center">Todos tus intentos.</p>
+            </div>
+          </Link>
         </div>
 
         {/* Panel Admin - Solo para administradores */}
