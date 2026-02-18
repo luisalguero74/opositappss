@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import type { Session } from 'next-auth'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import UserMenu from '@/components/UserMenu'
 
 export default function Admin() {
   const { data: session } = useSession() as { data: Session | null }
@@ -62,656 +63,604 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-amber-50 p-3">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <Link href="/dashboard" className="text-orange-600 hover:text-orange-700 font-semibold mb-4 inline-block">← Volver al Dashboard</Link>
-          <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-lg p-8 shadow-2xl">
-            <div className="text-center">
-              <div className="text-6xl mb-4">⚙️</div>
-              <h1 className="text-4xl font-bold text-white">Panel de Administrador</h1>
-              <p className="text-red-100 mt-2">Gestiona los cuestionarios de la plataforma</p>
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-amber-50">
+      {/* Header con gradiente */}
+      <div className="bg-gradient-to-r from-red-600 to-orange-600 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+                <span>⚙️</span> Panel Administrador
+              </h1>
+              <p className="text-red-100 text-sm mt-1">Gestión completa de la plataforma</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <Link href="/dashboard" className="text-white hover:text-red-100 text-sm font-medium transition">
+                ← Dashboard
+              </Link>
+              <Link href="/admin/monetization" className="text-white hover:text-red-100 text-sm font-medium transition">
+                💎 Suscripciones
+              </Link>
+              <UserMenu />
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Tarjetas de acceso rápido */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 mb-8">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-teal-500 to-emerald-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📄</div>
-            <h2 className="text-xs font-bold text-white text-center">Crear Formulario Temario desde PDF</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Carga un PDF con preguntas y genera automáticamente cuestionarios interactivos.</p>
-              <Link href="/admin/create-formulario" className="inline-block bg-gradient-to-r from-teal-500 to-emerald-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-teal-600 hover:to-emerald-700 transition text-sm">
-                Subir PDF →
-              </Link>
-            </div>
-          </div>
+      <div className="p-6">
+        <div className="max-w-7xl mx-auto">
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-cyan-500 to-blue-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📋</div>
-            <h2 className="text-xs font-bold text-white text-center">Vista Previa de Formularios</h2>
+          {/* 1️⃣ SECCIÓN: GESTIÓN DE PREGUNTAS */}
+          <div className="mb-6 mt-6">
+            <div className="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-lg p-3 mb-3 border-l-4 border-indigo-600">
+              <h2 className="text-xl font-bold text-indigo-900">1️⃣ Gestión de Preguntas</h2>
+              <p className="text-indigo-700 text-sm">Sistema completo de revisión, validación y creación de cuestionarios</p>
             </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Revisa y publica los cuestionarios creados antes de hacerlos visibles a los usuarios.</p>
-              <Link href="/admin/preview-forms" className="inline-block bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition text-sm">
-                Ver Formularios →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-slate-600 to-gray-800 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🗄️</div>
-            <h2 className="text-xs font-bold text-white text-center">Backups</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Crea y descarga copias de seguridad para mantener la base de datos protegida.</p>
-              <Link href="/admin/backups" className="inline-block bg-gradient-to-r from-slate-600 to-gray-800 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-700 hover:to-gray-900 transition text-sm">
-                Abrir Backups →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-slate-600 to-slate-800 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📚</div>
-            <h2 className="text-xs font-bold text-white text-center">Repositorio</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Gestiona carpetas, documentos y solicitudes de acceso al repositorio.</p>
-              <Link href="/admin/repositorio" className="inline-block bg-gradient-to-r from-slate-600 to-slate-800 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-700 hover:to-slate-900 transition text-sm">
-                Abrir Repositorio →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-indigo-500 to-violet-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📥</div>
-            <h2 className="text-xs font-bold text-white text-center">Importar Preguntas (JSON)</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Sube ficheros JSON y/o reimporta los JSON del servidor a la base de datos.</p>
-              <Link href="/admin/import-questions" className="inline-block bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-violet-700 transition text-sm">
-                Importar JSON →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-emerald-600 to-teal-700 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">💳</div>
-            <h2 className="text-xs font-bold text-white text-center">Suscripciones</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Revisa el estado de suscripción de usuarios y aplica acciones administrativas.</p>
-              <Link href="/admin/subscriptions" className="inline-block bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-semibold px-5 py-2 rounded-lg hover:from-emerald-700 hover:to-teal-800 transition text-sm">
-                Ver Suscripciones →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">👥</div>
-            <h2 className="text-xs font-bold text-white text-center">Gestión de Usuarios</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Administra usuarios, cambia roles y visualiza el historial completo de actividad de cada usuario.</p>
-              <Link href="/admin/users" className="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition text-sm">
-                Gestionar Usuarios →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">💰</div>
-            <h2 className="text-xs font-bold text-white text-center">Sistema de Monetización</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Configura planes de suscripción, precios y controla el acceso de usuarios mediante pagos.</p>
-              <Link href="/admin/monetization" className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-green-600 hover:to-emerald-700 transition text-sm">
-                Configurar Monetización →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-amber-400 to-orange-500 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🎯</div>
-            <h2 className="text-xs font-bold text-white text-center">Monetización sin Suscripción</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Activa anuncios, afiliados, donaciones y patrocinios sin que los usuarios paguen.</p>
-              <Link href="/admin/monetization-free" className="inline-block bg-gradient-to-r from-amber-400 to-orange-500 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-500 hover:to-orange-600 transition text-sm">
-                Configurar Opciones →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📊</div>
-            <h2 className="text-xs font-bold text-white text-center">Estadísticas del Sistema</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Analiza el rendimiento global y por usuario. Identifica errores repetidos y patrones de aprendizaje.</p>
-              <Link href="/admin/statistics" className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition text-sm">
-                Ver Estadísticas →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🎥</div>
-            <h2 className="text-xs font-bold text-white text-center">Panel de Moderación</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Controla salas de videollamada activas. Silencia, expulsa participantes y modera el foro.</p>
-              <Link href="/admin/rooms" className="inline-block bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-purple-600 hover:to-pink-700 transition text-sm">
-                Ir a Moderación →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🎓</div>
-            <h2 className="text-xs font-bold text-white text-center">Gestión de Aulas Virtuales</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Crea y gestiona aulas virtuales con Jitsi Meet. Programa sesiones y envía invitaciones.</p>
-              <Link href="/admin/classrooms" className="inline-block bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-purple-600 hover:to-pink-700 transition text-sm">
-                Gestionar Aulas →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🏆</div>
-            <h2 className="text-xs font-bold text-white text-center">Celebración 100%</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Vista previa de la celebración que ven los usuarios al conseguir el 100% de aciertos.</p>
-              <Link href="/admin/celebration-preview" className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold px-5 py-2 rounded-lg hover:from-yellow-500 hover:to-orange-600 transition text-sm">
-                Ver Celebración →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-amber-500 to-yellow-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📚</div>
-            <h2 className="text-xs font-bold text-white text-center">Gestor de Temario Oficial</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Gestiona los 36 temas del temario oficial. Sube documentación, PDFs y material de estudio.</p>
-              <Link href="/admin/temario-manager" className="inline-block bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition text-sm">
-                Gestionar Temario →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-orange-400 to-red-500 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📄</div>
-            <h2 className="text-xs font-bold text-white text-center">Conversor OCR de PDF</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Extrae texto de PDFs con OCR y guarda en Temarios o Biblioteca Legal automáticamente.</p>
-              <Link href="/admin/ocr-converter" className="inline-block bg-gradient-to-r from-orange-400 to-red-500 text-white font-semibold px-5 py-2 rounded-lg hover:from-orange-500 hover:to-red-600 transition text-sm">
-                Convertir PDF →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-violet-500 to-purple-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">⚖️</div>
-            <h2 className="text-xs font-bold text-white text-center">Biblioteca Legal</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Gestiona documentos legales compartidos. Evita duplicación asociando leyes a múltiples temas.</p>
-              <Link href="/admin/biblioteca-legal" className="inline-block bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-violet-600 hover:to-purple-700 transition text-sm">
-                Ir a Biblioteca →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📱✅</div>
-            <h2 className="text-xs font-bold text-white text-center">Teléfonos Permitidos</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Gestiona la lista de números autorizados para registro. Añade, edita o elimina teléfonos permitidos.</p>
-              <Link href="/admin/allowed-phones" className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-green-600 hover:to-emerald-700 transition text-sm">
-                Gestionar Números →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-red-500 to-pink-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📰</div>
-            <h2 className="text-xs font-bold text-white text-center">Base de Datos de Preguntas</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Visualiza todas las preguntas de tests de temario y supuestos prácticos con sus respuestas.</p>
-              <Link href="/admin/questions" className="inline-block bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition text-sm">
-                Ver Preguntas →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-violet-500 to-fuchsia-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🤖</div>
-            <h2 className="text-xs font-bold text-white text-center">Generador de Preguntas IA</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Sube documentos legales y genera preguntas automáticamente con Ollama (IA local y gratuita).</p>
-              <Link href="/admin/ai-documents" className="inline-block bg-gradient-to-r from-violet-500 to-fuchsia-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-violet-600 hover:to-fuchsia-700 transition text-sm">
-                Generar con IA →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🚀📚</div>
-            <h2 className="text-xs font-bold text-white text-center">Generador Masivo de Preguntas</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Genera preguntas automáticamente para TODO el temario general o específico con un solo clic.</p>
-              <Link href="/admin/bulk-questions-generator" className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition text-sm">
-                Generar Masivamente →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-blue-500 to-cyan-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📋✏️</div>
-            <h2 className="text-xs font-bold text-white text-center">Revisar y Gestionar Preguntas</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Edita, revisa y publica preguntas generadas. Controla qué aparece en el menú de usuario.</p>
-              <Link href="/admin/questions-review" className="inline-block bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-cyan-700 transition text-sm">
-                Revisar Preguntas →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-pink-500 to-rose-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📝</div>
-            <h2 className="text-xs font-bold text-white text-center">Estadísticas de Simulacros</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Analiza el rendimiento de los usuarios en simulacros de examen con 70+15 preguntas.</p>
-              <Link href="/admin/exam-stats" className="inline-block bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-pink-600 hover:to-rose-700 transition text-sm">
-                Ver Estadísticas →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-orange-500 to-red-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📋</div>
-            <h2 className="text-xs font-bold text-white text-center">Supuestos Prácticos Manual</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Gestiona casos prácticos creados manualmente con seguimiento de intentos y análisis de errores.</p>
-              <Link href="/admin/practical-cases" className="inline-block bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition text-sm">
-                Gestionar Casos →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🎯</div>
-            <h2 className="text-xs font-bold text-white text-center">Generador de Tests HTML</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Crea tests interactivos descargables con corrección automática y celebración al 100%.</p>
-              <Link href="/admin/test-generator" className="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-purple-700 transition text-sm">
-                Generar Tests →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition  relative">
-            <div className="bg-gradient-to-r from-fuchsia-500 to-purple-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🤖📋</div>
-            <h2 className="text-xs font-bold text-white text-center">Generador Supuestos IA</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Crea y gestiona supuestos prácticos mediante IA basados en exámenes reales de administrativos de la SS.</p>
-              <button
-                onClick={() => setShowAISubmenu(!showAISubmenu)}
-                className="w-full bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-fuchsia-600 hover:to-purple-700 transition text-sm flex items-center justify-between"
-              >
-                <span>Menú IA</span>
-                <span className="text-xl">{showAISubmenu ? '▲' : '▼'}</span>
-              </button>
-              
-              {showAISubmenu && (
-                <div className="mt-4 space-y-2 border-t pt-4">
-                  <Link 
-                    href="/admin/generate-practical-ai" 
-                    className="block bg-purple-50 hover:bg-purple-100 text-purple-700 font-semibold px-4 py-3 rounded-lg transition text-sm border border-purple-200"
-                  >
-                    ✨ Generar Nuevo Supuesto
-                  </Link>
-                  <Link 
-                    href="/admin/practical-cases" 
-                    className="block bg-fuchsia-50 hover:bg-fuchsia-100 text-fuchsia-700 font-semibold px-4 py-3 rounded-lg transition text-sm border border-fuchsia-200"
-                  >
-                    📝 Editar Supuestos Existentes
-                  </Link>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+              {/* Gestor Unificado */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition border-2 border-indigo-500">
+                <div className="bg-gradient-to-r from-indigo-600 to-purple-700 p-3 flex flex-col items-center justify-center relative">
+                  <div className="absolute top-1 right-1 bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded-full text-[10px] font-bold">⭐ TOP</div>
+                  <div className="text-white text-3xl mb-1">🎯</div>
+                  <h2 className="text-xs font-bold text-white text-center">Gestor Unificado</h2>
                 </div>
-              )}
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Explorar, filtrar, validar.</p>
+                  <Link href="/admin/questions-manager" className="inline-block w-full text-center bg-gradient-to-r from-indigo-600 to-purple-700 text-white font-semibold px-3 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-800 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-blue-500 to-cyan-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📋</div>
+                  <h2 className="text-xs font-bold text-white text-center">Revisar Preguntas</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Por cuestionarios.</p>
+                  <Link href="/admin/questions-review" className="inline-block w-full text-center bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-blue-600 hover:to-cyan-700 transition text-xs">Revisar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-rose-500 to-pink-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">⭐</div>
+                  <h2 className="text-xs font-bold text-white text-center">Control Calidad</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Análisis IA.</p>
+                  <Link href="/admin/questions-quality" className="inline-block w-full text-center bg-gradient-to-r from-rose-500 to-pink-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-rose-600 hover:to-pink-700 transition text-xs">Analizar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-red-500 to-pink-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📰</div>
+                  <h2 className="text-xs font-bold text-white text-center">Base Datos</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Todas las preguntas.</p>
+                  <Link href="/admin/questions" className="inline-block w-full text-center bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-red-600 hover:to-pink-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-indigo-500 to-violet-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📥</div>
+                  <h2 className="text-xs font-bold text-white text-center">Importar JSON</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Ficheros JSON.</p>
+                  <Link href="/admin/import-questions" className="inline-block w-full text-center bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-indigo-600 hover:to-violet-700 transition text-xs">Importar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-indigo-500 to-violet-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">➕</div>
+                  <h2 className="text-xs font-bold text-white text-center">Crear Manual</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Alta manual.</p>
+                  <Link href="/admin/questions-create" className="inline-block w-full text-center bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-indigo-600 hover:to-violet-700 transition text-xs">Crear →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-cyan-500 to-sky-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🏷️</div>
+                  <h2 className="text-xs font-bold text-white text-center">Revisar Temas</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Metadatos.</p>
+                  <Link href="/admin/tema-metadata-review" className="inline-block w-full text-center bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-cyan-600 hover:to-sky-700 transition text-xs">Revisar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-violet-500 to-purple-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🧠</div>
+                  <h2 className="text-xs font-bold text-white text-center">Prompt Helper</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Prompts IA.</p>
+                  <Link href="/admin/ai-prompt-helper" className="inline-block w-full text-center bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-violet-600 hover:to-purple-700 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🗓️</div>
+                  <h2 className="text-xs font-bold text-white text-center">Test Planner</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Planificación.</p>
+                  <Link href="/admin/test-planner" className="inline-block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🎯</div>
+                  <h2 className="text-xs font-bold text-white text-center">Tests HTML</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Descargables.</p>
+                  <Link href="/admin/test-generator" className="inline-block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-blue-600 hover:to-purple-700 transition text-xs">Generar →</Link>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📝</div>
-            <h2 className="text-xs font-bold text-white text-center">Formularios HTML Interactivos</h2>
+          {/* 2️⃣ SECCIÓN: GENERACIÓN CON IA */}
+          <div className="mb-6">
+            <div className="bg-gradient-to-r from-purple-100 to-fuchsia-100 rounded-lg p-3 mb-3 border-l-4 border-purple-600">
+              <h2 className="text-xl font-bold text-purple-900">2️⃣ Generación con Inteligencia Artificial</h2>
+              <p className="text-purple-700 text-sm">Crea contenido automáticamente con IA avanzada</p>
             </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Genera formularios HTML completos a partir de preguntas de IA con todas las funcionalidades.</p>
-              <Link href="/admin/create-formulario" className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-purple-700 hover:to-pink-700 transition text-sm">
-                Crear Formulario HTML →
-              </Link>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🚀</div>
+                  <h2 className="text-xs font-bold text-white text-center">Generador Masivo</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">TODO el temario.</p>
+                  <Link href="/admin/bulk-questions-generator" className="inline-block w-full text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition text-xs">Generar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-violet-500 to-fuchsia-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🤖</div>
+                  <h2 className="text-xs font-bold text-white text-center">IA Documentos</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Sube y genera.</p>
+                  <Link href="/admin/ai-documents" className="inline-block w-full text-center bg-gradient-to-r from-violet-500 to-fuchsia-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-violet-600 hover:to-fuchsia-700 transition text-xs">Generar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-fuchsia-500 to-purple-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📋</div>
+                  <h2 className="text-xs font-bold text-white text-center">Supuestos IA</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Casos prácticos.</p>
+                  <Link href="/admin/generate-practical-ai" className="inline-block w-full text-center bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-fuchsia-600 hover:to-purple-700 transition text-xs">Generar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📝</div>
+                  <h2 className="text-xs font-bold text-white text-center">Formularios HTML</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Interactivos.</p>
+                  <Link href="/admin/create-formulario" className="inline-block w-full text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-purple-700 hover:to-pink-700 transition text-xs">Crear →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-teal-500 to-emerald-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📄</div>
+                  <h2 className="text-xs font-bold text-white text-center">Desde PDF</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Auto-genera.</p>
+                  <Link href="/admin/create-formulario" className="inline-block w-full text-center bg-gradient-to-r from-teal-500 to-emerald-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-teal-600 hover:to-emerald-700 transition text-xs">Subir →</Link>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📚</div>
-            <h2 className="text-xs font-bold text-white text-center">Gestor de Temario Oficial</h2>
+          {/* 3️⃣ SECCIÓN: CONTENIDO Y DOCUMENTACIÓN */}
+          <div className="mb-6">
+            <div className="bg-gradient-to-r from-amber-100 to-yellow-100 rounded-lg p-3 mb-3 border-l-4 border-amber-600">
+              <h2 className="text-xl font-bold text-amber-900">3️⃣ Contenido y Documentación</h2>
+              <p className="text-amber-700 text-sm">Gestión de temarios, documentos legales y repositorio</p>
             </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Administra los 36 temas oficiales del temario. Sube documentos legales y controla el progreso de cobertura.</p>
-              <Link href="/admin/temario-manager" className="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition text-sm">
-                Gestionar Temario →
-              </Link>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-amber-500 to-yellow-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📚</div>
+                  <h2 className="text-xs font-bold text-white text-center">Temario Oficial</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">36 temas oficiales.</p>
+                  <Link href="/admin/temario-manager" className="inline-block w-full text-center bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition text-xs">Gestionar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-violet-500 to-purple-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">⚖️</div>
+                  <h2 className="text-xs font-bold text-white text-center">Biblioteca Legal</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Docs legales.</p>
+                  <Link href="/admin/biblioteca-legal" className="inline-block w-full text-center bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-violet-600 hover:to-purple-700 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-slate-600 to-gray-800 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📁</div>
+                  <h2 className="text-xs font-bold text-white text-center">Repositorio</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Gestión archivos.</p>
+                  <Link href="/admin/repositorio" className="inline-block w-full text-center bg-gradient-to-r from-slate-600 to-gray-800 text-white font-semibold px-3 py-2 rounded-lg hover:from-slate-700 hover:to-gray-900 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-orange-400 to-red-500 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📄</div>
+                  <h2 className="text-xs font-bold text-white text-center">OCR Converter</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Extrae texto.</p>
+                  <Link href="/admin/ocr-converter" className="inline-block w-full text-center bg-gradient-to-r from-orange-400 to-red-500 text-white font-semibold px-3 py-2 rounded-lg hover:from-orange-500 hover:to-red-600 transition text-xs">Convertir →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-slate-600 to-gray-800 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🗄️</div>
+                  <h2 className="text-xs font-bold text-white text-center">Backups</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Copias seguridad.</p>
+                  <Link href="/admin/backups" className="inline-block w-full text-center bg-gradient-to-r from-slate-600 to-gray-800 text-white font-semibold px-3 py-2 rounded-lg hover:from-slate-700 hover:to-gray-900 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-cyan-500 to-blue-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📋</div>
+                  <h2 className="text-xs font-bold text-white text-center">Preview Forms</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Revisar antes.</p>
+                  <Link href="/admin/preview-forms" className="inline-block w-full text-center bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-stone-600 to-zinc-700 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🔄</div>
+                  <h2 className="text-xs font-bold text-white text-center">Actualizar PDF</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Mant. PDF.</p>
+                  <Link href="/admin/update-pdf-content" className="inline-block w-full text-center bg-gradient-to-r from-stone-600 to-zinc-700 text-white font-semibold px-3 py-2 rounded-lg hover:from-stone-700 hover:to-zinc-800 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-red-500 to-pink-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📰</div>
+                  <h2 className="text-xs font-bold text-white text-center">Monitor BOE</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Actualizaciones.</p>
+                  <Link href="/admin/actualizaciones-boe" className="inline-block w-full text-center bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-red-600 hover:to-pink-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-amber-500 to-orange-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📝</div>
+                  <h2 className="text-xs font-bold text-white text-center">Exámenes</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Oficiales.</p>
+                  <Link href="/admin/exam-official" className="inline-block w-full text-center bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-amber-600 hover:to-orange-700 transition text-xs">Gestionar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-orange-500 to-red-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">➕</div>
+                  <h2 className="text-xs font-bold text-white text-center">Crear Examen</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Oficial nuevo.</p>
+                  <Link href="/admin/exam-official/create" className="inline-block w-full text-center bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition text-xs">Crear →</Link>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-red-500 to-pink-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📰🔔</div>
-            <h2 className="text-xs font-bold text-white text-center">Monitor de Actualizaciones BOE</h2>
+          {/* 4️⃣ SECCIÓN: USUARIOS Y MONETIZACIÓN */}
+          <div className="mb-6">
+            <div className="bg-gradient-to-r from-emerald-100 to-teal-100 rounded-lg p-3 mb-3 border-l-4 border-emerald-600">
+              <h2 className="text-xl font-bold text-emerald-900">4️⃣ Usuarios y Monetización</h2>
+              <p className="text-emerald-700 text-sm">Gestión de usuarios, suscripciones y analíticas</p>
             </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Monitoriza actualizaciones automáticas de leyes, RD y órdenes ministeriales desde el BOE oficial.</p>
-              <Link href="/admin/actualizaciones-boe" className="inline-block bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-red-600 hover:to-pink-700 transition text-sm">
-                Ver Actualizaciones →
-              </Link>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">👥</div>
+                  <h2 className="text-xs font-bold text-white text-center">Usuarios</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Gestión completa.</p>
+                  <Link href="/admin/users" className="inline-block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition text-xs">Gestionar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-emerald-600 to-teal-700 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">💳</div>
+                  <h2 className="text-xs font-bold text-white text-center">Suscripciones</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Estado usuarios.</p>
+                  <Link href="/admin/subscriptions" className="inline-block w-full text-center bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-semibold px-3 py-2 rounded-lg hover:from-emerald-700 hover:to-teal-800 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">💰</div>
+                  <h2 className="text-xs font-bold text-white text-center">Monetización</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Planes y precios.</p>
+                  <Link href="/admin/monetization" className="inline-block w-full text-center bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-green-600 hover:to-emerald-700 transition text-xs">Config →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-amber-400 to-orange-500 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🎯</div>
+                  <h2 className="text-xs font-bold text-white text-center">Monet. Free</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Anuncios, afiliados.</p>
+                  <Link href="/admin/monetization-free" className="inline-block w-full text-center bg-gradient-to-r from-amber-400 to-orange-500 text-white font-semibold px-3 py-2 rounded-lg hover:from-amber-500 hover:to-orange-600 transition text-xs">Config →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📱</div>
+                  <h2 className="text-xs font-bold text-white text-center">Teléfonos</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Lista permitidos.</p>
+                  <Link href="/admin/allowed-phones" className="inline-block w-full text-center bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-green-600 hover:to-emerald-700 transition text-xs">Gestionar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📊</div>
+                  <h2 className="text-xs font-bold text-white text-center">Estadísticas</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Sistema global.</p>
+                  <Link href="/admin/statistics" className="inline-block w-full text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-pink-500 to-rose-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📝</div>
+                  <h2 className="text-xs font-bold text-white text-center">Stats Simulacros</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Rendimiento.</p>
+                  <Link href="/admin/exam-stats" className="inline-block w-full text-center bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-pink-600 hover:to-rose-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-indigo-500 to-blue-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📈</div>
+                  <h2 className="text-xs font-bold text-white text-center">Analytics</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Métricas.</p>
+                  <Link href="/admin/analytics" className="inline-block w-full text-center bg-gradient-to-r from-indigo-500 to-blue-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-indigo-600 hover:to-blue-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-amber-500 to-yellow-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📇</div>
+                  <h2 className="text-xs font-bold text-white text-center">Leads</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Contactos.</p>
+                  <Link href="/admin/contact-leads" className="inline-block w-full text-center bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-red-500 to-orange-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🔐</div>
+                  <h2 className="text-xs font-bold text-white text-center">Contraseñas</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Recuperación.</p>
+                  <Link href="/admin/recover-password" className="inline-block w-full text-center bg-gradient-to-r from-red-500 to-orange-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-red-600 hover:to-orange-700 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-indigo-500 to-blue-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📈</div>
-            <h2 className="text-xs font-bold text-white text-center">Analytics</h2>
+          {/* 5️⃣ SECCIÓN: SISTEMA Y HERRAMIENTAS */}
+          <div className="mb-6">
+            <div className="bg-gradient-to-r from-slate-100 to-gray-100 rounded-lg p-3 mb-3 border-l-4 border-slate-600">
+              <h2 className="text-xl font-bold text-slate-900">5️⃣ Sistema y Herramientas</h2>
+              <p className="text-slate-700 text-sm">Utilidades, moderación y diagnóstico del sistema</p>
             </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Métricas y analítica del sistema.</p>
-              <Link href="/admin/analytics" className="inline-block bg-gradient-to-r from-indigo-500 to-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-blue-700 transition text-sm">
-                Ver analytics →
-              </Link>
-            </div>
-          </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🎓</div>
+                  <h2 className="text-xs font-bold text-white text-center">Aulas Virtuales</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Jitsi Meet.</p>
+                  <Link href="/admin/classrooms" className="inline-block w-full text-center bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-purple-600 hover:to-pink-700 transition text-xs">Gestionar →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🧾</div>
-            <h2 className="text-xs font-bold text-white text-center">Audit logs</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Eventos de auditoría y trazabilidad.</p>
-              <Link href="/admin/audit-logs" className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition text-sm">
-                Ver logs →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🎥</div>
+                  <h2 className="text-xs font-bold text-white text-center">Moderación</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Salas activas.</p>
+                  <Link href="/admin/rooms" className="inline-block w-full text-center bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-purple-600 hover:to-pink-700 transition text-xs">Moderar →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-fuchsia-500 to-purple-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🩺</div>
-            <h2 className="text-xs font-bold text-white text-center">Diagnóstico</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Herramientas de diagnóstico y verificación.</p>
-              <Link href="/admin/diagnostics" className="inline-block bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-fuchsia-600 hover:to-purple-700 transition text-sm">
-                Abrir diagnóstico →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-orange-500 to-red-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📋</div>
+                  <h2 className="text-xs font-bold text-white text-center">Supuestos Manual</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Casos prácticos.</p>
+                  <Link href="/admin/practical-cases" className="inline-block w-full text-center bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition text-xs">Gestionar →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-red-600 to-rose-700 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🚨</div>
-            <h2 className="text-xs font-bold text-white text-center">Error monitoring</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Panel de errores reportados y diagnóstico rápido.</p>
-              <Link href="/admin/error-monitoring" className="inline-block bg-gradient-to-r from-red-600 to-rose-700 text-white font-semibold px-5 py-2 rounded-lg hover:from-red-700 hover:to-rose-800 transition text-sm">
-                Ver errores →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🏆</div>
+                  <h2 className="text-xs font-bold text-white text-center">Celebración</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Vista previa 100%.</p>
+                  <Link href="/admin/celebration-preview" className="inline-block w-full text-center bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold px-3 py-2 rounded-lg hover:from-yellow-500 hover:to-orange-600 transition text-xs">Ver →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-amber-500 to-orange-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📝</div>
-            <h2 className="text-xs font-bold text-white text-center">Exámenes oficiales</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Herramientas y flujos para exámenes oficiales.</p>
-              <Link href="/admin/exam-official" className="inline-block bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-600 hover:to-orange-700 transition text-sm">
-                Gestionar exámenes →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-red-600 to-rose-700 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🚨</div>
+                  <h2 className="text-xs font-bold text-white text-center">Error Monitor</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Panel errores.</p>
+                  <Link href="/admin/error-monitoring" className="inline-block w-full text-center bg-gradient-to-r from-red-600 to-rose-700 text-white font-semibold px-3 py-2 rounded-lg hover:from-red-700 hover:to-rose-800 transition text-xs">Ver →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-orange-500 to-red-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">➕</div>
-            <h2 className="text-xs font-bold text-white text-center">Crear examen oficial</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Crea un examen oficial nuevo y súbelo al sistema.</p>
-              <Link href="/admin/exam-official/create" className="inline-block bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-orange-600 hover:to-red-700 transition text-sm">
-                Crear examen →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🧾</div>
+                  <h2 className="text-xs font-bold text-white text-center">Audit Logs</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Trazabilidad.</p>
+                  <Link href="/admin/audit-logs" className="inline-block w-full text-center bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-gray-700 to-slate-800 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">⚙️</div>
-            <h2 className="text-xs font-bold text-white text-center">Ajustes</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Ajustes y configuración de administración.</p>
-              <Link href="/admin/settings" className="inline-block bg-gradient-to-r from-gray-700 to-slate-800 text-white font-semibold px-5 py-2 rounded-lg hover:from-gray-800 hover:to-slate-900 transition text-sm">
-                Abrir ajustes →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-fuchsia-500 to-purple-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🩺</div>
+                  <h2 className="text-xs font-bold text-white text-center">Diagnóstico</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Verificación.</p>
+                  <Link href="/admin/diagnostics" className="inline-block w-full text-center bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-fuchsia-600 hover:to-purple-700 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-rose-500 to-pink-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">⭐</div>
-            <h2 className="text-xs font-bold text-white text-center">Calidad preguntas</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Control de calidad y señalización de preguntas.</p>
-              <Link href="/admin/questions-quality" className="inline-block bg-gradient-to-r from-rose-500 to-pink-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-rose-600 hover:to-pink-700 transition text-sm">
-                Revisar calidad →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-slate-700 to-gray-900 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🧹</div>
+                  <h2 className="text-xs font-bold text-white text-center">Control Calidad</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Limpieza.</p>
+                  <Link href="/admin/quality-control" className="inline-block w-full text-center bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-3 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-xs">Abrir →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-slate-700 to-gray-900 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🧹</div>
-            <h2 className="text-xs font-bold text-white text-center">Control de calidad</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Herramientas avanzadas de control y limpieza.</p>
-              <Link href="/admin/quality-control" className="inline-block bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-sm">
-                Abrir control →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-gray-700 to-slate-800 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">⚙️</div>
+                  <h2 className="text-xs font-bold text-white text-center">Ajustes</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Configuración.</p>
+                  <Link href="/admin/settings" className="inline-block w-full text-center bg-gradient-to-r from-gray-700 to-slate-800 text-white font-semibold px-3 py-2 rounded-lg hover:from-gray-800 hover:to-slate-900 transition text-xs">Abrir →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-cyan-500 to-sky-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🏷️</div>
-            <h2 className="text-xs font-bold text-white text-center">Revisar temas</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Validación y revisión de metadatos de temario.</p>
-              <Link href="/admin/tema-metadata-review" className="inline-block bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-cyan-600 hover:to-sky-700 transition text-sm">
-                Abrir revisión →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-slate-600 to-gray-800 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">✉️</div>
+                  <h2 className="text-xs font-bold text-white text-center">Test Email</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Verificación.</p>
+                  <Link href="/admin/test-email" className="inline-block w-full text-center bg-gradient-to-r from-slate-600 to-gray-800 text-white font-semibold px-3 py-2 rounded-lg hover:from-slate-700 hover:to-gray-900 transition text-xs">Probar →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-violet-500 to-purple-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🧠</div>
-            <h2 className="text-xs font-bold text-white text-center">Prompt Helper</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Herramientas de prompts para IA y generación.</p>
-              <Link href="/admin/ai-prompt-helper" className="inline-block bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-violet-600 hover:to-purple-700 transition text-sm">
-                Abrir helper →
-              </Link>
-            </div>
-          </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-slate-700 to-gray-900 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🧾</div>
+                  <h2 className="text-xs font-bold text-white text-center">Logs Repo</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Acceso repo.</p>
+                  <Link href="/admin/repositorio/access-logs" className="inline-block w-full text-center bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-3 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-xs">Ver →</Link>
+                </div>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-slate-600 to-gray-800 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">✉️</div>
-            <h2 className="text-xs font-bold text-white text-center">Test email</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Pruebas y verificación de envío de emails.</p>
-              <Link href="/admin/test-email" className="inline-block bg-gradient-to-r from-slate-600 to-gray-800 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-700 hover:to-gray-900 transition text-sm">
-                Probar email →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-slate-700 to-gray-900 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🧾</div>
-            <h2 className="text-xs font-bold text-white text-center">Logs de acceso (Repositorio)</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Audita accesos y descargas del repositorio.</p>
-              <Link href="/admin/repositorio/access-logs" className="inline-block bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-sm">
-                Ver logs →
-              </Link>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-slate-700 to-gray-900 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">✅</div>
+                  <h2 className="text-xs font-bold text-white text-center">Solicitudes</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Repo acceso.</p>
+                  <Link href="/admin/repositorio/access-requests" className="inline-block w-full text-center bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-3 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-xs">Gestionar →</Link>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-slate-700 to-gray-900 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">✅</div>
-            <h2 className="text-xs font-bold text-white text-center">Solicitudes de acceso (Repositorio)</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Aprueba o rechaza solicitudes de acceso al repositorio.</p>
-              <Link href="/admin/repositorio/access-requests" className="inline-block bg-gradient-to-r from-slate-700 to-gray-900 text-white font-semibold px-5 py-2 rounded-lg hover:from-slate-800 hover:to-black transition text-sm">
-                Gestionar solicitudes →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🗓️</div>
-            <h2 className="text-xs font-bold text-white text-center">Planificador tests</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Planificación y utilidades de testing.</p>
-              <Link href="/admin/test-planner" className="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition text-sm">
-                Abrir planner →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-stone-600 to-zinc-700 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🧾</div>
-            <h2 className="text-xs font-bold text-white text-center">Actualizar PDF</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Actualización y mantenimiento de contenido PDF.</p>
-              <Link href="/admin/update-pdf-content" className="inline-block bg-gradient-to-r from-stone-600 to-zinc-700 text-white font-semibold px-5 py-2 rounded-lg hover:from-stone-700 hover:to-zinc-800 transition text-sm">
-                Abrir herramienta →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-indigo-500 to-violet-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">➕</div>
-            <h2 className="text-xs font-bold text-white text-center">Crear preguntas</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Alta manual de preguntas y utilidades de creación.</p>
-              <Link href="/admin/questions-create" className="inline-block bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-indigo-600 hover:to-violet-700 transition text-sm">
-                Crear preguntas →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-amber-500 to-yellow-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">📇</div>
-            <h2 className="text-xs font-bold text-white text-center">Leads contacto</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Gestión de leads recibidos desde formularios de contacto.</p>
-              <Link href="/admin/contact-leads" className="inline-block bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition text-sm">
-                Ver leads →
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition ">
-            <div className="bg-gradient-to-r from-red-500 to-orange-600 p-3 flex flex-col items-center justify-center">
-              <div className="text-white text-3xl mb-1">🔐</div>
-            <h2 className="text-xs font-bold text-white text-center">Recover password</h2>
-            </div>
-            <div className="p-3">
-              <p className="text-gray-600 mb-4 text-sm">Recuperación y gestión de contraseñas.</p>
-              <Link href="/admin/recover-password" className="inline-block bg-gradient-to-r from-red-500 to-orange-600 text-white font-semibold px-5 py-2 rounded-lg hover:from-red-600 hover:to-orange-700 transition text-sm">
-                Abrir herramienta →
-              </Link>
-            </div>
-          </div>
-        </div>
 
         {message.text && (
-          <div className={`mb-3 px-6 py-4 rounded-lg ${
+          <div className={`mb-6 px-6 py-4 rounded-lg ${
             message.type === 'success' 
               ? 'bg-green-50 border border-green-200 text-green-700' 
               : 'bg-red-50 border border-red-200 text-red-700'
@@ -720,10 +669,10 @@ export default function Admin() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-3">Crear Nuevo Cuestionario (Método Manual)</h2>
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Crear Nuevo Cuestionario (Método Manual)</h2>
           
-          <div className="mb-3">
+          <div className="mb-6">
             <label className="block text-gray-700 font-semibold mb-2">Título del Cuestionario</label>
             <input
               type="text"
@@ -735,7 +684,7 @@ export default function Admin() {
             />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-6">
             <label className="block text-gray-700 font-semibold mb-2">Tipo de Cuestionario</label>
             <select 
               value={type} 
@@ -747,7 +696,7 @@ export default function Admin() {
             </select>
           </div>
 
-          <div className="mb-3">
+          <div className="mb-6">
             <label className="block text-gray-700 font-semibold mb-2">Preguntas (Formato JSON)</label>
             <textarea
               value={questionsJson}
@@ -778,7 +727,7 @@ export default function Admin() {
           </button>
         </form>
 
-        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-3">
+        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
           <h3 className="font-bold text-blue-800 mb-2">💡 Consejos:</h3>
           <ul className="text-sm text-blue-700 space-y-1">
             <li>• Asegúrate de que el JSON esté bien formateado antes de enviar</li>
@@ -787,6 +736,7 @@ export default function Admin() {
             <li>• Incluye explicaciones claras para ayudar al aprendizaje</li>
             <li>• Para crear formularios desde PDF, usa la nueva opción "Crear Formulario desde PDF"</li>
           </ul>
+        </div>
         </div>
       </div>
     </div>
