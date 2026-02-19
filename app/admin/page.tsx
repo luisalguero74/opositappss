@@ -167,6 +167,18 @@ export default function Admin() {
                 </div>
               </div>
 
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition border-2 border-orange-400">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-600 p-3 flex flex-col items-center justify-center relative">
+                  <div className="absolute top-1 right-1 bg-red-500 text-white px-2 py-0.5 rounded-full text-[10px] font-bold">1,035</div>
+                  <div className="text-white text-3xl mb-1">🏷️</div>
+                  <h2 className="text-xs font-bold text-white text-center">Clasificar Preguntas</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Sin tema asignado.</p>
+                  <Link href="/admin/questions-sin-tema" className="inline-block w-full text-center bg-gradient-to-r from-orange-500 to-amber-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-orange-600 hover:to-amber-700 transition text-xs">Revisar →</Link>
+                </div>
+              </div>
+
               <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
                 <div className="bg-gradient-to-r from-indigo-500 to-violet-600 p-3 flex flex-col items-center justify-center">
                   <div className="text-white text-3xl mb-1">➕</div>
