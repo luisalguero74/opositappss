@@ -14,25 +14,17 @@ export async function POST(
     }
 
     const { id } = await context.params
-    const { published, category } = await req.json()
-
-    console.log(`[Publish] ID: ${id}, Published: ${published}, Category: ${category}`)
-
-    const updateData: any = { published }
-    if (category) {
-      updateData.category = category
-    }
 
     const questionnaire = await prisma.questionnaire.update({
       where: { id },
-      data: updateData
+      data: { published: false }
     })
 
-    console.log(`[Publish] ✓ Cuestionario "${questionnaire.title}" ${published ? 'publicado' : 'despublicado'}`)
+    console.log(`[Unpublish] ✓ Cuestionario "${questionnaire.title}" despublicado`)
 
     return NextResponse.json({ success: true, questionnaire })
   } catch (error) {
-    console.error('[Publish] Error updating questionnaire:', error)
-    return NextResponse.json({ error: 'Error al actualizar' }, { status: 500 })
+    console.error('[Unpublish] Error:', error)
+    return NextResponse.json({ error: 'Error al despublicar' }, { status: 500 })
   }
 }

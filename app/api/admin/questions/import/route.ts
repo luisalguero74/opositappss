@@ -77,30 +77,10 @@ export async function POST(req: NextRequest) {
     }
 
     let totalImported = 0
-    const questionnairesCreated: string[] = []
 
     for (const item of data) {
-      const questionnaireId = String(item.questionnaireId)
-
-      // Crear cuestionario si no existe
-      let questionnaire = await prisma.questionnaire.findUnique({
-        where: { id: questionnaireId }
-      })
-
-      if (!questionnaire) {
-        questionnaire = await prisma.questionnaire.create({
-          data: {
-            id: questionnaireId,
-            title: `Importado - ${item.questionCount ?? (item.questions?.length ?? 0)} preguntas`,
-            type: 'theory',
-            published: false
-          }
-        })
-        questionnairesCreated.push(questionnaire.id)
-      }
-
-      // Importar preguntas
-      let importedForThisQuestionnaire = 0
+      // Importar preguntas directamente al BANCO (sin cuestionario)
+      let importedForThisBatch = 0
       for (const q of item.questions || []) {
         const rawText = sanitizeString(q.text ?? q.question)
 
@@ -154,7 +134,7 @@ export async function POST(req: NextRequest) {
 
         const temaCodigoNorm = toNullableString(temaCodigo)
         
-        // NUEVO: Inferir temaId desde temaCodigo (ej: "G1" -> "g1", "E05" -> "e5")
+        // Inferir temaId desde temaCodigo (ej: "G1" -> "g1", "E05" -> "e5")
         let temaId: string | null = null
         if (temaCodigoNorm) {
           const match = temaCodigoNorm.match(/^([GEge])0*(\d+)$/i)
@@ -168,7 +148,7 @@ export async function POST(req: NextRequest) {
         // Verificar si ya existe (evitar duplicados)
         const existing = await prisma.question.findFirst({
           where: {
-            questionnaireId,
+            questionnaireId: null, // Buscar en el banco
             text: rawText
           }
         })
@@ -176,15 +156,15 @@ export async function POST(req: NextRequest) {
         if (!existing) {
           await prisma.question.create({
             data: {
-              questionnaireId,
+              questionnaireId: null, // BANCO DE PREGUNTAS
               text: rawText,
               options: optionsString,
               correctAnswer,
               explanation: sanitizeString(q.explanation),
               origin: 'JSON',
-              reviewStatus: 'PENDING',
+              reviewStatus: 'PENDING', // Pendiente de validación
               temaCodigo: temaCodigoNorm,
-              temaId, // NUEVO: Vincular al tema
+              temaId, // Vincular al tema
               temaNumero,
               temaParte,
               temaTitulo,
@@ -193,24 +173,15 @@ export async function POST(req: NextRequest) {
             }
           })
           totalImported++
-          importedForThisQuestionnaire++
+          importedForThisBatch++
         }
-      }
-
-      // Si hemos importado al menos una pregunta nueva para este cuestionario,
-      // actualizamos su updatedAt para que suba en los listados ordenados por última actualización.
-      if (importedForThisQuestionnaire > 0) {
-        await prisma.questionnaire.update({
-          where: { id: questionnaireId },
-          data: { updatedAt: new Date() }
-        })
       }
     }
 
     return NextResponse.json({
       success: true,
       imported: totalImported,
-      questionnairesCreated: questionnairesCreated.length
+      message: `Se importaron ${totalImported} preguntas al banco (pendientes de validación)`
     })
 
   } catch (error) {

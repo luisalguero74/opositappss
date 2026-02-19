@@ -126,8 +126,15 @@ export default function CreateQuestionnairePage() {
 
       if (res.ok) {
         const data = await res.json()
-        alert(`✅ Cuestionario creado exitosamente con ${data.totalQuestions} preguntas`)
-        router.push(`/admin/questions-review`)
+        const totalQuestions = data.totalQuestions || 0
+        if (totalQuestions === 0) {
+          alert('⚠️ No se encontraron preguntas validadas para los temas seleccionados. Por favor, valida preguntas primero.')
+          setCreating(false)
+          return
+        }
+        alert(`✅ Cuestionario creado exitosamente con ${totalQuestions} preguntas`)
+        // Redirigir a vista previa del cuestionario
+        router.push(`/admin/questionnaires/${data.questionnaireId}/preview`)
       } else {
         const error = await res.json()
         alert(error.error || 'Error al crear cuestionario')
