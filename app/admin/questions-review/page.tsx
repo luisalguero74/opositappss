@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 interface Question {
@@ -25,9 +25,11 @@ interface Question {
   }
 }
 
-export default function QuestionsReview() {
+// Componente interno que maneja los searchParams
+function QuestionsReviewContent() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [questions, setQuestions] = useState<Question[]>([])
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState<string | null>(null)
@@ -113,6 +115,17 @@ export default function QuestionsReview() {
     setSelectedTopics([])
   }, [filter])
 
+  const handleEdit = (question: Question) => {
+    setEditingId(question.id)
+    setEditData({
+      text: question.text,
+      options: safeParseOptions(question.options),
+      correctAnswer: question.correctAnswer,
+      explanation: question.explanation || '',
+      difficulty: question.difficulty || 'MEDIUM'
+    })
+  }
+
   const loadQuestions = async () => {
     try {
       setLoadError(null)
@@ -123,7 +136,24 @@ export default function QuestionsReview() {
         setLoadError(data?.error || 'Error al cargar preguntas')
         return
       }
-      setQuestions(data?.questions || [])
+      const loadedQuestions = data?.questions || []
+      setQuestions(loadedQuestions)
+      
+      // Si hay un questionId en la URL, abrir automáticamente en modo edición
+      const questionIdFromUrl = searchParams?.get('questionId')
+      if (questionIdFromUrl && loadedQuestions.length > 0) {
+        const questionToEdit = loadedQuestions.find((q: Question) => q.id === questionIdFromUrl)
+        if (questionToEdit) {
+          handleEdit(questionToEdit)
+          // Scroll a la pregunta después de un momento
+          setTimeout(() => {
+            const element = document.getElementById(`question-${questionIdFromUrl}`)
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }
+          }, 100)
+        }
+      }
     } catch (error) {
       console.error('Error cargando preguntas:', error)
       setQuestions([])
@@ -175,17 +205,6 @@ export default function QuestionsReview() {
     } finally {
       setPublishingSelection(false)
     }
-  }
-
-  const handleEdit = (question: Question) => {
-    setEditingId(question.id)
-    setEditData({
-      text: question.text,
-      options: safeParseOptions(question.options),
-      correctAnswer: question.correctAnswer,
-      explanation: question.explanation,
-      difficulty: question.difficulty
-    })
   }
 
   const handleSave = async (id: string) => {
@@ -576,7 +595,13 @@ export default function QuestionsReview() {
 
             <div className="space-y-4">
               {questions.map((q, index) => (
-                <div key={q.id} className="border-2 border-gray-200 rounded-lg p-4">
+                <div 
+                  key={q.id} 
+                  id={`question-${q.id}`}
+                  className={`border-2 rounded-lg p-4 ${
+                    editingId === q.id ? 'border-blue-400 bg-blue-50' : 'border-gray-200'
+                  }`}
+                >
                   <div className="flex items-center justify-between mb-3">
                     <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 select-none">
                       <input
@@ -794,5 +819,21 @@ export default function QuestionsReview() {
         )}
       </div>
     </div>
+  )
+}
+
+// Componente principal con Suspense
+export default function QuestionsReview() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Cargando...</p>
+        </div>
+      </div>
+    }>
+      <QuestionsReviewContent />
+    </Suspense>
   )
 }
