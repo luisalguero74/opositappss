@@ -54,7 +54,14 @@ export async function POST(req: NextRequest) {
       where: {
         ...getQuestionReviewWhere(),
         temaCodigo: { in: generalTopics.map((t: string) => t.toUpperCase()) },
-        ...(difficulty && difficulty !== 'todas' ? { difficulty } : {})
+        reviewStatus: 'VALIDATED', // Solo preguntas validadas
+        ...(difficulty && difficulty !== 'todas' ? { difficulty } : {}),
+        ...(isAdmin ? {} : {
+          OR: [
+            { questionnaire: { published: true } }, // Preguntas de cuestionarios publicados
+            { questionnaireId: null } // Preguntas del banco
+          ]
+        })
       },
       include: {
         questionnaire: {
@@ -70,7 +77,14 @@ export async function POST(req: NextRequest) {
       where: {
         ...getQuestionReviewWhere(),
         temaCodigo: { in: specificTopics.map((t: string) => t.toUpperCase()) },
-        ...(difficulty && difficulty !== 'todas' ? { difficulty } : {})
+        reviewStatus: 'VALIDATED', // Solo preguntas validadas
+        ...(difficulty && difficulty !== 'todas' ? { difficulty } : {}),
+        ...(isAdmin ? {} : {
+          OR: [
+            { questionnaire: { published: true } }, // Preguntas de cuestionarios publicados
+            { questionnaireId: null } // Preguntas del banco
+          ]
+        })
       },
       include: {
         questionnaire: {
@@ -81,13 +95,9 @@ export async function POST(req: NextRequest) {
       }
     }) : []
 
-    // Filtrar solo preguntas de cuestionarios publicados
-    const availableGeneralQuestions = isAdmin
-      ? generalQuestions
-      : generalQuestions.filter((q: any) => q.questionnaire?.published)
-    const availableSpecificQuestions = isAdmin
-      ? specificQuestions
-      : specificQuestions.filter((q: any) => q.questionnaire?.published)
+    // Ya no necesitamos filtrar aquí porque el filtro está en la query
+    const availableGeneralQuestions = generalQuestions
+    const availableSpecificQuestions = specificQuestions
 
     // Verificar que hay suficientes preguntas
     if (hasGeneral && availableGeneralQuestions.length < generalQuestionsCount) {

@@ -21,7 +21,13 @@ export async function GET(req: NextRequest) {
       const count = await prisma.question.count({
         where: {
           temaCodigo: tema.id.toUpperCase(),
-          ...(isAdmin ? {} : { questionnaire: { published: true } })
+          reviewStatus: 'VALIDATED', // Solo preguntas validadas
+          ...(isAdmin ? {} : {
+            OR: [
+              { questionnaire: { published: true } }, // Preguntas de cuestionarios publicados
+              { questionnaireId: null } // Preguntas del banco (sin cuestionario)
+            ]
+          })
         }
       })
 
