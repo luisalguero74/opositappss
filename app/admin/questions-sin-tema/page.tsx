@@ -70,15 +70,26 @@ export default function QuestionsSinTemaPage() {
       // Cargar preguntas sin tema
       const questionsRes = await fetch('/api/admin/questions-sin-tema')
       const questionsData = await questionsRes.json()
-      setQuestions(questionsData.questions)
-      setTotal(questionsData.total)
+      
+      // Validar que la respuesta tenga la estructura correcta
+      if (questionsData.questions && Array.isArray(questionsData.questions)) {
+        setQuestions(questionsData.questions)
+        setTotal(questionsData.total || 0)
+      } else {
+        console.error('Respuesta inesperada del API:', questionsData)
+        setQuestions([])
+        setTotal(0)
+      }
 
       // Cargar temas disponibles
       const temasRes = await fetch('/api/admin/temas-oficiales')
       const temasData = await temasRes.json()
-      setTemas(temasData)
+      setTemas(Array.isArray(temasData) ? temasData : [])
     } catch (error) {
       console.error('Error cargando datos:', error)
+      setQuestions([])
+      setTotal(0)
+      setTemas([])
     } finally {
       setLoading(false)
     }
