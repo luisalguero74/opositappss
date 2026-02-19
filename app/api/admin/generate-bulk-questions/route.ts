@@ -333,6 +333,11 @@ export async function POST(req: NextRequest) {
         const idx = typeof p.respuestaCorrecta === 'number' ? p.respuestaCorrecta : 0
         const correctAnswer = ['A', 'B', 'C', 'D'][Math.min(Math.max(idx, 0), 3)]
 
+        // Buscar temaId para LGSS (si existe en TemaOficial)
+        const temaLGSS = await prisma.temaOficial.findFirst({
+          where: { id: 'LGSS' }
+        })
+        
         await prisma.question.create({
           data: {
             questionnaireId: qid,
@@ -340,6 +345,7 @@ export async function POST(req: NextRequest) {
             options: JSON.stringify(p.opciones),
             correctAnswer,
             explanation: p.explicacion,
+            temaId: temaLGSS?.id || null,
             temaCodigo: 'LGSS',
             temaNumero: 0,
             temaParte: 'LGSS',
@@ -476,6 +482,16 @@ export async function POST(req: NextRequest) {
       const idx = typeof p.respuestaCorrecta === 'number' ? p.respuestaCorrecta : 0
       const correctAnswer = ['A', 'B', 'C', 'D'][Math.min(Math.max(idx, 0), 3)]
 
+      // Buscar temaId en TemaOficial
+      const temaOficial = await prisma.temaOficial.findFirst({
+        where: {
+          OR: [
+            { id: tema.id },
+            { AND: [{ categoria: categoria === 'general' ? 'GENERAL' : 'ESPECIFICO' }, { numero: tema.numero }] }
+          ]
+        }
+      })
+      
       await prisma.question.create({
         data: {
           questionnaireId: qid,
@@ -483,6 +499,7 @@ export async function POST(req: NextRequest) {
           options: JSON.stringify(p.opciones),
           correctAnswer,
           explanation: p.explicacion,
+          temaId: temaOficial?.id || null,
           temaCodigo: tema.id,
           temaNumero: tema.numero,
           temaParte,
@@ -610,16 +627,20 @@ EJEMPLOS DE PREGUNTAS DE EXÁMENES REALES (estilo a seguir):
 "De conformidad con el artículo 15 de la Orden de 6 de abril de 1990, ¿qué sucede con la afiliación de un trabajador que cambia de actividad dentro de la misma empresa?"
 "A tenor de lo establecido en el artículo 199 del RDL 8/2015, ¿cuál es el período mínimo de cotización necesario para causar derecho a jubilación ordinaria?"
 
-FORMATO JSON OBLIGATORIO (es crítico):
+FORMATO JSON OBLIGATORIO (es CRÍTICO - DEBE SER JSON VÁLIDO):
+⚠️ IMPORTANTE: El campo "opciones" DEBE ser un ARRAY de strings, NO un string.
+⚠️ NUNCA escribas: "opciones": "A) ..., B) ..., C) ..., D) ..."
+✓ SIEMPRE escribe: "opciones": ["A) ...", "B) ...", "C) ...", "D) ..."]
+
 {
   "preguntas": [
     {
       "pregunta": "Texto de la pregunta en formato oficial de examen",
       "opciones": [
-        "Opción A con datos/normas específicas",
-        "Opción B con error plausible",
-        "Opción C con confusión común",
-        "Opción D con dato similar pero incorrecto"
+        "A) Opción A con datos/normas específicas",
+        "B) Opción B con error plausible",
+        "C) Opción C con confusión común",
+        "D) Opción D con dato similar pero incorrecto"
       ],
       "respuestaCorrecta": 0,
       "explicacion": "Artículo X, apartado Y del RDL 8/2015: [cita textual]. Por lo tanto, la respuesta correcta es A porque... Las opciones B, C y D son incorrectas porque... [referencias complementarias si aplica]",
@@ -760,16 +781,20 @@ NORMAS DE REDACCIÓN:
 4. Las opciones deben ser mutuamente excluyentes y plausibles
 5. Una sola respuesta correcta, inequívocamente clara con la normativa
 
-FORMATO JSON OBLIGATORIO (es crítico que sea válido):
+FORMATO JSON OBLIGATORIO (es CRÍTICO - DEBE SER JSON VÁLIDO):
+⚠️ IMPORTANTE: El campo "opciones" DEBE ser un ARRAY de strings, NO un string.
+⚠️ NUNCA escribas: "opciones": "A) ..., B) ..., C) ..., D) ..."
+✓ SIEMPRE escribe: "opciones": ["A) ...", "B) ...", "C) ...", "D) ..."]
+
 {
   "preguntas": [
     {
       "pregunta": "Texto de la pregunta con referencia a normativa cuando aplique",
       "opciones": [
-        "Opción A - respuesta correcta con datos específicos",
-        "Opción B - error común o confusión habitual",
-        "Opción C - interpretación errónea de la norma",
-        "Opción D - dato similar pero incorrecto"
+        "A) Opción A - respuesta correcta con datos específicos",
+        "B) Opción B - error común o confusión habitual",
+        "C) Opción C - interpretación errónea de la norma",
+        "D) Opción D - dato similar pero incorrecto"
       ],
       "respuestaCorrecta": 0,
       "explicacion": "[Artículo/Ley]: Cita o paráfrasis de la norma. La opción A es correcta porque... Las opciones B/C/D son incorrectas porque... [referencias complementarias]",
@@ -780,7 +805,8 @@ FORMATO JSON OBLIGATORIO (es crítico que sea válido):
 
 INSTRUCCIONES FINALES:
 - Responde SOLO con el JSON válido (objeto con clave \"preguntas\")
-- Verifica que sea JSON parseble
+- Verifica que sea JSON parseable
+- El campo "opciones" DEBE SER UN ARRAY, nunca un string
 - dificultad: "facil" (preguntas directas), "media" (requieren análisis), "dificil" (análisis profundo o combinación de conceptos)
 - respuestaCorrecta: 0=A, 1=B, 2=C, 3=D
 - NO incluyas explicaciones antes ni después del JSON

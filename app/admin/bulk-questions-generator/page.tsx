@@ -8,7 +8,9 @@ import Link from 'next/link'
 export default function BulkQuestionsGenerator() {
   const { data: session, status } = useSession()
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const [loadingGeneral, setLoadingGeneral] = useState(false)
+  const [loadingEspecifico, setLoadingEspecifico] = useState(false)
+  const [loadingLgss, setLoadingLgss] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
 
@@ -29,6 +31,7 @@ export default function BulkQuestionsGenerator() {
       return
     }
 
+    const setLoading = categoria === 'general' ? setLoadingGeneral : categoria === 'especifico' ? setLoadingEspecifico : setLoadingLgss
     setLoading(true)
     setError('')
     setResult(null)
@@ -226,10 +229,10 @@ export default function BulkQuestionsGenerator() {
               </ul>
               <button
                 onClick={() => handleGenerate('general')}
-                disabled={loading}
+                disabled={loadingGeneral || loadingEspecifico || loadingLgss}
                 className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg hover:from-blue-600 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
-                {loading ? '⏳ Generando...' : '🚀 Generar Temario General'}
+                {loadingGeneral ? '⏳ Generando...' : '🚀 Generar Temario General'}
               </button>
             </div>
           </div>
@@ -251,10 +254,10 @@ export default function BulkQuestionsGenerator() {
               </ul>
               <button
                 onClick={() => handleGenerate('especifico')}
-                disabled={loading}
+                disabled={loadingGeneral || loadingEspecifico || loadingLgss}
                 className="w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg hover:from-green-600 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
-                {loading ? '⏳ Generando...' : '🚀 Generar Temario Específico'}
+                {loadingEspecifico ? '⏳ Generando...' : '🚀 Generar Temario Específico'}
               </button>
             </div>
           </div>
@@ -276,10 +279,10 @@ export default function BulkQuestionsGenerator() {
               </ul>
               <button
                 onClick={() => handleGenerate('lgss')}
-                disabled={loading}
+                disabled={loadingGeneral || loadingEspecifico || loadingLgss}
                 className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold rounded-lg hover:from-purple-600 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
-                {loading ? '⏳ Generando...' : '🚀 Generar LGSS'}
+                {loadingLgss ? '⏳ Generando...' : '🚀 Generar LGSS'}
               </button>
             </div>
           </div>
