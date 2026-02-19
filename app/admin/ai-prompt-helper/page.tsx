@@ -72,20 +72,34 @@ INSTRUCCIONES GENERALES:
 5. Usa formulaciones claras, sin dobles negaciones salvo que el artículo esté redactado así.
 6. DISTRIBUYE las respuestas correctas entre A, B, C y D: en el conjunto de preguntas ninguna letra debe aparecer siempre como correcta y no puede haber más de 2 preguntas seguidas con la misma letra.
 
-FORMATO DE SALIDA:
+FORMATO DE SALIDA (COMPATIBLE CON IMPORTADOR JSON):
 - Devuelve SOLO JSON válido, sin texto adicional.
 - Estructura exacta:
 {
-  "questions": [
+  "data": [
     {
-      "question": "Texto de la pregunta (en español)",
-      "options": ["Opción A", "Opción B", "Opción C", "Opción D"],
-      "correctAnswer": "A", // "A", "B", "C" o "D" (usa letras distintas y respeta la regla de no repetir más de 2 veces seguidas la misma)
-      "explanation": "Explicación detallada",${incluirExplicaciones ? "" : " // Puedes dejar esto como cadena vacía \"\""}
-      "difficulty": "hard" // "easy", "medium" o "hard"
+      "questions": [
+        {
+          "text": "Texto de la pregunta (en español)",
+          "options": ["A) Opción A", "B) Opción B", "C) Opción C", "D) Opción D"],
+          "correctAnswer": "A",
+          "explanation": "Explicación detallada",${incluirExplicaciones ? "" : " // Puedes dejar esto como cadena vacía \"\""}
+          "difficulty": "dificil",
+          "temaCodigo": "${temaSeleccionado ? temaSeleccionado.id.toUpperCase() : 'SIN_TEMA'}",
+          "temaNumero": ${temaSeleccionado ? temaSeleccionado.numero : 'null'},
+          "temaParte": "${categoria === 'general' ? 'GENERAL' : 'ESPECÍFICO'}",
+          "temaTitulo": "${temaSeleccionado ? temaSeleccionado.titulo : ''}"
+        }
+      ]
     }
   ]
 }
+
+IMPORTANTE FORMATO:
+- Las opciones deben incluir el prefijo A), B), C), D)
+- difficulty debe ser: "facil", "media" o "dificil" (en español)
+- temaCodigo: código del tema (G1, E5, etc.)
+- Este JSON es directamente importable en /admin/import-questions
 
 REQUISITOS SOBRE EXPLICACIONES:
 - Cita SIEMPRE el artículo exacto y, si es posible, el apartado (ej.: "art. 3.2 del Reglamento general de recaudación").

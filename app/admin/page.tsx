@@ -190,14 +190,15 @@ export default function Admin() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition border-2 border-purple-400">
-                <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 flex flex-col items-center justify-center">
-                  <div className="text-white text-3xl mb-1">🔍</div>
-                  <h2 className="text-xs font-bold text-white text-center">Detectar Duplicados</h2>
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition border-2 border-purple-500">
+                <div className="bg-gradient-to-r from-purple-600 to-indigo-700 p-3 flex flex-col items-center justify-center relative">
+                  <div className="absolute top-1 right-1 bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded-full text-[10px] font-bold">✨ JSON</div>
+                  <div className="text-white text-3xl mb-1">🧠</div>
+                  <h2 className="text-xs font-bold text-white text-center">Asistente de Prompts IA</h2>
                 </div>
                 <div className="p-3">
-                  <p className="text-gray-600 text-xs text-center mb-3">Análisis con IA.</p>
-                  <Link href="/admin/duplicates" className="inline-block w-full text-center bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-purple-600 hover:to-pink-700 transition text-xs">Escanear →</Link>
+                  <p className="text-gray-600 text-xs text-center mb-3">Genera preguntas JSON.</p>
+                  <Link href="/admin/ai-prompt-helper" className="inline-block w-full text-center bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold px-3 py-2 rounded-lg hover:from-purple-700 hover:to-indigo-800 transition text-xs">Abrir →</Link>
                 </div>
               </div>
 
@@ -223,14 +224,15 @@ export default function Admin() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                <div className="bg-gradient-to-r from-violet-500 to-purple-600 p-3 flex flex-col items-center justify-center">
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition border-2 border-violet-500">
+                <div className="bg-gradient-to-r from-violet-500 to-purple-600 p-3 flex flex-col items-center justify-center relative">
+                  <div className="absolute top-1 right-1 bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded-full text-[10px] font-bold">⭐ GENERADOR</div>
                   <div className="text-white text-3xl mb-1">🧠</div>
-                  <h2 className="text-xs font-bold text-white text-center">Prompt Helper</h2>
+                  <h2 className="text-xs font-bold text-white text-center">Generador de Prompts IA</h2>
                 </div>
                 <div className="p-3">
-                  <p className="text-gray-600 text-xs text-center mb-3">Prompts IA.</p>
-                  <Link href="/admin/ai-prompt-helper" className="inline-block w-full text-center bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-violet-600 hover:to-purple-700 transition text-xs">Abrir →</Link>
+                  <p className="text-gray-600 text-xs text-center mb-3">Crea prompts para generar preguntas JSON.</p>
+                  <Link href="/admin/ai-prompt-helper" className="inline-block w-full text-center bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-violet-600 hover:to-purple-700 transition text-xs">Generar Prompt →</Link>
                 </div>
               </div>
 
