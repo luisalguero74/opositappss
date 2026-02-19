@@ -622,8 +622,13 @@ function QuestionsReviewContent() {
                       Seleccionar
                     </label>
                     <div className="flex flex-col items-end gap-1">
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-gray-500" title={q.temaTitulo || undefined}>
                         {q.temaParte ? `${q.temaParte}` : ''}{q.temaNumero ? ` · Tema ${q.temaNumero}` : ''}
+                        {q.temaTitulo && (
+                          <span className="ml-1 text-gray-400">
+                            - {q.temaTitulo.length > 40 ? q.temaTitulo.substring(0, 40) + '...' : q.temaTitulo}
+                          </span>
+                        )}
                       </div>
                       <div className="text-xs text-gray-400">
                         📅 {new Date(q.createdAt).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
