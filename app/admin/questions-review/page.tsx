@@ -17,13 +17,13 @@ interface Question {
   temaTitulo: string | null
   difficulty: string | null
   reviewStatus: string
-  questionnaireId: string
+  questionnaireId: string | null
   createdAt: string
   questionnaire: {
     id: string
     title: string
     published: boolean
-  }
+  } | null
 }
 
 // Componente interno que maneja los searchParams
@@ -407,13 +407,14 @@ function QuestionsReviewContent() {
   })
 
   const questionsByQuestionnaire = filteredQuestions.reduce((acc, q) => {
-    if (!acc[q.questionnaireId]) {
-      acc[q.questionnaireId] = {
+    const key = q.questionnaireId || 'banco-preguntas'
+    if (!acc[key]) {
+      acc[key] = {
         questionnaire: q.questionnaire,
         questions: []
       }
     }
-    acc[q.questionnaireId].questions.push(q)
+    acc[key].questions.push(q)
     return acc
   }, {} as Record<string, { questionnaire: any, questions: Question[] }>)
 
@@ -574,11 +575,13 @@ function QuestionsReviewContent() {
           <div key={qId} className="bg-white rounded-lg shadow-lg p-6 mb-8">
             <div className="flex items-center justify-between mb-6 pb-4 border-b">
               <div>
-                <h2 className="text-2xl font-bold text-gray-800">{questionnaire.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  {questionnaire ? questionnaire.title : '📚 Banco de Preguntas (Sin Cuestionario)'}
+                </h2>
                 <p className="text-gray-600">{questions.length} preguntas</p>
               </div>
               <div className="flex gap-3">
-                {!questionnaire.published && (
+                {questionnaire && !questionnaire.published && (
                   <button
                     onClick={() => handlePublish(qId)}
                     className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition font-semibold"
@@ -586,9 +589,14 @@ function QuestionsReviewContent() {
                     ✅ Publicar Cuestionario
                   </button>
                 )}
-                {questionnaire.published && (
+                {questionnaire && questionnaire.published && (
                   <span className="bg-green-100 text-green-800 px-4 py-2 rounded-lg font-semibold">
                     ✅ Publicado
+                  </span>
+                )}
+                {!questionnaire && (
+                  <span className="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-semibold">
+                    🏦 Banco Libre
                   </span>
                 )}
               </div>
