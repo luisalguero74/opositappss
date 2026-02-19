@@ -153,6 +153,17 @@ export async function POST(req: NextRequest) {
         const difficulty = toNullableString(q.difficulty ?? item.difficulty)
 
         const temaCodigoNorm = toNullableString(temaCodigo)
+        
+        // NUEVO: Inferir temaId desde temaCodigo (ej: "G1" -> "g1", "E05" -> "e5")
+        let temaId: string | null = null
+        if (temaCodigoNorm) {
+          const match = temaCodigoNorm.match(/^([GEge])0*(\d+)$/i)
+          if (match) {
+            const categoria = match[1].toLowerCase()
+            const numero = match[2]
+            temaId = `${categoria}${numero}`
+          }
+        }
 
         // Verificar si ya existe (evitar duplicados)
         const existing = await prisma.question.findFirst({
@@ -173,6 +184,7 @@ export async function POST(req: NextRequest) {
               origin: 'JSON',
               reviewStatus: 'PENDING',
               temaCodigo: temaCodigoNorm,
+              temaId, // NUEVO: Vincular al tema
               temaNumero,
               temaParte,
               temaTitulo,

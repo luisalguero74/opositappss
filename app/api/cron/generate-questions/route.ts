@@ -459,7 +459,8 @@ export async function GET(req: NextRequest) {
               correctAnswer: ['A', 'B', 'C', 'D'][p.respuestaCorrecta] || 'A',
               explanation: p.explicacion,
               difficulty: p.dificultad,
-              temaCodigo: tema.id.toUpperCase(),
+              temaCodigo: `${tema.categoria === 'general' ? 'G' : 'E'}${tema.numero}`,
+              temaId: tema.id, // NUEVO: Vincular directamente al tema
               temaNumero: tema.numero,
               temaParte: tema.categoria === 'general' ? 'GENERAL' : 'ESPECÍFICO',
               temaTitulo: tema.titulo
