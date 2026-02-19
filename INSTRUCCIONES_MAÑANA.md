@@ -1,22 +1,22 @@
-# 🌅 Instrucciones para Mañana
+# 🌅 EJECUTAR MAÑANA A LAS 7-8 AM (2 minutos total)
+
+## ⏰ IMPORTANTE: Ejecutar temprano (7-8 AM)
+A esa hora NO habrá usuarios conectados y funcionará instantáneamente.
 
 ## ✅ Estado Actual
 - ✅ Código completamente implementado y pusheado a GitHub
 - ✅ DATABASE_URL configurado con pooler de Supabase (puerto 6543)
 - ✅ Schema.prisma actualizado
-- ⏳ **PENDIENTE:** Aplicar cambios a la base de datos
+- ⏳ **PENDIENTE:** Solo ejecutar SQL (2 minutos)
 
-## 🚀 Pasos a Seguir (5 minutos)
+## 🚀 Pasos (SUPER SIMPLE)
 
-### Paso 1: Ejecutar SQL en Supabase (2 min)
-1. Abre **Supabase Dashboard** → Tu proyecto
-2. Ve a **SQL Editor** (menú lateral)
-3. Haz clic en **"New query"**
-4. Abre el archivo `EJECUTAR_EN_SUPABASE.sql` (está en la raíz del proyecto)
-5. Copia TODO el contenido
-6. Pégalo en el editor SQL de Supabase
-7. Haz clic en **"Run"** (botón abajo a la derecha)
-8. Deberías ver: ✅ Success. No rows returned
+### Paso 1: Ejecutar SQL en Supabase (1 min)
+1. **7-8 AM** - Abre **Supabase Dashboard** → SQL Editor
+2. **New query**
+3. Copia TODO el contenido de `EJECUTAR_EN_SUPABASE.sql`
+4. Pégalo y **Run**
+5. ✅ Listo en 5 segundos (a esa hora no hay conexiones activas)
 
 ### Paso 2: Migrar Datos Existentes (2 min)
 En la terminal de VSCode:
