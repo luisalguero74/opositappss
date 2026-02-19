@@ -306,8 +306,8 @@ export async function GET(request: NextRequest) {
         errorsByQuestion.set(answer.questionId, {
           questionId: answer.questionId,
           questionText: answer.question.text,
-          questionnaireTitle: answer.question.questionnaire.title,
-          questionnaireType: answer.question.questionnaire.type,
+          questionnaireTitle: answer.question.questionnaire?.title || 'Sin título',
+          questionnaireType: answer.question.questionnaire?.type || 'theory',
           attempts: 0,
           errors: 0,
           correctAnswer: answer.question.correctAnswer,
@@ -364,7 +364,7 @@ export async function GET(request: NextRequest) {
     const errorsByTheme = new Map<string, { errorCount: number; totalQuestions: number }>()
     
     userAnswers.forEach((answer: any) => {
-      const themeName = answer.question.questionnaire.title
+      const themeName = answer.question.questionnaire?.title || 'Sin título'
       if (!errorsByTheme.has(themeName)) {
         errorsByTheme.set(themeName, { errorCount: 0, totalQuestions: 0 })
       }
@@ -403,7 +403,7 @@ export async function GET(request: NextRequest) {
     }
 
     userAnswers.forEach((answer: any) => {
-      const type = answer.question.questionnaire.type as 'theory' | 'practical'
+      const type = (answer.question.questionnaire?.type || 'theory') as 'theory' | 'practical'
       statsByType[type].total++
       if (answer.isCorrect) {
         statsByType[type].correct++
@@ -440,8 +440,8 @@ export async function GET(request: NextRequest) {
         .map((a: any) => ({
           questionId: a.questionId,
           questionText: a.question.text,
-          questionnaireTitle: a.question.questionnaire.title,
-          questionnaireType: a.question.questionnaire.type,
+          questionnaireTitle: a.question.questionnaire?.title || 'Sin título',
+          questionnaireType: a.question.questionnaire?.type || 'theory',
           userAnswer: a.answer,
           correctAnswer: a.question.correctAnswer,
           explanation: a.question.explanation,

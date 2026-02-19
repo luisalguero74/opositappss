@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
       if (!questionFailures.has(qId)) {
         questionFailures.set(qId, {
           question: answer.question,
-          questionnaire: answer.question.questionnaire,
+          questionnaire: answer.question.questionnaire || null,
           count: 0,
           lastFailed: answer.createdAt
         })
