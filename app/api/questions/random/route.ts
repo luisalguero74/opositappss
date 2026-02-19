@@ -7,17 +7,32 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url)
     const count = parseInt(searchParams.get('count') || '85')
 
-    // Obtener preguntas aleatorias (excluyendo cuarentena)
+    // Obtener preguntas aleatorias del banco O de cuestionarios publicados
     const questions = await prisma.question.findMany({
-      where: getQuestionReviewWhere(),
-      take: count,
+      where: {
+        ...getQuestionReviewWhere(),
+        reviewStatus: 'VALIDATED', // Solo preguntas validadas del banco
+        OR: [
+          { questionnaire: { published: true } }, // Preguntas de cuestionarios publicados
+          { questionnaireId: null } // Preguntas del banco
+        ]
+      },
+      include: {
+        questionnaire: {
+          select: {
+            published: true,
+            title: true
+          }
+        }
+      },
+      take: count * 2, // Tomar el doble para tener margen tras filtrar
       orderBy: {
         id: 'asc'
       }
     })
 
-    // Mezclar aleatoriamente
-    const shuffled = questions.sort(() => Math.random() - 0.5)
+    // Mezclar aleatoriamente y tomar solo la cantidad solicitada
+    const shuffled = questions.sort(() => Math.random() - 0.5).slice(0, count)
 
     const safeQuestions = shuffled.map((q) => {
       let options: string[] = []

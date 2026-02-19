@@ -29,10 +29,21 @@ export async function POST(req: NextRequest) {
       where: {
         ...getQuestionReviewWhere(),
         ...(hasTopicFilter ? { temaCodigo: { in: topicCodes } } : {}),
-        ...difficultyFilter
+        ...difficultyFilter,
+        reviewStatus: 'VALIDATED', // Solo preguntas validadas
+        OR: [
+          { questionnaire: { published: true, type: 'theory' } }, // Test de teoría publicados
+          { questionnaireId: null } // Preguntas del banco (asumimos teoría)
+        ]
       },
       include: {
-        questionnaire: true
+        questionnaire: {
+          select: {
+            published: true,
+            title: true,
+            type: true
+          }
+        }
       }
     })
 
@@ -47,13 +58,8 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    // Filtrar solo preguntas de test de temario (excluyendo prácticos)
-    const theoryQuestions = manualQuestions.filter(q => 
-      q.questionnaire && (
-        q.questionnaire.title.toLowerCase().includes('tema') ||
-        !q.questionnaire.title.toLowerCase().includes('práctico')
-      )
-    )
+    // Ya no necesitamos filtrar aquí porque el filtro está en la query
+    const theoryQuestions = manualQuestions
 
     // Convertir preguntas IA al formato estándar
     const aiTheoryQuestions = aiQuestionsApproved.map(q => ({
