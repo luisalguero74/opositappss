@@ -167,6 +167,18 @@ export default function Admin() {
                 </div>
               </div>
 
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition border-2 border-blue-500">
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-3 flex flex-col items-center justify-center relative">
+                  <div className="absolute top-1 right-1 bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded-full text-[10px] font-bold">⭐ TOP</div>
+                  <div className="text-white text-3xl mb-1">📋</div>
+                  <h2 className="text-xs font-bold text-white text-center">Gestión Cuestionarios</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Vista previa y publicación.</p>
+                  <Link href="/admin/questionnaires/manage" className="inline-block w-full text-center bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-semibold px-3 py-2 rounded-lg hover:from-blue-700 hover:to-indigo-800 transition text-xs">Gestionar →</Link>
+                </div>
+              </div>
+
               <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition border-2 border-orange-400">
                 <div className="bg-gradient-to-r from-orange-500 to-amber-600 p-3 flex flex-col items-center justify-center relative">
                   <div className="absolute top-1 right-1 bg-red-500 text-white px-2 py-0.5 rounded-full text-[10px] font-bold">1,035</div>
