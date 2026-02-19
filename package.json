@@ -27,6 +27,7 @@
     "setup-db": "node scripts/setup-db.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.77.0",
     "@auth/prisma-adapter": "^2.11.1",
     "@aws-sdk/client-s3": "^3.990.0",
     "@aws-sdk/s3-request-presigner": "^3.990.0",
@@ -54,6 +55,7 @@
     "next": "16.1.1",
     "next-auth": "^4.24.13",
     "nodemailer": "^7.0.12",
+    "openai": "^6.22.0",
     "pdf-lib": "^1.17.1",
     "pdf-parse": "^2.4.5",
     "pdf-parse-fork": "^1.2.0",

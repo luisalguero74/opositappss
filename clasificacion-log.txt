@@ -1,0 +1,17 @@
+/Users/copiadorasalguero/opositapp/node_modules/openai/src/client.ts:386
+      throw new Errors.OpenAIError(
+            ^
+
+OpenAIError: Missing credentials. Please pass an `apiKey`, or set the `OPENAI_API_KEY` environment variable.
+    at new OpenAI (/Users/copiadorasalguero/opositapp/node_modules/openai/src/client.ts:386:13)
+    at OpenAI (/Users/copiadorasalguero/opositapp/scripts/clasificar-preguntas-ia.ts:5:14)
+    at Object.<anonymous> (/Users/copiadorasalguero/opositapp/scripts/clasificar-preguntas-ia.ts:133:49)
+    at Module._compile (node:internal/modules/cjs/loader:1760:14)
+    at Object.transformer (/Users/copiadorasalguero/opositapp/node_modules/tsx/dist/register-D46fvsV_.cjs:3:1104)
+    at Module.load (node:internal/modules/cjs/loader:1480:32)
+    at Module._load (node:internal/modules/cjs/loader:1299:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at loadCJSModuleWithModuleLoad (node:internal/modules/esm/translators:339:3)
+
+Node.js v25.2.1
