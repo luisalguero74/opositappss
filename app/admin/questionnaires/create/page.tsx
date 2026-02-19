@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 interface TemaOficial {
   id: string
-  numero: int
+  numero: number
   titulo: string
   categoria: 'general' | 'especifico'
   _count?: {

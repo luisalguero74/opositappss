@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
       options: safeParseOptions(q.options),
       correctAnswer: q.correctAnswer,
       explanation: q.explanation,
-      questionnaireName: q.questionnaire.title
+      questionnaireName: q.questionnaire?.title || 'Sin cuestionario'
     }))
 
     return NextResponse.json(formattedQuestions)

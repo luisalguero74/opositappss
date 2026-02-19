@@ -49,8 +49,10 @@ export async function POST(req: NextRequest) {
 
     // Filtrar solo preguntas de test de temario (excluyendo prácticos)
     const theoryQuestions = manualQuestions.filter(q => 
-      q.questionnaire.title.toLowerCase().includes('tema') ||
-      !q.questionnaire.title.toLowerCase().includes('práctico')
+      q.questionnaire && (
+        q.questionnaire.title.toLowerCase().includes('tema') ||
+        !q.questionnaire.title.toLowerCase().includes('práctico')
+      )
     )
 
     // Convertir preguntas IA al formato estándar
@@ -72,7 +74,7 @@ export async function POST(req: NextRequest) {
         options: JSON.parse(q.options),
         correctAnswer: q.correctAnswer,
         questionnaireId: q.questionnaireId,
-        questionnaireName: q.questionnaire.title,
+        questionnaireName: q.questionnaire?.title || 'Sin título',
         isAI: false
       })),
       ...aiTheoryQuestions
@@ -97,7 +99,7 @@ export async function POST(req: NextRequest) {
       options: JSON.parse(q.options),
       correctAnswer: q.correctAnswer,
       questionnaireId: q.questionnaireId,
-      questionnaireName: q.questionnaire.title,
+      questionnaireName: q.questionnaire?.title || 'Sin título',
       isAI: false
     }))
 

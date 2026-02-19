@@ -53,8 +53,8 @@ export async function GET(request: NextRequest) {
           errorsByQuestion.set(answer.questionId, {
             questionId: answer.questionId,
             questionText: answer.question.text,
-            questionnaireTitle: answer.question.questionnaire.title,
-            questionnaireType: answer.question.questionnaire.type,
+            questionnaireTitle: answer.question.questionnaire?.title || 'Sin título',
+            questionnaireType: answer.question.questionnaire?.type || 'theory',
             attempts: 0,
             errors: 0,
             correctAnswer: answer.question.correctAnswer,
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
       }
 
       userAnswers.forEach(answer => {
-        const type = answer.question.questionnaire.type as 'theory' | 'practical'
+        const type = (answer.question.questionnaire?.type || 'theory') as 'theory' | 'practical'
         statsByType[type].total++
         if (answer.isCorrect) {
           statsByType[type].correct++
@@ -118,8 +118,8 @@ export async function GET(request: NextRequest) {
           .map(a => ({
             questionId: a.questionId,
             questionText: a.question.text,
-            questionnaireTitle: a.question.questionnaire.title,
-            questionnaireType: a.question.questionnaire.type,
+            questionnaireTitle: a.question.questionnaire?.title || 'Sin título',
+            questionnaireType: a.question.questionnaire?.type || 'theory',
             userAnswer: a.answer,
             correctAnswer: a.question.correctAnswer,
             explanation: a.question.explanation,
@@ -158,7 +158,7 @@ export async function GET(request: NextRequest) {
     }
 
     allAnswers.forEach(a => {
-      const type = a.question.questionnaire.type as 'theory' | 'practical'
+      const type = (a.question.questionnaire?.type || 'theory') as 'theory' | 'practical'
       globalByType[type].total++
       if (a.isCorrect) globalByType[type].correct++
     })
@@ -176,7 +176,7 @@ export async function GET(request: NextRequest) {
       }
 
       userAnswers.forEach(a => {
-        const type = a.question.questionnaire.type as 'theory' | 'practical'
+        const type = (a.question.questionnaire?.type || 'theory') as 'theory' | 'practical'
         byType[type].total++
         if (a.isCorrect) byType[type].correct++
       })
