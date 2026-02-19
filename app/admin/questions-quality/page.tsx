@@ -18,6 +18,7 @@ interface PreguntaConProblemas {
   temaTitulo: string | null
   reviewStatus: string
   aiReviewed: boolean | null
+  createdAt: string
   puntuacion: number
   errores: string[]
   advertencias: string[]
@@ -615,7 +616,7 @@ export default function QualityReviewPage() {
                 <div className="flex-1">
                   {/* Header */}
                   <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-wrap">
                       <span className={`px-3 py-1 rounded-full text-sm font-medium ${getPuntuacionColor(pregunta.puntuacion)}`}>
                         {pregunta.puntuacion}/100
                       </span>
@@ -644,6 +645,9 @@ export default function QualityReviewPage() {
                       </span>
                       <span className="text-sm px-2 py-1 bg-gray-100 rounded">
                         {pregunta.difficulty}
+                      </span>
+                      <span className="text-xs text-gray-400">
+                        📅 {new Date(pregunta.createdAt).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
