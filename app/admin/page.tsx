@@ -179,6 +179,28 @@ export default function Admin() {
                 </div>
               </div>
 
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition border-2 border-blue-400">
+                <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📊</div>
+                  <h2 className="text-xs font-bold text-white text-center">Salud del Banco</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Estadísticas completas.</p>
+                  <Link href="/admin/banco-status" className="inline-block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition border-2 border-purple-400">
+                <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🔍</div>
+                  <h2 className="text-xs font-bold text-white text-center">Detectar Duplicados</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Análisis con IA.</p>
+                  <Link href="/admin/duplicates" className="inline-block w-full text-center bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-purple-600 hover:to-pink-700 transition text-xs">Escanear →</Link>
+                </div>
+              </div>
+
               <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
                 <div className="bg-gradient-to-r from-indigo-500 to-violet-600 p-3 flex flex-col items-center justify-center">
                   <div className="text-white text-3xl mb-1">➕</div>
