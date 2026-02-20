@@ -43,6 +43,18 @@ export default function Dashboard() {
         
         {/* Grid de 5 columnas en pantallas grandes */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-4">
+          {/* Práctica Rápida - NUEVO */}
+          <Link href="/practica-rapida" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group relative">
+            <div className="absolute top-2 right-2 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded">NUEVO</div>
+            <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-3 flex flex-col items-center justify-center">
+              <div className="text-white text-3xl mb-1">⚡</div>
+              <h2 className="text-sm font-bold text-white text-center">Práctica Rápida</h2>
+            </div>
+            <div className="p-3">
+              <p className="text-gray-600 text-xs text-center">Repaso de 5 minutos sin tiempo.</p>
+            </div>
+          </Link>
+
           {/* Cuestionarios de Temario */}
           <Link href="/dashboard/theory" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group">
             <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-3 flex flex-col items-center justify-center">
