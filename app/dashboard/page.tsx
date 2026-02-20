@@ -8,6 +8,7 @@ import SubscriptionBanner from '@/components/SubscriptionBanner'
 import HelpButton from '@/components/HelpButton'
 import MonetizationWrapper from '@/components/monetization/MonetizationWrapper'
 import UserMenu from '@/components/UserMenu'
+import DarkModeToggle from '@/components/DarkModeToggle'
 
 export default function Dashboard() {
   const { data: session } = useSession() as { data: Session | null }
@@ -29,6 +30,7 @@ export default function Dashboard() {
               <p className="text-blue-100 text-sm mt-1">Hola, {session.user?.email}</p>
             </div>
             <div className="flex items-center gap-4">
+              <DarkModeToggle />
               <Link href="/pricing" className="text-white hover:text-blue-100 text-sm font-medium transition">
                 💎 Suscripción
               </Link>
