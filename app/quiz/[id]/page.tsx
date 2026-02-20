@@ -307,16 +307,29 @@ export default function QuizPage() {
   }
 
   const getResults = () => {
-    if (!questionnaire) return { correct: 0, total: 0, percentage: 0 }
+    if (!questionnaire) return { correct: 0, incorrect: 0, blank: 0, total: 0, percentage: 0 }
     
     const total = questionnaire.questions.length
-    const correct = questionnaire.questions.filter(q => {
+    let correct = 0
+    let blank = 0
+    
+    questionnaire.questions.forEach(q => {
       const userAnswer = userAnswers.find(a => a.questionId === q.id)
-      return userAnswer?.selectedAnswer === q.correctAnswer
-    }).length
+      const selectedAnswer = userAnswer?.selectedAnswer
+      
+      if (!selectedAnswer || selectedAnswer.trim() === '') {
+        blank++
+      } else if (selectedAnswer === q.correctAnswer) {
+        correct++
+      }
+    })
+    
+    const incorrect = total - correct - blank
     
     return {
       correct,
+      incorrect,
+      blank,
       total,
       percentage: Math.round((correct / total) * 100)
     }
@@ -370,7 +383,8 @@ export default function QuizPage() {
   }
 
   const results = getResults()
-  const allAnswered = userAnswers.length === questionnaire.questions.length
+  // Permitir corrección aunque haya respuestas en blanco
+  const canSubmit = questionnaire.questions.length > 0
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8 px-4">
@@ -421,18 +435,22 @@ export default function QuizPage() {
               <h2 className="text-2xl font-bold mb-4">
                 {results.percentage >= 70 ? '✅ ¡Muy bien!' : '❌ Puedes mejorar'}
               </h2>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center">
+              <div className="grid grid-cols-4 gap-3">
+                <div className="text-center p-3 bg-green-50 rounded-lg">
                   <div className="text-3xl font-bold text-green-600">{results.correct}</div>
-                  <div className="text-sm text-gray-600">Aciertos</div>
+                  <div className="text-xs text-gray-600">Correctas</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-red-600">{results.total - results.correct}</div>
-                  <div className="text-sm text-gray-600">Fallos</div>
+                <div className="text-center p-3 bg-red-50 rounded-lg">
+                  <div className="text-3xl font-bold text-red-600">{results.incorrect}</div>
+                  <div className="text-xs text-gray-600">Incorrectas</div>
                 </div>
-                <div className="text-center">
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <div className="text-3xl font-bold text-gray-600">{results.blank}</div>
+                  <div className="text-xs text-gray-600">En blanco</div>
+                </div>
+                <div className="text-center p-3 bg-blue-50 rounded-lg">
                   <div className="text-3xl font-bold text-blue-600">{results.percentage}%</div>
-                  <div className="text-sm text-gray-600">Puntuación</div>
+                  <div className="text-xs text-gray-600">Puntuación</div>
                 </div>
               </div>
             </div>
@@ -590,9 +608,9 @@ export default function QuizPage() {
               </button>
               <button
                 onClick={handleCorrection}
-                disabled={!allAnswered || submitting || timeExpired}
+                disabled={!canSubmit || submitting || timeExpired}
                 className={`px-8 py-3 rounded-lg font-bold text-white transition-all ${
-                  allAnswered && !submitting && !timeExpired
+                  canSubmit && !submitting && !timeExpired
                     ? 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 shadow-lg'
                     : 'bg-gray-300 cursor-not-allowed'
                 }`}

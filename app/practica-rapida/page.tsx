@@ -81,13 +81,25 @@ export default function PracticaRapidaPage() {
 
   const getResults = () => {
     let correct = 0
+    let answered = 0
+    let blank = 0
+    
     questions.forEach(q => {
-      if (userAnswers[q.id] === q.correctAnswer) {
-        correct++
+      const userAnswer = userAnswers[q.id]
+      if (userAnswer && userAnswer.trim() !== '') {
+        answered++
+        if (userAnswer === q.correctAnswer) {
+          correct++
+        }
+      } else {
+        blank++
       }
     })
+    
     return {
       correct,
+      incorrect: answered - correct,
+      blank,
       total: questions.length,
       percentage: questions.length > 0 ? Math.round((correct / questions.length) * 100) : 0
     }
@@ -218,9 +230,13 @@ export default function PracticaRapidaPage() {
                       <div className="text-green-700">
                         ✓ Correcta: {q.correctAnswer.toUpperCase()}) {q.options[correctIndex]}
                       </div>
-                      {!isCorrect && userAnswers[q.id] && (
+                      {!isCorrect && (
                         <div className="text-red-700">
-                          ✗ Tu respuesta: {userAnswers[q.id].toUpperCase()}) {q.options[userAnswerIndex]}
+                          {userAnswers[q.id] ? (
+                            `✗ Tu respuesta: ${userAnswers[q.id].toUpperCase()}) ${q.options[userAnswerIndex]}`
+                          ) : (
+                            '✗ Tu respuesta: (en blanco)'
+                          )}
                         </div>
                       )}
                       {q.explanation && (
@@ -258,7 +274,8 @@ export default function PracticaRapidaPage() {
   }
 
   const currentQuestion = questions[currentIndex]
-  const allAnswered = questions.every(q => userAnswers[q.id])
+  // Permitir finalizar aunque haya respuestas en blanco
+  const canFinish = questions.length > 0
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-12 px-4">
@@ -352,7 +369,7 @@ export default function PracticaRapidaPage() {
             ) : (
               <button
                 onClick={finishPractice}
-                disabled={!allAnswered}
+                disabled={!canFinish}
                 className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold rounded-lg hover:from-green-700 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
                 ✓ Finalizar
