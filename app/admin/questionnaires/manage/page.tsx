@@ -125,6 +125,31 @@ export default function ManageQuestionnaires() {
     }
   }
 
+  const handleExportHTML = async (id: string, title: string) => {
+    try {
+      const res = await fetch(`/api/admin/questionnaires/${id}/export-html`)
+      
+      if (res.ok) {
+        const blob = await res.blob()
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${Date.now()}.html`
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+        alert('✅ HTML descargado exitosamente')
+      } else {
+        const error = await res.json()
+        alert(error.error || '❌ Error al generar HTML')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Error de conexión')
+    }
+  }
+
   const handleDeleteAllEmpty = async () => {
     const emptyQuestionnaires = [...publicados, ...borradores].filter(q => q._count.questionnaireQuestions === 0)
     
@@ -215,12 +240,22 @@ export default function ManageQuestionnaires() {
 
         <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-gray-200">
           {!isEmpty && (
-            <Link
-              href={`/admin/questionnaires/${q.id}/preview`}
-              className="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-medium transition"
-            >
-              👁️ Vista Previa
-            </Link>
+            <>
+              <Link
+                href={`/admin/questionnaires/${q.id}/preview`}
+                className="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-medium transition"
+              >
+                👁️ Vista Previa
+              </Link>
+              
+              <button
+                onClick={() => handleExportHTML(q.id, q.title)}
+                className="flex-1 bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded text-sm font-medium transition"
+                title="Exportar como HTML interactivo para compartir"
+              >
+                📥 HTML
+              </button>
+            </>
           )}
           
           {!isEmpty && showPublishButton && (
