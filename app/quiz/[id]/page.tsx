@@ -111,6 +111,94 @@ export default function QuizPage() {
     return () => clearInterval(interval)
   }, [loading, showResults])
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    if (loading || showResults || !questionnaire) return
+
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input/textarea
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return
+      }
+
+      const key = e.key.toLowerCase()
+
+      // A, B, C, D - Select answer for first visible question
+      if (['a', 'b', 'c', 'd'].includes(key)) {
+        e.preventDefault()
+        const allQuestions = document.querySelectorAll('[data-question-id]')
+        if (allQuestions.length > 0) {
+          const firstVisible = Array.from(allQuestions).find(el => {
+            const rect = el.getBoundingClientRect()
+            return rect.top >= 0 && rect.top <= window.innerHeight / 2
+          })
+          
+          if (firstVisible) {
+            const questionId = firstVisible.getAttribute('data-question-id')
+            if (questionId) {
+              // Trigger click on the corresponding radio button
+              const radio = firstVisible.querySelector(`input[value="${key}"]`) as HTMLInputElement
+              if (radio) radio.click()
+            }
+          }
+        }
+      }
+
+      // Arrow Right or Enter - Scroll to next question
+      if (key === 'arrowright' || key === 'enter') {
+        e.preventDefault()
+        const allQuestions = document.querySelectorAll('[data-question-id]')
+        if (allQuestions.length > 0) {
+          const firstVisibleIndex = Array.from(allQuestions).findIndex(el => {
+            const rect = el.getBoundingClientRect()
+            return rect.top >= 0 && rect.top <= window.innerHeight / 2
+          })
+          
+          if (firstVisibleIndex >= 0 && firstVisibleIndex < allQuestions.length - 1) {
+            allQuestions[firstVisibleIndex + 1].scrollIntoView({ behavior: 'smooth', block: 'center' })
+          }
+        }
+      }
+
+      // Arrow Left - Previous question
+      if (key === 'arrowleft') {
+        e.preventDefault()
+        const allQuestions = document.querySelectorAll('[data-question-id]')
+        if (allQuestions.length > 0) {
+          const firstVisibleIndex = Array.from(allQuestions).findIndex(el => {
+            const rect = el.getBoundingClientRect()
+            return rect.top >= 0 && rect.top <= window.innerHeight / 2
+          })
+          
+          if (firstVisibleIndex > 0) {
+            allQuestions[firstVisibleIndex - 1].scrollIntoView({ behavior: 'smooth', block: 'center' })
+          }
+        }
+      }
+
+      // Space (Shift+Space) - Mark question for review
+      if (key === ' ' && e.shiftKey) {
+        e.preventDefault()
+        const allQuestions = document.querySelectorAll('[data-question-id]')
+        if (allQuestions.length > 0) {
+          const firstVisible = Array.from(allQuestions).find(el => {
+            const rect = el.getBoundingClientRect()
+            return rect.top >= 0 && rect.top <= window.innerHeight / 2
+          })
+          
+          if (firstVisible) {
+            // Trigger click on review button
+            const reviewBtn = firstVisible.querySelector('[data-mark-review]') as HTMLButtonElement
+            if (reviewBtn) reviewBtn.click()
+          }
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [loading, showResults, questionnaire])
+
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60)
     const s = secs % 60
@@ -302,6 +390,11 @@ export default function QuizPage() {
               <p className="text-gray-600 mt-1">
                 {questionnaire.type === 'theory' ? '📘 Teoría' : '📗 Práctico'} · {questionnaire.questions.length} preguntas
               </p>
+              <div className="mt-2 text-xs text-gray-500 flex gap-4">
+                <span>⌨️ <strong>A/B/C/D</strong>: Responder</span>
+                <span><strong>←/→</strong>: Navegar</span>
+                <span><strong>Shift+Espacio</strong>: Marcar</span>
+              </div>
             </div>
                 <div className="flex items-center gap-4">
                   <div className={`px-4 py-2 rounded-lg font-semibold ${timeExpired ? 'bg-red-100 text-red-700 border border-red-200' : 'bg-blue-100 text-blue-700 border border-blue-200'}`}>
@@ -351,6 +444,7 @@ export default function QuizPage() {
             return (
               <div
                 key={question.id}
+                data-question-id={question.id}
                 className={`bg-white rounded-xl shadow-lg p-6 transition-all ${
                   showResults && questionResult
                     ? questionResult.isCorrect
@@ -383,6 +477,7 @@ export default function QuizPage() {
                       <button
                         onClick={() => markQuestion(question.id, 'review')}
                         disabled={markingQuestion === question.id}
+                        data-mark-review
                         className={`p-2 rounded-lg transition-all ${
                           markedQuestions.has(question.id)
                             ? 'bg-blue-100 text-blue-700'
