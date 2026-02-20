@@ -576,7 +576,7 @@ export default function AdminTestGenerator() {
         function showResults() {
             let correct = 0;
             questions.forEach((q, i) => {
-                if (userAnswers[i] === q.correctAnswer) {
+                if (userAnswers[i] && userAnswers[i].toLowerCase() === q.correctAnswer.toLowerCase()) {
                     correct++;
                 }
             });
@@ -611,7 +611,7 @@ export default function AdminTestGenerator() {
                 <div class="review-list">
                     <h3 style="margin-bottom: 20px; font-size: 1.5rem;">📋 Revisión de Respuestas</h3>
                     \${questions.map((q, i) => {
-                        const isCorrect = userAnswers[i] === q.correctAnswer;
+                        const isCorrect = userAnswers[i] && userAnswers[i].toLowerCase() === q.correctAnswer.toLowerCase();
                         return \`
                             <div class="review-item \${isCorrect ? 'correct' : 'incorrect'}">
                                 <div class="review-question">

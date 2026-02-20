@@ -115,7 +115,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
           <div className="space-y-4">
             {theoryQuestions.map((q: any, idx: number) => {
               const userAnswer = userAnswers.theory[idx]
-              const isCorrect = userAnswer === q.correctAnswer
+              const isCorrect = userAnswer && userAnswer.toLowerCase() === q.correctAnswer.toLowerCase()
               
               return (
                 <div key={idx} className={`p-4 rounded-lg border-2 ${
@@ -170,7 +170,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             <div className="space-y-4">
               {practicalCase.questions.map((q: any, idx: number) => {
                 const userAnswer = userAnswers.practical[idx]
-                const isCorrect = userAnswer === q.correctAnswer
+                const isCorrect = userAnswer && userAnswer.toLowerCase() === q.correctAnswer.toLowerCase()
                 
                 return (
                   <div key={idx} className={`p-4 rounded-lg border-2 ${

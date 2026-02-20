@@ -515,7 +515,7 @@ export default function AdminTestPlanner() {
       questions.forEach((q, i) => {
         if (!userAnswers[i]) {
           blanks++;
-        } else if (userAnswers[i] === q.correctAnswer) {
+        } else if (userAnswers[i].toLowerCase() === q.correctAnswer.toLowerCase()) {
           correct++;
         }
       });
@@ -550,7 +550,7 @@ export default function AdminTestPlanner() {
 
         <div class="review-list">
           \${questions.map((q, i) => {
-            const isCorrect = userAnswers[i] === q.correctAnswer;
+            const isCorrect = userAnswers[i] && userAnswers[i].toLowerCase() === q.correctAnswer.toLowerCase();
             const hasAnswer = !!userAnswers[i];
             const itemClass = isCorrect
               ? 'review-item correct'

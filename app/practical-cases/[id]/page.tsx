@@ -310,8 +310,8 @@ export default function TakePracticalCase() {
                 ? JSON.parse(question.options) 
                 : question.options
               const userAnswer = userAnswers[question.id]
-              const isCorrect = isSubmitted && userAnswer === question.correctAnswer
-              const isIncorrect = isSubmitted && userAnswer && userAnswer !== question.correctAnswer
+              const isCorrect = isSubmitted && userAnswer && userAnswer.toLowerCase() === question.correctAnswer.toLowerCase()
+              const isIncorrect = isSubmitted && userAnswer && userAnswer.toLowerCase() !== question.correctAnswer.toLowerCase()
 
               return (
                 <div
