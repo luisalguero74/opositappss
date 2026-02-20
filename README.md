@@ -1,5 +1,9 @@
 # opositAPPSS
 
+> **🚀 PRODUCCIÓN**: https://opositappss.vercel.app | https://www.opositapp.site  
+> **📦 Repositorio**: https://github.com/luisalguero74/opositappss  
+> **⚠️ Proyecto Vercel**: `opositappss` (NO usar "opositapp" sin ss)
+
 Plataforma profesional de preparación para oposiciones de Administrativo del Estado SS C1.
 
 ## ✨ Características Principales

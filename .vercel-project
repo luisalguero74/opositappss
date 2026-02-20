@@ -1,0 +1,11 @@
+# PROYECTO DE VERCEL CORRECTO
+# Este archivo identifica el proyecto de producción
+
+VERCEL_PROJECT_NAME="opositappss"
+VERCEL_ORG_ID="luisalguero74"
+PRODUCTION_URL="https://opositappss.vercel.app"
+CUSTOM_DOMAIN="https://www.opositapp.site"
+
+# ⚠️ IMPORTANTE:
+# - El proyecto "opositapp" (sin ss) NO SE USA
+# - Solo usar "opositappss" para producción
