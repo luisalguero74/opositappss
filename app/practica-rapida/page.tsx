@@ -208,15 +208,21 @@ export default function PracticaRapidaPage() {
             <div className="space-y-4 mb-8">
               <h3 className="font-bold text-lg text-gray-900">Revisión de Respuestas:</h3>
               {questions.map((q, idx) => {
-                const isCorrect = userAnswers[q.id] === q.correctAnswer
-                const userAnswerIndex = q.options.findIndex(opt => {
-                  const optionLetter = String.fromCharCode(97 + q.options.indexOf(opt))
-                  return optionLetter === userAnswers[q.id]
-                })
-                const correctIndex = q.options.findIndex(opt => {
-                  const optionLetter = String.fromCharCode(97 + q.options.indexOf(opt))
-                  return optionLetter === q.correctAnswer
-                })
+                const userAnswer = userAnswers[q.id]
+                const isCorrect = userAnswer && userAnswer.toLowerCase() === q.correctAnswer.toLowerCase()
+                
+                // Encontrar el índice basado en la letra
+                const getUserAnswerIndex = () => {
+                  if (!userAnswer) return -1
+                  return userAnswer.charCodeAt(0) - 97 // 'a' = 0, 'b' = 1, etc
+                }
+                
+                const getCorrectAnswerIndex = () => {
+                  return q.correctAnswer.charCodeAt(0) - 97
+                }
+                
+                const userAnswerIndex = getUserAnswerIndex()
+                const correctIndex = getCorrectAnswerIndex()
 
                 return (
                   <div key={q.id} className={`p-4 rounded-lg border-2 ${isCorrect ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}`}>
