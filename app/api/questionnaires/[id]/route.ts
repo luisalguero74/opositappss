@@ -5,14 +5,26 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const { id } = await params
   const questionnaire = await prisma.questionnaire.findUnique({
     where: { id },
-    include: { questions: true }
+    include: { 
+      questionnaireQuestions: {
+        include: {
+          question: true
+        },
+        orderBy: {
+          order: 'asc'
+        }
+      }
+    }
   })
   if (!questionnaire) return NextResponse.json({ error: 'Not found' }, { status: 404 })
   
+  // Mapear las preguntas a la estructura esperada por el frontend
+  const questions = questionnaire.questionnaireQuestions.map(qq => qq.question)
+  
   // Extraer información del tema de las preguntas (si tiene)
   let temaInfo = null
-  if (questionnaire.questions.length > 0) {
-    const firstQuestion = questionnaire.questions[0]
+  if (questions.length > 0) {
+    const firstQuestion = questions[0]
     if (firstQuestion.temaCodigo && firstQuestion.temaNumero) {
       temaInfo = {
         codigo: firstQuestion.temaCodigo,
@@ -23,5 +35,5 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     }
   }
   
-  return NextResponse.json({ ...questionnaire, temaInfo })
+  return NextResponse.json({ ...questionnaire, questions, temaInfo })
 }
