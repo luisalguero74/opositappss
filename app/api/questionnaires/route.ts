@@ -11,7 +11,16 @@ export async function GET(request: NextRequest) {
       ...(type ? { type } : {}),
       published: true
     },
-    include: { questions: true }
+    include: { 
+      questionnaireQuestions: {
+        include: {
+          question: true
+        }
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
   })
   
   return NextResponse.json(questionnaires)

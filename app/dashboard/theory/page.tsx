@@ -12,11 +12,17 @@ interface Question {
   explanation: string
 }
 
+interface QuestionnaireQuestion {
+  id: string
+  question: Question
+}
+
 interface Questionnaire {
   id: string
   title: string
   type: string
-  questions: Question[]
+  category: string
+  questionnaireQuestions: QuestionnaireQuestion[]
 }
 
 export default function Theory() {
@@ -41,20 +47,35 @@ export default function Theory() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {questionnaires.map(q => (
-              <div key={q.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
-                <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-24 flex items-center justify-center">
-                  <div className="text-white text-4xl">📖</div>
+            {questionnaires.map(q => {
+              const questionCount = q.questionnaireQuestions?.length || 0
+              const isGeneral = q.category === 'general'
+              
+              return (
+                <div key={q.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition transform hover:scale-105">
+                  <div className={`bg-gradient-to-r ${isGeneral ? 'from-green-500 to-emerald-600' : 'from-blue-500 to-indigo-600'} h-24 flex items-center justify-center relative`}>
+                    <div className="text-white text-4xl">{isGeneral ? '📗' : '📘'}</div>
+                    <div className="absolute top-2 right-2">
+                      <span className={`text-xs font-semibold px-2 py-1 rounded ${isGeneral ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
+                        {isGeneral ? 'Temario General' : 'Temario Específico'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold text-gray-800 mb-2">{q.title}</h2>
+                    <p className="text-gray-600 mb-4">
+                      Total de {questionCount} pregunta{questionCount !== 1 ? 's' : ''}
+                    </p>
+                    <Link 
+                      href={`/quiz/${q.id}`} 
+                      className={`inline-block w-full text-center bg-gradient-to-r ${isGeneral ? 'from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700' : 'from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700'} text-white font-semibold px-4 py-3 rounded-lg transition`}
+                    >
+                      Comenzar Cuestionario
+                    </Link>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h2 className="text-xl font-bold text-gray-800 mb-2">{q.title}</h2>
-                  <p className="text-gray-600 mb-4">Total de {q.questions.length} pregunta{q.questions.length !== 1 ? 's' : ''}</p>
-                  <Link href={`/quiz/${q.id}`} className="inline-block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-4 py-3 rounded-lg hover:from-blue-600 hover:to-indigo-700 transition">
-                    Comenzar Cuestionario
-                  </Link>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         )}
       </div>
