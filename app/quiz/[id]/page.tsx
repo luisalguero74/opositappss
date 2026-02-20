@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Confetti from 'react-confetti'
+import QuestionNoteEditor from '@/components/QuestionNoteEditor'
+import AttemptComparison from '@/components/AttemptComparison'
 
 interface Question {
   id: string
@@ -412,27 +414,32 @@ export default function QuizPage() {
 
         {/* Results Summary */}
         {showResults && (
-          <div className={`mb-6 rounded-xl shadow-lg p-6 ${
-            results.percentage >= 70 ? 'bg-green-50 border-2 border-green-200' : 'bg-red-50 border-2 border-red-200'
-          }`}>
-            <h2 className="text-2xl font-bold mb-4">
-              {results.percentage >= 70 ? '✅ ¡Muy bien!' : '❌ Puedes mejorar'}
-            </h2>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-green-600">{results.correct}</div>
-                <div className="text-sm text-gray-600">Aciertos</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-red-600">{results.total - results.correct}</div>
-                <div className="text-sm text-gray-600">Fallos</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600">{results.percentage}%</div>
-                <div className="text-sm text-gray-600">Puntuación</div>
+          <>
+            <div className={`mb-6 rounded-xl shadow-lg p-6 ${
+              results.percentage >= 70 ? 'bg-green-50 border-2 border-green-200' : 'bg-red-50 border-2 border-red-200'
+            }`}>
+              <h2 className="text-2xl font-bold mb-4">
+                {results.percentage >= 70 ? '✅ ¡Muy bien!' : '❌ Puedes mejorar'}
+              </h2>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-green-600">{results.correct}</div>
+                  <div className="text-sm text-gray-600">Aciertos</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-red-600">{results.total - results.correct}</div>
+                  <div className="text-sm text-gray-600">Fallos</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-blue-600">{results.percentage}%</div>
+                  <div className="text-sm text-gray-600">Puntuación</div>
+                </div>
               </div>
             </div>
-          </div>
+            
+            {/* Comparativa de intentos */}
+            <AttemptComparison questionnaireId={questionnaire.id} />
+          </>
         )}
 
         {/* Questions */}
@@ -559,6 +566,11 @@ export default function QuizPage() {
                   }`}>
                     <div className="font-semibold text-gray-700 mb-2">MOTIVACIÓN:</div>
                     <p className="text-gray-800">{question.explanation}</p>
+                    
+                    {/* Editor de notas personales */}
+                    <div className="mt-4">
+                      <QuestionNoteEditor questionId={question.id} />
+                    </div>
                   </div>
                 )}
               </div>

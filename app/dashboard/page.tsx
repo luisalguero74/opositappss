@@ -248,6 +248,18 @@ export default function Dashboard() {
             </div>
           </Link>
 
+          {/* Búsqueda Avanzada - NUEVO */}
+          <Link href="/busqueda-avanzada" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group relative">
+            <div className="absolute top-2 right-2 bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">NUEVO</div>
+            <div className="bg-gradient-to-r from-cyan-500 to-teal-600 p-3 flex flex-col items-center justify-center">
+              <div className="text-white text-3xl mb-1">🔍</div>
+              <h2 className="text-sm font-bold text-white text-center">Búsqueda Avanzada</h2>
+            </div>
+            <div className="p-3">
+              <p className="text-gray-600 text-xs text-center">Filtros múltiples.</p>
+            </div>
+          </Link>
+
           {/* Logros */}
           <Link href="/achievements" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group">
             <div className="bg-gradient-to-r from-yellow-500 to-amber-600 p-3 flex flex-col items-center justify-center">
