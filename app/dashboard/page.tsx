@@ -9,9 +9,24 @@ import HelpButton from '@/components/HelpButton'
 import MonetizationWrapper from '@/components/monetization/MonetizationWrapper'
 import UserMenu from '@/components/UserMenu'
 import DarkModeToggle from '@/components/DarkModeToggle'
+import StudyStreak from '@/components/StudyStreak'
+import ActivityHeatmap from '@/components/ActivityHeatmap'
+import ProgressCircle from '@/components/ProgressCircle'
+import { useEffect, useState } from 'react'
 
 export default function Dashboard() {
   const { data: session } = useSession() as { data: Session | null }
+  const [stats, setStats] = useState({ totalQuestions: 0, correctPercentage: 0, totalAttempts: 0 })
+
+  useEffect(() => {
+    if (session) {
+      fetch('/api/user/stats')
+        .then(res => res.json())
+        .then(data => setStats(data))
+        .catch(() => {})
+    }
+  }, [session])
+
 
 
   if (!session) return <div>Cargando...</div>
@@ -298,6 +313,26 @@ export default function Dashboard() {
               <p className="text-gray-600 text-xs text-center">Todos tus intentos.</p>
             </div>
           </Link>
+        </div>
+
+        {/* Panel de Progreso Visual - NUEVO */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md flex flex-col items-center">
+            <ProgressCircle 
+              percentage={stats.correctPercentage} 
+              label="Aciertos Totales"
+              color="#10b981"
+            />
+            <div className="mt-4 text-center">
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                {stats.totalQuestions} preguntas | {stats.totalAttempts} intentos
+              </div>
+            </div>
+          </div>
+          <StudyStreak />
+          <div className="lg:col-span-1">
+            <ActivityHeatmap />
+          </div>
         </div>
 
         {/* Panel Admin - Solo para administradores */}
