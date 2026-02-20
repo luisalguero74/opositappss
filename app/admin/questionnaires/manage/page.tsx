@@ -13,7 +13,7 @@ type Questionnaire = {
   createdAt: string
   updatedAt: string
   _count: {
-    questions: number
+    questionnaireQuestions: number
   }
 }
 
@@ -126,7 +126,7 @@ export default function ManageQuestionnaires() {
   }
 
   const handleDeleteAllEmpty = async () => {
-    const emptyQuestionnaires = [...publicados, ...borradores].filter(q => q._count.questions === 0)
+    const emptyQuestionnaires = [...publicados, ...borradores].filter(q => q._count.questionnaireQuestions === 0)
     
     if (emptyQuestionnaires.length === 0) {
       alert('No hay cuestionarios vacíos para eliminar')
@@ -182,7 +182,7 @@ export default function ManageQuestionnaires() {
   }
 
   const QuestionnaireCard = ({ q, showPublishButton }: { q: Questionnaire; showPublishButton: boolean }) => {
-    const isEmpty = q._count.questions === 0
+    const isEmpty = q._count.questionnaireQuestions === 0
     
     return (
       <div className={`rounded-lg shadow-md hover:shadow-lg transition p-4 border-2 ${
@@ -205,7 +205,7 @@ export default function ManageQuestionnaires() {
               {getTypeBadge(q.type)}
             </div>
             <p className={`text-sm ${isEmpty ? 'text-red-600 font-semibold' : 'text-gray-600'}`}>
-              📝 {q._count.questions} preguntas
+              📝 {q._count.questionnaireQuestions} preguntas
             </p>
             <p className="text-xs text-gray-500 mt-1">
               Creado: {new Date(q.createdAt).toLocaleDateString('es-ES')}
@@ -269,7 +269,7 @@ export default function ManageQuestionnaires() {
     )
   }
 
-  const emptyCount = [...publicados, ...borradores].filter(q => q._count.questions === 0).length
+  const emptyCount = [...publicados, ...borradores].filter(q => q._count.questionnaireQuestions === 0).length
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
@@ -353,10 +353,10 @@ export default function ManageQuestionnaires() {
         <div className="mb-8">
           <div className="bg-gradient-to-r from-yellow-100 to-amber-100 rounded-lg p-4 mb-4 border-l-4 border-yellow-500">
             <h2 className="text-2xl font-bold text-yellow-900 flex items-center gap-2">
-              <span>📝</span> Borradores ({showOnlyEmpty ? borradores.filter(q => q._count.questions === 0).length : borradores.length})
-              {showOnlyEmpty && borradores.filter(q => q._count.questions === 0).length > 0 && (
+              <span>📝</span> Borradores ({showOnlyEmpty ? borradores.filter(q => q._count.questionnaireQuestions === 0).length : borradores.length})
+              {showOnlyEmpty && borradores.filter(q => q._count.questionnaireQuestions === 0).length > 0 && (
                 <span className="text-sm bg-red-500 text-white px-3 py-1 rounded-full ml-2">
-                  {borradores.filter(q => q._count.questions === 0).length} vacíos
+                  {borradores.filter(q => q._count.questionnaireQuestions === 0).length} vacíos
                 </span>
               )}
             </h2>
@@ -365,13 +365,13 @@ export default function ManageQuestionnaires() {
             </p>
           </div>
           
-          {(showOnlyEmpty ? borradores.filter(q => q._count.questions === 0) : borradores).length === 0 ? (
+          {(showOnlyEmpty ? borradores.filter(q => q._count.questionnaireQuestions === 0) : borradores).length === 0 ? (
             <div className="bg-white rounded-lg shadow-md p-8 text-center border border-gray-200">
               <p className="text-gray-500">{showOnlyEmpty ? 'No hay borradores vacíos' : 'No hay borradores'}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {(showOnlyEmpty ? borradores.filter(q => q._count.questions === 0) : borradores).map(q => (
+              {(showOnlyEmpty ? borradores.filter(q => q._count.questionnaireQuestions === 0) : borradores).map(q => (
                 <QuestionnaireCard key={q.id} q={q} showPublishButton={true} />
               ))}
             </div>
@@ -382,10 +382,10 @@ export default function ManageQuestionnaires() {
         <div>
           <div className="bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg p-4 mb-4 border-l-4 border-green-500">
             <h2 className="text-2xl font-bold text-green-900 flex items-center gap-2">
-              <span>✅</span> Publicados ({showOnlyEmpty ? publicados.filter(q => q._count.questions === 0).length : publicados.length})
-              {showOnlyEmpty && publicados.filter(q => q._count.questions === 0).length > 0 && (
+              <span>✅</span> Publicados ({showOnlyEmpty ? publicados.filter(q => q._count.questionnaireQuestions === 0).length : publicados.length})
+              {showOnlyEmpty && publicados.filter(q => q._count.questionnaireQuestions === 0).length > 0 && (
                 <span className="text-sm bg-red-500 text-white px-3 py-1 rounded-full ml-2">
-                  {publicados.filter(q => q._count.questions === 0).length} vacíos
+                  {publicados.filter(q => q._count.questionnaireQuestions === 0).length} vacíos
                 </span>
               )}
             </h2>
@@ -394,13 +394,13 @@ export default function ManageQuestionnaires() {
             </p>
           </div>
           
-          {(showOnlyEmpty ? publicados.filter(q => q._count.questions === 0) : publicados).length === 0 ? (
+          {(showOnlyEmpty ? publicados.filter(q => q._count.questionnaireQuestions === 0) : publicados).length === 0 ? (
             <div className="bg-white rounded-lg shadow-md p-8 text-center border border-gray-200">
               <p className="text-gray-500">{showOnlyEmpty ? 'No hay cuestionarios publicados vacíos' : 'No hay cuestionarios publicados'}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {(showOnlyEmpty ? publicados.filter(q => q._count.questions === 0) : publicados).map(q => (
+              {(showOnlyEmpty ? publicados.filter(q => q._count.questionnaireQuestions === 0) : publicados).map(q => (
                 <QuestionnaireCard key={q.id} q={q} showPublishButton={false} />
               ))}
             </div>

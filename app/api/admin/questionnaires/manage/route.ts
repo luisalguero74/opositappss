@@ -17,7 +17,7 @@ export async function GET() {
         where: { published: true },
         include: {
           _count: {
-            select: { questions: true }
+            select: { questionnaireQuestions: true }
           }
         },
         orderBy: { createdAt: 'desc' }
@@ -26,7 +26,7 @@ export async function GET() {
         where: { published: false },
         include: {
           _count: {
-            select: { questions: true }
+            select: { questionnaireQuestions: true }
           }
         },
         orderBy: { createdAt: 'desc' }
@@ -37,8 +37,8 @@ export async function GET() {
     const stats = {
       totalPublicados: publicados.length,
       totalBorradores: borradores.length,
-      preguntasPublicadas: publicados.reduce((acc, q) => acc + q._count.questions, 0),
-      preguntasBorradores: borradores.reduce((acc, q) => acc + q._count.questions, 0)
+      preguntasPublicadas: publicados.reduce((acc, q) => acc + q._count.questionnaireQuestions, 0),
+      preguntasBorradores: borradores.reduce((acc, q) => acc + q._count.questionnaireQuestions, 0)
     }
 
     return NextResponse.json({
