@@ -75,8 +75,36 @@ export default function PracticaRapidaPage() {
     }
   }
 
-  const finishPractice = () => {
+  const finishPractice = async () => {
     setShowResults(true)
+    
+    // Guardar estadísticas
+    try {
+      const results = getResults()
+      const answersArray = questions.map(q => ({
+        questionId: q.id,
+        selectedAnswer: userAnswers[q.id] || '',
+        isCorrect: userAnswers[q.id] && userAnswers[q.id].toLowerCase() === q.correctAnswer.toLowerCase()
+      }))
+
+      await fetch('/api/quick-practice/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          answers: answersArray,
+          score: results.percentage,
+          correctAnswers: results.correct,
+          totalQuestions: questions.length,
+          timeSpent: 0 // Podríamos añadir un timer en el futuro
+        })
+      })
+
+      // Actualizar racha de estudio
+      await fetch('/api/user/streak', { method: 'POST' })
+    } catch (error) {
+      console.error('Error guardando estadísticas:', error)
+      // No mostramos error al usuario, las estadísticas son secundarias
+    }
   }
 
   const getResults = () => {

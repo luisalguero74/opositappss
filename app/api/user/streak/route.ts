@@ -117,11 +117,36 @@ export async function GET(req: NextRequest) {
 
     if (!streak) {
       streak = await prisma.studyStreak.create({
-        data: { userId: user.id }
+        data: { 
+          userId: user.id,
+          currentStreak: 0,
+          longestStreak: 0,
+          totalStudyDays: 0,
+          lastStudyDate: null
+        }
       })
     }
 
-    return NextResponse.json({ streak })
+    // Obtener fechas de estudio de los últimos 3 meses
+    const threeMonthsAgo = new Date()
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3)
+    
+    const attempts = await prisma.questionnaireAttempt.findMany({
+      where: {
+        userId: user.id,
+        completedAt: { gte: threeMonthsAgo }
+      },
+      select: { completedAt: true }
+    })
+    
+    const studyDates = [...new Set(
+      attempts.map(a => a.completedAt.toISOString().split('T')[0])
+    )]
+
+    return NextResponse.json({ 
+      ...streak,
+      studyDates 
+    })
 
   } catch (error) {
     console.error('[Streak] Error:', error)

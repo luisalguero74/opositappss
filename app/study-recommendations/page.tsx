@@ -285,10 +285,14 @@ export default function StudyRecommendationsPage() {
           
           {!plan || plan.recommendations.length === 0 ? (
             <div className="text-center py-12">
-              <div className="text-6xl mb-4">🎉</div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-3">¡Excelente trabajo!</h3>
+              <div className="text-6xl mb-4">{plan && plan.goalProgress > 0 ? '🎉' : '📚'}</div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                {plan && plan.goalProgress > 0 ? '¡Excelente trabajo!' : '¡Comienza tu práctica!'}
+              </h3>
               <p className="text-gray-600 mb-6">
-                Estás al día con todas tus tareas. Puedes explorar nuevo contenido o hacer un simulacro.
+                {plan && plan.goalProgress > 0 
+                  ? 'Estás al día con todas tus tareas. Puedes explorar nuevo contenido o hacer un simulacro.'
+                  : 'Aún no has practicado. Comienza con un test rápido o explora el temario.'}
               </p>
               <div className="flex gap-4 justify-center">
                 <Link

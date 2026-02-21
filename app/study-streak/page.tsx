@@ -167,9 +167,9 @@ export default function StudyStreakPage() {
   }
 
   const getStreakLevel = () => {
-    if (!streak) return { level: 'Principiante', color: 'gray', icon: '🌱' }
+    if (!streak) return { level: 'Sin racha', color: 'gray', icon: '💤' }
     
-    const days = streak.currentStreak
+    const days = streak.currentStreak || 0
     if (days === 0) return { level: 'Sin racha', color: 'gray', icon: '💤' }
     if (days < 3) return { level: 'Iniciando', color: 'blue', icon: '🌱' }
     if (days < 7) return { level: 'Constante', color: 'green', icon: '🌿' }
