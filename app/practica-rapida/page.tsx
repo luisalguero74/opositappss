@@ -88,7 +88,7 @@ export default function PracticaRapidaPage() {
       const userAnswer = userAnswers[q.id]
       if (userAnswer && userAnswer.trim() !== '') {
         answered++
-        if (userAnswer === q.correctAnswer) {
+        if (userAnswer.toLowerCase() === q.correctAnswer.toLowerCase()) {
           correct++
         }
       } else {

@@ -31,7 +31,7 @@ export async function POST(
     // Calcular puntuación teoría
     let theoryScore = 0
     theoryQuestions.forEach((q: any, idx: number) => {
-      if (theoryAnswers[idx] === q.correctAnswer) {
+      if (theoryAnswers[idx] && theoryAnswers[idx].toLowerCase() === q.correctAnswer.toLowerCase()) {
         theoryScore++
       }
     })
@@ -39,7 +39,7 @@ export async function POST(
     // Calcular puntuación práctica
     let practicalScore = 0
     practicalCase.questions.forEach((q: any, idx: number) => {
-      if (practicalAnswers[idx] === q.correctAnswer) {
+      if (practicalAnswers[idx] && practicalAnswers[idx].toLowerCase() === q.correctAnswer.toLowerCase()) {
         practicalScore++
       }
     })

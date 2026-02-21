@@ -110,7 +110,7 @@ export default function ExamModePage() {
     setFinished(true)
     let correct = 0
     questions.forEach((q, i) => {
-      if (answers[i] === q.correctAnswer) {
+      if (answers[i] && answers[i].toLowerCase() === q.correctAnswer.toLowerCase()) {
         correct++
       }
     })

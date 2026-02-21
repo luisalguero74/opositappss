@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       }).catch(() => null)
 
       if (question) {
-        const isCorrect = userAnswer === question.correctAnswer
+        const isCorrect = typeof userAnswer === 'string' && userAnswer.toLowerCase() === question.correctAnswer.toLowerCase()
         const answer = await prisma.userAnswer.create({
           data: {
             userId: session.user.id,

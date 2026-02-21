@@ -319,7 +319,7 @@ export default function QuizPage() {
       
       if (!selectedAnswer || selectedAnswer.trim() === '') {
         blank++
-      } else if (selectedAnswer === q.correctAnswer) {
+      } else if (selectedAnswer.toLowerCase() === q.correctAnswer.toLowerCase()) {
         correct++
       }
     })

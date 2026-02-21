@@ -38,7 +38,7 @@ export async function POST(
 
     practicalCase.questions.forEach((question: any) => {
       const userAnswer = answers.find((a: any) => a.questionId === question.id)
-      if (userAnswer && userAnswer.selectedAnswer === question.correctAnswer) {
+      if (userAnswer && userAnswer.selectedAnswer && userAnswer.selectedAnswer.toLowerCase() === question.correctAnswer.toLowerCase()) {
         correctAnswers++
       }
     })
@@ -61,7 +61,7 @@ export async function POST(
     // Save individual answers
     const answerPromises = answers.map((answer: any) => {
       const question = practicalCase.questions.find((q: any) => q.id === answer.questionId)
-      const isCorrect = question ? answer.selectedAnswer === question.correctAnswer : false
+      const isCorrect = question && answer.selectedAnswer ? answer.selectedAnswer.toLowerCase() === question.correctAnswer.toLowerCase() : false
 
       return prisma.userAnswer.create({
         data: {
