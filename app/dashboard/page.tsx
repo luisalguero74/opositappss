@@ -325,6 +325,17 @@ export default function Dashboard() {
               <p className="text-gray-600 text-xs text-center">Todos tus intentos.</p>
             </div>
           </Link>
+
+          {/* Manual de Usuario */}
+          <Link href="/manual-usuario" className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group">
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-3 flex flex-col items-center justify-center">
+              <div className="text-white text-3xl mb-1">📖</div>
+              <h2 className="text-sm font-bold text-white text-center">Manual</h2>
+            </div>
+            <div className="p-3">
+              <p className="text-gray-600 text-xs text-center">Guía completa de uso.</p>
+            </div>
+          </Link>
         </div>
 
         {/* Panel de Progreso Visual - NUEVO */}
