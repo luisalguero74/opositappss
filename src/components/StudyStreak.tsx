@@ -18,7 +18,9 @@ export default function StudyStreak() {
     fetch('/api/user/streak')
       .then(res => res.json())
       .then((data: StreakData) => {
-        setStreak(data.streak)
+        if (data?.streak) {
+          setStreak(data.streak)
+        }
         setLoading(false)
       })
       .catch(() => setLoading(false))
