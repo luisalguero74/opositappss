@@ -3,6 +3,16 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
+// Función para barajar arrays de forma aleatoria
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -41,9 +51,49 @@ export async function GET(request: NextRequest) {
     })
 
     // Shuffle the selected questions for more randomness
-    const shuffled = questions.sort(() => Math.random() - 0.5)
+    const shuffledQuestions = questions.sort(() => Math.random() - 0.5)
 
-    return NextResponse.json({ questions: shuffled })
+    // BARAJAR OPCIONES DE CADA PREGUNTA y actualizar correctAnswer
+    const finalQuestions = shuffledQuestions.map(q => {
+      const options: string[] = typeof q.options === 'string' ? JSON.parse(q.options) : q.options
+      
+      // Encontrar índice de la respuesta correcta ANTES de barajar
+      let correctIndex = -1
+      const ca = q.correctAnswer?.toLowerCase()
+      
+      if (['a', 'b', 'c', 'd'].includes(ca)) {
+        // Si ya es letra, convertir a índice
+        correctIndex = ca.charCodeAt(0) - 97
+      } else {
+        // Si es el texto de la opción, buscar su índice
+        correctIndex = options.findIndex((opt: string) => opt === q.correctAnswer)
+      }
+      
+      // Validar que tengamos un índice válido
+      if (correctIndex < 0 || correctIndex >= options.length) {
+        correctIndex = 0 // fallback a primera opción
+      }
+      
+      // Guardar la opción correcta
+      const correctOption = options[correctIndex]
+      
+      // BARAJAR las opciones
+      const shuffledOptions: string[] = shuffleArray(options)
+      
+      // Encontrar el NUEVO índice de la respuesta correcta después de barajar
+      const newCorrectIndex = shuffledOptions.findIndex((opt: string) => opt === correctOption)
+      
+      // Convertir el nuevo índice a letra
+      const newCorrectLetter = String.fromCharCode(97 + newCorrectIndex)
+      
+      return {
+        ...q,
+        options: shuffledOptions,
+        correctAnswer: newCorrectLetter
+      }
+    })
+
+    return NextResponse.json({ questions: finalQuestions })
 
   } catch (error) {
     console.error('Error fetching quick practice questions:', error)
