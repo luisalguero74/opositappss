@@ -4,20 +4,21 @@ import { prisma } from '@/lib/prisma'
 import Groq from 'groq-sdk'
 import OpenAI from 'openai'
 
+// Verificar API keys al inicio
+if (!process.env.GROQ_API_KEY) {
+  console.error('[Refine] ❌ GROQ_API_KEY no configurada')
+}
+if (!process.env.OPENAI_API_KEY) {
+  console.error('[Refine] ❌ OPENAI_API_KEY no configurada')
+}
+
 const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
+  apiKey: process.env.GROQ_API_KEY || '',
 })
 
-let openaiClient: OpenAI | null = null
-
-function getOpenAIClient() {
-  if (!openaiClient && process.env.OPENAI_API_KEY) {
-    openaiClient = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    })
-  }
-  return openaiClient
-}
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '',
+})
 
 interface QuestionToRefine {
   id: string
@@ -164,10 +165,13 @@ async function refineWithGPT(
   legalContext: any[],
   strategy: string
 ): Promise<any> {
-  const openai = getOpenAIClient()
-  if (!openai) throw new Error('OpenAI no disponible')
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error('OPENAI_API_KEY no configurada')
+  }
 
   const prompt = getRefinementPrompt(question, legalContext, strategy)
+
+  console.log(`[GPT-4o] Refinando pregunta ${question.id} con estrategia ${strategy}...`)
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
@@ -186,13 +190,25 @@ async function refineWithGPT(
   })
 
   const content = response.choices[0].message.content
-  if (!content) throw new Error('Sin respuesta de GPT')
+  if (!content) throw new Error('Sin respuesta de GPT-4o')
 
-  return JSON.parse(content)
+  console.log(`[GPT-4o] ✅ Refinamiento completado para ${question.id}`)
+  
+  const parsed = JSON.parse(content)
+  
+  // Validar que el JSON tenga los campos requeridos
+  if (!parsed.improvedText || !parsed.improvedOptions || !parsed.improvedExplanation) {
+    console.error(`[GPT-4o] ❌ JSON incompleto:`, parsed)
+    throw new Error('Respuesta incompleta de GPT-4o')
+  }
+  
+  return parsed
 }
 
 // Validar con Llama
 async function validateWithLlama(improvedData: any, originalQuestion: QuestionToRefine): Promise<number> {
+  console.log(`[Llama] Validando pregunta ${originalQuestion.id}...`)
+  
   const legalDocs = await prisma.legalDocument.findMany({
     select: { title: true, content: true },
     where: { active: true },
@@ -211,9 +227,9 @@ ${improvedData.improvedText}
 OPCIONES:
 ${Array.isArray(improvedData.improvedOptions) 
   ? improvedData.improvedOptions.join('\n') 
-  : improvedData.improvedOptions}
+  : JSON.stringify(improvedData.improvedOptions)}
 
-RESPUESTA CORRECTA: ${improvedData.correctAnswer}
+RESPUESTA CORRECTA: ${improvedData.correctAnswer || originalQuestion.correctAnswer}
 
 EXPLICACIÓN:
 ${improvedData.improvedExplanation}
@@ -233,21 +249,33 @@ RESPONDE SOLO JSON:
   "feedback": "Análisis breve"
 }`
 
-  const response = await groq.chat.completions.create({
-    messages: [
-      { role: 'system', content: 'Eres evaluador experto. Responde con JSON.' },
-      { role: 'user', content: prompt }
-    ],
-    model: 'llama-3.3-70b-versatile',
-    temperature: 0.3,
-    response_format: { type: 'json_object' },
-  })
+  try {
+    const response = await groq.chat.completions.create({
+      messages: [
+        { role: 'system', content: 'Eres evaluador experto. Responde con JSON.' },
+        { role: 'user', content: prompt }
+      ],
+      model: 'llama-3.3-70b-versatile',
+      temperature: 0.3,
+      response_format: { type: 'json_object' },
+    })
 
-  const content = response.choices[0].message.content
-  if (!content) return 0
+    const content = response.choices[0].message.content
+    if (!content) {
+      console.error(`[Llama] ❌ Sin respuesta para ${originalQuestion.id}`)
+      return 0
+    }
 
-  const result = JSON.parse(content)
-  return result.score || 0
+    const result = JSON.parse(content)
+    const score = result.score || 0
+    
+    console.log(`[Llama] ✅ Score para ${originalQuestion.id}: ${score}`)
+    
+    return score
+  } catch (error) {
+    console.error(`[Llama] ❌ Error validando ${originalQuestion.id}:`, error)
+    return 0
+  }
 }
 
 // Proceso completo de refinamiento
