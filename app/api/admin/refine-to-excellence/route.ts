@@ -607,10 +607,15 @@ export async function POST(request: Request) {
       if (result.success && result.newScore >= 75) {
         const updateData: any = {}
 
+        // Convertir options a JSON string si es necesario
+        const optionsString = typeof result.improvedOptions === 'string' 
+          ? result.improvedOptions 
+          : JSON.stringify(result.improvedOptions)
+
         // Si alcanzó excelencia (≥90), guardar todo
         if (result.newScore >= 90) {
           updateData.text = result.improvedText
-          updateData.options = result.improvedOptions
+          updateData.options = optionsString
           updateData.explanation = result.improvedExplanation
           updateData.reviewStatus = 'VALIDATED'
           validated++
@@ -618,7 +623,7 @@ export async function POST(request: Request) {
         // Si mejoró pero no a excelencia (75-89), guardar y dejar en PENDING
         else if (result.newScore >= 75) {
           updateData.text = result.improvedText
-          updateData.options = result.improvedOptions
+          updateData.options = optionsString
           updateData.explanation = result.improvedExplanation
           updateData.reviewStatus = 'PENDING'
           improved++
