@@ -56,6 +56,18 @@ export default function QuestionsManagerPage() {
   
   // Selección múltiple
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
+  
+  // Progreso de validación IA
+  const [validationProgress, setValidationProgress] = useState({
+    show: false,
+    current: 0,
+    total: 0,
+    validated: 0,
+    needsReview: 0,
+    quarantined: 0,
+    improved: 0,
+    startTime: 0
+  })
 
   useEffect(() => {
     if (status === 'unauthenticated' || (session?.user?.role?.toLowerCase() !== 'admin')) {
@@ -260,53 +272,88 @@ export default function QuestionsManagerPage() {
 
     if (!confirm(message)) return
 
-    setLoading(true)
     const startTime = Date.now()
     
+    // Mostrar modal de progreso
+    setValidationProgress({
+      show: true,
+      current: 0,
+      total: pendingQuestions.length,
+      validated: 0,
+      needsReview: 0,
+      quarantined: 0,
+      improved: 0,
+      startTime
+    })
+
+    setLoading(true)
+    
     try {
+      // Procesar en lotes de 5 preguntas para actualizar progreso
+      const batchSize = 5
       const questionIds = pendingQuestions.map(q => q.id)
-      const res = await fetch('/api/admin/ai-validate-questions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          questionIds,
-          autoApplyImprovements: true,
-          threshold: 85
+      let totalValidated = 0
+      let totalNeedsReview = 0
+      let totalQuarantined = 0
+      let totalImproved = 0
+
+      for (let i = 0; i < questionIds.length; i += batchSize) {
+        const batch = questionIds.slice(i, i + batchSize)
+        
+        const res = await fetch('/api/admin/ai-validate-questions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            questionIds: batch,
+            autoApplyImprovements: true,
+            threshold: 85
+          })
         })
-      })
 
-      // Intentar leer la respuesta como texto primero
-      const responseText = await res.text()
-      console.log('Response status:', res.status)
-      console.log('Response text:', responseText.substring(0, 500))
+        const responseText = await res.text()
 
-      if (!res.ok) {
-        // Si no es OK, mostrar el error completo
-        alert(`❌ Error del servidor (${res.status}):\n\n${responseText.substring(0, 300)}`)
-        return
-      }
+        if (!res.ok) {
+          console.error('Error del servidor:', responseText)
+          throw new Error(`Error del servidor (${res.status})`)
+        }
 
-      // Intentar parsear como JSON
-      let data
-      try {
-        data = JSON.parse(responseText)
-      } catch (parseError) {
-        console.error('Error parsing JSON:', parseError)
-        console.error('Response was:', responseText)
-        alert(`❌ Error: La respuesta del servidor no es JSON válido.\n\nRevisa la consola (F12) para más detalles.`)
-        return
+        let data
+        try {
+          data = JSON.parse(responseText)
+        } catch (parseError) {
+          console.error('Error parsing JSON:', parseError)
+          throw new Error('Respuesta del servidor no es JSON válido')
+        }
+
+        // Acumular resultados
+        totalValidated += data.summary.validated
+        totalNeedsReview += data.summary.needsReview
+        totalQuarantined += data.summary.quarantined
+        totalImproved += data.summary.improved
+
+        // Actualizar progreso
+        setValidationProgress(prev => ({
+          ...prev,
+          current: Math.min(i + batchSize, questionIds.length),
+          validated: totalValidated,
+          needsReview: totalNeedsReview,
+          quarantined: totalQuarantined,
+          improved: totalImproved
+        }))
       }
 
       const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(1)
-      const summary = data.summary
+      
+      // Esperar un poco para que se vea el 100%
+      await new Promise(resolve => setTimeout(resolve, 500))
       
       const resultMessage = `✅ VALIDACIÓN COMPLETADA (${duration} min)\n\n` +
         `📊 RESULTADOS:\n` +
-        `• Total procesadas: ${summary.total}\n` +
-        `• ✅ Validadas: ${summary.validated}\n` +
-        `• 🔍 Necesitan revisión: ${summary.needsReview}\n` +
-        `• ⚠️ En cuarentena: ${summary.quarantined}\n` +
-        `• ✨ Mejoradas automáticamente: ${summary.improved}\n\n` +
+        `• Total procesadas: ${questionIds.length}\n` +
+        `• ✅ Validadas: ${totalValidated}\n` +
+        `• 🔍 Necesitan revisión: ${totalNeedsReview}\n` +
+        `• ⚠️ En cuarentena: ${totalQuarantined}\n` +
+        `• ✨ Mejoradas automáticamente: ${totalImproved}\n\n` +
         `Las preguntas han sido analizadas profesionalmente por IA.`
       
       alert(resultMessage)
@@ -317,6 +364,7 @@ export default function QuestionsManagerPage() {
       alert(`❌ Error al validar con IA:\n\n${error instanceof Error ? error.message : 'Error desconocido'}\n\nRevisa la consola (F12) para más detalles.`)
     } finally {
       setLoading(false)
+      setValidationProgress(prev => ({ ...prev, show: false }))
     }
   }
 
@@ -551,6 +599,64 @@ export default function QuestionsManagerPage() {
             </button>
           </div>
         </div>
+
+        {/* Modal de Progreso de Validación IA */}
+        {validationProgress.show && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full mx-4">
+              <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                🤖 Auto-Validación IA en Progreso
+              </h2>
+              
+              {/* Barra de Progreso */}
+              <div className="mb-6">
+                <div className="flex justify-between text-sm text-gray-600 mb-2">
+                  <span>Procesando preguntas...</span>
+                  <span className="font-bold">{validationProgress.current} / {validationProgress.total}</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                  <div 
+                    className="bg-gradient-to-r from-purple-600 to-indigo-600 h-6 rounded-full transition-all duration-500 flex items-center justify-center text-white text-xs font-bold"
+                    style={{ width: `${(validationProgress.current / validationProgress.total) * 100}%` }}
+                  >
+                    {Math.round((validationProgress.current / validationProgress.total) * 100)}%
+                  </div>
+                </div>
+              </div>
+
+              {/* Estadísticas en Tiempo Real */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-green-600">{validationProgress.validated}</div>
+                  <div className="text-xs text-green-700 font-semibold mt-1">✅ Validadas</div>
+                </div>
+                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-blue-600">{validationProgress.needsReview}</div>
+                  <div className="text-xs text-blue-700 font-semibold mt-1">🔍 Revisar</div>
+                </div>
+                <div className="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-yellow-600">{validationProgress.quarantined}</div>
+                  <div className="text-xs text-yellow-700 font-semibold mt-1">⚠️ Cuarentena</div>
+                </div>
+                <div className="bg-purple-50 border-2 border-purple-200 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-purple-600">{validationProgress.improved}</div>
+                  <div className="text-xs text-purple-700 font-semibold mt-1">✨ Mejoradas</div>
+                </div>
+              </div>
+
+              {/* Tiempo Transcurrido */}
+              <div className="text-center text-sm text-gray-600">
+                ⏱️ Tiempo transcurrido: {Math.floor((Date.now() - validationProgress.startTime) / 1000)}s
+              </div>
+
+              {/* Mensaje */}
+              <div className="mt-6 text-center text-sm text-gray-500">
+                <p>Por favor, no cierres esta ventana mientras se procesa...</p>
+                <p className="mt-2">🧠 La IA está analizando cada pregunta profesionalmente</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Tab Content */}
         {activeTab === 'browse' && (
