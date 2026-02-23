@@ -306,7 +306,7 @@ export default function QuestionsManagerPage() {
           body: JSON.stringify({
             questionIds: batch,
             autoApplyImprovements: true,
-            threshold: 85
+            threshold: 60
           })
         })
 
