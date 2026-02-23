@@ -31,9 +31,14 @@ async function getGroqClient() {
   return new Groq({ apiKey: process.env.GROQ_API_KEY || '' })
 }
 
-async function validateQuestionWithAI(question: any): Promise<ValidationResult> {
+async function getOpenAIClient() {
+  const OpenAI = (await import('openai')).default
+  return new OpenAI({ apiKey: process.env.OPENAI_API_KEY || '' })
+}
+
+async function validateQuestionWithAI(question: any, useAdvancedModel: boolean = false): Promise<ValidationResult> {
   try {
-    // Buscar documentos legales relevantes
+    // Buscar documentos legales relevantes - USAR MÁS para mejor contexto
     const legalDocs = await prisma.legalDocument.findMany({
       where: {
         OR: [
@@ -48,12 +53,12 @@ async function validateQuestionWithAI(question: any): Promise<ValidationResult> 
         content: true,
         documentType: true
       },
-      take: 50
+      take: useAdvancedModel ? 100 : 20 // Más contexto para GPT-4o
     })
 
-    const prompt = `Eres un experto en Derecho Administrativo, Constitucional y de la Seguridad Social con amplia experiencia en oposiciones.
+    const prompt = `Eres un tribunal calificador experto en oposiciones para la Administración de la Seguridad Social, con profundo conocimiento de Derecho Administrativo, Constitucional y de la Seguridad Social.
 
-TAREA: Analiza esta pregunta de test y valídala profesionalmente.
+TAREA: Analiza esta pregunta con MÁXIMA RIGUROSIDAD y propón mejoras para alcanzar EXCELENCIA PROFESIONAL.
 
 PREGUNTA:
 ${question.text}
@@ -67,22 +72,49 @@ EXPLICACIÓN ACTUAL:
 ${question.explanation || 'No hay explicación'}
 
 CONTEXTO LEGAL DISPONIBLE:
-${legalDocs.slice(0, 5).map(doc => `- ${doc.title}: ${doc.content.substring(0, 500)}...`).join('\n')}
+${legalDocs.slice(0, useAdvancedModel ? 50 : 10).map(doc => `- ${doc.title}: ${doc.content.substring(0, 800)}...`).join('\n')}
 
-INSTRUCCIONES DE VALIDACIÓN:
+CRITERIOS DE EXCELENCIA (puntúa 0-100 cada uno):
 
-1. ANALIZA LA CALIDAD DE LA PREGUNTA (0-100):
-   - ¿Está bien redactada y es clara?
-   - ¿Es relevante para oposiciones de Seguridad Social?
-   - ¿Tiene la complejidad adecuada?
+1. CALIDAD DE LA PREGUNTA:
+   - Redacción impecable, sin ambigüedades
+   - Relevancia directa para oposiciones TGSS
+   - Complejidad apropiada (ni trivial ni excesiva)
+   - Técnica de test profesional
 
-2. ANALIZA LAS RESPUESTAS (0-100):
-   - ¿La respuesta correcta ES realmente correcta según la ley?
-   - ¿Las incorrectas son plausibles pero falsas?
-   - ¿Están bien balanceadas?
+2. CALIDAD DE LAS RESPUESTAS:
+   - Respuesta correcta 100% verificable legalmente
+   - Distractores plausibles pero claramente incorrectos
+   - Balance perfecto de dificultad
+   - Sin trampas ni trucos
 
-3. ANALIZA LA EXPLICACIÓN (0-100):
-   - ¿Cita artículos y leyes específicos?
+3. CALIDAD DE LA EXPLICACIÓN:
+   - Referencias legales EXACTAS (artículo, ley, fecha)
+   - Texto legal literal cuando sea relevante
+   - Explicación pedagógica clara
+   - Justificación de por qué las incorrectas lo son
+
+4. PRECISIÓN LEGAL:
+   - Verificación contra normativa vigente
+   - Sin errores en artículos citados
+   - Actualizada a ${new Date().getFullYear()}
+   - Sin contradicciones legales
+
+MEJORAS OBLIGATORIAS si puntuación < 90:
+- Reescribe la pregunta para máxima claridad
+- Mejora las opciones para mayor precisión
+- ENRIQUECE la explicación con:
+  * Artículo exacto citado LITERALMENTE
+  * Ley completa (nombre, número, año)
+  * Contexto legal relevante
+  * Por qué cada opción incorrecta lo es
+
+DECISIÓN FINAL:
+- VALIDATED: Solo si puntuación global ≥ 90 y sin errores
+- NEEDS_REVIEW: Si 75-89 o requiere verificación manual
+- QUARANTINED: Si < 75 o tiene errores graves
+
+RESPONDE EN JSON ESTRICTO:
    - ¿Es clara y educativa?
    - ¿Tiene texto legal literal o parafraseado?
 
@@ -119,19 +151,56 @@ RESPONDE EN JSON con esta estructura EXACTA:
     "explanation": "explicación enriquecida con referencias legales",
     "legalReferences": ["Art. 21 Ley 39/2015", "Art. 105 CE"]
   },
-  "aiReport": "Informe detallado de la validación...",
+{
+  "scores": {
+    "questionQuality": 85,
+    "answersQuality": 90,
+    "explanationQuality": 75,
+    "legalAccuracy": 95,
+    "overall": 86
+  },
+  "decision": "VALIDATED",
+  "improvements": {
+    "questionText": "texto mejorado si aplica o null",
+    "options": "opciones mejoradas si aplica o null",
+    "explanation": "explicación ENRIQUECIDA con referencias legales LITERALES",
+    "legalReferences": ["Art. 21 Ley 39/2015 de 1 de octubre", "Art. 105 CE"]
+  },
+  "aiReport": "Análisis detallado justificando puntuaciones y decisión",
   "verified": true,
-  "errors": ["error1 si hay", "error2 si hay"]
+  "errors": []
 }`
 
-    const groq = await getGroqClient()
-    const completion = await groq.chat.completions.create({
-      messages: [{ role: 'user', content: prompt }],
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.3,
-      max_tokens: 3000,
-      response_format: { type: 'json_object' }
-    })
+    // SISTEMA HÍBRIDO: GPT-4o para preguntas complejas, Llama para simples
+    let completion: any
+    
+    if (useAdvancedModel) {
+      console.log('🔬 Usando GPT-4o para validación avanzada...')
+      const openai = await getOpenAIClient()
+      completion = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [
+          {
+            role: 'system',
+            content: 'Eres un tribunal calificador experto en oposiciones de la Administración Pública española. Respondes SOLO con JSON válido.'
+          },
+          { role: 'user', content: prompt }
+        ],
+        temperature: 0.2,
+        max_tokens: 4000,
+        response_format: { type: 'json_object' }
+      })
+    } else {
+      console.log('⚡ Usando Llama 3.3 70B para validación rápida...')
+      const groq = await getGroqClient()
+      completion = await groq.chat.completions.create({
+        messages: [{ role: 'user', content: prompt }],
+        model: 'llama-3.3-70b-versatile',
+        temperature: 0.3,
+        max_tokens: 3000,
+        response_format: { type: 'json_object' }
+      })
+    }
 
     const response = completion.choices[0]?.message?.content
     if (!response) {
@@ -191,7 +260,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
-    const { questionIds, autoApplyImprovements = true, threshold = 85 } = body
+    const { questionIds, autoApplyImprovements = true, threshold = 60 } = body
 
     if (!questionIds || !Array.isArray(questionIds)) {
       return NextResponse.json({ error: 'questionIds es requerido y debe ser un array' }, { status: 400 })
@@ -221,13 +290,25 @@ export async function POST(req: NextRequest) {
     let needsReview = 0
     let quarantined = 0
     let improved = 0
+    let usedAdvancedModel = 0
 
-    // Procesar cada pregunta
+    // Procesar cada pregunta con SISTEMA HÍBRIDO
     for (const question of questions) {
       console.log(`📝 Validando pregunta ${question.id}...`)
       
-      const result = await validateQuestionWithAI(question)
-      results.push(result)
+      // PASADA 1: Validación rápida con Llama
+      const quickResult = await validateQuestionWithAI(question, false)
+      
+      let finalResult = quickResult
+      
+      // Si puntuación < 80, usar GPT-4o para EXCELENCIA
+      if (quickResult.scores.overall < 80) {
+        console.log(`🔬 Pregunta ${question.id} necesita validación avanzada (score: ${quickResult.scores.overall})`)
+        finalResult = await validateQuestionWithAI(question, true)
+        usedAdvancedModel++
+      }
+      
+      results.push(finalResult)
 
       // SIEMPRE actualizar la base de datos con el resultado
       const updateData: any = {
@@ -235,30 +316,30 @@ export async function POST(req: NextRequest) {
       }
       
       // Aplicar mejoras solo si están autorizadas y la puntuación es suficiente
-      if (autoApplyImprovements && result.scores.overall >= threshold) {
-        if (result.improvements.questionText) {
-          updateData.text = result.improvements.questionText
+      if (autoApplyImprovements && finalResult.scores.overall >= threshold) {
+        if (finalResult.improvements.questionText) {
+          updateData.text = finalResult.improvements.questionText
         }
         
-        if (result.improvements.options) {
-          updateData.options = result.improvements.options
+        if (finalResult.improvements.options) {
+          updateData.options = finalResult.improvements.options
         }
         
-        if (result.improvements.explanation) {
-          updateData.explanation = result.improvements.explanation
+        if (finalResult.improvements.explanation) {
+          updateData.explanation = finalResult.improvements.explanation
         }
 
         // Contar mejoras aplicadas
-        if (result.improvements.questionText || result.improvements.options || result.improvements.explanation) {
+        if (finalResult.improvements.questionText || finalResult.improvements.options || finalResult.improvements.explanation) {
           improved++
         }
       }
 
       // SIEMPRE actualizar estado según decisión de la IA
-      if (result.decision === 'VALIDATED') {
+      if (finalResult.decision === 'VALIDATED') {
         updateData.reviewStatus = 'VALIDATED'
         validated++
-      } else if (result.decision === 'NEEDS_REVIEW') {
+      } else if (finalResult.decision === 'NEEDS_REVIEW') {
         updateData.reviewStatus = 'PENDING'
         needsReview++
       } else {
@@ -281,6 +362,7 @@ export async function POST(req: NextRequest) {
     console.log(`   - Necesitan revisión: ${needsReview}`)
     console.log(`   - En cuarentena: ${quarantined}`)
     console.log(`   - Mejoradas automáticamente: ${improved}`)
+    console.log(`   - Validaciones avanzadas (GPT-4o): ${usedAdvancedModel}`)
 
     return NextResponse.json({
       success: true,
@@ -289,7 +371,8 @@ export async function POST(req: NextRequest) {
         validated,
         needsReview,
         quarantined,
-        improved
+        improved,
+        usedAdvancedModel
       },
       results,
       message: `Procesadas ${questions.length} preguntas. ${validated} validadas, ${improved} mejoradas automáticamente.`
