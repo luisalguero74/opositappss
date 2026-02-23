@@ -26,35 +26,21 @@ Commits realizados:
 1. Filtrar por estado: `PENDIENTE`
 2. Ver cuántas hay (ejemplo: 150 pendientes)
 3. Pulsar **🤖 Auto-Validación IA Profesional**
-4. Leer el mensaje informativo:
-   ```
-   🤖 AUTO-VALIDACIÓN INTELIGENTE CON IA
-   
-   Se van a procesar X preguntas con:
-   
-   ✓ Verificación legal contra documentos oficiales
-   ✓ Validación de respuestas correctas e incorrectas
-   ✓ Análisis de calidad de explicaciones
-   ✓ Mejoras automáticas si es necesario
-   ✓ Puntuación profesional (0-100)
-   
-   El proceso tomará aproximadamente X minutos.
-   
-   ¿Continuar?
-   ```
-5. Pulsar **OK** para confirmar
-6. Esperar (verás progreso en consola F12)
-7. Al finalizar, leer el reporte:
-   ```
-   ✅ VALIDACIÓN COMPLETADA (X.X min)
-   
-   📊 RESULTADOS:
-   • Total procesadas: X
-   • ✅ Validadas: X
-   • 🔍 Necesitan revisión: X
-   • ⚠️ En cuarentena: X
-   • ✨ Mejoradas automáticamente: X
-   ```
+4. Leer el mensaje informativo y confirmar
+5. **✨ NUEVO: Verás una barra de progreso en tiempo real:**
+   - Modal visual con fondo oscuro
+   - Barra de progreso animada (0% → 100%)
+   - Contador: "25 / 100 preguntas"
+   - Estadísticas en vivo:
+     * ✅ Validadas (verde)
+     * 🔍 Necesitan revisión (azul)
+     * ⚠️ En cuarentena (amarillo)
+     * ✨ Mejoradas (morado)
+   - ⏱️ Temporizador de tiempo transcurrido
+   - Se actualiza cada ~30 segundos (lote de 5 preguntas)
+6. Esperar a que termine (no cerrar la ventana)
+7. Al llegar al 100%, el modal se cierra automáticamente
+8. Leer el reporte final con todos los detalles
 
 ### 3. Revisar Resultados
 
