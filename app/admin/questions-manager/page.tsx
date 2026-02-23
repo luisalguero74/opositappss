@@ -69,6 +69,17 @@ export default function QuestionsManagerPage() {
     startTime: 0
   })
 
+  // Progreso de refinamiento a excelencia
+  const [refinementProgress, setRefinementProgress] = useState({
+    show: false,
+    current: 0,
+    total: 0,
+    validated: 0,
+    improved: 0,
+    failed: 0,
+    startTime: 0
+  })
+
   useEffect(() => {
     if (status === 'unauthenticated' || (session?.user?.role?.toLowerCase() !== 'admin')) {
       router.push('/dashboard')
@@ -368,6 +379,106 @@ export default function QuestionsManagerPage() {
     }
   }
 
+  // Función de refinamiento a excelencia
+  const handleRefineToExcellence = async () => {
+    const candidateQuestions = questions.filter(q => 
+      q.reviewStatus === 'PENDING' || q.reviewStatus === 'QUARANTINED'
+    )
+
+    if (candidateQuestions.length === 0) {
+      alert('No hay preguntas para refinar. Todas están ya validadas.')
+      return
+    }
+
+    const pendingCount = questions.filter(q => q.reviewStatus === 'PENDING').length
+    const quarantinedCount = questions.filter(q => q.reviewStatus === 'QUARANTINED').length
+
+    const message = `🎯 REFINAMIENTO A EXCELENCIA TOTAL\n\n` +
+      `Se van a refinar ${candidateQuestions.length} preguntas:\n\n` +
+      `📊 Distribución:\n` +
+      `   • PENDING: ${pendingCount}\n` +
+      `   • CUARENTENA: ${quarantinedCount}\n\n` +
+      `✨ Estrategias por nivel:\n` +
+      `   • Cuarentena → Reescritura profunda (150 docs)\n` +
+      `   • Pending → Mejora moderada (80 docs)\n\n` +
+      `🎯 Objetivo: Score ≥90 (Excelencia)\n\n` +
+      `⏱️  Tiempo estimado: ${Math.ceil(candidateQuestions.length * 2 / 60)} min\n` +
+      `💰 Costo estimado: ~$${(candidateQuestions.length * 0.003).toFixed(2)}\n\n` +
+      `¿Continuar?`
+
+    if (!confirm(message)) return
+
+    const startTime = Date.now()
+    
+    setRefinementProgress({
+      show: true,
+      current: 0,
+      total: candidateQuestions.length,
+      validated: 0,
+      improved: 0,
+      failed: 0,
+      startTime
+    })
+
+    setLoading(true)
+    
+    try {
+      const batchSize = 5
+      const questionIds = candidateQuestions.map(q => q.id)
+      let totalValidated = 0
+      let totalImproved = 0
+      let totalFailed = 0
+
+      for (let i = 0; i < questionIds.length; i += batchSize) {
+        const batch = questionIds.slice(i, i + batchSize)
+        
+        const res = await fetch('/api/admin/refine-to-excellence', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ questionIds: batch })
+        })
+
+        if (!res.ok) {
+          throw new Error(`Error del servidor (${res.status})`)
+        }
+
+        const data = await res.json()
+
+        totalValidated += data.stats.validated
+        totalImproved += data.stats.improved
+        totalFailed += data.stats.failed
+
+        setRefinementProgress(prev => ({
+          ...prev,
+          current: Math.min(i + batchSize, questionIds.length),
+          validated: totalValidated,
+          improved: totalImproved,
+          failed: totalFailed
+        }))
+
+        await new Promise(resolve => setTimeout(resolve, 1000))
+      }
+
+      const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(1)
+      
+      alert(`✅ REFINAMIENTO COMPLETADO (${duration} min)\n\n` +
+        `📊 RESULTADOS:\n` +
+        `• ✅ Validadas (≥90): ${totalValidated}\n` +
+        `• 🔄 Mejoradas (75-89): ${totalImproved}\n` +
+        `• ❌ Fallidas: ${totalFailed}\n\n` +
+        `${totalValidated + totalImproved} preguntas refinadas con éxito!`)
+      
+      loadQuestions()
+      loadStats()
+    } catch (error) {
+      console.error('Error en refinamiento:', error)
+      alert(`❌ Error:\n\n${error instanceof Error ? error.message : 'Error desconocido'}`)
+    } finally {
+      setLoading(false)
+      setRefinementProgress(prev => ({ ...prev, show: false }))
+    }
+  }
+
   const toggleSelection = (id: string) => {
     setSelectedIds(prev => {
       const next = new Set(prev)
@@ -658,6 +769,65 @@ export default function QuestionsManagerPage() {
           </div>
         )}
 
+        {/* Modal de Progreso de Refinamiento */}
+        {refinementProgress.show && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full mx-4">
+              <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-amber-500 to-orange-600 bg-clip-text text-transparent">
+                🎯 Refinamiento a Excelencia en Progreso
+              </h2>
+              
+              {/* Barra de Progreso */}
+              <div className="mb-6">
+                <div className="flex justify-between text-sm text-gray-600 mb-2">
+                  <span>Refinando preguntas con GPT-4o + Llama...</span>
+                  <span className="font-bold">{refinementProgress.current} / {refinementProgress.total}</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                  <div 
+                    className="bg-gradient-to-r from-amber-500 to-orange-600 h-6 rounded-full transition-all duration-500 flex items-center justify-center text-white text-xs font-bold"
+                    style={{ width: `${(refinementProgress.current / refinementProgress.total) * 100}%` }}
+                  >
+                    {Math.round((refinementProgress.current / refinementProgress.total) * 100)}%
+                  </div>
+                </div>
+              </div>
+
+              {/* Estadísticas en Tiempo Real */}
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-green-600">{refinementProgress.validated}</div>
+                  <div className="text-xs text-green-700 font-semibold mt-1">✅ Excelencia (≥90)</div>
+                </div>
+                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-blue-600">{refinementProgress.improved}</div>
+                  <div className="text-xs text-blue-700 font-semibold mt-1">🔄 Mejoradas (75-89)</div>
+                </div>
+                <div className="bg-red-50 border-2 border-red-200 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-red-600">{refinementProgress.failed}</div>
+                  <div className="text-xs text-red-700 font-semibold mt-1">❌ Fallidas</div>
+                </div>
+              </div>
+
+              {/* Tiempo y Costo Estimado */}
+              <div className="grid grid-cols-2 gap-4 text-center text-sm text-gray-600 mb-4">
+                <div>
+                  <span>⏱️ Tiempo: {Math.floor((Date.now() - refinementProgress.startTime) / 1000)}s</span>
+                </div>
+                <div>
+                  <span>💰 Costo: ~${(refinementProgress.current * 0.003).toFixed(2)}</span>
+                </div>
+              </div>
+
+              {/* Mensaje */}
+              <div className="mt-6 text-center text-sm text-gray-500">
+                <p>Por favor, no cierres esta ventana mientras se procesa...</p>
+                <p className="mt-2">✨ GPT-4o reescribiendo + Llama validando cada pregunta</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Tab Content */}
         {activeTab === 'browse' && (
           <div>
@@ -749,14 +919,24 @@ export default function QuestionsManagerPage() {
                 <div className="text-sm text-gray-600">
                   Mostrando {filteredQuestions.length} de {questions.length} preguntas
                 </div>
-                <button
-                  onClick={handleAutoValidateHighQuality}
-                  disabled={loading}
-                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-lg font-bold shadow-lg transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                  title="Validación inteligente con IA: verifica, corrige y mejora automáticamente las preguntas"
-                >
-                  🤖 Auto-Validación IA Profesional
-                </button>
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleAutoValidateHighQuality}
+                    disabled={loading}
+                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-lg font-bold shadow-lg transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    title="Validación inteligente con IA: verifica, corrige y mejora automáticamente las preguntas"
+                  >
+                    🤖 Auto-Validación IA
+                  </button>
+                  <button
+                    onClick={handleRefineToExcellence}
+                    disabled={loading}
+                    className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white rounded-lg font-bold shadow-lg transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    title="Refina preguntas PENDING y QUARANTINED hasta excelencia (≥90)"
+                  >
+                    🎯 Refinar a Excelencia
+                  </button>
+                </div>
               </div>
             </div>
 
