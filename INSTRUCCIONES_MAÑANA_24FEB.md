@@ -112,6 +112,28 @@ Commits realizados:
 
 ## 🔧 PROBLEMAS POSIBLES Y SOLUCIONES
 
+### ⚠️ IMPORTANTE: Error JSON detectado y corregido
+
+**Se detectó un error al ejecutar la primera vez:**
+```
+Error in AI auto-validation: SyntaxError: JSON.parse: unexpected character
+```
+
+**✅ YA ESTÁ ARREGLADO** (Commit: `eeafe17`)
+
+**Mejoras aplicadas:**
+- ✅ Mejor manejo de errores con mensajes descriptivos
+- ✅ Logging detallado en consola (F12)
+- ✅ Inicialización correcta de Groq client
+- ✅ Validación de respuestas del servidor
+
+**Si aparece algún error ahora:**
+1. Abre la consola del navegador (F12)
+2. Verás el error completo con detalles
+3. Captura el mensaje y revisa las soluciones abajo
+
+---
+
 ### Problema: "GROQ_API_KEY no configurada"
 
 **Solución:**
