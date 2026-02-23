@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import Groq from 'groq-sdk'
-
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || '' })
 
 interface ValidationScore {
   questionQuality: number
@@ -27,6 +24,11 @@ interface ValidationResult {
   aiReport: string
   verified: boolean
   errors?: string[]
+}
+
+async function getGroqClient() {
+  const Groq = (await import('groq-sdk')).default
+  return new Groq({ apiKey: process.env.GROQ_API_KEY || '' })
 }
 
 async function validateQuestionWithAI(question: any): Promise<ValidationResult> {
@@ -122,6 +124,7 @@ RESPONDE EN JSON con esta estructura EXACTA:
   "errors": ["error1 si hay", "error2 si hay"]
 }`
 
+    const groq = await getGroqClient()
     const completion = await groq.chat.completions.create({
       messages: [{ role: 'user', content: prompt }],
       model: 'llama-3.3-70b-versatile',

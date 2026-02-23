@@ -275,30 +275,46 @@ export default function QuestionsManagerPage() {
         })
       })
 
-      const data = await res.json()
+      // Intentar leer la respuesta como texto primero
+      const responseText = await res.text()
+      console.log('Response status:', res.status)
+      console.log('Response text:', responseText.substring(0, 500))
 
-      if (res.ok) {
-        const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(1)
-        const summary = data.summary
-        
-        const resultMessage = `✅ VALIDACIÓN COMPLETADA (${duration} min)\n\n` +
-          `📊 RESULTADOS:\n` +
-          `• Total procesadas: ${summary.total}\n` +
-          `• ✅ Validadas: ${summary.validated}\n` +
-          `• 🔍 Necesitan revisión: ${summary.needsReview}\n` +
-          `• ⚠️ En cuarentena: ${summary.quarantined}\n` +
-          `• ✨ Mejoradas automáticamente: ${summary.improved}\n\n` +
-          `Las preguntas han sido analizadas profesionalmente por IA.`
-        
-        alert(resultMessage)
-        loadQuestions()
-        loadStats()
-      } else {
-        alert(`❌ Error: ${data.error}\n${data.details || ''}`)
+      if (!res.ok) {
+        // Si no es OK, mostrar el error completo
+        alert(`❌ Error del servidor (${res.status}):\n\n${responseText.substring(0, 300)}`)
+        return
       }
+
+      // Intentar parsear como JSON
+      let data
+      try {
+        data = JSON.parse(responseText)
+      } catch (parseError) {
+        console.error('Error parsing JSON:', parseError)
+        console.error('Response was:', responseText)
+        alert(`❌ Error: La respuesta del servidor no es JSON válido.\n\nRevisa la consola (F12) para más detalles.`)
+        return
+      }
+
+      const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(1)
+      const summary = data.summary
+      
+      const resultMessage = `✅ VALIDACIÓN COMPLETADA (${duration} min)\n\n` +
+        `📊 RESULTADOS:\n` +
+        `• Total procesadas: ${summary.total}\n` +
+        `• ✅ Validadas: ${summary.validated}\n` +
+        `• 🔍 Necesitan revisión: ${summary.needsReview}\n` +
+        `• ⚠️ En cuarentena: ${summary.quarantined}\n` +
+        `• ✨ Mejoradas automáticamente: ${summary.improved}\n\n` +
+        `Las preguntas han sido analizadas profesionalmente por IA.`
+      
+      alert(resultMessage)
+      loadQuestions()
+      loadStats()
     } catch (error) {
       console.error('Error in AI auto-validation:', error)
-      alert('Error al validar con IA. Verifica la consola para más detalles.')
+      alert(`❌ Error al validar con IA:\n\n${error instanceof Error ? error.message : 'Error desconocido'}\n\nRevisa la consola (F12) para más detalles.`)
     } finally {
       setLoading(false)
     }
