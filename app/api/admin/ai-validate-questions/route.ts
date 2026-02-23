@@ -229,10 +229,13 @@ export async function POST(req: NextRequest) {
       const result = await validateQuestionWithAI(question)
       results.push(result)
 
-      // Aplicar mejoras si están autorizadas y la puntuación es suficiente
+      // SIEMPRE actualizar la base de datos con el resultado
+      const updateData: any = {
+        aiReviewed: true // Marcar que la IA la ha revisado
+      }
+      
+      // Aplicar mejoras solo si están autorizadas y la puntuación es suficiente
       if (autoApplyImprovements && result.scores.overall >= threshold) {
-        const updateData: any = {}
-        
         if (result.improvements.questionText) {
           updateData.text = result.improvements.questionText
         }
@@ -245,33 +248,29 @@ export async function POST(req: NextRequest) {
           updateData.explanation = result.improvements.explanation
         }
 
-        // Actualizar estado según decisión
-        if (result.decision === 'VALIDATED') {
-          updateData.reviewStatus = 'VALIDATED'
-          updateData.aiReviewed = true
-          validated++
-        } else if (result.decision === 'NEEDS_REVIEW') {
-          updateData.reviewStatus = 'PENDING'
-          updateData.aiReviewed = true
-          needsReview++
-        } else {
-          updateData.reviewStatus = 'QUARANTINED'
-          updateData.aiReviewed = false
-          quarantined++
-        }
-
-        // Aplicar mejoras si hay
-        if (Object.keys(updateData).length > 0) {
-          await prisma.question.update({
-            where: { id: question.id },
-            data: updateData
-          })
-          
-          if (result.improvements.questionText || result.improvements.options || result.improvements.explanation) {
-            improved++
-          }
+        // Contar mejoras aplicadas
+        if (result.improvements.questionText || result.improvements.options || result.improvements.explanation) {
+          improved++
         }
       }
+
+      // SIEMPRE actualizar estado según decisión de la IA
+      if (result.decision === 'VALIDATED') {
+        updateData.reviewStatus = 'VALIDATED'
+        validated++
+      } else if (result.decision === 'NEEDS_REVIEW') {
+        updateData.reviewStatus = 'PENDING'
+        needsReview++
+      } else {
+        updateData.reviewStatus = 'QUARANTINED'
+        quarantined++
+      }
+
+      // Actualizar la pregunta en base de datos
+      await prisma.question.update({
+        where: { id: question.id },
+        data: updateData
+      })
 
       // Esperar un poco para no saturar la API
       await new Promise(resolve => setTimeout(resolve, 500))
