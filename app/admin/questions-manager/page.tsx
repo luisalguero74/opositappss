@@ -381,19 +381,40 @@ export default function QuestionsManagerPage() {
 
   // Función de refinamiento a excelencia
   const handleRefineToExcellence = async () => {
-    const candidateQuestions = questions.filter(q => 
-      q.reviewStatus === 'PENDING' || q.reviewStatus === 'QUARANTINED'
-    )
+    // Si hay preguntas seleccionadas, usar esas; si no, usar todas PENDING/QUARANTINED
+    let candidateQuestions: Question[]
+    
+    if (selectedIds.size > 0) {
+      candidateQuestions = questions.filter(q => selectedIds.has(q.id))
+      
+      // Verificar que las seleccionadas sean refinables
+      const nonRefinable = candidateQuestions.filter(q => 
+        q.reviewStatus !== 'PENDING' && q.reviewStatus !== 'QUARANTINED'
+      )
+      
+      if (nonRefinable.length > 0) {
+        alert(`⚠️ ATENCIÓN\n\nHas seleccionado ${nonRefinable.length} pregunta(s) ya VALIDADA(s).\n\nSolo se pueden refinar preguntas PENDING o CUARENTENA.\n\nDeselecciónalas o refina solo las no validadas.`)
+        return
+      }
+    } else {
+      candidateQuestions = questions.filter(q => 
+        q.reviewStatus === 'PENDING' || q.reviewStatus === 'QUARANTINED'
+      )
+    }
 
     if (candidateQuestions.length === 0) {
-      alert('No hay preguntas para refinar. Todas están ya validadas.')
+      alert('No hay preguntas para refinar.\n\nSelecciona preguntas PENDING o CUARENTENA, o deja la selección vacía para procesar todas.')
       return
     }
 
-    const pendingCount = questions.filter(q => q.reviewStatus === 'PENDING').length
-    const quarantinedCount = questions.filter(q => q.reviewStatus === 'QUARANTINED').length
+    const pendingCount = candidateQuestions.filter(q => q.reviewStatus === 'PENDING').length
+    const quarantinedCount = candidateQuestions.filter(q => q.reviewStatus === 'QUARANTINED').length
 
-    const message = `🎯 REFINAMIENTO A EXCELENCIA TOTAL\n\n` +
+    const selectionInfo = selectedIds.size > 0 
+      ? `🎯 REFINAMIENTO DE ${selectedIds.size} PREGUNTAS SELECCIONADAS\n\n`
+      : `🎯 REFINAMIENTO A EXCELENCIA TOTAL\n\n`
+
+    const message = selectionInfo +
       `Se van a refinar ${candidateQuestions.length} preguntas:\n\n` +
       `📊 Distribución:\n` +
       `   • PENDING: ${pendingCount}\n` +
@@ -916,8 +937,23 @@ export default function QuestionsManagerPage() {
                 </div>
               </div>
               <div className="mt-4 flex items-center justify-between">
-                <div className="text-sm text-gray-600">
-                  Mostrando {filteredQuestions.length} de {questions.length} preguntas
+                <div className="flex items-center gap-4">
+                  <div className="text-sm text-gray-600">
+                    Mostrando {filteredQuestions.length} de {questions.length} preguntas
+                  </div>
+                  {selectedIds.size > 0 && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-blue-600">
+                        {selectedIds.size} seleccionada{selectedIds.size !== 1 ? 's' : ''}
+                      </span>
+                      <button
+                        onClick={() => setSelectedIds(new Set())}
+                        className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors"
+                      >
+                        Limpiar
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className="flex gap-3">
                   <button
