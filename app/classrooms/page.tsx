@@ -31,6 +31,7 @@ export default function MisAulasVirtuales() {
   const router = useRouter()
   const [classrooms, setClassrooms] = useState<Classroom[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [filter, setFilter] = useState<'all' | 'active' | 'upcoming'>('all')
 
   useEffect(() => {
@@ -45,13 +46,19 @@ export default function MisAulasVirtuales() {
 
   const loadClassrooms = async () => {
     try {
+      setError(null)
       const res = await fetch('/api/classrooms')
       if (res.ok) {
         const data = await res.json()
         setClassrooms(data)
+      } else {
+        const errorData = await res.json()
+        setError(errorData.error || 'Error al cargar las aulas virtuales')
+        console.error('Error loading classrooms:', errorData)
       }
     } catch (error) {
       console.error('Error loading classrooms:', error)
+      setError('Error de conexión. Por favor, recarga la página.')
     } finally {
       setLoading(false)
     }
@@ -63,6 +70,30 @@ export default function MisAulasVirtuales() {
         <div className="text-center">
           <div className="text-6xl mb-4">⏳</div>
           <p className="text-xl text-gray-600">Cargando tus aulas...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
+        <div className="text-center max-w-md bg-white rounded-2xl shadow-xl p-8">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Error al cargar las aulas</h2>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <button
+            onClick={loadClassrooms}
+            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-lg hover:from-purple-700 hover:to-pink-700 transition"
+          >
+            Reintentar
+          </button>
+          <Link
+            href="/dashboard"
+            className="block mt-4 text-purple-600 hover:text-purple-700 font-semibold"
+          >
+            ← Volver al Dashboard
+          </Link>
         </div>
       </div>
     )

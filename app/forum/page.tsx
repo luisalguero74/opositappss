@@ -14,11 +14,24 @@ export default function ForumList() {
   const [threads, setThreads] = useState<Thread[]>([])
   const [title, setTitle] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(true)
 
   const load = async () => {
-    const res = await fetch('/api/forum/threads')
-    const data = await res.json()
-    setThreads(data)
+    try {
+      setLoading(true)
+      const res = await fetch('/api/forum/threads')
+      if (res.ok) {
+        const data = await res.json()
+        setThreads(data)
+        setError('')
+      } else {
+        setError('Error al cargar los hilos del foro')
+      }
+    } catch (err) {
+      setError('Error de conexión. Por favor, recarga la página.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -53,6 +66,19 @@ export default function ForumList() {
           <Link href="/dashboard" className="text-sky-700 hover:text-sky-800 font-semibold">← Volver</Link>
         </div>
 
+        {/* Error general de carga */}
+        {error && !title && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg mb-6">
+            {error}
+            <button 
+              onClick={load}
+              className="ml-4 px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+            >
+              Reintentar
+            </button>
+          </div>
+        )}
+
         {/* Canal de moderación */}
         <div className="bg-gradient-to-r from-emerald-500 to-green-600 rounded-2xl shadow-xl p-6 mb-8 text-white">
           <div className="flex items-center justify-between">
@@ -69,7 +95,7 @@ export default function ForumList() {
 
         <form onSubmit={createThread} className="bg-white rounded-2xl shadow p-6 mb-8">
           <label className="block text-gray-700 font-semibold mb-2">Nuevo hilo</label>
-          {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded mb-3">{error}</div>}
+          {error && title && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded mb-3">{error}</div>}
           <div className="flex gap-3">
             <input
               value={title}
@@ -78,26 +104,39 @@ export default function ForumList() {
               className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-sky-500 transition"
               required
             />
-            <button className="px-5 py-3 bg-gradient-to-r from-sky-600 to-blue-700 text-white rounded-lg font-semibold hover:from-sky-700 hover:to-blue-800">Crear</button>
+            <button 
+              type="submit"
+              disabled={loading}
+              className="px-5 py-3 bg-gradient-to-r from-sky-600 to-blue-700 text-white rounded-lg font-semibold hover:from-sky-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Crear
+            </button>
           </div>
         </form>
 
-        <div className="grid grid-cols-1 gap-4">
-          {threads.map(t => (
-            <Link key={t.id} href={`/forum/${t.id}`} className="bg-white rounded-xl shadow p-6 hover:shadow-md transition">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-gray-800">{t.title}</h2>
-                  <p className="text-gray-500 text-sm mt-1">Actualizado {new Date(t.updatedAt).toLocaleString()}</p>
+        {loading && threads.length === 0 ? (
+          <div className="bg-white rounded-xl shadow p-8 text-center">
+            <div className="text-4xl mb-4">⏳</div>
+            <p className="text-gray-600">Cargando hilos del foro...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4">
+            {threads.map(t => (
+              <Link key={t.id} href={`/forum/${t.id}`} className="bg-white rounded-xl shadow p-6 hover:shadow-md transition">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-800">{t.title}</h2>
+                    <p className="text-gray-500 text-sm mt-1">Actualizado {new Date(t.updatedAt).toLocaleString()}</p>
+                  </div>
+                  <div className="text-sky-700 font-semibold">{t._count?.posts ?? 0} respuestas →</div>
                 </div>
-                <div className="text-sky-700 font-semibold">{t._count?.posts ?? 0} respuestas →</div>
-              </div>
-            </Link>
-          ))}
-          {threads.length === 0 && (
-            <div className="bg-white rounded-xl shadow p-8 text-center text-gray-600">No hay hilos aún. ¡Crea el primero!</div>
-          )}
-        </div>
+              </Link>
+            ))}
+            {threads.length === 0 && !loading && (
+              <div className="bg-white rounded-xl shadow p-8 text-center text-gray-600">No hay hilos aún. ¡Crea el primero!</div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

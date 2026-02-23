@@ -240,49 +240,65 @@ export default function QuestionsManagerPage() {
   }
 
   const handleAutoValidateHighQuality = async () => {
-    // Identificar preguntas de alta calidad (explicación completa, no cuarentena, pendientes)
-    const highQualityQuestions = questions.filter(q => 
-      q.reviewStatus === 'PENDING' &&
-      q.explanation && 
-      q.explanation.length >= 80 &&
-      q.text.length >= 30
-    )
+    // Identificar preguntas pendientes
+    const pendingQuestions = questions.filter(q => q.reviewStatus === 'PENDING')
 
-    if (highQualityQuestions.length === 0) {
-      alert('No hay preguntas pendientes con explicaciones completas para auto-validar')
+    if (pendingQuestions.length === 0) {
+      alert('No hay preguntas pendientes para validar')
       return
     }
 
-    const message = `¿Auto-validar ${highQualityQuestions.length} preguntas de alta calidad?\n\n` +
-      `Criterios aplicados:\n` +
-      `✓ Estado: PENDIENTE\n` +
-      `✓ Explicación completa (≥80 caracteres)\n` +
-      `✓ Pregunta completa (≥30 caracteres)\n` +
-      `✓ No en cuarentena\n\n` +
-      `Estas preguntas se marcarán como VALIDADAS automáticamente.`
+    const message = `🤖 AUTO-VALIDACIÓN INTELIGENTE CON IA\n\n` +
+      `Se van a procesar ${pendingQuestions.length} preguntas con:\n\n` +
+      `✓ Verificación legal contra documentos oficiales\n` +
+      `✓ Validación de respuestas correctas e incorrectas\n` +
+      `✓ Análisis de calidad de explicaciones\n` +
+      `✓ Mejoras automáticas si es necesario\n` +
+      `✓ Puntuación profesional (0-100)\n\n` +
+      `El proceso tomará aproximadamente ${Math.ceil(pendingQuestions.length / 10)} minutos.\n\n` +
+      `¿Continuar?`
 
     if (!confirm(message)) return
 
     setLoading(true)
+    const startTime = Date.now()
+    
     try {
-      const questionIds = highQualityQuestions.map(q => q.id)
-      const res = await fetch('/api/admin/review-questions', {
+      const questionIds = pendingQuestions.map(q => q.id)
+      const res = await fetch('/api/admin/ai-validate-questions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           questionIds,
-          action: 'validate'
+          autoApplyImprovements: true,
+          threshold: 85
         })
       })
 
+      const data = await res.json()
+
       if (res.ok) {
-        alert(`✅ ${highQualityQuestions.length} preguntas validadas automáticamente`)
+        const duration = ((Date.now() - startTime) / 1000 / 60).toFixed(1)
+        const summary = data.summary
+        
+        const resultMessage = `✅ VALIDACIÓN COMPLETADA (${duration} min)\n\n` +
+          `📊 RESULTADOS:\n` +
+          `• Total procesadas: ${summary.total}\n` +
+          `• ✅ Validadas: ${summary.validated}\n` +
+          `• 🔍 Necesitan revisión: ${summary.needsReview}\n` +
+          `• ⚠️ En cuarentena: ${summary.quarantined}\n` +
+          `• ✨ Mejoradas automáticamente: ${summary.improved}\n\n` +
+          `Las preguntas han sido analizadas profesionalmente por IA.`
+        
+        alert(resultMessage)
         loadQuestions()
         loadStats()
+      } else {
+        alert(`❌ Error: ${data.error}\n${data.details || ''}`)
       }
     } catch (error) {
-      console.error('Error in auto-validation:', error)
-      alert('Error al auto-validar preguntas')
+      console.error('Error in AI auto-validation:', error)
+      alert('Error al validar con IA. Verifica la consola para más detalles.')
     } finally {
       setLoading(false)
     }
@@ -613,10 +629,11 @@ export default function QuestionsManagerPage() {
                 </div>
                 <button
                   onClick={handleAutoValidateHighQuality}
-                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-lg font-bold shadow-lg transition-all transform hover:scale-105"
-                  title="Valida automáticamente preguntas con explicación completa"
+                  disabled={loading}
+                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-lg font-bold shadow-lg transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  title="Validación inteligente con IA: verifica, corrige y mejora automáticamente las preguntas"
                 >
-                  🚀 Auto-Validar Alta Calidad
+                  🤖 Auto-Validación IA Profesional
                 </button>
               </div>
             </div>
