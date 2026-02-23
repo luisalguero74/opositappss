@@ -450,8 +450,13 @@ export default function QuestionsManagerPage() {
       let totalImproved = 0
       let totalFailed = 0
 
+      console.log(`🎯 [REFINE] Iniciando refinamiento de ${questionIds.length} preguntas`)
+
       for (let i = 0; i < questionIds.length; i += batchSize) {
         const batch = questionIds.slice(i, i + batchSize)
+        
+        console.log(`📦 [REFINE] Procesando lote ${Math.floor(i/batchSize) + 1}: ${batch.length} preguntas`)
+        console.log(`   IDs:`, batch)
         
         const res = await fetch('/api/admin/refine-to-excellence', {
           method: 'POST',
@@ -459,11 +464,31 @@ export default function QuestionsManagerPage() {
           body: JSON.stringify({ questionIds: batch })
         })
 
+        console.log(`📡 [REFINE] Respuesta del servidor:`, res.status, res.statusText)
+
         if (!res.ok) {
-          throw new Error(`Error del servidor (${res.status})`)
+          const errorText = await res.text()
+          console.error(`❌ [REFINE] Error del servidor:`, errorText)
+          throw new Error(`Error del servidor (${res.status}): ${errorText}`)
         }
 
         const data = await res.json()
+        console.log(`📊 [REFINE] Resultados del lote:`, data.stats)
+        console.log(`   Validadas: ${data.stats.validated}, Mejoradas: ${data.stats.improved}, Fallidas: ${data.stats.failed}`)
+
+        // Mostrar detalles de cada pregunta
+        if (data.results && Array.isArray(data.results)) {
+          data.results.forEach((r: any, idx: number) => {
+            const emoji = r.success && r.newScore >= 90 ? '✅' : r.success && r.newScore >= 75 ? '🔄' : '❌'
+            console.log(`   ${emoji} Pregunta ${idx + 1}:`, {
+              id: r.questionId,
+              status: r.originalStatus,
+              newScore: r.newScore,
+              finalStatus: r.finalStatus,
+              feedback: r.feedback
+            })
+          })
+        }
 
         totalValidated += data.stats.validated
         totalImproved += data.stats.improved

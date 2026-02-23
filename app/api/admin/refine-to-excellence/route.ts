@@ -273,12 +273,16 @@ async function refineWithGPT(
   legalContext: any[],
   strategy: string
 ): Promise<any> {
-  const openai = getOpenAIClient()
-  const prompt = getRefinementPrompt(question, legalContext, strategy)
-
-  console.log(`[GPT-4o] Refinando pregunta ${question.id} con estrategia ${strategy}...`)
-
+  console.log(`[GPT-4o] 🔄 Iniciando refinamiento de ${question.id} con estrategia ${strategy}...`)
+  
   try {
+    const openai = getOpenAIClient()
+    console.log(`[GPT-4o] ✅ Cliente OpenAI inicializado`)
+    
+    const prompt = getRefinementPrompt(question, legalContext, strategy)
+    console.log(`[GPT-4o] 📝 Prompt generado (${prompt.length} caracteres)`)
+
+    console.log(`[GPT-4o] 📡 Llamando a API OpenAI...`)
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [
@@ -295,14 +299,15 @@ async function refineWithGPT(
       response_format: { type: 'json_object' },
     })
 
+    console.log(`[GPT-4o] ✅ Respuesta recibida de OpenAI`)
+    
     const content = response.choices[0].message.content
     if (!content) {
       console.error(`[GPT-4o] ❌ Sin contenido en respuesta para ${question.id}`)
       throw new Error('Sin respuesta de GPT-4o')
     }
 
-    console.log(`[GPT-4o] ✅ Refinamiento completado para ${question.id}`)
-    
+    console.log(`[GPT-4o] 📦 Parseando JSON (${content.length} caracteres)...`)
     const parsed = JSON.parse(content)
     
     // Validar que el JSON tenga los campos requeridos
@@ -311,9 +316,17 @@ async function refineWithGPT(
       throw new Error('Respuesta incompleta de GPT-4o')
     }
     
+    console.log(`[GPT-4o] ✅ Refinamiento completado exitosamente para ${question.id}`)
+    console.log(`[GPT-4o] 📊 Score estimado: ${parsed.estimatedScore || 'N/A'}, BOE verification: ${parsed.boeVerificationNeeded ? 'Necesaria' : 'No necesaria'}`)
+    
     return parsed
   } catch (error) {
-    console.error(`[GPT-4o] ❌ Error refinando ${question.id}:`, error)
+    const errorMsg = error instanceof Error ? error.message : String(error)
+    console.error(`[GPT-4o] ❌ Error refinando ${question.id}:`, errorMsg)
+    if (error instanceof Error && 'code' in error) {
+      console.error(`[GPT-4o] ❌ Error code:`, (error as any).code)
+      console.error(`[GPT-4o] ❌ Error type:`, (error as any).type)
+    }
     throw error
   }
 }
@@ -503,14 +516,16 @@ async function refineQuestion(question: QuestionToRefine): Promise<RefinementRes
     }
 
   } catch (error) {
-    console.error(`[Refine] Error en ${question.id}:`, error)
+    const errorMsg = error instanceof Error ? error.message : String(error)
+    console.error(`[Refine] ❌ Error en ${question.id}:`, errorMsg)
+    console.error(`[Refine] ❌ Stack:`, error instanceof Error ? error.stack : '')
     return {
       success: false,
       questionId: question.id,
       originalStatus: question.reviewStatus,
       newScore: 0,
       finalStatus: 'QUARANTINED',
-      feedback: `Error: ${error instanceof Error ? error.message : 'Unknown'}`
+      feedback: `Error: ${errorMsg}`
     }
   }
 }
@@ -585,6 +600,8 @@ export async function POST(request: Request) {
       const result = await refineQuestion(questionToRefine)
       results.push(result)
 
+      console.log(`[Refine] Resultado para ${q.id}: success=${result.success}, score=${result.newScore}, feedback="${result.feedback}"`)
+
       // Guardar en BD si hubo mejora
       if (result.success && result.newScore >= 75) {
         const updateData: any = {}
@@ -614,7 +631,8 @@ export async function POST(request: Request) {
         console.log(`[Refine] ✅ ${q.id}: ${q.reviewStatus} → ${result.finalStatus} (${result.newScore})`)
       } else {
         failed++
-        console.log(`[Refine] ❌ ${q.id}: Falló refinamiento`)
+        const reason = !result.success ? 'Error en proceso' : `Score muy bajo (${result.newScore})`
+        console.log(`[Refine] ❌ ${q.id}: Falló refinamiento - ${reason} - Feedback: ${result.feedback}`)
       }
 
       // Pausa para no saturar APIs
