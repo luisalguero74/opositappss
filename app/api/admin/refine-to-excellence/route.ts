@@ -4,21 +4,23 @@ import { prisma } from '@/lib/prisma'
 import Groq from 'groq-sdk'
 import OpenAI from 'openai'
 
-// Verificar API keys al inicio
-if (!process.env.GROQ_API_KEY) {
-  console.error('[Refine] ❌ GROQ_API_KEY no configurada')
-}
-if (!process.env.OPENAI_API_KEY) {
-  console.error('[Refine] ❌ OPENAI_API_KEY no configurada')
+// Función para obtener cliente Groq (lazy initialization)
+function getGroqClient() {
+  const apiKey = process.env.GROQ_API_KEY
+  if (!apiKey) {
+    throw new Error('GROQ_API_KEY no configurada en variables de entorno')
+  }
+  return new Groq({ apiKey })
 }
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY || '',
-})
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '',
-})
+// Función para obtener cliente OpenAI (lazy initialization)
+function getOpenAIClient() {
+  const apiKey = process.env.OPENAI_API_KEY
+  if (!apiKey) {
+    throw new Error('OPENAI_API_KEY no configurada en variables de entorno')
+  }
+  return new OpenAI({ apiKey })
+}
 
 interface QuestionToRefine {
   id: string
@@ -165,61 +167,69 @@ async function refineWithGPT(
   legalContext: any[],
   strategy: string
 ): Promise<any> {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error('OPENAI_API_KEY no configurada')
-  }
-
+  const openai = getOpenAIClient()
   const prompt = getRefinementPrompt(question, legalContext, strategy)
 
   console.log(`[GPT-4o] Refinando pregunta ${question.id} con estrategia ${strategy}...`)
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [
-      {
-        role: 'system',
-        content: 'Eres un experto en crear preguntas de oposiciones de excelencia. Respondes siempre con JSON válido.'
-      },
-      {
-        role: 'user',
-        content: prompt
-      }
-    ],
-    temperature: 0.2,
-    response_format: { type: 'json_object' },
-  })
+  try {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        {
+          role: 'system',
+          content: 'Eres un experto en crear preguntas de oposiciones de excelencia. Respondes siempre con JSON válido.'
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
+      temperature: 0.2,
+      response_format: { type: 'json_object' },
+    })
 
-  const content = response.choices[0].message.content
-  if (!content) throw new Error('Sin respuesta de GPT-4o')
+    const content = response.choices[0].message.content
+    if (!content) {
+      console.error(`[GPT-4o] ❌ Sin contenido en respuesta para ${question.id}`)
+      throw new Error('Sin respuesta de GPT-4o')
+    }
 
-  console.log(`[GPT-4o] ✅ Refinamiento completado para ${question.id}`)
-  
-  const parsed = JSON.parse(content)
-  
-  // Validar que el JSON tenga los campos requeridos
-  if (!parsed.improvedText || !parsed.improvedOptions || !parsed.improvedExplanation) {
-    console.error(`[GPT-4o] ❌ JSON incompleto:`, parsed)
-    throw new Error('Respuesta incompleta de GPT-4o')
+    console.log(`[GPT-4o] ✅ Refinamiento completado para ${question.id}`)
+    
+    const parsed = JSON.parse(content)
+    
+    // Validar que el JSON tenga los campos requeridos
+    if (!parsed.improvedText || !parsed.improvedOptions || !parsed.improvedExplanation) {
+      console.error(`[GPT-4o] ❌ JSON incompleto para ${question.id}:`, parsed)
+      throw new Error('Respuesta incompleta de GPT-4o')
+    }
+    
+    return parsed
+  } catch (error) {
+    console.error(`[GPT-4o] ❌ Error refinando ${question.id}:`, error)
+    throw error
   }
-  
-  return parsed
 }
 
 // Validar con Llama
 async function validateWithLlama(improvedData: any, originalQuestion: QuestionToRefine): Promise<number> {
   console.log(`[Llama] Validando pregunta ${originalQuestion.id}...`)
   
-  const legalDocs = await prisma.legalDocument.findMany({
-    select: { title: true, content: true },
-    where: { active: true },
-    take: 20,
-  })
+  try {
+    const groq = getGroqClient()
+    
+    const legalDocs = await prisma.legalDocument.findMany({
+      select: { title: true, content: true },
+      where: { active: true },
+      take: 20,
+    })
 
-  const contextText = legalDocs
-    .map(doc => `${doc.title}: ${doc.content?.substring(0, 200) || ''}`)
-    .join('\n')
+    const contextText = legalDocs
+      .map(doc => `${doc.title}: ${doc.content?.substring(0, 200) || ''}`)
+      .join('\n')
 
-  const prompt = `Evalúa esta pregunta de oposición de Seguridad Social del 0 al 100.
+    const prompt = `Evalúa esta pregunta de oposición de Seguridad Social del 0 al 100.
 
 PREGUNTA:
 ${improvedData.improvedText}
@@ -249,7 +259,6 @@ RESPONDE SOLO JSON:
   "feedback": "Análisis breve"
 }`
 
-  try {
     const response = await groq.chat.completions.create({
       messages: [
         { role: 'system', content: 'Eres evaluador experto. Responde con JSON.' },
