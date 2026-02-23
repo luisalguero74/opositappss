@@ -47,9 +47,9 @@ interface RefinementResult {
 
 // Obtener contexto legal según severidad
 async function getLegalContext(reviewStatus: string): Promise<any[]> {
-  let limit = 50
-  if (reviewStatus === 'QUARANTINED') limit = 150
-  else if (reviewStatus === 'PENDING') limit = 80
+  let limit = 80  // Aumentado desde 50
+  if (reviewStatus === 'QUARANTINED') limit = 200  // Aumentado desde 150
+  else if (reviewStatus === 'PENDING') limit = 120  // Aumentado desde 80
 
   const documents = await prisma.legalDocument.findMany({
     select: {
@@ -74,91 +74,197 @@ function getStrategy(reviewStatus: string): 'deep' | 'moderate' | 'light' {
 // Prompt personalizado según estrategia
 function getRefinementPrompt(question: QuestionToRefine, legalContext: any[], strategy: string): string {
   const contextText = legalContext
-    .map(doc => `${doc.title}: ${doc.content?.substring(0, 400) || ''}`)
-    .join('\n\n')
+    .map(doc => `📄 ${doc.title}\n${doc.content?.substring(0, 600) || ''}`)
+    .join('\n\n---\n\n')
 
   let instructions = ''
   
   if (strategy === 'deep') {
-    instructions = `REESCRITURA PROFUNDA - Esta pregunta está en CUARENTENA y necesita trabajo significativo.
+    instructions = `⚠️ REESCRITURA PROFUNDA - CUARENTENA - Necesita trabajo INTENSIVO
 
-OBJETIVO: Transformar en pregunta de EXCELENCIA (90+/100)
+🎯 OBJETIVO: Pregunta de OPOSICIÓN OFICIAL (90-100/100)
 
-ACCIONES REQUERIDAS:
-1. ENUNCIADO: Reescribir completamente si es necesario. Debe ser claro, preciso, sin ambigüedades
-2. OPCIONES: Crear 4 opciones de calidad profesional:
-   - UNA correcta (inequívoca según normativa)
-   - TRES incorrectas (plausibles pero claramente erróneas)
-   - Longitud similar, sin pistas obvias
-3. EXPLICACIÓN: Nivel profesional (150-250 palabras):
-   - Fundamento legal: "Según Art. X de la Ley Y (BOE fecha)"
-   - Por qué la correcta es correcta
-   - Por qué las incorrectas son incorrectas
-   - Contexto normativo relevante
+📋 PROCESO OBLIGATORIO:
 
-VERIFICAR:
-- ¿Una sola respuesta correcta inequívoca?
-- ¿Distractores de calidad?
-- ¿Explicación convincente para tribunal de oposiciones?`
+1️⃣ VERIFICAR FUNDAMENTO LEGAL EN DOCUMENTACIÓN:
+   ❌ Si NO encuentras el tema en la documentación legal → BUSCAR normativa en BOE
+   ✅ Si encuentras fundamento → VERIFICAR que sea la versión vigente
+   🔍 OBLIGATORIO: Citar BOE (ej: "BOE núm. 255, de 24/10/2015")
+
+2️⃣ ENUNCIADO (CRÍTICO):
+   • Debe plantear UNA situación concreta de Seguridad Social
+   • CITAR normativa específica con BOE:
+     ✓ "Según el art. 161 LGSS (RDL 8/2015, BOE 24-10-2015)..."
+     ✓ "El art. 41 CE establece..."
+     ✓ "RD 625/2014, BOE 27-07-2014..."
+   • SIN ambigüedades: una sola interpretación posible
+   • Lenguaje técnico-jurídico pero comprensible
+   • Extensión: 2-4 líneas máximo
+
+3️⃣ OPCIONES (4 OBLIGATORIAS):
+   a) UNA CORRECTA:
+      - Basada en texto legal EXACTO del BOE
+      - Verificar que artículo existe y está vigente
+      - Redacción profesional
+   
+   b) TRES INCORRECTAS (distractores profesionales):
+      - Plausibles pero técnicamente erróneas
+      - Basadas en:
+        * Normativa derogada (especificar cuándo)
+        * Confusiones comunes entre artículos
+        * Interpretaciones incorrectas de la ley
+      - Longitud similar a la correcta
+      - SIN errores obvios de redacción
+
+4️⃣ EXPLICACIÓN (200-350 palabras):
+   • "La respuesta correcta es [LETRA] porque..."
+   
+   • Fundamento legal COMPLETO con BOE:
+     → "Según el artículo X de la Ley General de Seguridad Social (Real Decreto Legislativo 8/2015, de 30 de octubre, BOE núm. 255, de 24 de octubre de 2015)..."
+     → "El Real Decreto Y/YYYY, de DD de MM (BOE núm. Z, de DD-MM-YYYY) establece que..."
+     → "La Constitución Española de 1978 (BOE 29-12-1978) en su artículo Z..."
+   
+   • Explicar por qué CADA opción incorrecta es incorrecta:
+     → "La opción B es incorrecta porque..."
+     → "La opción C confunde el art. X con..."
+     → "La opción D se refería a normativa derogada por..."
+   
+   • Contexto normativo:
+     → Cuándo se aprobó la norma
+     → Modificaciones recientes si las hay
+     → Relación con otras normas
+   
+   • Cita textual relevante si aplica
+
+5️⃣ REFERENCIAS BOE OBLIGATORIAS:
+   • Toda norma citada DEBE incluir:
+     - Nombre completo de la norma
+     - Número y fecha de publicación en BOE
+     - Artículo/apartado específico
+   • Ejemplo: "Art. 161 LGSS (RDL 8/2015, BOE 24-10-2015)"
+
+🔍 VERIFICACIÓN FINAL:
+   ✓ ¿Todas las referencias legales tienen BOE?
+   ✓ ¿Coincide con documentación legal proporcionada?
+   ✓ ¿Las referencias BOE son correctas?
+   ✓ ¿Una sola respuesta correcta inequívoca?
+   ✓ ¿Distractores de nivel oposición oficial?
+   ✓ ¿Explicación convincente con citas BOE para un tribunal?
+
+⚠️ SI NO ENCUENTRAS LA NORMATIVA: Indica en "changesApplied" que se requiere verificar en BOE la norma X`
+
   } else if (strategy === 'moderate') {
-    instructions = `MEJORA MODERADA - Pregunta PENDIENTE que necesita refinamiento.
+    instructions = `🔄 MEJORA MODERADA - PENDING - Refinamiento técnico
 
-OBJETIVO: Elevar a EXCELENCIA (90+/100)
+🎯 OBJETIVO: Llevar a EXCELENCIA (90+/100)
 
-ACCIONES:
-1. ENUNCIADO: Mejorar claridad y precisión técnica
-2. OPCIONES: Optimizar distractores (incorrectas plausibles pero erróneas)
-3. EXPLICACIÓN: Ampliar con:
-   - Cita legal específica (Art. X Ley Y)
-   - Contexto normativo
-   - Razonamiento claro
-   - 100-200 palabras
+📋 ACCIONES REQUERIDAS:
 
-MANTENER: El concepto y estructura base (solo mejorar)
-VERIFICAR: Precisión legal absoluta`
+1️⃣ REVISAR FUNDAMENTO LEGAL:
+   • Buscar en documentación si el concepto existe
+   • VERIFICAR que artículos citados sean correctos
+   • Actualizar si hay normativa más reciente
+   • AÑADIR referencias BOE si faltan
+
+2️⃣ ENUNCIADO:
+   • Mejorar precisión técnica (terminología exacta SS)
+   • Añadir contexto legal con BOE si falta
+   • Eliminar ambigüedades
+
+3️⃣ OPCIONES:
+   • Optimizar distractores (más plausibles pero erróneos)
+   • Homogeneizar longitud
+   • Mejorar redacción técnica
+
+4️⃣ EXPLICACIÓN (150-300 palabras):
+   • Ampliar con referencias legales específicas CON BOE:
+     "Art. X LGSS (RDL 8/2015, BOE 24-10-2015)"
+     "RD Y/YYYY (BOE DD-MM-YYYY)"
+     "CE Art. Z (BOE 29-12-1978)"
+   • Explicar cada opción (correcta + incorrectas)
+   • Añadir contexto normativo
+   • Citas textuales breves si aplica
+
+🔍 VERIFICACIÓN:
+   ✓ ¿Referencias legales con BOE?
+   ✓ ¿Terminología técnica precisa?
+   ✓ ¿Explicación suficiente con fundamento BOE?`
+
   } else {
-    instructions = `AJUSTES FINALES - Pregunta VALIDADA que puede perfeccionarse.
+    instructions = `✨ PERFECCIONAMIENTO FINAL - VALIDADA - Pulido de excelencia
 
-OBJETIVO: Perfección absoluta (95+/100)
+🎯 OBJETIVO: Perfección absoluta (95+/100)
 
-ACCIONES MÍNIMAS:
-1. Precisión legal total en explicación
-2. Citas exactas de artículos
-3. Eliminar cualquier ambigüedad residual
-4. Lenguaje formal impecable
+📋 AJUSTES MÍNIMOS:
+   • Verificar citas legales (artículos exactos)
+   • AÑADIR referencias BOE si faltan
+   • Mejorar redacción profesional
+   • Eliminar cualquier imprecisión residual
 
-NO CAMBIAR: Estructura ni esencia de la pregunta`
+⚠️ MANTENER: Estructura y esencia (ya está bien)`
   }
 
-  return `Eres un experto en oposiciones de Seguridad Social con 20 años de experiencia.
+  const legalDocsInfo = legalContext.length > 0 
+    ? `\n📚 DOCUMENTACIÓN LEGAL DISPONIBLE (${legalContext.length} documentos):\n${contextText.substring(0, 4000)}\n\n⚠️ USA SOLO información que encuentres en esta documentación. Si no encuentras fundamento legal claro, REESCRIBE la pregunta basándote en lo que SÍ esté documentado.`
+    : '\n⚠️ No hay documentación legal disponible. Aplica tu conocimiento experto en Seguridad Social.'
 
-PREGUNTA ACTUAL (Estado: ${question.reviewStatus}):
-Tema: ${question.temaCodigo || 'N/A'} - ${question.temaTitulo || 'N/A'}
+  return `Eres un EXPERTO JURISTA en Seguridad Social y Constitución Española con 25 años redactando exámenes oficiales.
 
-Texto: ${question.text}
+📋 PREGUNTA A REFINAR:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Estado actual: ${question.reviewStatus}
+Tema: ${question.temaCodigo || 'Sin tema'} - ${question.temaTitulo || 'Sin título'}
 
-Opciones: ${typeof question.options === 'string' ? question.options : JSON.stringify(question.options)}
+📝 ENUNCIADO ACTUAL:
+${question.text}
 
-Respuesta correcta: ${question.correctAnswer}
+📊 OPCIONES ACTUALES:
+${typeof question.options === 'string' ? question.options : JSON.stringify(question.options, null, 2)}
 
-Explicación actual: ${question.explanation || 'Sin explicación'}
+✅ RESPUESTA CORRECTA: ${question.correctAnswer}
+
+💡 EXPLICACIÓN ACTUAL:
+${question.explanation || '❌ SIN EXPLICACIÓN'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ${instructions}
+${legalDocsInfo}
 
-CONTEXTO LEGAL DISPONIBLE:
-${contextText.substring(0, 3000)}
+🎯 NORMAS CLAVE A CONSULTAR Y CITAR CON BOE:
+• Ley General de Seguridad Social (RDL 8/2015, BOE 24-10-2015)
+• Constitución Española 1978 (BOE 29-12-1978) - Arts. 41, 149.1.17ª
+• Estatuto de los Trabajadores (RDL 2/2015, BOE 24-10-2015)
+• Reglamentos específicos de prestaciones (citar BOE correspondiente)
+• Normativa europea aplicable (Reglamentos UE)
 
-FORMATO DE RESPUESTA (JSON estricto):
+⚠️ EXIGENCIA DE VERIFICACIÓN BOE:
+Toda norma citada DEBE incluir:
+1. Nombre completo de la norma
+2. Número de BOE y fecha de publicación
+3. Artículo/apartado específico
+
+Ejemplo correcto: "Según el art. 161.1.a) de la LGSS (RDL 8/2015, BOE núm. 255, 24-10-2015), la prestación de incapacidad temporal..."
+
+Si NO tienes acceso a verificar en BOE, indica claramente en "changesApplied" qué norma requiere verificación.
+
+📤 RESPONDE SOLO CON JSON (sin comentarios, sin markdown):
 {
-  "improvedText": "Enunciado mejorado/reescrito",
-  "improvedOptions": ["A) ...", "B) ...", "C) ...", "D) ..."],
-  "correctAnswer": "A|B|C|D",
-  "improvedExplanation": "Explicación completa con fundamento legal...",
-  "changesApplied": "Descripción breve de mejoras aplicadas",
-  "estimatedScore": 92
+  "improvedText": "Enunciado técnicamente preciso con fundamento legal y BOE",
+  "improvedOptions": [
+    "A) Opción técnicamente correcta según normativa (citar BOE)",
+    "B) Distractor plausible pero erróneo",
+    "C) Distractor plausible pero erróneo", 
+    "D) Distractor plausible pero erróneo"
+  ],
+  "correctAnswer": "A",
+  "improvedExplanation": "La respuesta correcta es [LETRA] porque según el artículo X de [NORMA (BOE núm. Y, DD-MM-YYYY)]... [Explicación detallada con fundamento legal + BOE + por qué las incorrectas son incorrectas]",
+  "changesApplied": "Resumen: qué cambiaste, qué verificaste en BOE, qué requiere verificación adicional",
+  "estimatedScore": 92,
+  "legalReferences": ["Art. X LGSS (RDL 8/2015, BOE 24-10-2015)", "Art. Y CE (BOE 29-12-1978)"],
+  "boeVerificationNeeded": false
 }
 
-Responde SOLO con JSON válido, sin texto adicional.`
+⚠️ CRÍTICO: Si la pregunta tiene errores legales graves o referencias incorrectas, REESCRÍBELA COMPLETAMENTE basándote en normativa verificable. Marca "boeVerificationNeeded": true si necesitas confirmar alguna norma específica en BOE.`
 }
 
 // Refinar con GPT-4o
@@ -222,16 +328,19 @@ async function validateWithLlama(improvedData: any, originalQuestion: QuestionTo
     const legalDocs = await prisma.legalDocument.findMany({
       select: { title: true, content: true },
       where: { active: true },
-      take: 20,
+      take: 30,
     })
 
     const contextText = legalDocs
-      .map(doc => `${doc.title}: ${doc.content?.substring(0, 200) || ''}`)
-      .join('\n')
+      .map(doc => `📄 ${doc.title}\n${doc.content?.substring(0, 300) || ''}`)
+      .join('\n\n')
 
-    const prompt = `Evalúa esta pregunta de oposición de Seguridad Social del 0 al 100.
+    const prompt = `Eres un TRIBUNAL CALIFICADOR de oposiciones de Seguridad Social.
 
-PREGUNTA:
+Evalúa esta pregunta del 0 al 100 con CRITERIOS MUY EXIGENTES.
+
+📋 PREGUNTA A EVALUAR:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${improvedData.improvedText}
 
 OPCIONES:
@@ -243,29 +352,99 @@ RESPUESTA CORRECTA: ${improvedData.correctAnswer || originalQuestion.correctAnsw
 
 EXPLICACIÓN:
 ${improvedData.improvedExplanation}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-CONTEXTO LEGAL:
-${contextText}
+📚 CONTEXTO LEGAL PARA VERIFICAR:
+${contextText.substring(0, 2000)}
 
-CRITERIOS (0-100):
-- Claridad del enunciado (25 pts)
-- Calidad de distractores (25 pts)
-- Fundamento legal explicación (25 pts)
-- Precisión técnica (25 pts)
+🎯 CRITERIOS DE EVALUACIÓN (0-100 puntos):
 
-RESPONDE SOLO JSON:
+1️⃣ FUNDAMENTO LEGAL (30 puntos):
+   • ¿Cita normativa específica y correcta? (LGSS, CE, RD...)
+   • ¿Las referencias legales existen y son precisas?
+   • ¿Se corresponde con la documentación legal proporcionada?
+   • ¿Menciona artículos/apartados concretos?
+   
+   Puntuación:
+   - 25-30: Referencias exactas y verificables
+   - 15-24: Referencias correctas pero genéricas
+   - 5-14: Referencias vagas o imprecisas
+   - 0-4: Sin referencias o incorrectas
+
+2️⃣ PRECISIÓN TÉCNICA (25 puntos):
+   • ¿Terminología jurídica correcta de Seguridad Social?
+   • ¿Conceptos técnicos bien aplicados?
+   • ¿Sin errores de contenido legal?
+   • ¿Actualizada a normativa vigente?
+   
+   Puntuación:
+   - 20-25: Técnicamente impecable
+   - 12-19: Correcta con pequeñas imprecisiones
+   - 5-11: Errores técnicos menores
+   - 0-4: Errores graves
+
+3️⃣ CALIDAD DEL ENUNCIADO (20 puntos):
+   • ¿Redacción clara y profesional?
+   • ¿Una sola interpretación posible?
+   • ¿Plantea situación concreta y realista?
+   • ¿Sin ambigüedades?
+   
+   Puntuación:
+   - 16-20: Excelente redacción
+   - 10-15: Buena pero mejorable
+   - 5-9: Confusa o ambigua
+   - 0-4: Deficiente
+
+4️⃣ DISTRACTORES (15 puntos):
+   • ¿Opciones incorrectas plausibles?
+   • ¿Longitud homogénea?
+   • ¿Basadas en confusiones comunes?
+   • ¿Sin errores obvios?
+   
+   Puntuación:
+   - 12-15: Distractores profesionales
+   - 7-11: Aceptables
+   - 3-6: Muy obvios o mal redactados
+   - 0-2: Deficientes
+
+5️⃣ EXPLICACIÓN (10 puntos):
+   • ¿Fundamenta la respuesta correcta?
+   • ¿Explica por qué las demás son incorrectas?
+   • ¿Aporta contexto normativo?
+   • ¿Extensión adecuada (150-300 palabras)?
+   
+   Puntuación:
+   - 8-10: Explicación completa y didáctica
+   - 5-7: Suficiente pero básica
+   - 2-4: Insuficiente
+   - 0-1: Muy deficiente
+
+⚠️ CRITERIOS DE EXCELENCIA (90-100):
+Para puntuar 90+, la pregunta debe:
+• Citar artículos específicos verificables
+• Ser técnicamente impecable
+• Tener distractores de nivel oposición oficial
+• Explicación con fundamento legal claro
+• Coincidir con documentación legal proporcionada
+
+📤 RESPONDE SOLO CON JSON:
 {
   "score": 88,
-  "feedback": "Análisis breve"
+  "feedback": "Análisis técnico: [Qué falta para 90+]",
+  "legalAccuracy": "✅ Correcta / ⚠️ Mejorable / ❌ Errónea",
+  "wouldPass": true
 }`
 
     const response = await groq.chat.completions.create({
       messages: [
-        { role: 'system', content: 'Eres evaluador experto. Responde con JSON.' },
+        { 
+          role: 'system', 
+          content: 'Eres un tribunal evaluador EXIGENTE de oposiciones de Seguridad Social. Evalúa con criterios muy estrictos. Responde con JSON.' 
+        },
         { role: 'user', content: prompt }
       ],
       model: 'llama-3.3-70b-versatile',
-      temperature: 0.3,
+      temperature: 0.2,
       response_format: { type: 'json_object' },
     })
 
@@ -278,7 +457,7 @@ RESPONDE SOLO JSON:
     const result = JSON.parse(content)
     const score = result.score || 0
     
-    console.log(`[Llama] ✅ Score para ${originalQuestion.id}: ${score}`)
+    console.log(`[Llama] ✅ Score para ${originalQuestion.id}: ${score} - ${result.feedback || ''}`)
     
     return score
   } catch (error) {
