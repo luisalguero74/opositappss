@@ -418,12 +418,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(response)
     }
 
+    // OPTIMIZACIÓN: Solo cargar las últimas 100 preguntas para reducir egress
+    // Esto reduce significativamente la transferencia de datos desde Supabase
     const existentes = await prisma.question.findMany({
       where: {
         temaCodigo: tema.id,
         temaParte
       },
-      select: { text: true }
+      select: { text: true },
+      orderBy: { createdAt: 'desc' },
+      take: 100
     })
 
     const preguntasExistentes = existentes
@@ -736,14 +740,15 @@ async function generarPreguntasParaTema(
 ): Promise<GeneracionTemaResult> {
   
   // Construir texto con preguntas existentes para evitar duplicados
+  // OPTIMIZACIÓN: Solo mostrar 20 preguntas para reducir tamaño del prompt
   let seccionPreguntasExistentes = ''
   if (preguntasExistentes.length > 0) {
-    const preguntasMostrar = preguntasExistentes.slice(0, 50) // Mostrar hasta 50 preguntas
+    const preguntasMostrar = preguntasExistentes.slice(0, 20) // Mostrar hasta 20 preguntas
     seccionPreguntasExistentes = `
 
 ⚠️ PREGUNTAS YA EXISTENTES DE ESTE TEMA (${preguntasExistentes.length} en total):
 ${preguntasMostrar.map((p, i) => `${i + 1}. ${p}`).join('\n')}
-${preguntasExistentes.length > 50 ? '\n... y ' + (preguntasExistentes.length - 50) + ' más.' : ''}
+${preguntasExistentes.length > 20 ? '\n... y ' + (preguntasExistentes.length - 20) + ' más.' : ''}
 
 🚫 IMPORTANTE: NO REPITAS ni REFORMULES ninguna de estas preguntas existentes.
 Genera preguntas COMPLETAMENTE NUEVAS sobre aspectos diferentes del tema.

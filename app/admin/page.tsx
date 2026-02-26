@@ -577,10 +577,54 @@ export default function Admin() {
             </div>
           </div>
 
-          {/* 5️⃣ SECCIÓN: SISTEMA Y HERRAMIENTAS */}
+          {/* 5️⃣ SECCIÓN: AUTOMATIZACIÓN Y CRONS */}
+          <div className="mb-6">
+            <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg p-3 mb-3 border-l-4 border-blue-600">
+              <h2 className="text-xl font-bold text-blue-900">5️⃣ Automatización y Cron Jobs</h2>
+              <p className="text-blue-700 text-sm">Control de generación automática y optimización de recursos</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition border-2 border-blue-500">
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-3 flex flex-col items-center justify-center relative">
+                  <div className="absolute top-1 right-1 bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded-full text-[10px] font-bold">⚡ NUEVO</div>
+                  <div className="text-white text-3xl mb-1">⏰</div>
+                  <h2 className="text-xs font-bold text-white text-center">Gestión de Crons</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Activar/desactivar generación automática.</p>
+                  <Link href="/admin/cron-manager" className="inline-block w-full text-center bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-semibold px-3 py-2 rounded-lg hover:from-blue-700 hover:to-indigo-800 transition text-xs">Configurar →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">📊</div>
+                  <h2 className="text-xs font-bold text-white text-center">Monitor Recursos</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Consumo Vercel/Supabase.</p>
+                  <Link href="/admin/resource-monitor" className="inline-block w-full text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition text-xs">Ver →</Link>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-cyan-500 to-blue-600 p-3 flex flex-col items-center justify-center">
+                  <div className="text-white text-3xl mb-1">🔧</div>
+                  <h2 className="text-xs font-bold text-white text-center">Optimizaciones</h2>
+                </div>
+                <div className="p-3">
+                  <p className="text-gray-600 text-xs text-center mb-3">Reducir egress BD.</p>
+                  <Link href="/admin/database-optimization" className="inline-block w-full text-center bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold px-3 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-700 transition text-xs">Optimizar →</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 6️⃣ SECCIÓN: SISTEMA Y HERRAMIENTAS */}
           <div className="mb-6">
             <div className="bg-gradient-to-r from-slate-100 to-gray-100 rounded-lg p-3 mb-3 border-l-4 border-slate-600">
-              <h2 className="text-xl font-bold text-slate-900">5️⃣ Sistema y Herramientas</h2>
+              <h2 className="text-xl font-bold text-slate-900">6️⃣ Sistema y Herramientas</h2>
               <p className="text-slate-700 text-sm">Utilidades, moderación y diagnóstico del sistema</p>
             </div>
             

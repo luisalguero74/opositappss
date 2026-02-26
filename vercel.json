@@ -1,9 +1,5 @@
 {
   "buildCommand": "npm run vercel-build",
   "devCommand": "next dev",
-  "installCommand": "npm install",
-  "crons": [
-    { "path": "/api/cron/run/general", "schedule": "0 2 * * *" },
-    { "path": "/api/cron/run/all", "schedule": "0 4 * * *" }
-  ]
+  "installCommand": "npm install"
 }
